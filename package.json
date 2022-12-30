@@ -17,9 +17,15 @@
     "@deseteral/eslint-config": "6.0.3",
     "eslint": "8.30.0",
     "parcel": "2.8.2",
+    "parcel-reporter-static-files-copy": "1.4.0",
     "typescript": "4.9.4"
   },
+  "staticFiles": {
+    "staticPath": "assets",
+    "staticOutPath": "assets"
+  },
   "alias": {
-    "src": "./src"
+    "src": "./src",
+    "marmolada": "./marmolada"
   }
 }
