@@ -1,0 +1,18 @@
+body {
+  margin: 0;
+  background-color: black;
+  overflow: hidden;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+canvas {
+  width: 100vw;
+  image-rendering: pixelated;
+}
