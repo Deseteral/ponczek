@@ -2,16 +2,24 @@
   "name": "marmolada",
   "version": "1.0.0-prototype.1",
   "description": "Game framework for small jam games",
-  "main": "src/main.ts",
   "scripts": {
-    "test": "exit 0"
+    "start": "npm run dev",
+    "dev": "parcel src/index.html",
+    "build": "npm run clean && parcel build src/index.html --public-url .",
+    "test": "npm run test:type-check",
+    "test:type-check": "tsc --noEmit",
+    "test:type-check:watch": "tsc --noEmit -w",
+    "clean": "rm -rf ./.parcel-cache ./dist"
   },
   "author": "Deseteral <github.com/deseteral>",
   "license": "MIT",
   "devDependencies": {
-    "@deseteral/eslint-config": "^6.0.3",
-    "eslint": "^8.30.0",
-    "parcel": "^2.8.2",
-    "typescript": "^4.9.4"
+    "@deseteral/eslint-config": "6.0.3",
+    "eslint": "8.30.0",
+    "parcel": "2.8.2",
+    "typescript": "4.9.4"
+  },
+  "alias": {
+    "src": "./src"
   }
 }
