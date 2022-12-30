@@ -4,6 +4,7 @@ import { drawFrame } from 'marmolada/frame';
 import { Input, Keys } from 'marmolada/input';
 import { playSound, Sound } from 'marmolada/sounds';
 import { Textures } from 'marmolada/textures';
+import { GameManager } from 'src/game/game-manager';
 import { IngredientAction } from 'src/game/ingredients';
 import { Station } from 'src/game/stations/station';
 
@@ -96,10 +97,10 @@ export class EnchantmentStation extends Station {
     // Clear background
     const clearHeight = noteBarY + (4 * (this.noteSize + 5));
 
-    ctx.fillStyle = Engine.secondaryColor;
+    ctx.fillStyle = GameManager.secondaryColor;
     ctx.fillRect(0, 0, Engine.width, clearHeight);
 
-    ctx.fillStyle = Engine.primaryColor;
+    ctx.fillStyle = GameManager.primaryColor;
     ctx.fillRect(0, clearHeight, Engine.width, 1);
 
     // Progress bar

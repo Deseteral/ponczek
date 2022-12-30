@@ -10,6 +10,7 @@ import { drawRecipe, Recipe } from 'src/game/recipes';
 import { BrewingTable } from 'src/game/tables/brewing-table';
 import { ClientTable } from 'src/game/tables/client-table';
 import { IngredientsTable } from 'src/game/tables/ingredients-table';
+import { GameManager } from 'src/game/game-manager';
 
 export class WorkshopStage extends Stage {
   selectedTable = 0;
@@ -27,10 +28,10 @@ export class WorkshopStage extends Stage {
   goldAtTheStartOfTheDay = 0;
 
   onActivate(): void {
-    Engine.saveGame();
+    GameManager.saveGame();
 
-    Engine.state.day += 1;
-    this.goldAtTheStartOfTheDay = Engine.state.gold;
+    GameManager.state.day += 1;
+    this.goldAtTheStartOfTheDay = GameManager.state.gold;
   }
 
   update(): void {
@@ -50,11 +51,11 @@ export class WorkshopStage extends Stage {
 
     // Put day over message
     if (this.ticksUntilDayOver === 0) {
-      Engine.state.messageBoard.messages.unshift(dayOverMessage());
+      GameManager.state.messageBoard.messages.unshift(dayOverMessage());
     }
 
     // Transition to day summary screen
-    if (this.ticksUntilDayOver < 0 && Engine.state.orders.length === 0) {
+    if (this.ticksUntilDayOver < 0 && GameManager.state.orders.length === 0) {
       Engine.changeStage(new DaySummaryStage());
     }
   }
@@ -83,14 +84,14 @@ export class WorkshopStage extends Stage {
   }
 
   onDestroy(): void {
-    Engine.state.messageBoard = { messages: [] };
-    Engine.state.orders = [];
+    GameManager.state.messageBoard = { messages: [] };
+    GameManager.state.orders = [];
 
-    Engine.state.goldLastDay = Engine.state.gold - this.goldAtTheStartOfTheDay;
+    GameManager.state.goldLastDay = GameManager.state.gold - this.goldAtTheStartOfTheDay;
 
-    if (!Engine.state.debtPaid && Engine.state.gold >= 500) {
-      Engine.state.gold -= 500;
-      Engine.state.debtPaid = true;
+    if (!GameManager.state.debtPaid && GameManager.state.gold >= 500) {
+      GameManager.state.gold -= 500;
+      GameManager.state.debtPaid = true;
     }
   }
 
@@ -107,14 +108,14 @@ export class WorkshopStage extends Stage {
       playSound(Sound.BOOK);
     }
 
-    this.pageNumber = Math.clamp(this.pageNumber, 0, Math.ceil(Engine.state.recipes.length / 2) - 1);
+    this.pageNumber = Math.clamp(this.pageNumber, 0, Math.ceil(GameManager.state.recipes.length / 2) - 1);
   }
 
   private renderBook(ctx: CanvasRenderingContext2D): void {
     ctx.drawImage(Textures.bookTexture.normal, 0, 0);
 
-    const r1: Recipe = Engine.state.recipes[this.pageNumber * 2];
-    const r2: Recipe = Engine.state.recipes[this.pageNumber * 2 + 1];
+    const r1: Recipe = GameManager.state.recipes[this.pageNumber * 2];
+    const r2: Recipe = GameManager.state.recipes[this.pageNumber * 2 + 1];
 
     if (r1) {
       drawRecipe(r1, 60, 20, ctx);

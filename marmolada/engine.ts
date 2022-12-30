@@ -1,20 +1,42 @@
 import 'marmolada/utils';
 import { Stage } from 'marmolada/stage';
-import { GameState } from 'src/game/game-state';
-import { generateRecipes } from 'src/game/recipes';
+import { Input } from 'marmolada/input';
 
 export abstract class Engine {
+  static width: number;
+  static height: number;
+
   static activeStage: (Stage | null) = null;
-
-  static readonly width = 400;
-  static readonly height = 240;
-  static readonly primaryColor: string = '#363636';
-  static readonly secondaryColor: string = '#ffda9e';
-
-  static state: GameState;
 
   static ticks: number = 0;
   static shouldCountTicks: boolean = true;
+
+  private static context: CanvasRenderingContext2D;
+
+  static initGraphicsDevice(width: number, height: number): void {
+    this.width = width;
+    this.height = height;
+
+    const canvas = document.createElement('canvas');
+    canvas.width = this.width;
+    canvas.height = this.height;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      throw new Error('An error occured while creating canvas context');
+    }
+
+    this.context = ctx;
+    this.context.imageSmoothingEnabled = false;
+
+    Input.initialize(canvas);
+
+    document.body.innerHTML = '';
+    const containerEl = document.createElement('div');
+    containerEl.id = 'container';
+    containerEl.appendChild(canvas);
+    document.body.appendChild(containerEl);
+  }
 
   static changeStage(nextStage: Stage): void {
     this.activeStage?.onDestroy();
@@ -22,47 +44,49 @@ export abstract class Engine {
     this.activeStage.onActivate();
   }
 
-  static saveGame(): void {
+  static tick(): void {
+    this.context.fillStyle = 'black'; // GameManager.secondaryColor;
+    this.context.fillRect(0, 0, Engine.width, Engine.height);
+    this.context.fillStyle = 'white'; // GameManager.primaryColor;
+
+    const stage = Engine.activeStage!;
+    stage.update();
+    stage.render(this.context);
+
+    Input.update();
+
+    if (Engine.shouldCountTicks) Engine.ticks += 1;
+
+    requestAnimationFrame(() => this.tick());
+  }
+
+  static saveData<T>(data: T, key: string = 'save'): void {
     try {
-      window.localStorage.setItem('save', JSON.stringify(Engine.state));
-      console.log('saved game');
+      window.localStorage.setItem(key, JSON.stringify(data));
+      console.log(`Saved data for key ${key}`);
     } catch (e) {
-      console.log('cannot save game');
+      console.log('Cannot save data');
     }
   }
 
-  static hasSavedData(): boolean {
+  static hasSavedData(key: string = 'save'): boolean {
     try {
-      const data = window.localStorage.getItem('save');
+      const data = window.localStorage.getItem(key);
       return !!data;
     } catch (e) {
       return false;
     }
   }
 
-  static loadGame(): void {
+  static loadData<T>(key: string = 'save'): T {
     try {
-      const data = window.localStorage.getItem('save');
-      if (!data) throw new Error('no save data');
+      const data = window.localStorage.getItem(key);
+      if (!data) throw new Error(`No save data for key ${key}`);
 
-      Engine.state = JSON.parse(data);
-      console.log('loaded game');
+      console.log(`Loaded data from key ${key}`);
+      return JSON.parse(data);
     } catch (e) {
-      console.log('cannot load game game');
+      throw new Error(`Cannot load data for key ${key}`);
     }
-  }
-
-  static newGame(): void {
-    Engine.state = {
-      preparedIngredients: [],
-      recipes: generateRecipes(),
-      orders: [],
-      gold: 0,
-      completedOrders: 0,
-      messageBoard: { messages: [] },
-      day: 0,
-      goldLastDay: 0,
-      debtPaid: false,
-    };
   }
 }

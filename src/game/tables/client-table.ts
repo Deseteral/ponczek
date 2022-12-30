@@ -4,6 +4,7 @@ import { drawFrame } from 'marmolada/frame';
 import { Input } from 'marmolada/input';
 import { playSound, Sound } from 'marmolada/sounds';
 import { Textures } from 'marmolada/textures';
+import { GameManager } from 'src/game/game-manager';
 import { newClientMessage } from 'src/game/messages';
 import { Recipe } from 'src/game/recipes';
 import { Table } from 'src/game/tables/table';
@@ -13,14 +14,14 @@ export class ClientTable extends Table {
 
   update(isSelected: boolean, ticksUntilDayOver: number): void {
     if (Engine.ticks >= this.nextClientAtTicks && ticksUntilDayOver >= 0) {
-      const recipeRange: number = (Engine.state.completedOrders <= 3) ? 5 : (Engine.state.recipes.length - 1);
+      const recipeRange: number = (GameManager.state.completedOrders <= 3) ? 5 : (GameManager.state.recipes.length - 1);
       const recipeIdx: number = Math.randomRange(0, recipeRange);
-      const recipe = Engine.state.recipes[recipeIdx];
-      Engine.state.orders.push(recipe);
+      const recipe = GameManager.state.recipes[recipeIdx];
+      GameManager.state.orders.push(recipe);
 
       this.nextClientAtTicks = Engine.ticks + (60 * 10); // I assume the game is running at 60 fps so we can use that to measure time, it's stupid but will be easier to implement pause.
 
-      Engine.state.messageBoard.messages.unshift(newClientMessage(recipe));
+      GameManager.state.messageBoard.messages.unshift(newClientMessage(recipe));
 
       playSound(Sound.NEW_CLIENT);
 
@@ -35,8 +36,8 @@ export class ClientTable extends Table {
     drawFrame(11, 11, 100, 218, ctx, () => {
       Font.draw('Orders', 12, 8, ctx);
 
-      for (let idx = 0; idx < Engine.state.orders.length; idx += 1) {
-        const orderRecipe: Recipe = Engine.state.orders[idx];
+      for (let idx = 0; idx < GameManager.state.orders.length; idx += 1) {
+        const orderRecipe: Recipe = GameManager.state.orders[idx];
 
         const yy: number = 8 + Font.charHeight + 10 + (idx * (Font.charHeight + 4));
         Font.draw(`-${orderRecipe.name}`, 11, yy, ctx);
@@ -46,7 +47,7 @@ export class ClientTable extends Table {
     const infoFrameX = 11 + 118;
     drawFrame(infoFrameX, 11, 260, 16, ctx, () => {
       // Day counter
-      const dayMessage = `Day ${Engine.state.day}`;
+      const dayMessage = `Day ${GameManager.state.day}`;
       Font.draw(dayMessage, infoFrameX, 7, ctx);
 
       // Time counter
@@ -66,13 +67,13 @@ export class ClientTable extends Table {
       // Gold
       // TODO: Make text right-aligned
       ctx.drawImage(Textures.coinTexture.normal, 300, 11);
-      Font.draw(Engine.state.gold.toString(), 300 + 16 + 2, 7, ctx);
+      Font.draw(GameManager.state.gold.toString(), 300 + 16 + 2, 7, ctx);
     });
 
     const messageFrameWidth: number = 260;
     drawFrame(11 + 118, 11 + 34, messageFrameWidth, 184, ctx, () => {
       let line = 0;
-      Engine.state.messageBoard.messages.forEach((message, msgIdx) => {
+      GameManager.state.messageBoard.messages.forEach((message, msgIdx) => {
         const basexx: number = 11 + 118;
 
         [...message.text].reverse().forEach((txt) => {

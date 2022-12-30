@@ -1,5 +1,3 @@
-import { Engine } from 'marmolada/engine';
-
 const tableUrl = 'assets/table.png';
 const burningUrl = 'assets/burning.png';
 const cuttingUrl = 'assets/cutting.png';
@@ -130,10 +128,12 @@ export abstract class Textures {
       const x = (idx % w) | 0;
       const y = (idx / w) | 0;
 
-      ctx.fillStyle = isBlack ? Engine.primaryColor : Engine.secondaryColor;
+      // ctx.fillStyle = isBlack ? GameManager.primaryColor : GameManager.secondaryColor;
+      ctx.fillStyle = isBlack ? 'black' : 'white';
       ctx.fillRect(x, y, 1, 1);
 
-      ictx.fillStyle = (!isBlack) ? Engine.primaryColor : Engine.secondaryColor;
+      // ictx.fillStyle = (!isBlack) ? GameManager.primaryColor : GameManager.secondaryColor;
+      ictx.fillStyle = (!isBlack) ? 'white' : 'black';
       ictx.fillRect(x, y, 1, 1);
     }
 

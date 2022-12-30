@@ -4,6 +4,7 @@ import { drawFrame } from 'marmolada/frame';
 import { Input } from 'marmolada/input';
 import { playSound, Sound } from 'marmolada/sounds';
 import { Textures } from 'marmolada/textures';
+import { GameManager } from 'src/game/game-manager';
 import { PreparedIngredient } from 'src/game/ingredients';
 import { clientGoodbyeMessasge, orderCompleteMessage, recipeDoesNotExistMessage, recipeWithoutOrderMessage } from 'src/game/messages';
 import { findMatchingRecipe } from 'src/game/recipe-logic';
@@ -44,7 +45,7 @@ export class BrewingTable extends Table {
         playSound(Sound.MENU_PICK);
       }
 
-      if (Input.getKeyDown('left') && Engine.state.preparedIngredients.length > 0) {
+      if (Input.getKeyDown('left') && GameManager.state.preparedIngredients.length > 0) {
         this.leftColumn = true;
         playSound(Sound.MENU_PICK);
       } else if (Input.getKeyDown('right') && this.selectedIngredients.length > 0) {
@@ -54,26 +55,26 @@ export class BrewingTable extends Table {
       }
 
       if (Input.getKeyDown('b')) {
-        Engine.state.preparedIngredients.push(...this.selectedIngredients);
+        GameManager.state.preparedIngredients.push(...this.selectedIngredients);
         this.resetListState();
         this.showList = false;
       }
 
       if (Input.getKeyDown('a')) {
         if (this.leftColumn) {
-          if (Engine.state.preparedIngredients.length > 0) {
-            const [ing] = Engine.state.preparedIngredients.splice(this.ingredientCursor, 1);
+          if (GameManager.state.preparedIngredients.length > 0) {
+            const [ing] = GameManager.state.preparedIngredients.splice(this.ingredientCursor, 1);
             this.selectedIngredients.push(ing);
             this.ingredientCursor -= 1;
 
-            if (Engine.state.preparedIngredients.length === 0) {
+            if (GameManager.state.preparedIngredients.length === 0) {
               this.selectedIngredientCursor = this.selectedIngredients.length;
               this.leftColumn = false;
             }
           }
         } else {
           if (this.selectedIngredientCursor === this.selectedIngredients.length) {
-            const recipe: (Recipe | null) = findMatchingRecipe(this.selectedIngredients, Engine.state.recipes);
+            const recipe: (Recipe | null) = findMatchingRecipe(this.selectedIngredients, GameManager.state.recipes);
 
             this.makingRecipe = recipe;
             this.ticksUntilBrewingDone = Math.randomRange(3 * 60, 7 * 60);
@@ -92,7 +93,7 @@ export class BrewingTable extends Table {
             this.showList = false;
           } else {
             const [ing] = this.selectedIngredients.splice(this.selectedIngredientCursor, 1);
-            Engine.state.preparedIngredients.push(ing);
+            GameManager.state.preparedIngredients.push(ing);
             this.selectedIngredientCursor -= 1;
 
             if (this.selectedIngredients.length === 0) this.leftColumn = true;
@@ -101,7 +102,7 @@ export class BrewingTable extends Table {
         playSound(Sound.MENU_CONFIRM);
       }
 
-      this.ingredientCursor = Math.clamp(this.ingredientCursor, 0, Engine.state.preparedIngredients.length - 1);
+      this.ingredientCursor = Math.clamp(this.ingredientCursor, 0, GameManager.state.preparedIngredients.length - 1);
       this.selectedIngredientCursor = Math.clamp(this.selectedIngredientCursor, 0, this.selectedIngredients.length);
 
       return;
@@ -141,28 +142,28 @@ export class BrewingTable extends Table {
     // Check if brewing is done
     if (this.ticksUntilBrewingDone === 0) {
       if (this.makingRecipe) {
-        const recipeInOrdersIdx: number = Engine.state.orders.findIndex((r) => (r.name === this.makingRecipe?.name));
+        const recipeInOrdersIdx: number = GameManager.state.orders.findIndex((r) => (r.name === this.makingRecipe?.name));
 
         if (recipeInOrdersIdx >= 0) {
-          Engine.state.orders.splice(recipeInOrdersIdx, 1);
-          Engine.state.completedOrders += 1;
-          Engine.state.gold += this.makingRecipe.ingredients.length;
+          GameManager.state.orders.splice(recipeInOrdersIdx, 1);
+          GameManager.state.completedOrders += 1;
+          GameManager.state.gold += this.makingRecipe.ingredients.length;
 
-          Engine.state.messageBoard.messages.unshift(orderCompleteMessage(this.makingRecipe));
-          Engine.state.messageBoard.messages.unshift(clientGoodbyeMessasge());
+          GameManager.state.messageBoard.messages.unshift(orderCompleteMessage(this.makingRecipe));
+          GameManager.state.messageBoard.messages.unshift(clientGoodbyeMessasge());
 
           playSound(Sound.GOOD_POTION);
 
           console.log(`completed order ${recipeInOrdersIdx}`);
         } else {
-          Engine.state.messageBoard.messages.unshift(recipeWithoutOrderMessage());
+          GameManager.state.messageBoard.messages.unshift(recipeWithoutOrderMessage());
           playSound(Sound.BAD_POTION);
           console.log('made potion but nobody ordered it', this.makingRecipe);
         }
 
         this.makingRecipe = null;
       } else {
-        Engine.state.messageBoard.messages.unshift(recipeDoesNotExistMessage());
+        GameManager.state.messageBoard.messages.unshift(recipeDoesNotExistMessage());
         playSound(Sound.BAD_POTION);
         console.log('made potion that does not exist');
       }
@@ -188,8 +189,8 @@ export class BrewingTable extends Table {
         const page: number = (this.ingredientCursor / maxCountOnPage) | 0;
         const startIdx: number = page * maxCountOnPage;
 
-        for (let idx = startIdx; idx < Math.min(startIdx + 9, Engine.state.preparedIngredients.length); idx += 1) {
-          const pi: PreparedIngredient = Engine.state.preparedIngredients[idx];
+        for (let idx = startIdx; idx < Math.min(startIdx + 9, GameManager.state.preparedIngredients.length); idx += 1) {
+          const pi: PreparedIngredient = GameManager.state.preparedIngredients[idx];
 
           const yy: number = 11 + Font.charHeight + (idx % maxCountOnPage) * (16 + 4);
           if (idx === this.ingredientCursor && this.leftColumn) ctx.drawImage(Textures.listPointerRightTexture.normal, 11, yy);

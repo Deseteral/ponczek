@@ -4,6 +4,7 @@ import { drawFrame } from 'marmolada/frame';
 import { Input } from 'marmolada/input';
 import { playSound, Sound } from 'marmolada/sounds';
 import { Textures, Texture } from 'marmolada/textures';
+import { GameManager } from 'src/game/game-manager';
 import { Ingredient, Ingredients, IngredientAction, ingredientDisplayName } from 'src/game/ingredients';
 import { getIngredientIcon } from 'src/game/recipes';
 import { BurningStation } from 'src/game/stations/burning-station';
@@ -61,7 +62,7 @@ export class IngredientsTable extends Table {
           if (success) {
             const amount = Math.randomRange(1, 2);
             for (let a = 0; a < amount; a += 1) {
-              Engine.state.preparedIngredients.push({ ingredient: selectedIngredient, action });
+              GameManager.state.preparedIngredients.push({ ingredient: selectedIngredient, action });
             }
 
             playSound(Sound.GOOD_POTION);

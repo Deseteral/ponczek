@@ -5,13 +5,14 @@ import { Input } from 'marmolada/input';
 import { playSound, Sound } from 'marmolada/sounds';
 import { Stage } from 'marmolada/stage';
 import { Textures } from 'marmolada/textures';
+import { GameManager } from 'src/game/game-manager';
 import { WorkshopStage } from 'src/game/workshop-stage';
 import { HowToPlayStage } from 'src/how-to-play-stage';
 import { StoryStage } from 'src/story-stage';
 
 export class MainMenuStage extends Stage {
   cursor = 0;
-  hasSaveData = Engine.hasSavedData();
+  hasSaveData = GameManager.hasSavedGame();
 
   onActivate(): void {
   }
@@ -30,10 +31,10 @@ export class MainMenuStage extends Stage {
 
     if (Input.getKeyDown('a')) {
       if (this.cursor === 0) {
-        Engine.newGame();
+        GameManager.newGame();
         Engine.changeStage(new StoryStage());
       } else if (this.hasSaveData && this.cursor === 1) {
-        Engine.loadGame();
+        GameManager.loadGame();
         Engine.changeStage(new WorkshopStage());
       } else if ((this.hasSaveData && this.cursor === 2) || (!this.hasSaveData && this.cursor === 1)) {
         Engine.changeStage(new HowToPlayStage());
