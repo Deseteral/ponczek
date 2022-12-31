@@ -1,3 +1,15 @@
+/*
+ * TODO: Build robust random number generator
+ * TODO: Math library: Vectors, Rects etc.
+ * TODO: Noise generator
+ * TODO: Pathfinding
+ * TODO: Stage transitions
+ * TODO: Nine patch rendering
+ * TODO: Automatic conversion of sounds to webm
+ * TODO: Simple GUI system (something like playdate's gridview?)
+ * TODO: Timers
+ */
+
 import 'marmolada/polyfills';
 import { Stage } from 'marmolada/stage';
 import { Input } from 'marmolada/input';
