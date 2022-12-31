@@ -1,4 +1,4 @@
-import 'marmolada/utils';
+import 'marmolada/polyfills';
 import { Stage } from 'marmolada/stage';
 import { Input } from 'marmolada/input';
 import { GraphicsDevice } from 'marmolada/graphics-device';
