@@ -30,7 +30,7 @@ export class HowToPlayStage extends Stage {
   }
 
   update(): void {
-    if (Input.getKeyDown('b')) {
+    if (Input.getButtonDown('b')) {
       Engine.changeStage(new MainMenuStage());
       SoundPlayer.playSound('menu_confirm');
     }

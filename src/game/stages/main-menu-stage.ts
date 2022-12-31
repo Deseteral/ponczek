@@ -19,18 +19,18 @@ export class MainMenuStage extends Stage {
   }
 
   update(): void {
-    if (Input.getKeyDown('up')) {
+    if (Input.getButtonDown('up')) {
       this.cursor -= 1;
       SoundPlayer.playSound('menu_pick');
     }
-    if (Input.getKeyDown('down')) {
+    if (Input.getButtonDown('down')) {
       this.cursor += 1;
       SoundPlayer.playSound('menu_pick');
     }
 
     this.cursor = Math.clamp(this.cursor, 0, this.hasSaveData ? 2 : 1);
 
-    if (Input.getKeyDown('a')) {
+    if (Input.getButtonDown('a')) {
       if (this.cursor === 0) {
         GameManager.newGame();
         Engine.changeStage(new StoryStage());

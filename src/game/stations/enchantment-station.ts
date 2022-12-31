@@ -2,7 +2,7 @@ import { Engine } from 'marmolada/engine';
 import { Font } from 'src/game/gfx/font';
 import { drawFrame } from 'marmolada/frame';
 import { GraphicsDevice } from 'marmolada/graphics-device';
-import { Input, Keys } from 'marmolada/input';
+import { Input } from 'marmolada/input';
 import { GameManager } from 'src/game/game-manager';
 import { IngredientAction } from 'src/game/ingredients';
 import { Sprites } from 'src/game/gfx/sprites';
@@ -39,7 +39,7 @@ export class EnchantmentStation extends Station {
 
     // Check if note is hit
     ['up', 'right', 'down', 'left'].forEach((kp, ki) => {
-      if (Input.getKeyDown(kp as Keys)) {
+      if (Input.getButtonDown(kp)) {
         let noteWasHit: boolean = false;
 
         for (let idx = 0; idx < this.notes.length; idx += 1) {
@@ -88,7 +88,7 @@ export class EnchantmentStation extends Station {
 
     // Check for winning condition
     if (this.progress >= 1) this.onStationCompleteCallback(true, IngredientAction.ENCHANTING);
-    if (Input.getKeyDown('b')) this.onStationCompleteCallback(false, IngredientAction.ENCHANTING);
+    if (Input.getButtonDown('b')) this.onStationCompleteCallback(false, IngredientAction.ENCHANTING);
   }
 
   render(g: GraphicsDevice): void {

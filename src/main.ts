@@ -4,6 +4,7 @@
 
 import { Assets } from 'marmolada/assets';
 import { Engine } from 'marmolada/engine';
+import { Input } from 'marmolada/input';
 import { Sprites } from 'src/game/gfx/sprites';
 import { MainMenuStage } from 'src/game/stages/main-menu-stage';
 
@@ -12,7 +13,9 @@ import { MainMenuStage } from 'src/game/stages/main-menu-stage';
   await Sprites.loadSprites();
 
   Engine.initialize(400, 240);
-  Engine.changeStage(new MainMenuStage());
 
+  Input.withGameBoyLikeBinds();
+
+  Engine.changeStage(new MainMenuStage());
   Engine.tick();
 }());

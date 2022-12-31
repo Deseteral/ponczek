@@ -90,17 +90,17 @@ export class StoryStage extends Stage {
   }
 
   update(): void {
-    if (Input.getKeyDown('left')) {
+    if (Input.getButtonDown('left')) {
       this.pageNumber -= 1;
       SoundPlayer.playSound('book');
     }
-    if (Input.getKeyDown('right')) {
+    if (Input.getButtonDown('right')) {
       this.pageNumber += 1;
       SoundPlayer.playSound('book');
     }
     this.pageNumber = Math.clamp(this.pageNumber, 0, Math.ceil(this.pages.length / 2) - 1);
 
-    if (this.pageNumber === 5 && Input.getKeyDown('a')) {
+    if (this.pageNumber === 5 && Input.getButtonDown('a')) {
       Engine.changeStage(new WorkshopStage());
       SoundPlayer.playSound('menu_confirm');
     }

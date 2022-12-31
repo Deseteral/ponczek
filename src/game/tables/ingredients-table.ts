@@ -32,29 +32,29 @@ export class IngredientsTable extends Table {
 
     this.ignoringInputTicks -= 1;
 
-    if (!this.isIndredientPickerOpen && Input.getKeyDown('a') && this.canUseInput(isSelected)) {
+    if (!this.isIndredientPickerOpen && Input.getButtonDown('a') && this.canUseInput(isSelected)) {
       this.isIndredientPickerOpen = true;
       SoundPlayer.playSound('menu_confirm');
       return;
     }
 
     if (this.isIndredientPickerOpen && isSelected) {
-      if (Input.getKeyDown('up')) {
+      if (Input.getButtonDown('up')) {
         this.ingredientCursor -= 1;
         SoundPlayer.playSound('menu_pick');
       }
-      if (Input.getKeyDown('down')) {
+      if (Input.getButtonDown('down')) {
         this.ingredientCursor += 1;
         SoundPlayer.playSound('menu_pick');
       }
-      if (Input.getKeyDown('b')) {
+      if (Input.getButtonDown('b')) {
         this.isIndredientPickerOpen = false;
         this.ingredientCursor = 0;
         return;
       }
       this.ingredientCursor = Math.clamp(this.ingredientCursor, 0, 5 - 1);
 
-      if (Input.getKeyDown('a')) {
+      if (Input.getButtonDown('a')) {
         const selectedIngredient: Ingredient = Ingredients[this.ingredientCursor];
         this.ingredientCursor = 0;
         this.isIndredientPickerOpen = false;
@@ -92,10 +92,10 @@ export class IngredientsTable extends Table {
     }
 
     const prevSlectedStation = this.selectedStation;
-    if (Input.getKeyDown('right') && this.canUseInput(isSelected)) {
+    if (Input.getButtonDown('right') && this.canUseInput(isSelected)) {
       this.selectedStation += 1;
     }
-    if (Input.getKeyDown('left') && this.canUseInput(isSelected)) {
+    if (Input.getButtonDown('left') && this.canUseInput(isSelected)) {
       this.selectedStation -= 1;
     }
 
@@ -103,7 +103,7 @@ export class IngredientsTable extends Table {
       this.onPreviousTableCb();
     } else if (this.selectedStation > 3) {
       this.onNextTableCb();
-    } else if (Input.getKeyDown('down') && this.canUseInput(isSelected)) {
+    } else if (Input.getButtonDown('down') && this.canUseInput(isSelected)) {
       this.openBook();
     }
 

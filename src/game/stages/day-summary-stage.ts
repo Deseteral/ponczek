@@ -12,7 +12,7 @@ export class DaySummaryStage extends Stage {
   }
 
   update(): void {
-    if (Input.getKeyDown('a')) {
+    if (Input.getButtonDown('a')) {
       Engine.changeStage(new WorkshopStage());
     }
   }

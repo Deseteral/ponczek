@@ -51,7 +51,7 @@ export class GrindingStation extends Station {
     }
 
     if (this.progress >= 1) this.onStationCompleteCallback(true, IngredientAction.GRIDING);
-    if (Input.getKeyDown('b')) this.onStationCompleteCallback(false, IngredientAction.GRIDING);
+    if (Input.getButtonDown('b')) this.onStationCompleteCallback(false, IngredientAction.GRIDING);
   }
 
   render(g: GraphicsDevice): void {

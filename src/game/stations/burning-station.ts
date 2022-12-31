@@ -30,7 +30,7 @@ export class BurningStation extends Station {
     this.ticksToNextTarget -= 1;
 
     // Move cursor
-    if (Input.getKey('up')) this.cursorY += cursorSpeed;
+    if (Input.getButton('up')) this.cursorY += cursorSpeed;
     this.cursorY -= gravity;
     this.cursorY = Math.clamp(this.cursorY, 0, (this.barHeight - this.cursorHeight));
 
@@ -54,7 +54,7 @@ export class BurningStation extends Station {
 
     // Winning condition
     if (this.progress >= 1) this.onStationCompleteCallback(true, IngredientAction.BURNING);
-    if (Input.getKeyDown('b')) this.onStationCompleteCallback(false, IngredientAction.BURNING);
+    if (Input.getButtonDown('b')) this.onStationCompleteCallback(false, IngredientAction.BURNING);
   }
 
   render(g: GraphicsDevice): void {

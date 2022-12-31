@@ -1,102 +1,60 @@
 import { Engine } from 'marmolada/engine';
 
-interface KeyState {
-  up: boolean,
-  down: boolean,
-  left: boolean,
-  right: boolean,
-
-  a: boolean,
-  b: boolean,
-}
-
-export type Keys = keyof KeyState;
-
 export abstract class Input {
   static pointerX: number = 0;
   static pointerY: number = 0;
 
-  private static keyState: KeyState = {
-    up: false, down: false, right: false, left: false, a: false, b: false,
-  };
+  private static keyState: Map<string, boolean> = new Map();
+  private static previousKeyState: Map<string, boolean> = new Map();
 
-  private static previousKeyState: KeyState = {
-    up: false, down: false, right: false, left: false, a: false, b: false,
-  };
+  private static binds: Map<string, string[]> = new Map();
 
-  static getKey(key: Keys): boolean {
-    return this.keyState[key];
+  static getKey(key: string): boolean {
+    return this.keyState.getOrElse(key, false);
   }
 
-  static getKeyDown(key: Keys): boolean {
-    return this.keyState[key] && !this.previousKeyState[key];
+  static getKeyDown(key: string): boolean {
+    return this.getKey(key) && !this.previousKeyState.getOrElse(key, false);
+  }
+
+  static getButton(action: string): boolean {
+    const keys = this.binds.get(action) ?? [];
+    if (keys.isEmpty()) {
+      console.log(`Nothing bound to action ${action}`);
+      return false;
+    }
+
+    return keys.some((key) => this.getKey(key));
+  }
+
+  static getButtonDown(action: string): boolean {
+    const keys = this.binds.get(action) ?? [];
+    if (keys.isEmpty()) {
+      console.log(`Nothing bound to action ${action}`);
+      return false;
+    }
+
+    return keys.some((key) => this.getKeyDown(key));
+  }
+
+  static bindAction(action: string, keys: string[]): void {
+    this.binds.set(action, keys);
   }
 
   static update(): void {
-    Input.previousKeyState = { ...Input.keyState };
+    this.previousKeyState = this.keyState;
+    this.keyState = new Map();
   }
 
   static initialize(canvas: HTMLCanvasElement): void {
     document.addEventListener('keydown', (e) => {
-      let keyHit = false;
-
-      if (e.key === 'w' || e.key === 'ArrowUp') {
-        Input.keyState.up = true;
-        keyHit = true;
-      }
-      if (e.key === 's' || e.key === 'ArrowDown') {
-        Input.keyState.down = true;
-        keyHit = true;
-      }
-      if (e.key === 'a' || e.key === 'ArrowLeft') {
-        Input.keyState.left = true;
-        keyHit = true;
-      }
-      if (e.key === 'd' || e.key === 'ArrowRight') {
-        Input.keyState.right = true;
-        keyHit = true;
-      }
-      if (e.key === 'Enter') {
-        Input.keyState.a = true;
-        keyHit = true;
-      }
-      if (e.key === 'Escape') {
-        Input.keyState.b = true;
-        keyHit = true;
-      }
-
-      if (keyHit) e.preventDefault();
+      this.keyState.set(e.key, true);
+      e.preventDefault();
     }, false);
 
     document.addEventListener('keyup', (e) => {
-      let keyHit = false;
-
-      if (e.key === 'w' || e.key === 'ArrowUp') {
-        Input.keyState.up = false;
-        keyHit = true;
-      }
-      if (e.key === 's' || e.key === 'ArrowDown') {
-        Input.keyState.down = false;
-        keyHit = true;
-      }
-      if (e.key === 'a' || e.key === 'ArrowLeft') {
-        Input.keyState.left = false;
-        keyHit = true;
-      }
-      if (e.key === 'd' || e.key === 'ArrowRight') {
-        Input.keyState.right = false;
-        keyHit = true;
-      }
-      if (e.key === 'Enter') {
-        Input.keyState.a = false;
-        keyHit = true;
-      }
-      if (e.key === 'Escape') {
-        Input.keyState.b = false;
-        keyHit = true;
-      }
-
-      if (keyHit) e.preventDefault();
+      this.keyState.set(e.key, false);
+      e.preventDefault();
     }, false);
 
     canvas.addEventListener('mousemove', (e) => {
@@ -105,6 +63,21 @@ export abstract class Input {
       const y = (e.clientY - rect.top) | 0;
       Input.pointerX = ((x / canvas.clientWidth) * Engine.width) | 0;
       Input.pointerY = ((y / canvas.clientHeight) * Engine.height) | 0;
+    });
+  }
+
+  static withBinds(bindings: ({ [key: string]: string[] })): void {
+    this.binds = new Map(Object.entries(bindings));
+  }
+
+  static withGameBoyLikeBinds(): void {
+    this.withBinds({
+      up: ['ArrowUp', 'w'],
+      down: ['ArrowDown', 's'],
+      left: ['ArrowLeft', 'a'],
+      right: ['ArrowRight', 'd'],
+      a: ['Enter'],
+      b: ['Escape'],
     });
   }
 }

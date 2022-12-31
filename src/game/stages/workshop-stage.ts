@@ -99,14 +99,14 @@ export class WorkshopStage extends Stage {
   }
 
   private updateBook(): void {
-    if (Input.getKeyDown('up') || Input.getKeyDown('b')) {
+    if (Input.getButtonDown('up') || Input.getButtonDown('b')) {
       this.closeBook();
     }
-    if (Input.getKeyDown('left')) {
+    if (Input.getButtonDown('left')) {
       this.pageNumber -= 1;
       SoundPlayer.playSound('book');
     }
-    if (Input.getKeyDown('right')) {
+    if (Input.getButtonDown('right')) {
       this.pageNumber += 1;
       SoundPlayer.playSound('book');
     }

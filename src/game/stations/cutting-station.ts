@@ -13,13 +13,13 @@ export class CuttingStation extends Station {
   left: boolean = true;
 
   update(): void {
-    if (Input.getKeyDown('left') && this.left) {
+    if (Input.getButtonDown('left') && this.left) {
       this.left = false;
       this.progress += 0.01;
       SoundPlayer.playSound('knife');
     }
 
-    if (Input.getKeyDown('right') && !this.left) {
+    if (Input.getButtonDown('right') && !this.left) {
       this.left = true;
       this.progress += 0.05;
       SoundPlayer.playSound('knife');
@@ -29,7 +29,7 @@ export class CuttingStation extends Station {
     this.progress = Math.clamp(this.progress, 0, 1);
 
     if (this.progress >= 1) this.onStationCompleteCallback(true, IngredientAction.CUTTING);
-    if (Input.getKeyDown('b')) this.onStationCompleteCallback(false, IngredientAction.CUTTING);
+    if (Input.getButtonDown('b')) this.onStationCompleteCallback(false, IngredientAction.CUTTING);
   }
 
   render(g: GraphicsDevice): void {

@@ -29,8 +29,8 @@ export class ClientTable extends Table {
       console.log('new client with order', recipe);
     }
 
-    if (Input.getKeyDown('right') && isSelected) this.onNextTableCb();
-    if (Input.getKeyDown('down') && isSelected) this.openBook();
+    if (Input.getButtonDown('right') && isSelected) this.onNextTableCb();
+    if (Input.getButtonDown('down') && isSelected) this.openBook();
   }
 
   render(g: GraphicsDevice): void {

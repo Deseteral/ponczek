@@ -30,14 +30,14 @@ export class BrewingTable extends Table {
     this.ticksUntilBrewingDone -= 1;
 
     if (this.showList && isSelected) {
-      if (Input.getKeyDown('up')) {
+      if (Input.getButtonDown('up')) {
         if (this.leftColumn) {
           this.ingredientCursor -= 1;
         } else {
           this.selectedIngredientCursor -= 1;
         }
         SoundPlayer.playSound('menu_pick');
-      } else if (Input.getKeyDown('down')) {
+      } else if (Input.getButtonDown('down')) {
         if (this.leftColumn) {
           this.ingredientCursor += 1;
         } else {
@@ -46,22 +46,22 @@ export class BrewingTable extends Table {
         SoundPlayer.playSound('menu_pick');
       }
 
-      if (Input.getKeyDown('left') && GameManager.state.preparedIngredients.length > 0) {
+      if (Input.getButtonDown('left') && GameManager.state.preparedIngredients.length > 0) {
         this.leftColumn = true;
         SoundPlayer.playSound('menu_pick');
-      } else if (Input.getKeyDown('right') && this.selectedIngredients.length > 0) {
+      } else if (Input.getButtonDown('right') && this.selectedIngredients.length > 0) {
         this.selectedIngredientCursor = this.selectedIngredients.length;
         this.leftColumn = false;
         SoundPlayer.playSound('menu_pick');
       }
 
-      if (Input.getKeyDown('b')) {
+      if (Input.getButtonDown('b')) {
         GameManager.state.preparedIngredients.push(...this.selectedIngredients);
         this.resetListState();
         this.showList = false;
       }
 
-      if (Input.getKeyDown('a')) {
+      if (Input.getButtonDown('a')) {
         if (this.leftColumn) {
           if (GameManager.state.preparedIngredients.length > 0) {
             const [ing] = GameManager.state.preparedIngredients.splice(this.ingredientCursor, 1);
@@ -110,12 +110,12 @@ export class BrewingTable extends Table {
     }
 
     if (isSelected) {
-      if (Input.getKeyDown('left')) {
+      if (Input.getButtonDown('left')) {
         this.onPreviousTableCb();
-      } else if (Input.getKeyDown('a') && this.ticksUntilBrewingDone < 0) {
+      } else if (Input.getButtonDown('a') && this.ticksUntilBrewingDone < 0) {
         this.resetListState();
         this.showList = true;
-      } else if (Input.getKeyDown('down')) {
+      } else if (Input.getButtonDown('down')) {
         this.openBook();
       }
     }
