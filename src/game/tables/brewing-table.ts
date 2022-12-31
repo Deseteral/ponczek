@@ -10,7 +10,7 @@ import { findMatchingRecipe } from 'src/game/recipe-logic';
 import { drawPreparedIngredientRow, Recipe } from 'src/game/recipes';
 import { Sprites } from 'src/game/gfx/sprites';
 import { Table } from 'src/game/tables/table';
-import { SoundPlayer } from 'marmolada/sound-player';
+import { SoundPlaybackId, SoundPlayer } from 'marmolada/sound-player';
 
 export class BrewingTable extends Table {
   showList = false;
@@ -24,7 +24,7 @@ export class BrewingTable extends Table {
   makingRecipe: (Recipe | null) = null;
 
   bubbleParticles: ({ x: number, y: number, velocity: number, isSmall: boolean, offset: number })[] = [];
-  stopBubbleSoundCallback: ((() => void) | null) = null;
+  bubbleSoundId: (SoundPlaybackId | null) = null;
 
   update(isSelected: boolean): void {
     this.ticksUntilBrewingDone -= 1;
@@ -80,10 +80,9 @@ export class BrewingTable extends Table {
             this.makingRecipe = recipe;
             this.ticksUntilBrewingDone = Math.randomRange(3 * 60, 7 * 60);
 
-            // TODO: Add looping sounds
-            // if (!this.stopBubbleSoundCallback) {
-            //   this.stopBubbleSoundCallback = playSound(Sound.BUBBLES, true);
-            // }
+            if (!this.bubbleSoundId) {
+              this.bubbleSoundId = SoundPlayer.playSound('bubbles', { loop: true });
+            }
 
             if (recipe) {
               console.log('making recipe', recipe);
@@ -170,9 +169,9 @@ export class BrewingTable extends Table {
         console.log('made potion that does not exist');
       }
 
-      if (this.stopBubbleSoundCallback) {
-        this.stopBubbleSoundCallback();
-        this.stopBubbleSoundCallback = null;
+      if (this.bubbleSoundId) {
+        SoundPlayer.stopSound(this.bubbleSoundId);
+        this.bubbleSoundId = null;
       }
     }
   }
