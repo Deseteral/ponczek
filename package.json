@@ -16,6 +16,7 @@
   "license": "MIT",
   "devDependencies": {
     "@deseteral/eslint-config": "6.1.0",
+    "@types/howler": "2.2.7",
     "eslint": "8.30.0",
     "parcel": "2.8.2",
     "parcel-reporter-static-files-copy": "1.4.0",
@@ -28,5 +29,8 @@
   "alias": {
     "src": "./src",
     "marmolada": "./marmolada"
+  },
+  "dependencies": {
+    "howler": "2.2.3"
   }
 }
