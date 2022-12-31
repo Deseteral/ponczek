@@ -3,11 +3,11 @@ import { Font } from 'src/game/gfx/font';
 import { drawFrame } from 'marmolada/frame';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input, Keys } from 'marmolada/input';
-import { playSound, Sound } from 'marmolada/sounds';
 import { GameManager } from 'src/game/game-manager';
 import { IngredientAction } from 'src/game/ingredients';
 import { Sprites } from 'src/game/gfx/sprites';
 import { Station } from 'src/game/stations/station';
+import { SoundPlayer } from 'marmolada/sound-player';
 
 interface Note {
   dir: number,
@@ -52,14 +52,14 @@ export class EnchantmentStation extends Station {
             this.notes[idx].counted = true;
             noteWasHit = true;
             this.progress += 0.1;
-            playSound(Sound.SPELL);
+            SoundPlayer.playSound('spell');
           }
         }
 
         // When the key was pressed but the note was not hit
         if (!noteWasHit) {
           this.progress -= 0.1;
-          playSound(Sound.SPELL_BAD);
+          SoundPlayer.playSound('spell_bad');
         }
       }
     });

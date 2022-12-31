@@ -3,10 +3,10 @@ import { Font } from 'src/game/gfx/font';
 import { drawFrame } from 'marmolada/frame';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
-import { playSound, Sound } from 'marmolada/sounds';
 import { IngredientAction } from 'src/game/ingredients';
 import { Sprites } from 'src/game/gfx/sprites';
 import { Station } from 'src/game/stations/station';
+import { SoundPlayer } from 'marmolada/sound-player';
 
 export class GrindingStation extends Station {
   positionX = 150;
@@ -47,7 +47,7 @@ export class GrindingStation extends Station {
 
       this.progress += 0.03; // TODO: Randomize progress value
 
-      playSound(Sound.KNIFE);
+      SoundPlayer.playSound('knife');
     }
 
     if (this.progress >= 1) this.onStationCompleteCallback(true, IngredientAction.GRIDING);

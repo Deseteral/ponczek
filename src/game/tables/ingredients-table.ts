@@ -3,7 +3,6 @@ import { Font } from 'src/game/gfx/font';
 import { drawFrame } from 'marmolada/frame';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
-import { playSound, Sound } from 'marmolada/sounds';
 import { GameManager } from 'src/game/game-manager';
 import { Ingredient, Ingredients, IngredientAction, ingredientDisplayName } from 'src/game/ingredients';
 import { getIngredientIcon } from 'src/game/recipes';
@@ -14,6 +13,7 @@ import { EnchantmentStation } from 'src/game/stations/enchantment-station';
 import { GrindingStation } from 'src/game/stations/grinding-station';
 import { Station, StationCompleteCallback } from 'src/game/stations/station';
 import { Table } from 'src/game/tables/table';
+import { SoundPlayer } from 'marmolada/sound-player';
 
 export class IngredientsTable extends Table {
   selectedStation: number = 0;
@@ -34,18 +34,18 @@ export class IngredientsTable extends Table {
 
     if (!this.isIndredientPickerOpen && Input.getKeyDown('a') && this.canUseInput(isSelected)) {
       this.isIndredientPickerOpen = true;
-      playSound(Sound.MENU_CONFIRM);
+      SoundPlayer.playSound('menu_confirm');
       return;
     }
 
     if (this.isIndredientPickerOpen && isSelected) {
       if (Input.getKeyDown('up')) {
         this.ingredientCursor -= 1;
-        playSound(Sound.MENU_PICK);
+        SoundPlayer.playSound('menu_pick');
       }
       if (Input.getKeyDown('down')) {
         this.ingredientCursor += 1;
-        playSound(Sound.MENU_PICK);
+        SoundPlayer.playSound('menu_pick');
       }
       if (Input.getKeyDown('b')) {
         this.isIndredientPickerOpen = false;
@@ -66,7 +66,7 @@ export class IngredientsTable extends Table {
               GameManager.state.preparedIngredients.push({ ingredient: selectedIngredient, action });
             }
 
-            playSound(Sound.GOOD_POTION);
+            SoundPlayer.playSound('good_potion');
 
             console.log(`preparing ingredient successful, receiving ${amount}`);
           }
@@ -85,7 +85,7 @@ export class IngredientsTable extends Table {
 
         Engine.shouldCountTicks = false;
 
-        playSound(Sound.MENU_CONFIRM);
+        SoundPlayer.playSound('menu_confirm');
       }
 
       return;
@@ -108,7 +108,7 @@ export class IngredientsTable extends Table {
     }
 
     this.selectedStation = Math.clamp(this.selectedStation, 0, 3);
-    if (this.selectedStation !== prevSlectedStation) playSound(Sound.MENU_PICK);
+    if (this.selectedStation !== prevSlectedStation) SoundPlayer.playSound('menu_pick');
   }
 
   render(g: GraphicsDevice): void {

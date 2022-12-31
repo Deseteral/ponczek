@@ -3,10 +3,10 @@ import { Font } from 'src/game/gfx/font';
 import { drawFrame } from 'marmolada/frame';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
-import { playSound, Sound } from 'marmolada/sounds';
 import { IngredientAction } from 'src/game/ingredients';
 import { Sprites } from 'src/game/gfx/sprites';
 import { Station } from 'src/game/stations/station';
+import { SoundPlayer } from 'marmolada/sound-player';
 
 export class CuttingStation extends Station {
   progress: number = 0;
@@ -16,13 +16,13 @@ export class CuttingStation extends Station {
     if (Input.getKeyDown('left') && this.left) {
       this.left = false;
       this.progress += 0.01;
-      playSound(Sound.KNIFE);
+      SoundPlayer.playSound('knife');
     }
 
     if (Input.getKeyDown('right') && !this.left) {
       this.left = true;
       this.progress += 0.05;
-      playSound(Sound.KNIFE);
+      SoundPlayer.playSound('knife');
     }
 
     this.progress -= 0.002;

@@ -3,12 +3,12 @@ import { Font } from 'src/game/gfx/font';
 import { drawFrame } from 'marmolada/frame';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
-import { playSound, Sound } from 'marmolada/sounds';
 import { GameManager } from 'src/game/game-manager';
 import { newClientMessage } from 'src/game/messages';
 import { Recipe } from 'src/game/recipes';
 import { Sprites } from 'src/game/gfx/sprites';
 import { Table } from 'src/game/tables/table';
+import { SoundPlayer } from 'marmolada/sound-player';
 
 export class ClientTable extends Table {
   nextClientAtTicks: number = Engine.ticks + (10 * 60);
@@ -24,7 +24,7 @@ export class ClientTable extends Table {
 
       GameManager.state.messageBoard.messages.unshift(newClientMessage(recipe));
 
-      playSound(Sound.NEW_CLIENT);
+      SoundPlayer.playSound('new_client');
 
       console.log('new client with order', recipe);
     }

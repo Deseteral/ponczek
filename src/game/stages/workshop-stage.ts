@@ -2,7 +2,6 @@ import { DaySummaryStage } from 'src/game/stages/day-summary-stage';
 import { Engine } from 'marmolada/engine';
 import { Font } from 'src/game/gfx/font';
 import { Input } from 'marmolada/input';
-import { playSound, Sound } from 'marmolada/sounds';
 import { Stage } from 'marmolada/stage';
 import { dayOverMessage } from 'src/game/messages';
 import { drawRecipe, Recipe } from 'src/game/recipes';
@@ -12,6 +11,7 @@ import { IngredientsTable } from 'src/game/tables/ingredients-table';
 import { GameManager } from 'src/game/game-manager';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Sprites } from 'src/game/gfx/sprites';
+import { SoundPlayer } from 'marmolada/sound-player';
 
 export class WorkshopStage extends Stage {
   selectedTable = 0;
@@ -77,13 +77,13 @@ export class WorkshopStage extends Stage {
   nextTable(): void {
     this.selectedTable += 1;
     this.selectedTable = Math.clamp(this.selectedTable, 0, 2);
-    playSound(Sound.TABLE_MOVE);
+    SoundPlayer.playSound('table_move');
   }
 
   prevTable(): void {
     this.selectedTable -= 1;
     this.selectedTable = Math.clamp(this.selectedTable, 0, 2);
-    playSound(Sound.TABLE_MOVE);
+    SoundPlayer.playSound('table_move');
   }
 
   onDestroy(): void {
@@ -104,11 +104,11 @@ export class WorkshopStage extends Stage {
     }
     if (Input.getKeyDown('left')) {
       this.pageNumber -= 1;
-      playSound(Sound.BOOK);
+      SoundPlayer.playSound('book');
     }
     if (Input.getKeyDown('right')) {
       this.pageNumber += 1;
-      playSound(Sound.BOOK);
+      SoundPlayer.playSound('book');
     }
 
     this.pageNumber = Math.clamp(this.pageNumber, 0, Math.ceil(GameManager.state.recipes.length / 2) - 1);
@@ -136,12 +136,12 @@ export class WorkshopStage extends Stage {
   private openBook(): void {
     Engine.shouldCountTicks = false;
     this.isInBookView = true;
-    playSound(Sound.TABLE_MOVE);
+    SoundPlayer.playSound('table_move');
   }
 
   private closeBook(): void {
     Engine.shouldCountTicks = true;
     this.isInBookView = false;
-    playSound(Sound.TABLE_MOVE);
+    SoundPlayer.playSound('table_move');
   }
 }

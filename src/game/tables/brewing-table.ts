@@ -3,7 +3,6 @@ import { Font } from 'src/game/gfx/font';
 import { drawFrame } from 'marmolada/frame';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
-import { playSound, Sound } from 'marmolada/sounds';
 import { GameManager } from 'src/game/game-manager';
 import { PreparedIngredient } from 'src/game/ingredients';
 import { clientGoodbyeMessasge, orderCompleteMessage, recipeDoesNotExistMessage, recipeWithoutOrderMessage } from 'src/game/messages';
@@ -11,6 +10,7 @@ import { findMatchingRecipe } from 'src/game/recipe-logic';
 import { drawPreparedIngredientRow, Recipe } from 'src/game/recipes';
 import { Sprites } from 'src/game/gfx/sprites';
 import { Table } from 'src/game/tables/table';
+import { SoundPlayer } from 'marmolada/sound-player';
 
 export class BrewingTable extends Table {
   showList = false;
@@ -36,23 +36,23 @@ export class BrewingTable extends Table {
         } else {
           this.selectedIngredientCursor -= 1;
         }
-        playSound(Sound.MENU_PICK);
+        SoundPlayer.playSound('menu_pick');
       } else if (Input.getKeyDown('down')) {
         if (this.leftColumn) {
           this.ingredientCursor += 1;
         } else {
           this.selectedIngredientCursor += 1;
         }
-        playSound(Sound.MENU_PICK);
+        SoundPlayer.playSound('menu_pick');
       }
 
       if (Input.getKeyDown('left') && GameManager.state.preparedIngredients.length > 0) {
         this.leftColumn = true;
-        playSound(Sound.MENU_PICK);
+        SoundPlayer.playSound('menu_pick');
       } else if (Input.getKeyDown('right') && this.selectedIngredients.length > 0) {
         this.selectedIngredientCursor = this.selectedIngredients.length;
         this.leftColumn = false;
-        playSound(Sound.MENU_PICK);
+        SoundPlayer.playSound('menu_pick');
       }
 
       if (Input.getKeyDown('b')) {
@@ -80,9 +80,10 @@ export class BrewingTable extends Table {
             this.makingRecipe = recipe;
             this.ticksUntilBrewingDone = Math.randomRange(3 * 60, 7 * 60);
 
-            if (!this.stopBubbleSoundCallback) {
-              this.stopBubbleSoundCallback = playSound(Sound.BUBBLES, true);
-            }
+            // TODO: Add looping sounds
+            // if (!this.stopBubbleSoundCallback) {
+            //   this.stopBubbleSoundCallback = playSound(Sound.BUBBLES, true);
+            // }
 
             if (recipe) {
               console.log('making recipe', recipe);
@@ -100,7 +101,7 @@ export class BrewingTable extends Table {
             if (this.selectedIngredients.length === 0) this.leftColumn = true;
           }
         }
-        playSound(Sound.MENU_CONFIRM);
+        SoundPlayer.playSound('menu_confirm');
       }
 
       this.ingredientCursor = Math.clamp(this.ingredientCursor, 0, GameManager.state.preparedIngredients.length - 1);
@@ -153,19 +154,19 @@ export class BrewingTable extends Table {
           GameManager.state.messageBoard.messages.unshift(orderCompleteMessage(this.makingRecipe));
           GameManager.state.messageBoard.messages.unshift(clientGoodbyeMessasge());
 
-          playSound(Sound.GOOD_POTION);
+          SoundPlayer.playSound('good_potion');
 
           console.log(`completed order ${recipeInOrdersIdx}`);
         } else {
           GameManager.state.messageBoard.messages.unshift(recipeWithoutOrderMessage());
-          playSound(Sound.BAD_POTION);
+          SoundPlayer.playSound('bad_potion');
           console.log('made potion but nobody ordered it', this.makingRecipe);
         }
 
         this.makingRecipe = null;
       } else {
         GameManager.state.messageBoard.messages.unshift(recipeDoesNotExistMessage());
-        playSound(Sound.BAD_POTION);
+        SoundPlayer.playSound('bad_potion');
         console.log('made potion that does not exist');
       }
 
