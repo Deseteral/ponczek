@@ -1,6 +1,6 @@
 import { DaySummaryStage } from 'src/game/stages/day-summary-stage';
 import { Engine } from 'marmolada/engine';
-import { Font } from 'marmolada/font';
+import { Font } from 'src/game/font';
 import { Input } from 'marmolada/input';
 import { playSound, Sound } from 'marmolada/sounds';
 import { Stage } from 'marmolada/stage';

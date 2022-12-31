@@ -1,4 +1,4 @@
-import { Font } from 'marmolada/font';
+import { Font } from 'src/game/font';
 import { Ingredient, IngredientAction, IngredientActions, Ingredients, PreparedIngredient } from 'src/game/ingredients';
 import { findMatchingRecipe, preparedIngredientEquals } from 'src/game/recipe-logic';
 import { POTION_NAMES } from 'src/game/potion-names';

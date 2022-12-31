@@ -1,5 +1,5 @@
 import { Engine } from 'marmolada/engine';
-import { Font } from 'marmolada/font';
+import { Font } from 'src/game/font';
 import { drawFrame } from 'marmolada/frame';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
