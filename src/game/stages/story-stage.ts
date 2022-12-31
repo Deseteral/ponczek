@@ -1,10 +1,12 @@
 import { Engine } from 'marmolada/engine';
 import { Font } from 'marmolada/font';
+import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
 import { playSound, Sound } from 'marmolada/sounds';
 import { Stage } from 'marmolada/stage';
-import { Textures } from 'marmolada/textures';
-import { WorkshopStage } from 'src/game/workshop-stage';
+import { GameManager } from 'src/game/game-manager';
+import { Sprites } from 'src/game/sprites';
+import { WorkshopStage } from 'src/game/stages/workshop-stage';
 
 export class StoryStage extends Stage {
   pageNumber = 0;
@@ -104,26 +106,27 @@ export class StoryStage extends Stage {
     }
   }
 
-  render(ctx: CanvasRenderingContext2D): void {
-    ctx.drawImage(Textures.bookTexture.normal, 0, 0);
+  render(g: GraphicsDevice): void {
+    g.clearScreen(GameManager.secondaryColor);
+    g.drawTexture(Sprites.sprite('book').normal, 0, 0);
 
     const t1: string[] = this.pages[this.pageNumber * 2];
     const t2: string[] = this.pages[this.pageNumber * 2 + 1];
 
     if (t1) {
       t1.forEach((line, idx) => {
-        Font.draw(line, 47, 24 + idx * (Font.charHeightSmall + 2), ctx, true);
+        Font.draw(line, 47, 24 + idx * (Font.charHeightSmall + 2), g, true);
       });
 
-      Font.draw(`${this.pageNumber * 2 + 1}`, 50, 200, ctx);
+      Font.draw(`${this.pageNumber * 2 + 1}`, 50, 200, g);
     }
 
     if (t2) {
       t2.forEach((line, idx) => {
-        Font.draw(line, 212, 24 + idx * (Font.charHeightSmall + 2), ctx, true);
+        Font.draw(line, 212, 24 + idx * (Font.charHeightSmall + 2), g, true);
       });
 
-      Font.draw(`${(this.pageNumber * 2 + 2).toString().padStart(2, ' ')}`, 340, 200, ctx);
+      Font.draw(`${(this.pageNumber * 2 + 2).toString().padStart(2, ' ')}`, 340, 200, g);
     }
   }
 

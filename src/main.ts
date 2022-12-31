@@ -2,18 +2,18 @@
  * TODO: Remove assets from gitignore
  */
 
+import { Assets } from 'marmolada/assets';
 import { Engine } from 'marmolada/engine';
-import { Textures } from 'marmolada/textures';
-import { MainMenuStage } from 'src/main-menu-stage';
+import { Sprites } from 'src/game/sprites';
+import { MainMenuStage } from 'src/game/stages/main-menu-stage';
 
 (async function main(): Promise<void> {
   Engine.initGraphicsDevice(400, 240);
 
-  // preloadSounds();
-  await Textures.loadTextures();
+  await Assets.loadAssets();
+  await Sprites.loadSprites();
 
-  const initialStage = new MainMenuStage();
-  Engine.changeStage(initialStage);
+  Engine.changeStage(new MainMenuStage());
 
   Engine.tick();
 }());

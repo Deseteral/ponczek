@@ -1,10 +1,11 @@
 import { Engine } from 'marmolada/engine';
 import { Font } from 'marmolada/font';
 import { drawFrame } from 'marmolada/frame';
+import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
 import { playSound, Sound } from 'marmolada/sounds';
-import { Textures } from 'marmolada/textures';
 import { IngredientAction } from 'src/game/ingredients';
+import { Sprites } from 'src/game/sprites';
 import { Station } from 'src/game/stations/station';
 
 export class CuttingStation extends Station {
@@ -31,31 +32,31 @@ export class CuttingStation extends Station {
     if (Input.getKeyDown('b')) this.onStationCompleteCallback(false, IngredientAction.CUTTING);
   }
 
-  render(ctx: CanvasRenderingContext2D): void {
+  render(g: GraphicsDevice): void {
     const xx = 100;
     const yy = 15;
 
-    drawFrame(xx, yy, 100, 55, ctx, () => {
+    drawFrame(xx, yy, 100, 55, g, () => {
       // Progress bar
-      ctx.drawRect(xx, yy, 100, 5);
-      ctx.fillRect(xx, yy, (100 * this.progress) | 0, 5);
+      g.drawRect(xx, yy, 100, 5);
+      g.fillRect(xx, yy, (100 * this.progress) | 0, 5);
 
       // Keys
       const kxx = xx + 17;
       if (this.left) {
-        ctx.drawImage(Textures.enchantingKeyLeftTexture.normal, kxx, 30);
-        ctx.drawImage(Textures.enchantingKeyRightTexture.inverted, kxx + 35, 30);
+        g.drawTexture(Sprites.sprite('enchanting_keyleft').normal, kxx, 30);
+        g.drawTexture(Sprites.sprite('enchanting_keyright').inverted, kxx + 35, 30);
       } else {
-        ctx.drawImage(Textures.enchantingKeyLeftTexture.inverted, kxx, 30);
-        ctx.drawImage(Textures.enchantingKeyRightTexture.normal, kxx + 35, 30);
+        g.drawTexture(Sprites.sprite('enchanting_keyleft').inverted, kxx, 30);
+        g.drawTexture(Sprites.sprite('enchanting_keyright').normal, kxx + 35, 30);
       }
     });
 
     const helpWidth = 170;
     const helpX = Engine.width - helpWidth - 9 - 2;
-    drawFrame(helpX, yy, helpWidth, 26, ctx, () => {
-      Font.draw('Press left and right key', helpX, yy, ctx, true);
-      Font.draw('alternately to cut', helpX, yy + 12, ctx, true);
+    drawFrame(helpX, yy, helpWidth, 26, g, () => {
+      Font.draw('Press left and right key', helpX, yy, g, true);
+      Font.draw('alternately to cut', helpX, yy + 12, g, true);
     });
   }
 }

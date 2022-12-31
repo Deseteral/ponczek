@@ -1,12 +1,13 @@
 import { Engine } from 'marmolada/engine';
 import { Font } from 'marmolada/font';
 import { drawFrame } from 'marmolada/frame';
+import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
 import { playSound, Sound } from 'marmolada/sounds';
-import { Textures, Texture } from 'marmolada/textures';
 import { GameManager } from 'src/game/game-manager';
 import { Ingredient, Ingredients, IngredientAction, ingredientDisplayName } from 'src/game/ingredients';
 import { getIngredientIcon } from 'src/game/recipes';
+import { Sprite, Sprites } from 'src/game/sprites';
 import { BurningStation } from 'src/game/stations/burning-station';
 import { CuttingStation } from 'src/game/stations/cutting-station';
 import { EnchantmentStation } from 'src/game/stations/enchantment-station';
@@ -110,33 +111,33 @@ export class IngredientsTable extends Table {
     if (this.selectedStation !== prevSlectedStation) playSound(Sound.MENU_PICK);
   }
 
-  render(ctx: CanvasRenderingContext2D): void {
-    ctx.drawImage(Textures.tableTexture.normal, 0, 0);
+  render(g: GraphicsDevice): void {
+    g.drawTexture(Sprites.sprite('table').normal, 0, 0);
 
-    this.drawStation(Textures.cuttingTexture, 10, 40, this.selectedStation === 0, ctx);
-    this.drawStation(Textures.grindingTexture, 106, 93, this.selectedStation === 1, ctx);
-    this.drawStation(Textures.burningTexture, 193, 25, this.selectedStation === 2, ctx);
-    this.drawStation(Textures.enchantingTexture, 305, 100, this.selectedStation === 3, ctx);
+    this.drawStation(Sprites.sprite('cutting'), 10, 40, this.selectedStation === 0, g);
+    this.drawStation(Sprites.sprite('grinding'), 106, 93, this.selectedStation === 1, g);
+    this.drawStation(Sprites.sprite('burning'), 193, 25, this.selectedStation === 2, g);
+    this.drawStation(Sprites.sprite('enchanting'), 305, 100, this.selectedStation === 3, g);
 
     if (this.isIndredientPickerOpen) {
-      drawFrame(11, 11, 120, 97, ctx, () => {
+      drawFrame(11, 11, 120, 97, g, () => {
         Ingredients.forEach((ing, idx) => {
           const xx: number = 11;
           const yy: number = 6 + idx * Font.charHeight;
-          if (idx === this.ingredientCursor) ctx.drawImage(Textures.listPointerRightTexture.normal, xx, yy + 5);
-          ctx.drawImage(getIngredientIcon(ing), xx + 16, yy + 5);
-          Font.draw(`${ingredientDisplayName(ing)}`, xx + 16 + 16 + 2, yy + 3, ctx);
+          if (idx === this.ingredientCursor) g.drawTexture(Sprites.sprite('list_pointer_right').normal, xx, yy + 5);
+          g.drawTexture(getIngredientIcon(ing), xx + 16, yy + 5);
+          Font.draw(`${ingredientDisplayName(ing)}`, xx + 16 + 16 + 2, yy + 3, g);
         });
       });
     }
 
-    if (this.activeStation) this.activeStation.render(ctx);
+    if (this.activeStation) this.activeStation.render(g);
   }
 
-  private drawStation(texture: Texture, x: number, y: number, isSelected: boolean, ctx: CanvasRenderingContext2D): void {
+  private drawStation(sprite: Sprite, x: number, y: number, isSelected: boolean, g: GraphicsDevice): void {
     const frameOffset = 4;
-    if (isSelected) ctx.drawRect(x - frameOffset, y - frameOffset, texture.normal.width + frameOffset * 2, texture.normal.height + frameOffset * 2);
-    ctx.drawImage(texture.normal, x, y);
+    if (isSelected) g.drawRect(x - frameOffset, y - frameOffset, sprite.normal.width + frameOffset * 2, sprite.normal.height + frameOffset * 2);
+    g.drawTexture(sprite.normal, x, y);
   }
 
   private exitStation(): void {

@@ -1,11 +1,13 @@
-import { Textures } from 'marmolada/textures';
+import { GraphicsDevice } from 'marmolada/graphics-device';
+import { Sprites } from 'src/game/sprites';
 
-export function drawFrame(x: number, y: number, w: number, h: number, ctx: CanvasRenderingContext2D, clippingRegion: () => void): void {
+// TODO: Convert to generic draw 9patch
+export function drawFrame(x: number, y: number, w: number, h: number, g: GraphicsDevice, clippingRegion: () => void): void {
   const patchSize = 9;
 
   // top-left corner
-  ctx.drawImage(
-    Textures.frameTexture.normal,
+  g.drawTexturePart(
+    Sprites.sprite('frame').normal,
     0,
     0,
     patchSize,
@@ -17,8 +19,8 @@ export function drawFrame(x: number, y: number, w: number, h: number, ctx: Canva
   );
 
   // top-right corner
-  ctx.drawImage(
-    Textures.frameTexture.normal,
+  g.drawTexturePart(
+    Sprites.sprite('frame').normal,
     patchSize * 2,
     0,
     patchSize,
@@ -30,8 +32,8 @@ export function drawFrame(x: number, y: number, w: number, h: number, ctx: Canva
   );
 
   // bottom-left corner
-  ctx.drawImage(
-    Textures.frameTexture.normal,
+  g.drawTexturePart(
+    Sprites.sprite('frame').normal,
     0,
     patchSize * 2,
     patchSize,
@@ -43,8 +45,8 @@ export function drawFrame(x: number, y: number, w: number, h: number, ctx: Canva
   );
 
   // bottom-right corner
-  ctx.drawImage(
-    Textures.frameTexture.normal,
+  g.drawTexturePart(
+    Sprites.sprite('frame').normal,
     patchSize * 2,
     patchSize * 2,
     patchSize,
@@ -56,8 +58,8 @@ export function drawFrame(x: number, y: number, w: number, h: number, ctx: Canva
   );
 
   // top border
-  ctx.drawImage(
-    Textures.frameTexture.normal,
+  g.drawTexturePart(
+    Sprites.sprite('frame').normal,
     patchSize,
     0,
     patchSize,
@@ -69,8 +71,8 @@ export function drawFrame(x: number, y: number, w: number, h: number, ctx: Canva
   );
 
   // bottom border
-  ctx.drawImage(
-    Textures.frameTexture.normal,
+  g.drawTexturePart(
+    Sprites.sprite('frame').normal,
     patchSize,
     patchSize * 2,
     patchSize,
@@ -82,8 +84,8 @@ export function drawFrame(x: number, y: number, w: number, h: number, ctx: Canva
   );
 
   // left border
-  ctx.drawImage(
-    Textures.frameTexture.normal,
+  g.drawTexturePart(
+    Sprites.sprite('frame').normal,
     0,
     patchSize,
     patchSize,
@@ -95,8 +97,8 @@ export function drawFrame(x: number, y: number, w: number, h: number, ctx: Canva
   );
 
   // right border
-  ctx.drawImage(
-    Textures.frameTexture.normal,
+  g.drawTexturePart(
+    Sprites.sprite('frame').normal,
     patchSize * 2,
     patchSize,
     patchSize,
@@ -108,8 +110,8 @@ export function drawFrame(x: number, y: number, w: number, h: number, ctx: Canva
   );
 
   // middle
-  ctx.drawImage(
-    Textures.frameTexture.normal,
+  g.drawTexturePart(
+    Sprites.sprite('frame').normal,
     patchSize,
     patchSize,
     patchSize,
@@ -121,10 +123,10 @@ export function drawFrame(x: number, y: number, w: number, h: number, ctx: Canva
   );
 
   // Clipping content inside
-  ctx.save();
-  ctx.beginPath();
-  ctx.rect(x, y, w, h);
-  ctx.clip();
+  g.ctx.save();
+  g.ctx.beginPath();
+  g.ctx.rect(x, y, w, h);
+  g.ctx.clip();
   clippingRegion();
-  ctx.restore();
+  g.ctx.restore();
 }

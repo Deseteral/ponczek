@@ -1,6 +1,7 @@
 import 'marmolada/utils';
 import { Stage } from 'marmolada/stage';
 import { Input } from 'marmolada/input';
+import { GraphicsDevice } from 'marmolada/graphics-device';
 
 export abstract class Engine {
   static width: number;
@@ -11,7 +12,8 @@ export abstract class Engine {
   static ticks: number = 0;
   static shouldCountTicks: boolean = true;
 
-  private static context: CanvasRenderingContext2D;
+  static context: CanvasRenderingContext2D;
+  static graphicsDevice: GraphicsDevice;
 
   static initGraphicsDevice(width: number, height: number): void {
     this.width = width;
@@ -28,6 +30,7 @@ export abstract class Engine {
 
     this.context = ctx;
     this.context.imageSmoothingEnabled = false;
+    this.graphicsDevice = new GraphicsDevice(this.context);
 
     Input.initialize(canvas);
 
@@ -45,13 +48,9 @@ export abstract class Engine {
   }
 
   static tick(): void {
-    this.context.fillStyle = 'black'; // GameManager.secondaryColor;
-    this.context.fillRect(0, 0, Engine.width, Engine.height);
-    this.context.fillStyle = 'white'; // GameManager.primaryColor;
-
     const stage = Engine.activeStage!;
     stage.update();
-    stage.render(this.context);
+    stage.render(this.graphicsDevice);
 
     Input.update();
 

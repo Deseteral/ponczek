@@ -1,14 +1,15 @@
 import { Engine } from 'marmolada/engine';
 import { Font } from 'marmolada/font';
 import { drawFrame } from 'marmolada/frame';
+import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
 import { playSound, Sound } from 'marmolada/sounds';
-import { Textures } from 'marmolada/textures';
 import { GameManager } from 'src/game/game-manager';
 import { PreparedIngredient } from 'src/game/ingredients';
 import { clientGoodbyeMessasge, orderCompleteMessage, recipeDoesNotExistMessage, recipeWithoutOrderMessage } from 'src/game/messages';
 import { findMatchingRecipe } from 'src/game/recipe-logic';
 import { drawPreparedIngredientRow, Recipe } from 'src/game/recipes';
+import { Sprites } from 'src/game/sprites';
 import { Table } from 'src/game/tables/table';
 
 export class BrewingTable extends Table {
@@ -175,16 +176,16 @@ export class BrewingTable extends Table {
     }
   }
 
-  render(ctx: CanvasRenderingContext2D): void {
-    ctx.drawImage(Textures.tableTexture.normal, 0, 0);
-    ctx.drawImage(Textures.cauldronTexture.normal, 260, 80);
+  render(g: GraphicsDevice): void {
+    g.drawTexture(Sprites.sprite('table').normal, 0, 0);
+    g.drawTexture(Sprites.sprite('cauldron').normal, 260, 80);
 
     if (this.showList) {
       const listWidth: number = 80;
       const maxCountOnPage: number = 9;
 
-      drawFrame(11, 11, listWidth, 218, ctx, () => {
-        Font.draw('Storage', 12, 8, ctx);
+      drawFrame(11, 11, listWidth, 218, g, () => {
+        Font.draw('Storage', 12, 8, g);
 
         const page: number = (this.ingredientCursor / maxCountOnPage) | 0;
         const startIdx: number = page * maxCountOnPage;
@@ -193,14 +194,14 @@ export class BrewingTable extends Table {
           const pi: PreparedIngredient = GameManager.state.preparedIngredients[idx];
 
           const yy: number = 11 + Font.charHeight + (idx % maxCountOnPage) * (16 + 4);
-          if (idx === this.ingredientCursor && this.leftColumn) ctx.drawImage(Textures.listPointerRightTexture.normal, 11, yy);
-          drawPreparedIngredientRow(pi, 11 + 16 + 4, yy, ctx);
+          if (idx === this.ingredientCursor && this.leftColumn) g.drawTexture(Sprites.sprite('list_pointer_right').normal, 11, yy);
+          drawPreparedIngredientRow(pi, 11 + 16 + 4, yy, g);
         }
       });
 
       const rightColumnX: number = 11 + listWidth + 20;
-      drawFrame(rightColumnX, 11, listWidth, 218, ctx, () => {
-        Font.draw('Selected', rightColumnX + 1, 8, ctx);
+      drawFrame(rightColumnX, 11, listWidth, 218, g, () => {
+        Font.draw('Selected', rightColumnX + 1, 8, g);
 
         const page: number = (this.selectedIngredientCursor / maxCountOnPage) | 0;
         const startIdx: number = page * maxCountOnPage;
@@ -210,23 +211,23 @@ export class BrewingTable extends Table {
           const pi: PreparedIngredient = this.selectedIngredients[idx];
 
           const yy: number = 11 + Font.charHeight + (idx % maxCountOnPage) * (16 + 4);
-          if (idx === this.selectedIngredientCursor && !this.leftColumn) ctx.drawImage(Textures.listPointerRightTexture.normal, rightColumnX, yy);
-          drawPreparedIngredientRow(pi, rightColumnX + 16 + 4, yy, ctx);
+          if (idx === this.selectedIngredientCursor && !this.leftColumn) g.drawTexture(Sprites.sprite('list_pointer_right').normal, rightColumnX, yy);
+          drawPreparedIngredientRow(pi, rightColumnX + 16 + 4, yy, g);
         }
 
         if (this.selectedIngredients.length > 0 && page === (pageCount - 1)) {
           const yy: number = 11 + Font.charHeight + (this.selectedIngredients.length % maxCountOnPage) * (16 + 4);
           if (this.selectedIngredientCursor === this.selectedIngredients.length && !this.leftColumn) {
-            ctx.drawImage(Textures.listPointerRightTexture.normal, rightColumnX, yy + 1);
+            g.drawTexture(Sprites.sprite('list_pointer_right').normal, rightColumnX, yy + 1);
           }
-          Font.draw('Brew!', rightColumnX + 16 + 4, yy, ctx);
+          Font.draw('Brew!', rightColumnX + 16 + 4, yy, g);
         }
       });
     }
 
     this.bubbleParticles.forEach((bubble) => {
-      const t = bubble.isSmall ? Textures.bubbleSmallTexture : Textures.bubbleLargeTexture;
-      ctx.drawImage(t.normal, bubble.x + (Math.sin((Engine.ticks + bubble.offset) / 25) * 3) | 0, bubble.y);
+      const t = bubble.isSmall ? Sprites.sprite('bubble_small') : Sprites.sprite('bubble_large');
+      g.drawTexture(t.normal, bubble.x + (Math.sin((Engine.ticks + bubble.offset) / 25) * 3) | 0, bubble.y);
     });
   }
 

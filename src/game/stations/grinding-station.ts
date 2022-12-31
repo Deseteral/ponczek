@@ -1,10 +1,11 @@
 import { Engine } from 'marmolada/engine';
 import { Font } from 'marmolada/font';
 import { drawFrame } from 'marmolada/frame';
+import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
 import { playSound, Sound } from 'marmolada/sounds';
-import { Textures } from 'marmolada/textures';
 import { IngredientAction } from 'src/game/ingredients';
+import { Sprites } from 'src/game/sprites';
 import { Station } from 'src/game/stations/station';
 
 export class GrindingStation extends Station {
@@ -53,19 +54,19 @@ export class GrindingStation extends Station {
     if (Input.getKeyDown('b')) this.onStationCompleteCallback(false, IngredientAction.GRIDING);
   }
 
-  render(ctx: CanvasRenderingContext2D): void {
+  render(g: GraphicsDevice): void {
     const xx = this.positionX - 70;
     const yy = this.positionY - 70;
 
-    drawFrame(xx, yy, 140, 140, ctx, () => {
-      ctx.drawImage(Textures.circleTexture.inverted, xx, yy);
-      ctx.drawImage(Textures.circleTexture.normal, xx, yy);
+    drawFrame(xx, yy, 140, 140, g, () => {
+      g.drawTexture(Sprites.sprite('circle').inverted, xx, yy);
+      g.drawTexture(Sprites.sprite('circle').normal, xx, yy);
 
       // Progress fill
       this.progressDrawRadius += ((this.progress * (this.radius - 3)) - this.progressDrawRadius) * 0.1;
 
-      ctx.drawImage(
-        Textures.circleTexture.inverted,
+      g.drawTexture(
+        Sprites.sprite('circle').inverted,
         this.positionX - this.progressDrawRadius,
         this.positionY - this.progressDrawRadius,
         this.progressDrawRadius * 2,
@@ -75,10 +76,10 @@ export class GrindingStation extends Station {
 
     const helpWidth = 150;
     const helpX = Engine.width - helpWidth - 9 - 2;
-    drawFrame(helpX, yy, helpWidth, 39, ctx, () => {
-      Font.draw('Move the mouse cursor', helpX, yy, ctx, true);
-      Font.draw('around the circle to', helpX, yy + 12, ctx, true);
-      Font.draw('grind the ingredient', helpX, yy + 12 * 2, ctx, true);
+    drawFrame(helpX, yy, helpWidth, 39, g, () => {
+      Font.draw('Move the mouse cursor', helpX, yy, g, true);
+      Font.draw('around the circle to', helpX, yy + 12, g, true);
+      Font.draw('grind the ingredient', helpX, yy + 12 * 2, g, true);
     });
   }
 }

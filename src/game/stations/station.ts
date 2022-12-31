@@ -1,3 +1,4 @@
+import { GraphicsDevice } from 'marmolada/graphics-device';
 import { IngredientAction } from 'src/game/ingredients';
 
 export type StationCompleteCallback = (success: boolean, action: IngredientAction) => void
@@ -10,5 +11,5 @@ export abstract class Station {
   }
 
   abstract update(): void;
-  abstract render(ctx: CanvasRenderingContext2D): void;
+  abstract render(g: GraphicsDevice): void;
 }

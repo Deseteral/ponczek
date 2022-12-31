@@ -1,6 +1,7 @@
 import { Engine } from 'marmolada/engine';
 import { Font } from 'marmolada/font';
 import { drawFrame } from 'marmolada/frame';
+import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
 import { IngredientAction } from 'src/game/ingredients';
 import { Station } from 'src/game/stations/station';
@@ -56,37 +57,37 @@ export class BurningStation extends Station {
     if (Input.getKeyDown('b')) this.onStationCompleteCallback(false, IngredientAction.BURNING);
   }
 
-  render(ctx: CanvasRenderingContext2D): void {
+  render(g: GraphicsDevice): void {
     const x = 140;
     const y = 28;
     const w = 20;
 
-    drawFrame(x, y, w * 3, this.barHeight, ctx, () => {
+    drawFrame(x, y, w * 3, this.barHeight, g, () => {
       // Frame
-      ctx.drawRect(x, y, w, this.barHeight);
+      g.drawRect(x, y, w, this.barHeight);
 
       // Cursor
       const drawCursorY = (y + (this.barHeight - this.cursorY - this.cursorHeight)) | 0;
-      ctx.fillRect(x, drawCursorY, w, this.cursorHeight);
+      g.fillRect(x, drawCursorY, w, this.cursorHeight);
 
       // Target
       const drawTargetY = (y + (this.barHeight - this.targetY));
-      ctx.fillRect(x + w + 1, drawTargetY, 5, 1);
+      g.fillRect(x + w + 1, drawTargetY, 5, 1);
 
       // Progress bar
       const progressPx = (this.progress * this.barHeight) | 0;
-      ctx.drawRect(x + (w * 2), y, (w / 3) | 0, this.barHeight);
-      ctx.fillRect(x + (w * 2), (y + this.barHeight - progressPx), (w / 3) | 0, progressPx);
+      g.drawRect(x + (w * 2), y, (w / 3) | 0, this.barHeight);
+      g.fillRect(x + (w * 2), (y + this.barHeight - progressPx), (w / 3) | 0, progressPx);
     });
 
     // Help
     const helpWidth = 170;
     const helpX = Engine.width - helpWidth - 9 - 2;
-    drawFrame(helpX, y, helpWidth, 50, ctx, () => {
-      Font.draw('Press the up key to move', helpX, y, ctx, true);
-      Font.draw('burning zone up. Keep', helpX, y + 12, ctx, true);
-      Font.draw('the cursor in the zone', helpX, y + 12 * 2, ctx, true);
-      Font.draw('to burn the ingredient.', helpX, y + 12 * 3, ctx, true);
+    drawFrame(helpX, y, helpWidth, 50, g, () => {
+      Font.draw('Press the up key to move', helpX, y, g, true);
+      Font.draw('burning zone up. Keep', helpX, y + 12, g, true);
+      Font.draw('the cursor in the zone', helpX, y + 12 * 2, g, true);
+      Font.draw('to burn the ingredient.', helpX, y + 12 * 3, g, true);
     });
   }
 }

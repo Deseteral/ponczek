@@ -1,14 +1,15 @@
 import { Engine } from 'marmolada/engine';
 import { Font } from 'marmolada/font';
 import { drawFrame } from 'marmolada/frame';
+import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
 import { playSound, Sound } from 'marmolada/sounds';
 import { Stage } from 'marmolada/stage';
-import { Textures } from 'marmolada/textures';
 import { GameManager } from 'src/game/game-manager';
-import { WorkshopStage } from 'src/game/workshop-stage';
-import { HowToPlayStage } from 'src/how-to-play-stage';
-import { StoryStage } from 'src/story-stage';
+import { Sprites } from 'src/game/sprites';
+import { WorkshopStage } from 'src/game/stages/workshop-stage';
+import { HowToPlayStage } from 'src/game/stages/how-to-play-stage';
+import { StoryStage } from 'src/game/stages/story-stage';
 
 export class MainMenuStage extends Stage {
   cursor = 0;
@@ -44,28 +45,31 @@ export class MainMenuStage extends Stage {
     }
   }
 
-  render(ctx: CanvasRenderingContext2D): void {
-    ctx.drawRect(0, 0, Engine.width, Engine.height);
+  render(g: GraphicsDevice): void {
+    g.clearScreen(GameManager.secondaryColor);
 
-    ctx.drawImage(Textures.menuLogoTexture.normal, 0, 0);
+    g.color(GameManager.primaryColor);
+    g.drawRect(0, 0, Engine.width, Engine.height);
+
+    g.drawTexture(Sprites.sprite('menu_logo').normal, 0, 0);
 
     const w = 132;
     const h = 82;
     const x = (Engine.width - w) / 2;
     const y = 90;
 
-    drawFrame(x, y, w, h, ctx, () => {
+    drawFrame(x, y, w, h, g, () => {
       const mx = x + 16 + 2;
 
-      ctx.drawImage(Textures.listPointerRightTexture.normal, x, y + 2 + (30 * this.cursor));
+      g.drawTexture(Sprites.sprite('list_pointer_right').normal, x, y + 2 + (30 * this.cursor));
 
-      Font.draw('New game', mx, y, ctx);
+      Font.draw('New game', mx, y, g);
 
       if (this.hasSaveData) {
-        Font.draw('Continue', mx, y + 30, ctx);
-        Font.draw('How to play', mx, y + 30 * 2, ctx);
+        Font.draw('Continue', mx, y + 30, g);
+        Font.draw('How to play', mx, y + 30 * 2, g);
       } else {
-        Font.draw('How to play', mx, y + 30, ctx);
+        Font.draw('How to play', mx, y + 30, g);
       }
     });
   }

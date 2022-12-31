@@ -1,48 +1,50 @@
 import { Font } from 'marmolada/font';
-import { Textures } from 'marmolada/textures';
 import { Ingredient, IngredientAction, IngredientActions, Ingredients, PreparedIngredient } from 'src/game/ingredients';
 import { findMatchingRecipe, preparedIngredientEquals } from 'src/game/recipe-logic';
 import { POTION_NAMES } from 'src/game/potion-names';
+import { GraphicsDevice } from 'marmolada/graphics-device';
+import { Sprites } from 'src/game/sprites';
+import { Texture } from 'marmolada/assets';
 
 export interface Recipe {
   name: string,
   ingredients: PreparedIngredient[],
 }
 
-export function getIngredientIcon(ingredient: Ingredient): HTMLCanvasElement {
+export function getIngredientIcon(ingredient: Ingredient): Texture {
   switch (ingredient) {
-    case Ingredient.HERB: return Textures.herbTexture.normal;
-    case Ingredient.MUSHROOM: return Textures.mushroomTexture.normal;
-    case Ingredient.STONE: return Textures.stoneTexture.normal;
-    case Ingredient.GOLD: return Textures.stoneTexture.inverted;
-    case Ingredient.FLOWER: return Textures.flowerTexture.normal;
-    default: return Textures.xTexture.normal;
+    case Ingredient.HERB: return Sprites.sprite('herb').normal;
+    case Ingredient.MUSHROOM: return Sprites.sprite('mushroom').normal;
+    case Ingredient.STONE: return Sprites.sprite('stone').normal;
+    case Ingredient.GOLD: return Sprites.sprite('stone').inverted;
+    case Ingredient.FLOWER: return Sprites.sprite('flower').normal;
+    default: return Sprites.sprite('x').normal;
   }
 }
 
-export function getIngredientActionIcon(action: IngredientAction): HTMLCanvasElement {
+export function getIngredientActionIcon(action: IngredientAction): Texture {
   switch (action) {
-    case IngredientAction.CUTTING: return Textures.knifeTexture.normal;
-    case IngredientAction.GRIDING: return Textures.mortarTexture.normal;
-    case IngredientAction.BURNING: return Textures.fireTexture.normal;
-    case IngredientAction.ENCHANTING: return Textures.spellTexture.normal;
-    default: return Textures.xTexture.normal;
+    case IngredientAction.CUTTING: return Sprites.sprite('knife').normal;
+    case IngredientAction.GRIDING: return Sprites.sprite('mortar').normal;
+    case IngredientAction.BURNING: return Sprites.sprite('fire').normal;
+    case IngredientAction.ENCHANTING: return Sprites.sprite('spell').normal;
+    default: return Sprites.sprite('x').normal;
   }
 }
 
-export function drawPreparedIngredientRow(pi: PreparedIngredient, x: number, y: number, ctx: CanvasRenderingContext2D): void {
-  ctx.drawImage(getIngredientIcon(pi.ingredient), x, y);
-  ctx.drawImage(Textures.xTexture.normal, x + 16, y);
-  ctx.drawImage(getIngredientActionIcon(pi.action), x + 16 * 2, y);
+export function drawPreparedIngredientRow(pi: PreparedIngredient, x: number, y: number, g: GraphicsDevice): void {
+  g.drawTexture(getIngredientIcon(pi.ingredient), x, y);
+  g.drawTexture(Sprites.sprite('x').normal, x + 16, y);
+  g.drawTexture(getIngredientActionIcon(pi.action), x + 16 * 2, y);
 }
 
-export function drawRecipe(recipe: Recipe, x: number, y: number, ctx: CanvasRenderingContext2D): void {
-  Font.draw(recipe.name, x, y, ctx);
+export function drawRecipe(recipe: Recipe, x: number, y: number, g: GraphicsDevice): void {
+  Font.draw(recipe.name, x, y, g);
 
   recipe.ingredients.forEach((ing, idx) => {
     const xx: number = x + 5;
     const yy: number = y + 40 + (16 + 5) * idx;
-    drawPreparedIngredientRow(ing, xx, yy, ctx);
+    drawPreparedIngredientRow(ing, xx, yy, g);
   });
 }
 

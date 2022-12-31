@@ -1,11 +1,12 @@
 import { Engine } from 'marmolada/engine';
 import { Font } from 'marmolada/font';
 import { drawFrame } from 'marmolada/frame';
+import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input, Keys } from 'marmolada/input';
 import { playSound, Sound } from 'marmolada/sounds';
-import { Textures } from 'marmolada/textures';
 import { GameManager } from 'src/game/game-manager';
 import { IngredientAction } from 'src/game/ingredients';
+import { Sprites } from 'src/game/sprites';
 import { Station } from 'src/game/stations/station';
 
 interface Note {
@@ -90,29 +91,29 @@ export class EnchantmentStation extends Station {
     if (Input.getKeyDown('b')) this.onStationCompleteCallback(false, IngredientAction.ENCHANTING);
   }
 
-  render(ctx: CanvasRenderingContext2D): void {
+  render(g: GraphicsDevice): void {
     const noteBarX = this.hitLineX - ((this.noteSize / 2) | 0);
     const noteBarY = 15;
 
     // Clear background
     const clearHeight = noteBarY + (4 * (this.noteSize + 5));
 
-    ctx.fillStyle = GameManager.secondaryColor;
-    ctx.fillRect(0, 0, Engine.width, clearHeight);
+    g.color(GameManager.secondaryColor);
+    g.fillRect(0, 0, Engine.width, clearHeight);
 
-    ctx.fillStyle = GameManager.primaryColor;
-    ctx.fillRect(0, clearHeight, Engine.width, 1);
+    g.color(GameManager.primaryColor);
+    g.fillRect(0, clearHeight, Engine.width, 1);
 
     // Progress bar
     const progressBarY = 5;
     const progressBarHeight = 5;
 
-    ctx.drawRect(5, progressBarY, 100, progressBarHeight);
-    ctx.fillRect(5, progressBarY, (100 * this.progress) | 0, progressBarHeight);
+    g.drawRect(5, progressBarY, 100, progressBarHeight);
+    g.fillRect(5, progressBarY, (100 * this.progress) | 0, progressBarHeight);
 
     // Hit line
     const hitLineY = (progressBarY + progressBarHeight + 1);
-    ctx.fillRect(this.hitLineX, hitLineY, 1, (clearHeight - hitLineY - 1));
+    g.fillRect(this.hitLineX, hitLineY, 1, (clearHeight - hitLineY - 1));
 
     // Notes
     this.notes.forEach((note) => {
@@ -122,29 +123,29 @@ export class EnchantmentStation extends Station {
       const ny = noteBarY + (note.dir * (this.noteSize + 5));
 
       if (note.dir === 0) {
-        ctx.drawImage(Textures.enchantingKeyUpTexture.inverted, nx, ny);
+        g.drawTexture(Sprites.sprite('enchanting_keyup').inverted, nx, ny);
       } else if (note.dir === 1) {
-        ctx.drawImage(Textures.enchantingKeyRightTexture.inverted, nx, ny);
+        g.drawTexture(Sprites.sprite('enchanting_keyright').inverted, nx, ny);
       } else if (note.dir === 2) {
-        ctx.drawImage(Textures.enchantingKeyDownTexture.inverted, nx, ny);
+        g.drawTexture(Sprites.sprite('enchanting_keydown').inverted, nx, ny);
       } else if (note.dir === 3) {
-        ctx.drawImage(Textures.enchantingKeyLeftTexture.inverted, nx, ny);
+        g.drawTexture(Sprites.sprite('enchanting_keyleft').inverted, nx, ny);
       }
     });
 
     // Note bar
-    ctx.drawImage(Textures.enchantingKeyUpTexture.normal, noteBarX, noteBarY + (0 * (this.noteSize + 5)));
-    ctx.drawImage(Textures.enchantingKeyRightTexture.normal, noteBarX, noteBarY + (1 * (this.noteSize + 5)));
-    ctx.drawImage(Textures.enchantingKeyDownTexture.normal, noteBarX, noteBarY + (2 * (this.noteSize + 5)));
-    ctx.drawImage(Textures.enchantingKeyLeftTexture.normal, noteBarX, noteBarY + (3 * (this.noteSize + 5)));
+    g.drawTexture(Sprites.sprite('enchanting_keyup').normal, noteBarX, noteBarY + (0 * (this.noteSize + 5)));
+    g.drawTexture(Sprites.sprite('enchanting_keyright').normal, noteBarX, noteBarY + (1 * (this.noteSize + 5)));
+    g.drawTexture(Sprites.sprite('enchanting_keydown').normal, noteBarX, noteBarY + (2 * (this.noteSize + 5)));
+    g.drawTexture(Sprites.sprite('enchanting_keyleft').normal, noteBarX, noteBarY + (3 * (this.noteSize + 5)));
 
     // Help
     const helpWidth = 270;
     const helpX = 9 + 2;
     const helpY = 180;
-    drawFrame(helpX, helpY, helpWidth, 26, ctx, () => {
-      Font.draw("Press the proper key when it's passing", helpX, helpY, ctx, true);
-      Font.draw('the line to enchant the ingredient', helpX, helpY + 12, ctx, true);
+    drawFrame(helpX, helpY, helpWidth, 26, g, () => {
+      Font.draw("Press the proper key when it's passing", helpX, helpY, g, true);
+      Font.draw('the line to enchant the ingredient', helpX, helpY + 12, g, true);
     });
   }
 }

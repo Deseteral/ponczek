@@ -55,9 +55,9 @@ export function preloadSounds(): void {
   // });
 }
 
-export function playSound(sound: Sound, loop: boolean = false): (() => void) {
-  // const audio = new Audio(sound.toString());
-  // audio.loop = loop;
+export function playSound(_sound: Sound, _loop: boolean = false): (() => void) {
+// const audio = new Audio(sound.toString());
+// audio.loop = loop;
   // audio.play();
   // return () => audio.pause();
   return () => {};

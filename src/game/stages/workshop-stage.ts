@@ -1,16 +1,17 @@
-import { DaySummaryStage } from 'src/day-summary-stage';
+import { DaySummaryStage } from 'src/game/stages/day-summary-stage';
 import { Engine } from 'marmolada/engine';
 import { Font } from 'marmolada/font';
 import { Input } from 'marmolada/input';
 import { playSound, Sound } from 'marmolada/sounds';
 import { Stage } from 'marmolada/stage';
-import { Textures } from 'marmolada/textures';
 import { dayOverMessage } from 'src/game/messages';
 import { drawRecipe, Recipe } from 'src/game/recipes';
 import { BrewingTable } from 'src/game/tables/brewing-table';
 import { ClientTable } from 'src/game/tables/client-table';
 import { IngredientsTable } from 'src/game/tables/ingredients-table';
 import { GameManager } from 'src/game/game-manager';
+import { GraphicsDevice } from 'marmolada/graphics-device';
+import { Sprites } from 'src/game/sprites';
 
 export class WorkshopStage extends Stage {
   selectedTable = 0;
@@ -60,15 +61,17 @@ export class WorkshopStage extends Stage {
     }
   }
 
-  render(ctx: CanvasRenderingContext2D): void {
+  render(g: GraphicsDevice): void {
+    g.clearScreen(GameManager.secondaryColor);
+
     // TODO: Add sliding between tables
-    this.tables[this.selectedTable].render(ctx);
+    this.tables[this.selectedTable].render(g);
 
     if (this.isInBookView) {
-      this.renderBook(ctx);
+      this.renderBook(g);
     }
 
-    ctx.drawRect(0, 0, Engine.width, Engine.height);
+    g.drawRect(0, 0, Engine.width, Engine.height);
   }
 
   nextTable(): void {
@@ -111,20 +114,20 @@ export class WorkshopStage extends Stage {
     this.pageNumber = Math.clamp(this.pageNumber, 0, Math.ceil(GameManager.state.recipes.length / 2) - 1);
   }
 
-  private renderBook(ctx: CanvasRenderingContext2D): void {
-    ctx.drawImage(Textures.bookTexture.normal, 0, 0);
+  private renderBook(g: GraphicsDevice): void {
+    g.drawTexture(Sprites.sprite('book').normal, 0, 0);
 
     const r1: Recipe = GameManager.state.recipes[this.pageNumber * 2];
     const r2: Recipe = GameManager.state.recipes[this.pageNumber * 2 + 1];
 
     if (r1) {
-      drawRecipe(r1, 60, 20, ctx);
-      Font.draw(`${this.pageNumber * 2 + 1}`, 50, 200, ctx);
+      drawRecipe(r1, 60, 20, g);
+      Font.draw(`${this.pageNumber * 2 + 1}`, 50, 200, g);
     }
 
     if (r2) {
-      drawRecipe(r2, 225, 20, ctx);
-      Font.draw(`${(this.pageNumber * 2 + 2).toString().padStart(2, ' ')}`, 340, 200, ctx);
+      drawRecipe(r2, 225, 20, g);
+      Font.draw(`${(this.pageNumber * 2 + 2).toString().padStart(2, ' ')}`, 340, 200, g);
     }
 
     // TODO: Add animation for changing pages

@@ -1,3 +1,5 @@
+import { GraphicsDevice } from 'marmolada/graphics-device';
+
 export abstract class Table {
   onNextTableCb: () => void;
   onPreviousTableCb: () => void;
@@ -10,5 +12,5 @@ export abstract class Table {
   }
 
   abstract update(isSelected: boolean, ticksUntilDayOver: number): void;
-  abstract render(ctx: CanvasRenderingContext2D): void;
+  abstract render(g: GraphicsDevice): void;
 }

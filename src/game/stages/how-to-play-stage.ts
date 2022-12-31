@@ -1,9 +1,11 @@
 import { Engine } from 'marmolada/engine';
 import { Font } from 'marmolada/font';
+import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
 import { playSound, Sound } from 'marmolada/sounds';
 import { Stage } from 'marmolada/stage';
-import { MainMenuStage } from 'src/main-menu-stage';
+import { GameManager } from 'src/game/game-manager';
+import { MainMenuStage } from 'src/game/stages/main-menu-stage';
 
 export class HowToPlayStage extends Stage {
   lines = [
@@ -34,11 +36,13 @@ export class HowToPlayStage extends Stage {
     }
   }
 
-  render(ctx: CanvasRenderingContext2D): void {
-    ctx.drawRect(0, 0, Engine.width, Engine.height);
+  render(g: GraphicsDevice): void {
+    g.clearScreen(GameManager.secondaryColor);
+
+    g.drawRect(0, 0, Engine.width, Engine.height);
 
     this.lines.forEach((line, idx) => {
-      Font.draw(line, 3, idx * 15, ctx, true);
+      Font.draw(line, 3, idx * 15, g, true);
     });
   }
 
