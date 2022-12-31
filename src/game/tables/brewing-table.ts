@@ -1,5 +1,5 @@
 import { Engine } from 'marmolada/engine';
-import { Font } from 'src/game/font';
+import { Font } from 'src/game/gfx/font';
 import { drawFrame } from 'marmolada/frame';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
@@ -9,7 +9,7 @@ import { PreparedIngredient } from 'src/game/ingredients';
 import { clientGoodbyeMessasge, orderCompleteMessage, recipeDoesNotExistMessage, recipeWithoutOrderMessage } from 'src/game/messages';
 import { findMatchingRecipe } from 'src/game/recipe-logic';
 import { drawPreparedIngredientRow, Recipe } from 'src/game/recipes';
-import { Sprites } from 'src/game/sprites';
+import { Sprites } from 'src/game/gfx/sprites';
 import { Table } from 'src/game/tables/table';
 
 export class BrewingTable extends Table {

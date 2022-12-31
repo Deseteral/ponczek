@@ -1,5 +1,5 @@
 import { GraphicsDevice } from 'marmolada/graphics-device';
-import { Sprites } from 'src/game/sprites';
+import { Sprites } from 'src/game/gfx/sprites';
 
 // TODO: Convert to generic draw 9patch
 export function drawFrame(x: number, y: number, w: number, h: number, g: GraphicsDevice, clippingRegion: () => void): void {

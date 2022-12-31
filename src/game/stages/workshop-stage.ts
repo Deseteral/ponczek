@@ -1,6 +1,6 @@
 import { DaySummaryStage } from 'src/game/stages/day-summary-stage';
 import { Engine } from 'marmolada/engine';
-import { Font } from 'src/game/font';
+import { Font } from 'src/game/gfx/font';
 import { Input } from 'marmolada/input';
 import { playSound, Sound } from 'marmolada/sounds';
 import { Stage } from 'marmolada/stage';
@@ -11,7 +11,7 @@ import { ClientTable } from 'src/game/tables/client-table';
 import { IngredientsTable } from 'src/game/tables/ingredients-table';
 import { GameManager } from 'src/game/game-manager';
 import { GraphicsDevice } from 'marmolada/graphics-device';
-import { Sprites } from 'src/game/sprites';
+import { Sprites } from 'src/game/gfx/sprites';
 
 export class WorkshopStage extends Stage {
   selectedTable = 0;

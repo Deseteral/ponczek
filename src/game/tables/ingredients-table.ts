@@ -1,5 +1,5 @@
 import { Engine } from 'marmolada/engine';
-import { Font } from 'src/game/font';
+import { Font } from 'src/game/gfx/font';
 import { drawFrame } from 'marmolada/frame';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
@@ -7,7 +7,7 @@ import { playSound, Sound } from 'marmolada/sounds';
 import { GameManager } from 'src/game/game-manager';
 import { Ingredient, Ingredients, IngredientAction, ingredientDisplayName } from 'src/game/ingredients';
 import { getIngredientIcon } from 'src/game/recipes';
-import { Sprite, Sprites } from 'src/game/sprites';
+import { Sprite, Sprites } from 'src/game/gfx/sprites';
 import { BurningStation } from 'src/game/stations/burning-station';
 import { CuttingStation } from 'src/game/stations/cutting-station';
 import { EnchantmentStation } from 'src/game/stations/enchantment-station';

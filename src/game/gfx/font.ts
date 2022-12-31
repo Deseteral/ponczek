@@ -1,5 +1,5 @@
 import { GraphicsDevice } from 'marmolada/graphics-device';
-import { Sprites } from 'src/game/sprites';
+import { Sprites } from 'src/game/gfx/sprites';
 
 export abstract class Font {
   static readonly charWidth = 10;

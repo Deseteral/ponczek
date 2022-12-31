@@ -1,11 +1,11 @@
 import { Engine } from 'marmolada/engine';
-import { Font } from 'src/game/font';
+import { Font } from 'src/game/gfx/font';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
 import { playSound, Sound } from 'marmolada/sounds';
 import { Stage } from 'marmolada/stage';
 import { GameManager } from 'src/game/game-manager';
-import { Sprites } from 'src/game/sprites';
+import { Sprites } from 'src/game/gfx/sprites';
 import { WorkshopStage } from 'src/game/stages/workshop-stage';
 
 export class StoryStage extends Stage {

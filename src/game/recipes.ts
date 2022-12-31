@@ -1,9 +1,9 @@
-import { Font } from 'src/game/font';
+import { Font } from 'src/game/gfx/font';
 import { Ingredient, IngredientAction, IngredientActions, Ingredients, PreparedIngredient } from 'src/game/ingredients';
 import { findMatchingRecipe, preparedIngredientEquals } from 'src/game/recipe-logic';
 import { POTION_NAMES } from 'src/game/potion-names';
 import { GraphicsDevice } from 'marmolada/graphics-device';
-import { Sprites } from 'src/game/sprites';
+import { Sprites } from 'src/game/gfx/sprites';
 import { Texture } from 'marmolada/assets';
 
 export interface Recipe {
