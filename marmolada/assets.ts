@@ -12,11 +12,8 @@ export abstract class Assets {
   static textures: Map<string, Texture> = new Map();
 
   public static async loadAssets(): Promise<void> {
-    (await Promise.all(
-      textureList
-        .map((textureName) => `assets/textures/${textureName}.png`)
-        .map((textureUrl) => this.loadTextureFromUrl(textureUrl)),
-    )).forEach((texture, idx) => this.textures.set(textureList[idx], texture));
+    (await Promise.all(textureList.map((textureName) => this.loadTexture(textureName))))
+      .forEach((texture, idx) => this.textures.set(textureList[idx], texture));
   }
 
   public static texture(name: string): Texture {
@@ -25,10 +22,15 @@ export abstract class Assets {
     return t;
   }
 
-  private static async loadTextureFromUrl(url: string): Promise<Texture> {
+  static async loadTexture(name: string): Promise<Texture> {
+    const image = await this.loadImageFromUrl(`assets/textures/${name}.png`);
+    return { image, width: image.width, height: image.height };
+  }
+
+  private static async loadImageFromUrl(url: string): Promise<HTMLDrawable> {
     return new Promise((resolve) => {
       const image = new Image();
-      image.onload = () => resolve({ image, width: image.width, height: image.height });
+      image.onload = () => resolve(image);
       image.src = url;
     });
   }

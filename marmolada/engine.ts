@@ -15,7 +15,7 @@ export abstract class Engine {
   static context: CanvasRenderingContext2D;
   static graphicsDevice: GraphicsDevice;
 
-  static initGraphicsDevice(width: number, height: number): void {
+  static initialize(width: number, height: number): void {
     this.width = width;
     this.height = height;
 

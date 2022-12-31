@@ -8,11 +8,10 @@ import { Sprites } from 'src/game/sprites';
 import { MainMenuStage } from 'src/game/stages/main-menu-stage';
 
 (async function main(): Promise<void> {
-  Engine.initGraphicsDevice(400, 240);
-
   await Assets.loadAssets();
   await Sprites.loadSprites();
 
+  Engine.initialize(400, 240);
   Engine.changeStage(new MainMenuStage());
 
   Engine.tick();
