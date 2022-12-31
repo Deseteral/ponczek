@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 function readFileNames(directoryPath) {
-  return fs.readdirSync(directoryPath).map((fileName) => path.parse(fileName).name);
+  return fs.readdirSync(directoryPath).map((fileName) => [path.parse(fileName).name, path.extname(fileName).slice(1)]);
 }
 
 function writeData(filePath, data) {

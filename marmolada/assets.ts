@@ -15,16 +15,14 @@ export interface Sound {
   howl: Howl,
 }
 
-// TODO: Export name and url in asset list
-
 export abstract class Assets {
   static textures: Map<string, Texture> = new Map();
   static sounds: Map<string, Sound> = new Map();
 
   public static async loadAssets(): Promise<void> {
     await Promise.all([
-      ...(textureList.map((textureName) => this.loadTexture(textureName))),
-      ...(soundList.map((soundName) => this.loadSound(soundName))),
+      ...(textureList.map(([name, format]) => this.loadTexture(name, format))),
+      ...(soundList.map(([name, format]) => this.loadSound(name, format))),
     ]);
   }
 
@@ -40,9 +38,9 @@ export abstract class Assets {
     return s;
   }
 
-  static async loadTexture(name: string): Promise<Texture> {
+  static async loadTexture(name: string, format: string): Promise<Texture> {
     try {
-      const image = await this.loadImageFromUrl(`assets/textures/${name}.png`);
+      const image = await this.loadImageFromUrl(`assets/textures/${name}.${format}`);
       const texture = { image, width: image.width, height: image.height };
       this.textures.set(name, texture);
       return texture;
@@ -51,9 +49,9 @@ export abstract class Assets {
     }
   }
 
-  static async loadSound(name: string): Promise<Sound> {
+  static async loadSound(name: string, format: string): Promise<Sound> {
     try {
-      const sound = await this.loadSoundFromUrl(`/assets/sounds/${name}.wav`);
+      const sound = await this.loadSoundFromUrl(`/assets/sounds/${name}.${format}`);
       this.sounds.set(name, sound);
       return sound;
     } catch (e) {
