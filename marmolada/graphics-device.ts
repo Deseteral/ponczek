@@ -18,7 +18,7 @@ export class GraphicsDevice {
   }
 
   drawTexture(texture: Texture, x: number, y: number, w?: number, h?: number): void {
-    this.ctx.drawImage(texture.image, x, y, w || texture.width, h || texture.height);
+    this.ctx.drawImage(texture.image, x, y, w ?? texture.width, h ?? texture.height);
   }
 
   drawTexturePart(texture: Texture, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number): void {
