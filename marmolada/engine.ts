@@ -34,11 +34,13 @@ export abstract class Engine {
 
     Input.initialize(canvas);
 
-    document.body.innerHTML = '';
-    const containerEl = document.createElement('div');
-    containerEl.id = 'container';
+    const containerEl = document.getElementById('container');
+    if (!containerEl) {
+      throw new Error('Missing container element in DOM');
+    }
+
+    containerEl.innerHTML = '';
     containerEl.appendChild(canvas);
-    document.body.appendChild(containerEl);
   }
 
   static changeStage(nextStage: Stage): void {
