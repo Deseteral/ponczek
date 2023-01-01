@@ -64,4 +64,16 @@ export class GraphicsDevice {
     // middle
     this.drawTexturePart(texture, patchWidth, patchHeight, patchWidth, patchHeight, x, y, w, h);
   }
+
+  clip(x?: number, y?: number, w?: number, h?: number): void {
+    if (x === undefined || y === undefined || w === undefined || h === undefined) {
+      this.ctx.restore();
+      return;
+    }
+
+    this.ctx.save();
+    this.ctx.beginPath();
+    this.ctx.rect(x, y, w, h);
+    this.ctx.clip();
+  }
 }

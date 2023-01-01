@@ -5,10 +5,7 @@ export function drawFrame(x: number, y: number, w: number, h: number, g: Graphic
   g.drawNinePatch(Sprites.sprite('frame').normal, x, y, w, h, 9, 9);
 
   // Clipping content inside
-  g.ctx.save();
-  g.ctx.beginPath();
-  g.ctx.rect(x, y, w, h);
-  g.ctx.clip();
+  g.clip(x, y, w, h);
   clippingRegion();
-  g.ctx.restore();
+  g.clip();
 }
