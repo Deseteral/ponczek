@@ -9,6 +9,7 @@
  * TODO: Timers
  * TODO: Particle system
  * TODO: Font rendering
+ * TODO: Stack based scene management
  */
 
 import 'marmolada/polyfills';
