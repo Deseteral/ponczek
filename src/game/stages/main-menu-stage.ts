@@ -1,6 +1,6 @@
 import { Engine } from 'marmolada/engine';
 import { Font } from 'src/game/gfx/font';
-import { drawFrame } from 'marmolada/frame';
+import { drawFrame } from 'src/game/gfx/frame';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
 import { Stage } from 'marmolada/stage';
