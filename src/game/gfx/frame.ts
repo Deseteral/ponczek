@@ -4,7 +4,6 @@ import { Sprites } from 'src/game/gfx/sprites';
 export function drawFrame(x: number, y: number, w: number, h: number, g: GraphicsDevice, clippingRegion: () => void): void {
   g.drawNinePatch(Sprites.sprite('frame').normal, x, y, w, h, 9, 9);
 
-  // Clipping content inside
   g.clip(x, y, w, h);
   clippingRegion();
   g.clip();

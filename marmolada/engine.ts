@@ -4,11 +4,11 @@
  * TODO: Noise generator
  * TODO: Pathfinding
  * TODO: Stage transitions
- * TODO: Nine patch rendering
  * TODO: Automatic conversion of sounds to webm
  * TODO: Simple GUI system (something like playdate's gridview?)
  * TODO: Timers
  * TODO: Particle system
+ * TODO: Font rendering
  */
 
 import 'marmolada/polyfills';
