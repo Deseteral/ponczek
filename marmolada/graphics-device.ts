@@ -38,120 +38,30 @@ export class GraphicsDevice {
 
   drawNinePatch(texture: Texture, x: number, y: number, w: number, h: number, patchWidth: number, patchHeight: number): void {
     // top-left corner
-    this.drawTexturePart(
-      texture,
-      0,
-      0,
-      patchWidth,
-      patchHeight,
-      x - patchWidth,
-      y - patchHeight,
-      patchWidth,
-      patchHeight,
-    );
+    this.drawTexturePart(texture, 0, 0, patchWidth, patchHeight, x - patchWidth, y - patchHeight, patchWidth, patchHeight);
 
     // top-right corner
-    this.drawTexturePart(
-      texture,
-      patchWidth * 2,
-      0,
-      patchWidth,
-      patchHeight,
-      x + w,
-      y - patchHeight,
-      patchWidth,
-      patchHeight,
-    );
+    this.drawTexturePart(texture, patchWidth * 2, 0, patchWidth, patchHeight, x + w, y - patchHeight, patchWidth, patchHeight);
 
     // bottom-left corner
-    this.drawTexturePart(
-      texture,
-      0,
-      patchHeight * 2,
-      patchWidth,
-      patchHeight,
-      x - patchWidth,
-      y + h,
-      patchWidth,
-      patchHeight,
-    );
+    this.drawTexturePart(texture, 0, patchHeight * 2, patchWidth, patchHeight, x - patchWidth, y + h, patchWidth, patchHeight);
 
     // bottom-right corner
-    this.drawTexturePart(
-      texture,
-      patchWidth * 2,
-      patchHeight * 2,
-      patchWidth,
-      patchHeight,
-      x + w,
-      y + h,
-      patchWidth,
-      patchHeight,
-    );
+    this.drawTexturePart(texture, patchWidth * 2, patchHeight * 2, patchWidth, patchHeight, x + w, y + h, patchWidth, patchHeight);
 
     // top border
-    this.drawTexturePart(
-      texture,
-      patchWidth,
-      0,
-      patchWidth,
-      patchHeight,
-      x,
-      y - patchHeight,
-      w,
-      patchHeight,
-    );
+    this.drawTexturePart(texture, patchWidth, 0, patchWidth, patchHeight, x, y - patchHeight, w, patchHeight);
 
     // bottom border
-    this.drawTexturePart(
-      texture,
-      patchWidth,
-      patchHeight * 2,
-      patchWidth,
-      patchHeight,
-      x,
-      y + h,
-      w,
-      patchHeight,
-    );
+    this.drawTexturePart(texture, patchWidth, patchHeight * 2, patchWidth, patchHeight, x, y + h, w, patchHeight);
 
     // left border
-    this.drawTexturePart(
-      texture,
-      0,
-      patchHeight,
-      patchWidth,
-      patchHeight,
-      x - patchWidth,
-      y,
-      patchWidth,
-      h,
-    );
+    this.drawTexturePart(texture, 0, patchHeight, patchWidth, patchHeight, x - patchWidth, y, patchWidth, h);
 
     // right border
-    this.drawTexturePart(
-      texture,
-      patchWidth * 2,
-      patchHeight,
-      patchWidth,
-      patchHeight,
-      x + w,
-      y,
-      patchWidth,
-      h,
-    );
+    this.drawTexturePart(texture, patchWidth * 2, patchHeight, patchWidth, patchHeight, x + w, y, patchWidth, h);
 
     // middle
-    this.drawTexturePart(
-      texture,
-      patchWidth,
-      patchHeight,
-      patchWidth,
-      patchHeight,
-      x,
-      y,
-      w,
-      h,
-    );
+    this.drawTexturePart(texture, patchWidth, patchHeight, patchWidth, patchHeight, x, y, w, h);
   }
 }
