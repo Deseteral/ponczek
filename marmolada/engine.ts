@@ -10,6 +10,8 @@
  * TODO: Font rendering
  * TODO: Stack based scene management
  * TODO: Add support for seeding random number generator
+ * TODO: Camera class
+ * TODO: Support page lifecycle APIs
  */
 
 import 'marmolada/polyfills';

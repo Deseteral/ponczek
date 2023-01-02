@@ -48,11 +48,13 @@ export abstract class Input {
 
   static initialize(canvas: HTMLCanvasElement): void {
     document.addEventListener('keydown', (e) => {
+      if (e.metaKey) return;
       this.keyState.set(e.key, true);
       e.preventDefault();
     }, false);
 
     document.addEventListener('keyup', (e) => {
+      if (e.metaKey) return;
       this.keyState.set(e.key, false);
       e.preventDefault();
     }, false);
