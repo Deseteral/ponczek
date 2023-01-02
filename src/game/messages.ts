@@ -1,10 +1,8 @@
+import { Random } from 'marmolada/random';
 import { Message } from 'src/game/message-board';
 import { Recipe } from 'src/game/recipes';
 
-function choice(list: string[]): string {
-  const idx: number = Math.randomRange(0, list.length - 1);
-  return list[idx];
-}
+const random = Random.default;
 
 function split(text: string): string[] {
   const tokens = text.split(' ');
@@ -65,9 +63,9 @@ export function newClientMessage(recipe: Recipe): Message {
   ];
 
   const msg: string = [
-    choice(greetings),
-    Math.random() < 0.5 ? choice(middle) : '',
-    choice(end),
+    random.pickOne(greetings),
+    random.nextBoolean() ? random.pickOne(middle) : '',
+    random.pickOne(end),
   ].filter((s) => s.length > 0).join(' ');
 
   return {
@@ -106,9 +104,9 @@ export function orderCompleteMessage(recipe: Recipe): Message {
   ];
 
   const msg: string = [
-    Math.random() < 0.5 ? choice(starters) : '',
-    choice(middle),
-    choice(end),
+    random.nextBoolean() ? random.pickOne(starters) : '',
+    random.pickOne(middle),
+    random.pickOne(end),
   ].filter((s) => s.length > 0).join(' ');
 
   return {
@@ -127,7 +125,7 @@ export function clientGoodbyeMessasge(): Message {
   ];
 
   return {
-    text: split(choice(list)),
+    text: split(random.pickOne(list)),
     rightSide: true,
   };
 }
@@ -141,7 +139,7 @@ export function recipeDoesNotExistMessage(): Message {
   ];
 
   return {
-    text: split(choice(list)),
+    text: split(random.pickOne(list)),
     rightSide: true,
   };
 }
@@ -155,7 +153,7 @@ export function recipeWithoutOrderMessage(): Message {
   ];
 
   return {
-    text: split(choice(list)),
+    text: split(random.pickOne(list)),
     rightSide: true,
   };
 }

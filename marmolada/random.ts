@@ -12,7 +12,7 @@ export class Random {
    * Returns the next random int in range [min, max].
    */
   nextInt(min: number, max: number): number {
-    return Math.floor((max - min + 1) * Math.random() + min);
+    return ((max - min + 1) * Math.random() + min) | 0;
   }
 
   /**

@@ -8,6 +8,9 @@ import { IngredientAction } from 'src/game/ingredients';
 import { Sprites } from 'src/game/gfx/sprites';
 import { Station } from 'src/game/stations/station';
 import { SoundPlayer } from 'marmolada/sound-player';
+import { Random } from 'marmolada/random';
+
+const random = Random.default;
 
 interface Note {
   dir: number,
@@ -79,8 +82,8 @@ export class EnchantmentStation extends Station {
 
     // Add new notes
     if (this.ticksToNextNote <= 0) {
-      this.notes.push({ dir: Math.randomRange(0, 3), pos: (Engine.width + this.noteSize), hit: false, counted: false });
-      this.ticksToNextNote = Math.randomRange(30, 80);
+      this.notes.push({ dir: random.nextInt(0, 3), pos: (Engine.width + this.noteSize), hit: false, counted: false });
+      this.ticksToNextNote = random.nextInt(30, 80);
     }
 
     // Removed old notes

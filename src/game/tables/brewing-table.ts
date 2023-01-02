@@ -11,6 +11,9 @@ import { drawPreparedIngredientRow, Recipe } from 'src/game/recipes';
 import { Sprites } from 'src/game/gfx/sprites';
 import { Table } from 'src/game/tables/table';
 import { SoundPlaybackId, SoundPlayer } from 'marmolada/sound-player';
+import { Random } from 'marmolada/random';
+
+const random = Random.default;
 
 export class BrewingTable extends Table {
   showList = false;
@@ -78,7 +81,7 @@ export class BrewingTable extends Table {
             const recipe: (Recipe | null) = findMatchingRecipe(this.selectedIngredients, GameManager.state.recipes);
 
             this.makingRecipe = recipe;
-            this.ticksUntilBrewingDone = Math.randomRange(3 * 60, 7 * 60);
+            this.ticksUntilBrewingDone = random.nextInt(3 * 60, 7 * 60);
 
             if (!this.bubbleSoundId) {
               this.bubbleSoundId = SoundPlayer.playSound('bubbles', { loop: true });
@@ -123,11 +126,11 @@ export class BrewingTable extends Table {
     // Add new particles
     if (this.ticksUntilBrewingDone > 0) {
       this.bubbleParticles.push({
-        x: Math.randomRange(267, 360),
-        y: Math.randomRange(70, 110),
+        x: random.nextInt(267, 360),
+        y: random.nextInt(70, 110),
         velocity: 0,
-        isSmall: Math.random() > 0.5,
-        offset: Math.randomRange(0, 1000),
+        isSmall: random.nextBoolean(),
+        offset: random.nextInt(0, 1000),
       });
     }
 

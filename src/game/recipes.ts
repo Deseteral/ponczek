@@ -5,6 +5,9 @@ import { POTION_NAMES } from 'src/game/potion-names';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Sprites } from 'src/game/gfx/sprites';
 import { Texture } from 'marmolada/assets';
+import { Random } from 'marmolada/random';
+
+const random = Random.default;
 
 export interface Recipe {
   name: string,
@@ -50,14 +53,15 @@ export function drawRecipe(recipe: Recipe, x: number, y: number, g: GraphicsDevi
 
 export function generateRecipes(): Recipe[] {
   const recipes: Recipe[] = [];
-  const namePool: string[] = [...POTION_NAMES];
+  const recipesToPick = 15;
+  const names: string[] = random.pickMany(POTION_NAMES, recipesToPick, false);
 
-  for (let recipeIdx = 0; recipeIdx < 15; recipeIdx += 1) {
+  for (let recipeIdx = 0; recipeIdx < recipesToPick; recipeIdx += 1) {
     let recipeGood = false;
     let recipeTries = 10;
 
     while (!recipeGood && recipeTries >= 0) {
-      const ingredientCount = recipeIdx <= 5 ? Math.randomRange(1, 2) : Math.randomRange(3, 5);
+      const ingredientCount = recipeIdx <= 5 ? random.nextInt(1, 2) : random.nextInt(3, 5);
       const ingredients: PreparedIngredient[] = [];
 
       for (let ingredientIdx = 0; ingredientIdx < ingredientCount; ingredientIdx += 1) {
@@ -65,9 +69,9 @@ export function generateRecipes(): Recipe[] {
         let ingredientTries = 10;
 
         while (!ingredientGood && ingredientTries >= 0) {
-          const ingredientId = Math.randomRange(0, (Ingredients.length - 1));
-          const actionId = Math.randomRange(0, (IngredientActions.length - 1));
-          const pi: PreparedIngredient = { ingredient: Ingredients[ingredientId], action: IngredientActions[actionId] };
+          const ingredient = random.pickOne(Ingredients);
+          const action = random.pickOne(IngredientActions);
+          const pi: PreparedIngredient = { ingredient, action };
 
           const foundIdx = ingredients.findIndex((pp) => preparedIngredientEquals(pi, pp));
 
@@ -83,9 +87,7 @@ export function generateRecipes(): Recipe[] {
       recipeTries -= 1;
 
       if (findMatchingRecipe(ingredients, recipes) === null) {
-        const nameIdx = Math.randomRange(0, (namePool.length - 1));
-        const [name] = namePool.splice(nameIdx, 1);
-
+        const name = names[recipes.length];
         recipes.push({ name, ingredients });
         recipeGood = true;
       }

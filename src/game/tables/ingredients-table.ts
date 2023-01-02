@@ -14,6 +14,9 @@ import { GrindingStation } from 'src/game/stations/grinding-station';
 import { Station, StationCompleteCallback } from 'src/game/stations/station';
 import { Table } from 'src/game/tables/table';
 import { SoundPlayer } from 'marmolada/sound-player';
+import { Random } from 'marmolada/random';
+
+const random = Random.default;
 
 export class IngredientsTable extends Table {
   selectedStation: number = 0;
@@ -61,7 +64,7 @@ export class IngredientsTable extends Table {
 
         const cb: StationCompleteCallback = (success: boolean, action: IngredientAction) => {
           if (success) {
-            const amount = Math.randomRange(1, 2);
+            const amount = random.nextInt(1, 2);
             for (let a = 0; a < amount; a += 1) {
               GameManager.state.preparedIngredients.push({ ingredient: selectedIngredient, action });
             }

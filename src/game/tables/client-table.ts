@@ -9,6 +9,9 @@ import { Recipe } from 'src/game/recipes';
 import { Sprites } from 'src/game/gfx/sprites';
 import { Table } from 'src/game/tables/table';
 import { SoundPlayer } from 'marmolada/sound-player';
+import { Random } from 'marmolada/random';
+
+const random = Random.default;
 
 export class ClientTable extends Table {
   nextClientAtTicks: number = Engine.ticks + (10 * 60);
@@ -16,7 +19,7 @@ export class ClientTable extends Table {
   update(isSelected: boolean, ticksUntilDayOver: number): void {
     if (Engine.ticks >= this.nextClientAtTicks && ticksUntilDayOver >= 0) {
       const recipeRange: number = (GameManager.state.completedOrders <= 3) ? 5 : (GameManager.state.recipes.length - 1);
-      const recipeIdx: number = Math.randomRange(0, recipeRange);
+      const recipeIdx: number = random.nextInt(0, recipeRange);
       const recipe = GameManager.state.recipes[recipeIdx];
       GameManager.state.orders.push(recipe);
 

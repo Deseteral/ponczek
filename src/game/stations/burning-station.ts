@@ -5,6 +5,9 @@ import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
 import { IngredientAction } from 'src/game/ingredients';
 import { Station } from 'src/game/stations/station';
+import { Random } from 'marmolada/random';
+
+const random = Random.default;
 
 export class BurningStation extends Station {
   readonly barHeight = 150;
@@ -18,7 +21,7 @@ export class BurningStation extends Station {
   progress = 0;
 
   randomNextTargetY(): number {
-    return Math.randomRange(0, this.barHeight) | 0;
+    return random.nextInt(0, this.barHeight);
   }
 
   update(): void {
@@ -49,7 +52,7 @@ export class BurningStation extends Station {
     // Determine target's next position
     if (this.ticksToNextTarget <= 0) {
       this.nextTargetY = this.randomNextTargetY();
-      this.ticksToNextTarget = Math.randomRange(60, 4 * 60);
+      this.ticksToNextTarget = random.nextInt(60, 4 * 60);
     }
 
     // Winning condition
