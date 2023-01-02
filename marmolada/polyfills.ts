@@ -2,10 +2,6 @@ Math.clamp = function clamp(num: number, min: number, max: number): number {
   return Math.min(Math.max(num, min), max);
 };
 
-Math.randomRange = function randomRange(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-};
-
 // eslint-disable-next-line no-extend-native
 Map.prototype.getOrElse = function getOr<K, V>(key: K, defaultValue: V): V {
   return this.get(key) || defaultValue;
@@ -19,7 +15,6 @@ Array.prototype.isEmpty = function isEmpty(): boolean {
 declare global {
   interface Math {
     clamp(num: number, min: number, max: number): number;
-    randomRange(min: number, max: number): number;
   }
 
   interface Map<K, V> {
