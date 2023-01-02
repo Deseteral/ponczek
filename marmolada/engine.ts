@@ -1,5 +1,4 @@
 /*
- * TODO: Build robust random number generator
  * TODO: Math library: Vectors, Rects etc.
  * TODO: Noise generator
  * TODO: Pathfinding
@@ -10,6 +9,7 @@
  * TODO: Particle system
  * TODO: Font rendering
  * TODO: Stack based scene management
+ * TODO: Add support for seeding random number generator
  */
 
 import 'marmolada/polyfills';
