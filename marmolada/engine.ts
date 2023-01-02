@@ -78,9 +78,9 @@ export abstract class Engine {
   static saveData<T>(data: T, key: string = 'save'): void {
     try {
       window.localStorage.setItem(key, JSON.stringify(data));
-      console.log(`Saved data for key ${key}`);
+      Engine.log(`Saved data for key ${key}`);
     } catch (e) {
-      console.log('Cannot save data');
+      Engine.log('Cannot save data');
     }
   }
 
@@ -98,10 +98,14 @@ export abstract class Engine {
       const data = window.localStorage.getItem(key);
       if (!data) throw new Error(`No save data for key ${key}`);
 
-      console.log(`Loaded data from key ${key}`);
+      Engine.log(`Loaded data from key ${key}`);
       return JSON.parse(data);
     } catch (e) {
       throw new Error(`Cannot load data for key ${key}`);
     }
+  }
+
+  static log(msg: string): void {
+    console.log(`%c[marmolada] ${msg}`, 'color: palevioletred');
   }
 }
