@@ -1,4 +1,5 @@
 import { Assets } from 'marmolada/assets';
+import { Engine } from 'marmolada/engine';
 
 export type SoundPlaybackId = number;
 
@@ -24,7 +25,12 @@ export abstract class SoundPlayer {
 
   static stopSound(id: SoundPlaybackId): void {
     const name = this.idToName.get(id);
-    if (!name) throw new Error(`No sound with id ${id} was played`);
+
+    if (!name) {
+      Engine.log(`No sound with id ${id} was played`);
+      return;
+    }
+
     const sound = Assets.sound(name);
     sound.howl.stop(id);
   }
