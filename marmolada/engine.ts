@@ -5,7 +5,6 @@
  * TODO: Stage transitions
  * TODO: Automatic conversion of sounds to webm
  * TODO: Simple GUI system (something like playdate's gridview?)
- * TODO: Timers
  * TODO: Particle system
  * TODO: Font rendering
  * TODO: Stack based scene management
