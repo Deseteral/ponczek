@@ -14,7 +14,7 @@ import { GrindingStation } from 'src/game/stations/grinding-station';
 import { Station, StationCompleteCallback } from 'src/game/stations/station';
 import { Table } from 'src/game/tables/table';
 import { SoundPlayer } from 'marmolada/sound-player';
-import { Random } from 'marmolada/random';
+import { Random } from 'marmolada/math/random';
 
 const random = Random.default;
 

@@ -9,7 +9,7 @@ import { Recipe } from 'src/game/recipes';
 import { Sprites } from 'src/game/gfx/sprites';
 import { Table } from 'src/game/tables/table';
 import { SoundPlayer } from 'marmolada/sound-player';
-import { Random } from 'marmolada/random';
+import { Random } from 'marmolada/math/random';
 
 const random = Random.default;
 

@@ -5,7 +5,7 @@ import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
 import { IngredientAction } from 'src/game/ingredients';
 import { Station } from 'src/game/stations/station';
-import { Random } from 'marmolada/random';
+import { Random } from 'marmolada/math/random';
 
 const random = Random.default;
 
