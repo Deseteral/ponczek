@@ -11,6 +11,7 @@
  * TODO: Add support for seeding random number generator
  * TODO: Camera class
  * TODO: Support page lifecycle APIs
+ * TODO: Fix coordinate system, up has to be +Y
  */
 
 import 'marmolada/polyfills';

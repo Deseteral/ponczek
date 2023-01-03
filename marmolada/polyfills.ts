@@ -1,3 +1,6 @@
+Math.radiansToDegrees = 180 / Math.PI;
+Math.degreesToRadians = Math.PI / 180;
+
 Math.clamp = function clamp(num: number, min: number, max: number): number {
   return Math.min(Math.max(num, min), max);
 };
@@ -14,6 +17,8 @@ Array.prototype.isEmpty = function isEmpty(): boolean {
 
 declare global {
   interface Math {
+    radiansToDegrees: number;
+    degreesToRadians: number;
     clamp(num: number, min: number, max: number): number;
   }
 
