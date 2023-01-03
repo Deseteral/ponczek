@@ -11,6 +11,7 @@
  * TODO: Camera class
  * TODO: Support page lifecycle APIs
  * TODO: Fix coordinate system, up has to be +Y
+ * TODO: Standard way to process textures (shader like stuff)
  */
 
 import 'marmolada/polyfills';
