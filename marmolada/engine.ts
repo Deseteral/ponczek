@@ -1,5 +1,4 @@
 /*
- * TODO: Math library: Vectors, Rects etc.
  * TODO: Noise generator
  * TODO: Pathfinding
  * TODO: Stage transitions
