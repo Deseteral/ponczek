@@ -43,11 +43,11 @@ export abstract class Input {
 
   static update(): void {
     this.previousKeyState = this.keyState;
-    this.keyState = new Map();
+    this.keyState = new Map(this.previousKeyState);
   }
 
   static initialize(canvas: HTMLCanvasElement): void {
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keypress', (e) => {
       if (e.metaKey) return;
       this.keyState.set(e.key, true);
       e.preventDefault();
