@@ -1,13 +1,21 @@
 import { Engine } from 'marmolada/engine';
 import { Texture } from 'marmolada/assets';
+import { Font } from 'marmolada/font';
+import { Vector2 } from 'marmolada/math/vector2';
 
 export class GraphicsDevice {
+  activeFont: (Font | null) = null;
+
   constructor(public ctx: CanvasRenderingContext2D) {
     this.ctx = ctx;
   }
 
   color(color: string): void {
     this.ctx.fillStyle = color;
+  }
+
+  font(font: Font): void {
+    this.activeFont = font;
   }
 
   clearScreen(clearColor: string = 'black'): void {
@@ -75,5 +83,27 @@ export class GraphicsDevice {
     this.ctx.beginPath();
     this.ctx.rect(x, y, w, h);
     this.ctx.clip();
+  }
+
+  drawText(text: string, position: Vector2): void {
+    if (!this.activeFont) {
+      console.error('No active font was set');
+      return;
+    }
+
+    for (let idx = 0; idx < text.length; idx += 1) {
+      const char = text[idx];
+      this.drawTexturePart(
+        this.activeFont.texture,
+        this.activeFont.getSourceXForChar(char),
+        this.activeFont.getSourceYForChar(char),
+        this.activeFont.charWidth,
+        this.activeFont.charHeight,
+        (position.x + (idx * this.activeFont.charWidth)),
+        position.y,
+        this.activeFont.charWidth,
+        this.activeFont.charHeight,
+      );
+    }
   }
 }

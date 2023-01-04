@@ -9,13 +9,16 @@
  * TODO: Stack based scene management
  * TODO: Add support for seeding random number generator
  * TODO: Support page lifecycle APIs
- * TODO: Standard way to process textures (shader like stuff)
+ * TODO: Standard way to process textures (shader like stuff, treat mageta as transparent on load)
+ * TODO: Font colors
  */
 
 import 'marmolada/polyfills';
 import { Stage } from 'marmolada/stage';
 import { Input } from 'marmolada/input';
 import { GraphicsDevice } from 'marmolada/graphics-device';
+import { Font } from 'marmolada/font';
+import { Assets } from 'marmolada/assets';
 
 export abstract class Engine {
   static width: number;
@@ -25,6 +28,8 @@ export abstract class Engine {
 
   static ticks: number = 0;
   static shouldCountTicks: boolean = true;
+
+  static defaultFont: Font;
 
   static context: CanvasRenderingContext2D;
   static graphicsDevice: GraphicsDevice;
@@ -47,6 +52,8 @@ export abstract class Engine {
     this.graphicsDevice = new GraphicsDevice(this.context);
 
     Input.initialize(canvas);
+
+    this.defaultFont = new Font(Assets.texture('monogram'), 8, 8);
 
     const containerEl = document.getElementById('container');
     if (!containerEl) {
