@@ -11,6 +11,7 @@
  * TODO: Support page lifecycle APIs
  * TODO: Standard way to process textures (shader like stuff, treat mageta as transparent on load)
  * TODO: Font colors
+ * TODO: Rendering text inside rectangle
  */
 
 import 'marmolada/polyfills';

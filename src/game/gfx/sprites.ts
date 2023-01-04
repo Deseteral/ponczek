@@ -45,10 +45,10 @@ export abstract class Sprites {
       const x = (idx % w) | 0;
       const y = (idx / w) | 0;
 
-      ctx.fillStyle = isBlack ? GameManager.primaryColor : GameManager.secondaryColor;
+      ctx.fillStyle = (isBlack ? GameManager.primaryColor : GameManager.secondaryColor).htmlString;
       ctx.fillRect(x, y, 1, 1);
 
-      ictx.fillStyle = (!isBlack) ? GameManager.primaryColor : GameManager.secondaryColor;
+      ictx.fillStyle = ((!isBlack) ? GameManager.primaryColor : GameManager.secondaryColor).htmlString;
       ictx.fillRect(x, y, 1, 1);
     }
 

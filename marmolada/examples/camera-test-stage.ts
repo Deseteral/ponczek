@@ -1,4 +1,5 @@
 import { Camera } from 'marmolada/camera';
+import { Color } from 'marmolada/color';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
 import { Vector2 } from 'marmolada/math/vector2';
@@ -42,14 +43,14 @@ export class CameraTestStage extends Stage {
   }
 
   render(g: GraphicsDevice): void {
-    g.clearScreen('lightblue');
+    g.clearScreen(Color.cornflowerBlue);
 
     this.camera.begin();
 
-    g.color('red');
+    g.color(Color.red);
     g.fillRect(this.redRectPosition.x, this.redRectPosition.y, 100, 200);
 
-    g.color('green');
+    g.color(Color.green);
     g.fillRect(this.playerPosition.x, this.playerPosition.y, 20, 20);
 
     this.camera.end();

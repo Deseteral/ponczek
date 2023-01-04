@@ -1,10 +1,11 @@
+import { Color } from 'marmolada/color';
 import { Engine } from 'marmolada/engine';
 import { GameState } from 'src/game/game-state';
 import { generateRecipes } from 'src/game/recipes';
 
 export abstract class GameManager {
-  static readonly primaryColor: string = '#363636';
-  static readonly secondaryColor: string = '#ffda9e';
+  static readonly primaryColor: Color = Color.fromRGBA(0x363636);
+  static readonly secondaryColor: Color = Color.fromRGBA(0xffda9e);
 
   static state: GameState;
 

@@ -1,3 +1,4 @@
+import { Color } from 'marmolada/color';
 import { Engine } from 'marmolada/engine';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Vector2 } from 'marmolada/math/vector2';
@@ -14,7 +15,7 @@ export class FontRenderingTestStage extends Stage {
   update(): void { }
 
   render(g: GraphicsDevice): void {
-    g.clearScreen('white');
+    g.clearScreen(Color.cornflowerBlue);
     g.drawText(`Current tick ${Engine.ticks}!`, new Vector2(10, 10));
   }
 

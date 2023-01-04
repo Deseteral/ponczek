@@ -2,6 +2,7 @@ import { Engine } from 'marmolada/engine';
 import { Texture } from 'marmolada/assets';
 import { Font } from 'marmolada/font';
 import { Vector2 } from 'marmolada/math/vector2';
+import { Color } from 'marmolada/color';
 
 export class GraphicsDevice {
   activeFont: (Font | null) = null;
@@ -10,17 +11,17 @@ export class GraphicsDevice {
     this.ctx = ctx;
   }
 
-  color(color: string): void {
-    this.ctx.fillStyle = color;
+  color(color: Color): void {
+    this.ctx.fillStyle = color.htmlString;
   }
 
   font(font: Font): void {
     this.activeFont = font;
   }
 
-  clearScreen(clearColor: string = 'black'): void {
+  clearScreen(clearColor: Color = Color.black): void {
     const prevColor = this.ctx.fillStyle;
-    this.ctx.fillStyle = clearColor;
+    this.ctx.fillStyle = clearColor.htmlString;
     this.ctx.fillRect(0, 0, Engine.width, Engine.height);
     this.ctx.fillStyle = prevColor;
   }
