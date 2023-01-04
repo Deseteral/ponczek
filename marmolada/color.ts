@@ -1,8 +1,18 @@
+// TODO: Since Color in an immutable data structure and there will be limited set of colors in one game
+//       I could cache all of the colors to avoid allocation and hitting GC
+
 export class Color {
-  private r: number;
-  private g: number;
-  private b: number;
-  private a: number;
+  private _r: number;
+  get r(): number { return this._r; }
+
+  private _g: number;
+  get g(): number { return this._g; }
+
+  private _b: number;
+  get b(): number { return this._b; }
+
+  private _a: number;
+  get a(): number { return this._a; }
 
   private cachedHtmlString: string;
   public get htmlString(): string {
@@ -10,11 +20,15 @@ export class Color {
   }
 
   private constructor(r: number, g: number, b: number, a: number) {
-    this.r = r;
-    this.g = g;
-    this.b = b;
-    this.a = a;
-    this.cachedHtmlString = `rgba(${(this.r * 255) | 0},${(this.g * 255) | 0},${(this.b * 255) | 0},${(this.a * 255) | 0})`;
+    this._r = r;
+    this._g = g;
+    this._b = b;
+    this._a = a;
+    this.cachedHtmlString = `rgba(${(this._r * 255) | 0},${(this._g * 255) | 0},${(this._b * 255) | 0},${(this._a * 255) | 0})`;
+  }
+
+  equals(other: Color): boolean {
+    return (this._r === other._r && this._g === other._g && this._b === other._b && this._a === other._a);
   }
 
   static from01(r: number, g: number, b: number, a: number = 1.0): Color {
@@ -34,7 +48,7 @@ export class Color {
     const r = parseInt(hex.slice(0, 2), 16) / 255;
     const g = parseInt(hex.slice(2, 4), 16) / 255;
     const b = parseInt(hex.slice(4, 6), 16) / 255;
-    const a = (parseInt(hex.slice(6, 8), 16) || 1.0) / 255;
+    const a = (parseInt(hex.slice(6, 8), 16) || 255) / 255;
     return new Color(r, g, b, a);
   }
 

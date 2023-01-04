@@ -1,15 +1,7 @@
 import { Howl } from 'howler';
-
+import { HTMLTextureSource, Texture } from 'marmolada/texture';
 import textureList from '../assets/textures.json';
 import soundList from '../assets/sounds.json';
-
-type HTMLDrawable = HTMLCanvasElement | HTMLImageElement | ImageBitmap | OffscreenCanvas;
-
-export interface Texture {
-  image: HTMLDrawable,
-  width: number,
-  height: number,
-}
 
 export interface Sound {
   howl: Howl,
@@ -41,7 +33,7 @@ export abstract class Assets {
   static async loadTexture(name: string, format: string): Promise<Texture> {
     try {
       const image = await this.loadImageFromUrl(`assets/textures/${name}.${format}`);
-      const texture = { image, width: image.width, height: image.height };
+      const texture = new Texture(image);
       this.textures.set(name, texture);
       return texture;
     } catch (e) {
@@ -59,7 +51,7 @@ export abstract class Assets {
     }
   }
 
-  private static loadImageFromUrl(url: string): Promise<HTMLDrawable> {
+  private static loadImageFromUrl(url: string): Promise<HTMLTextureSource> {
     return new Promise((resolve, reject) => {
       const image = new Image();
       image.onload = () => resolve(image);

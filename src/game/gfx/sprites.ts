@@ -28,13 +28,13 @@ export abstract class Sprites {
     const invertedCanvas = document.createElement('canvas');
     const ictx = invertedCanvas.getContext('2d')!;
 
-    const w = texture.image.width;
-    const h = texture.image.height;
+    const w = texture.drawable.width;
+    const h = texture.drawable.height;
 
     invertedCanvas.width = canvas.width = w;
     invertedCanvas.height = canvas.height = h;
 
-    ctx.drawImage(texture.image, 0, 0);
+    ctx.drawImage(texture.drawable, 0, 0);
 
     const pixels = ctx.getImageData(0, 0, w, h).data;
     for (let i = 0; i < pixels.length; i += 4) {
@@ -53,8 +53,8 @@ export abstract class Sprites {
     }
 
     return {
-      normal: { image: canvas, width: w, height: h },
-      inverted: { image: invertedCanvas, width: w, height: h },
+      normal: { drawable: canvas, width: w, height: h },
+      inverted: { drawable: invertedCanvas, width: w, height: h },
     };
   }
 }
