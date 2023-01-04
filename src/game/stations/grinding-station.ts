@@ -19,8 +19,8 @@ export class GrindingStation extends Station {
   progressDrawRadius = 0;
 
   update(): void {
-    const x = Input.pointerX - this.positionX;
-    const y = -(Input.pointerY - this.positionY);
+    const x = Input.pointer.x - this.positionX;
+    const y = -(Input.pointer.y - this.positionY);
     const deg = Math.atan2(y, x) * (180 / Math.PI);
     const value = Math.abs(deg | 0);
 
