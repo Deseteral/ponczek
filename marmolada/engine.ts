@@ -9,7 +9,6 @@
  * TODO: Stack based scene management
  * TODO: Add support for seeding random number generator
  * TODO: Support page lifecycle APIs
- * TODO: Fix coordinate system, up has to be +Y
  * TODO: Standard way to process textures (shader like stuff)
  */
 
