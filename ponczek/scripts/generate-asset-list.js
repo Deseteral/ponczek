@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 function readFileNames(directoryPath) {
+  fs.mkdirSync(directoryPath, { recursive: true });
   return fs.readdirSync(directoryPath).map((fileName) => [path.parse(fileName).name, path.extname(fileName).slice(1)]);
 }
 
