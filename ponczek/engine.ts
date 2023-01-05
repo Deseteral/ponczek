@@ -31,7 +31,6 @@ export abstract class Engine {
 
   static defaultFont: Font;
 
-  static context: CanvasRenderingContext2D;
   static graphicsDevice: GraphicsDevice;
 
   static initialize(width: number, height: number): void {
@@ -47,9 +46,8 @@ export abstract class Engine {
       throw new Error('An error occured while creating canvas context');
     }
 
-    Engine.context = ctx;
-    Engine.context.imageSmoothingEnabled = false;
-    Engine.graphicsDevice = new GraphicsDevice(Engine.context);
+    ctx.imageSmoothingEnabled = false;
+    Engine.graphicsDevice = new GraphicsDevice(ctx);
 
     Input.initialize(canvas);
 
