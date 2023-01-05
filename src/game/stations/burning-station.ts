@@ -1,8 +1,8 @@
 import { Engine } from 'marmolada/engine';
 import { Font } from 'src/game/gfx/font';
 import { drawFrame } from 'src/game/gfx/frame';
-import { GraphicsDevice } from 'marmolada/graphics-device';
-import { Input } from 'marmolada/input';
+import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
+import { Input } from 'marmolada/core/input';
 import { IngredientAction } from 'src/game/ingredients';
 import { Station } from 'src/game/stations/station';
 import { Random } from 'marmolada/math/random';

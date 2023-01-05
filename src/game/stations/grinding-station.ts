@@ -1,12 +1,12 @@
 import { Engine } from 'marmolada/engine';
 import { Font } from 'src/game/gfx/font';
 import { drawFrame } from 'src/game/gfx/frame';
-import { GraphicsDevice } from 'marmolada/graphics-device';
-import { Input } from 'marmolada/input';
+import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
+import { Input } from 'marmolada/core/input';
 import { IngredientAction } from 'src/game/ingredients';
 import { Sprites } from 'src/game/gfx/sprites';
 import { Station } from 'src/game/stations/station';
-import { SoundPlayer } from 'marmolada/sound-player';
+import { SoundPlayer } from 'marmolada/sound/sound-player';
 
 export class GrindingStation extends Station {
   positionX = 150;

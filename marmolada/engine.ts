@@ -15,12 +15,12 @@
  */
 
 import 'marmolada/polyfills';
-import { Scene } from 'marmolada/scene';
-import { Input } from 'marmolada/input';
-import { GraphicsDevice } from 'marmolada/graphics-device';
-import { Font } from 'marmolada/font';
-import { Assets } from 'marmolada/assets';
-import { Color } from 'marmolada/color';
+import { Scene } from 'marmolada/core/scene';
+import { Input } from 'marmolada/core/input';
+import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
+import { Font } from 'marmolada/gfx/font';
+import { Assets } from 'marmolada/core/assets';
+import { Color } from 'marmolada/gfx/color';
 
 export abstract class Engine {
   static width: number;

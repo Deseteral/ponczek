@@ -1,12 +1,12 @@
 import { Engine } from 'marmolada/engine';
 import { Font } from 'src/game/gfx/font';
-import { GraphicsDevice } from 'marmolada/graphics-device';
-import { Input } from 'marmolada/input';
-import { Scene } from 'marmolada/scene';
+import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
+import { Input } from 'marmolada/core/input';
+import { Scene } from 'marmolada/core/scene';
 import { GameManager } from 'src/game/game-manager';
 import { Sprites } from 'src/game/gfx/sprites';
 import { WorkshopScene } from 'src/game/scenes/workshop-scene';
-import { SoundPlayer } from 'marmolada/sound-player';
+import { SoundPlayer } from 'marmolada/sound/sound-player';
 
 export class StoryScene extends Scene {
   pageNumber = 0;

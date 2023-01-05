@@ -1,5 +1,5 @@
-import { Assets } from 'marmolada/assets';
-import { Texture } from 'marmolada/texture';
+import { Assets } from 'marmolada/core/assets';
+import { Texture } from 'marmolada/gfx/texture';
 import { GameManager } from 'src/game/game-manager';
 
 export interface Sprite {

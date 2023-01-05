@@ -1,8 +1,8 @@
 import { Engine } from 'marmolada/engine';
 import { Font } from 'src/game/gfx/font';
 import { drawFrame } from 'src/game/gfx/frame';
-import { GraphicsDevice } from 'marmolada/graphics-device';
-import { Input } from 'marmolada/input';
+import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
+import { Input } from 'marmolada/core/input';
 import { GameManager } from 'src/game/game-manager';
 import { Ingredient, Ingredients, IngredientAction, ingredientDisplayName } from 'src/game/ingredients';
 import { getIngredientIcon } from 'src/game/recipes';
@@ -13,7 +13,7 @@ import { EnchantmentStation } from 'src/game/stations/enchantment-station';
 import { GrindingStation } from 'src/game/stations/grinding-station';
 import { Station, StationCompleteCallback } from 'src/game/stations/station';
 import { Table } from 'src/game/tables/table';
-import { SoundPlayer } from 'marmolada/sound-player';
+import { SoundPlayer } from 'marmolada/sound/sound-player';
 import { Random } from 'marmolada/math/random';
 
 const random = Random.default;

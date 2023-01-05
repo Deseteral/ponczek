@@ -1,6 +1,6 @@
-import { Color } from 'marmolada/color';
+import { Color } from 'marmolada/gfx/color';
 import { ReplaceColorEffect } from 'marmolada/effects/replace-color-effect';
-import { Texture } from 'marmolada/texture';
+import { Texture } from 'marmolada/gfx/texture';
 
 export class Font {
   public charWidth: number;

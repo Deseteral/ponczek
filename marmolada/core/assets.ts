@@ -1,7 +1,7 @@
 import { Howl } from 'howler';
-import { HTMLTextureSource, Texture } from 'marmolada/texture';
-import textureList from '../assets/textures.json';
-import soundList from '../assets/sounds.json';
+import { HTMLTextureSource, Texture } from 'marmolada/gfx/texture';
+import textureList from '../../assets/textures.json';
+import soundList from '../../assets/sounds.json';
 
 export interface Sound {
   howl: Howl,

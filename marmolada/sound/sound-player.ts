@@ -1,4 +1,4 @@
-import { Assets } from 'marmolada/assets';
+import { Assets } from 'marmolada/core/assets';
 import { Engine } from 'marmolada/engine';
 
 export type SoundPlaybackId = number;

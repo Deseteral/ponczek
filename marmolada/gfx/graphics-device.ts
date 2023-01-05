@@ -1,8 +1,8 @@
 import { Engine } from 'marmolada/engine';
-import { Font } from 'marmolada/font';
+import { Font } from 'marmolada/gfx/font';
 import { Vector2 } from 'marmolada/math/vector2';
-import { Color } from 'marmolada/color';
-import { Texture } from 'marmolada/texture';
+import { Color } from 'marmolada/gfx/color';
+import { Texture } from 'marmolada/gfx/texture';
 
 export class GraphicsDevice {
   activeFont: (Font | null) = null;

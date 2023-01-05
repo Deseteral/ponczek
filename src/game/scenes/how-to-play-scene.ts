@@ -1,11 +1,11 @@
 import { Engine } from 'marmolada/engine';
 import { Font } from 'src/game/gfx/font';
-import { GraphicsDevice } from 'marmolada/graphics-device';
-import { Input } from 'marmolada/input';
-import { Scene } from 'marmolada/scene';
+import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
+import { Input } from 'marmolada/core/input';
+import { Scene } from 'marmolada/core/scene';
 import { GameManager } from 'src/game/game-manager';
 import { MainMenuScene } from 'src/game/scenes/main-menu-scene';
-import { SoundPlayer } from 'marmolada/sound-player';
+import { SoundPlayer } from 'marmolada/sound/sound-player';
 
 export class HowToPlayScene extends Scene {
   lines = [

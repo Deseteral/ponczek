@@ -1,8 +1,8 @@
-import { Color } from 'marmolada/color';
+import { Color } from 'marmolada/gfx/color';
 import { Engine } from 'marmolada/engine';
-import { GraphicsDevice } from 'marmolada/graphics-device';
+import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
 import { Vector2 } from 'marmolada/math/vector2';
-import { Scene } from 'marmolada/scene';
+import { Scene } from 'marmolada/core/scene';
 
 export class FontRenderingTestScene extends Scene {
   constructor() {

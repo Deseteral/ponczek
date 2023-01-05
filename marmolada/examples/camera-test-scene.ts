@@ -1,9 +1,9 @@
-import { Camera } from 'marmolada/camera';
-import { Color } from 'marmolada/color';
-import { GraphicsDevice } from 'marmolada/graphics-device';
-import { Input } from 'marmolada/input';
+import { Camera } from 'marmolada/gfx/camera';
+import { Color } from 'marmolada/gfx/color';
+import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
+import { Input } from 'marmolada/core/input';
 import { Vector2 } from 'marmolada/math/vector2';
-import { Scene } from 'marmolada/scene';
+import { Scene } from 'marmolada/core/scene';
 
 export class CameraTestScene extends Scene {
   camera: Camera;

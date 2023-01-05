@@ -1,4 +1,4 @@
-import { Color } from 'marmolada/color';
+import { Color } from 'marmolada/gfx/color';
 import { Engine } from 'marmolada/engine';
 import { GameState } from 'src/game/game-state';
 import { generateRecipes } from 'src/game/recipes';

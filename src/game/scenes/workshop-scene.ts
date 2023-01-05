@@ -1,17 +1,17 @@
 import { DaySummaryScene } from 'src/game/scenes/day-summary-scene';
 import { Engine } from 'marmolada/engine';
 import { Font } from 'src/game/gfx/font';
-import { Input } from 'marmolada/input';
-import { Scene } from 'marmolada/scene';
+import { Input } from 'marmolada/core/input';
+import { Scene } from 'marmolada/core/scene';
 import { dayOverMessage } from 'src/game/messages';
 import { drawRecipe, Recipe } from 'src/game/recipes';
 import { BrewingTable } from 'src/game/tables/brewing-table';
 import { ClientTable } from 'src/game/tables/client-table';
 import { IngredientsTable } from 'src/game/tables/ingredients-table';
 import { GameManager } from 'src/game/game-manager';
-import { GraphicsDevice } from 'marmolada/graphics-device';
+import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
 import { Sprites } from 'src/game/gfx/sprites';
-import { SoundPlayer } from 'marmolada/sound-player';
+import { SoundPlayer } from 'marmolada/sound/sound-player';
 
 export class WorkshopScene extends Scene {
   selectedTable = 0;

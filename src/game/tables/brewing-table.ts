@@ -1,8 +1,8 @@
 import { Engine } from 'marmolada/engine';
 import { Font } from 'src/game/gfx/font';
 import { drawFrame } from 'src/game/gfx/frame';
-import { GraphicsDevice } from 'marmolada/graphics-device';
-import { Input } from 'marmolada/input';
+import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
+import { Input } from 'marmolada/core/input';
 import { GameManager } from 'src/game/game-manager';
 import { PreparedIngredient } from 'src/game/ingredients';
 import { clientGoodbyeMessasge, orderCompleteMessage, recipeDoesNotExistMessage, recipeWithoutOrderMessage } from 'src/game/messages';
@@ -10,7 +10,7 @@ import { findMatchingRecipe } from 'src/game/recipe-logic';
 import { drawPreparedIngredientRow, Recipe } from 'src/game/recipes';
 import { Sprites } from 'src/game/gfx/sprites';
 import { Table } from 'src/game/tables/table';
-import { SoundPlaybackId, SoundPlayer } from 'marmolada/sound-player';
+import { SoundPlaybackId, SoundPlayer } from 'marmolada/sound/sound-player';
 import { Random } from 'marmolada/math/random';
 
 const random = Random.default;
