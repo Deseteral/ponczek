@@ -1,5 +1,5 @@
 import { Howl } from 'howler';
-import { HTMLTextureSource, Texture } from 'marmolada/gfx/texture';
+import { HTMLTextureSource, Texture } from 'ponczek/gfx/texture';
 import textureList from '../../assets/textures.json';
 import soundList from '../../assets/sounds.json';
 

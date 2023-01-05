@@ -1,12 +1,12 @@
 {
-  "name": "marmolada",
+  "name": "ponczek",
   "version": "1.0.0-prototype.1",
   "description": "Game framework for small jam games",
   "scripts": {
     "start": "npm run dev",
     "dev": "npm run build:asset-lists && parcel src/index.html",
     "build": "npm run clean && parcel build src/index.html --public-url . && npm run build:asset-lists",
-    "build:asset-lists": "node ./marmolada/scripts/generate-asset-list.js",
+    "build:asset-lists": "node ./ponczek/scripts/generate-asset-list.js",
     "test": "npm run test:type-check",
     "test:type-check": "tsc --noEmit",
     "test:type-check:watch": "tsc --noEmit -w",
@@ -28,7 +28,7 @@
   },
   "alias": {
     "src": "./src",
-    "marmolada": "./marmolada"
+    "ponczek": "./ponczek"
   },
   "dependencies": {
     "howler": "2.2.3"

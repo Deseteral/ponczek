@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { Vector2 } from 'marmolada/math/vector2';
+import { Vector2 } from 'ponczek/math/vector2';
 
 export class Rectangle {
   x: number;

@@ -2,10 +2,10 @@ import { Font } from 'src/game/gfx/font';
 import { Ingredient, IngredientAction, IngredientActions, Ingredients, PreparedIngredient } from 'src/game/ingredients';
 import { findMatchingRecipe, preparedIngredientEquals } from 'src/game/recipe-logic';
 import { POTION_NAMES } from 'src/game/potion-names';
-import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
+import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
 import { Sprites } from 'src/game/gfx/sprites';
-import { Random } from 'marmolada/math/random';
-import { Texture } from 'marmolada/gfx/texture';
+import { Random } from 'ponczek/math/random';
+import { Texture } from 'ponczek/gfx/texture';
 
 const random = Random.default;
 

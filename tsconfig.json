@@ -17,13 +17,13 @@
     "baseUrl": "./",
     "paths": {
       "src/*": ["./src/*"],
-      "marmolada/*": ["./marmolada/*"],
+      "ponczek/*": ["./ponczek/*"],
       "*": ["node_modules/*"],
     },
     "target": "ES2019"
   },
   "include": [
     "src/**/*",
-    "marmolada/**/*"
+    "ponczek/**/*"
   ]
 }

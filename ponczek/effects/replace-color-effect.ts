@@ -1,5 +1,5 @@
-import { Color } from 'marmolada/gfx/color';
-import { FragmentEffect } from 'marmolada/gfx/effect';
+import { Color } from 'ponczek/gfx/color';
+import { FragmentEffect } from 'ponczek/gfx/effect';
 
 export class ReplaceColorEffect extends FragmentEffect {
   public sourceColor: Color;

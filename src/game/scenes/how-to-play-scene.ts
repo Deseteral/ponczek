@@ -1,11 +1,11 @@
-import { Engine } from 'marmolada/engine';
+import { Engine } from 'ponczek/engine';
 import { Font } from 'src/game/gfx/font';
-import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
-import { Input } from 'marmolada/core/input';
-import { Scene } from 'marmolada/core/scene';
+import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
+import { Input } from 'ponczek/core/input';
+import { Scene } from 'ponczek/core/scene';
 import { GameManager } from 'src/game/game-manager';
 import { MainMenuScene } from 'src/game/scenes/main-menu-scene';
-import { SoundPlayer } from 'marmolada/sound/sound-player';
+import { SoundPlayer } from 'ponczek/sound/sound-player';
 
 export class HowToPlayScene extends Scene {
   lines = [

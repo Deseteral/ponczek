@@ -1,8 +1,8 @@
-import { Color } from 'marmolada/gfx/color';
-import { FragmentEffect } from 'marmolada/gfx/effect';
-import { Engine } from 'marmolada/engine';
-import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
-import { Scene } from 'marmolada/core/scene';
+import { Color } from 'ponczek/gfx/color';
+import { FragmentEffect } from 'ponczek/gfx/effect';
+import { Engine } from 'ponczek/engine';
+import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
+import { Scene } from 'ponczek/core/scene';
 
 class TestEffect extends FragmentEffect {
   fragment(x: number, y: number, color: Color, w: number, h: number): Color {

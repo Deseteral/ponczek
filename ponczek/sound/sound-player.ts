@@ -1,5 +1,5 @@
-import { Assets } from 'marmolada/core/assets';
-import { Engine } from 'marmolada/engine';
+import { Assets } from 'ponczek/core/assets';
+import { Engine } from 'ponczek/engine';
 
 export type SoundPlaybackId = number;
 

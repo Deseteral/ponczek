@@ -1,17 +1,17 @@
 import { DaySummaryScene } from 'src/game/scenes/day-summary-scene';
-import { Engine } from 'marmolada/engine';
+import { Engine } from 'ponczek/engine';
 import { Font } from 'src/game/gfx/font';
-import { Input } from 'marmolada/core/input';
-import { Scene } from 'marmolada/core/scene';
+import { Input } from 'ponczek/core/input';
+import { Scene } from 'ponczek/core/scene';
 import { dayOverMessage } from 'src/game/messages';
 import { drawRecipe, Recipe } from 'src/game/recipes';
 import { BrewingTable } from 'src/game/tables/brewing-table';
 import { ClientTable } from 'src/game/tables/client-table';
 import { IngredientsTable } from 'src/game/tables/ingredients-table';
 import { GameManager } from 'src/game/game-manager';
-import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
+import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
 import { Sprites } from 'src/game/gfx/sprites';
-import { SoundPlayer } from 'marmolada/sound/sound-player';
+import { SoundPlayer } from 'ponczek/sound/sound-player';
 
 export class WorkshopScene extends Scene {
   selectedTable = 0;

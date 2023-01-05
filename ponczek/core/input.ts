@@ -1,5 +1,5 @@
-import { Engine } from 'marmolada/engine';
-import { Vector2 } from 'marmolada/math/vector2';
+import { Engine } from 'ponczek/engine';
+import { Vector2 } from 'ponczek/math/vector2';
 
 export abstract class Input {
   static pointer: Vector2 = new Vector2();

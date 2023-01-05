@@ -1,9 +1,9 @@
-import { Camera } from 'marmolada/gfx/camera';
-import { Color } from 'marmolada/gfx/color';
-import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
-import { Input } from 'marmolada/core/input';
-import { Vector2 } from 'marmolada/math/vector2';
-import { Scene } from 'marmolada/core/scene';
+import { Camera } from 'ponczek/gfx/camera';
+import { Color } from 'ponczek/gfx/color';
+import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
+import { Input } from 'ponczek/core/input';
+import { Vector2 } from 'ponczek/math/vector2';
+import { Scene } from 'ponczek/core/scene';
 
 export class CameraTestScene extends Scene {
   camera: Camera;

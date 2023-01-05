@@ -1,4 +1,4 @@
-import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
+import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
 import { Sprites } from 'src/game/gfx/sprites';
 
 export abstract class Font {

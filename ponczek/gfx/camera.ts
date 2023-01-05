@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
-import { Engine } from 'marmolada/engine';
-import { Vector2 } from 'marmolada/math/vector2';
+import { Engine } from 'ponczek/engine';
+import { Vector2 } from 'ponczek/math/vector2';
 
 export class Camera {
   position: Vector2;

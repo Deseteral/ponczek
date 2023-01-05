@@ -1,6 +1,6 @@
-import { Color } from 'marmolada/gfx/color';
-import { ReplaceColorEffect } from 'marmolada/effects/replace-color-effect';
-import { Texture } from 'marmolada/gfx/texture';
+import { Color } from 'ponczek/gfx/color';
+import { ReplaceColorEffect } from 'ponczek/effects/replace-color-effect';
+import { Texture } from 'ponczek/gfx/texture';
 
 export class Font {
   public charWidth: number;

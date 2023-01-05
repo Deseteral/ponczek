@@ -1,4 +1,4 @@
-import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
+import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
 import { IngredientAction } from 'src/game/ingredients';
 
 export type StationCompleteCallback = (success: boolean, action: IngredientAction) => void

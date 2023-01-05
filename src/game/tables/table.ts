@@ -1,4 +1,4 @@
-import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
+import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
 
 export abstract class Table {
   onNextTableCb: () => void;

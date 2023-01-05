@@ -1,5 +1,5 @@
-import { Color } from 'marmolada/gfx/color';
-import { Engine } from 'marmolada/engine';
+import { Color } from 'ponczek/gfx/color';
+import { Engine } from 'ponczek/engine';
 import { GameState } from 'src/game/game-state';
 import { generateRecipes } from 'src/game/recipes';
 

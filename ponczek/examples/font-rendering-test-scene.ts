@@ -1,8 +1,8 @@
-import { Color } from 'marmolada/gfx/color';
-import { Engine } from 'marmolada/engine';
-import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
-import { Vector2 } from 'marmolada/math/vector2';
-import { Scene } from 'marmolada/core/scene';
+import { Color } from 'ponczek/gfx/color';
+import { Engine } from 'ponczek/engine';
+import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
+import { Vector2 } from 'ponczek/math/vector2';
+import { Scene } from 'ponczek/core/scene';
 
 export class FontRenderingTestScene extends Scene {
   constructor() {

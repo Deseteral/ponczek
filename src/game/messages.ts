@@ -1,4 +1,4 @@
-import { Random } from 'marmolada/math/random';
+import { Random } from 'ponczek/math/random';
 import { Message } from 'src/game/message-board';
 import { Recipe } from 'src/game/recipes';
 

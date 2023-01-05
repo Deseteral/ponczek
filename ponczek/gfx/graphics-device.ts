@@ -1,8 +1,8 @@
-import { Engine } from 'marmolada/engine';
-import { Font } from 'marmolada/gfx/font';
-import { Vector2 } from 'marmolada/math/vector2';
-import { Color } from 'marmolada/gfx/color';
-import { Texture } from 'marmolada/gfx/texture';
+import { Engine } from 'ponczek/engine';
+import { Font } from 'ponczek/gfx/font';
+import { Vector2 } from 'ponczek/math/vector2';
+import { Color } from 'ponczek/gfx/color';
+import { Texture } from 'ponczek/gfx/texture';
 
 export class GraphicsDevice {
   activeFont: (Font | null) = null;

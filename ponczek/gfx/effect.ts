@@ -1,5 +1,5 @@
-import { Color } from 'marmolada/gfx/color';
-import { Drawable } from 'marmolada/gfx/texture';
+import { Color } from 'ponczek/gfx/color';
+import { Drawable } from 'ponczek/gfx/texture';
 
 export abstract class FragmentEffect {
   abstract fragment(x: number, y: number, color: Color, w: number, h: number): Color;

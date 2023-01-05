@@ -1,12 +1,12 @@
-import { Engine } from 'marmolada/engine';
+import { Engine } from 'ponczek/engine';
 import { Font } from 'src/game/gfx/font';
-import { GraphicsDevice } from 'marmolada/gfx/graphics-device';
-import { Input } from 'marmolada/core/input';
-import { Scene } from 'marmolada/core/scene';
+import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
+import { Input } from 'ponczek/core/input';
+import { Scene } from 'ponczek/core/scene';
 import { GameManager } from 'src/game/game-manager';
 import { Sprites } from 'src/game/gfx/sprites';
 import { WorkshopScene } from 'src/game/scenes/workshop-scene';
-import { SoundPlayer } from 'marmolada/sound/sound-player';
+import { SoundPlayer } from 'ponczek/sound/sound-player';
 
 export class StoryScene extends Scene {
   pageNumber = 0;
