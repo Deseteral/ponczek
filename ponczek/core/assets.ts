@@ -3,6 +3,8 @@ import { HTMLTextureSource, Texture } from 'ponczek/gfx/texture';
 import textureList from '../../assets/textures.json';
 import soundList from '../../assets/sounds.json';
 
+type AssetDefinition = [ name: string, format: string ];
+
 export interface Sound {
   howl: Howl,
 }
@@ -13,8 +15,8 @@ export abstract class Assets {
 
   public static async loadAssets(): Promise<void> {
     await Promise.all([
-      ...(textureList.map(([name, format]) => this.loadTexture(name, format))),
-      ...(soundList.map(([name, format]) => this.loadSound(name, format))),
+      ...((textureList as AssetDefinition[]).map(([name, format]) => this.loadTexture(name, format))),
+      ...((soundList as AssetDefinition[]).map(([name, format]) => this.loadSound(name, format))),
     ]);
   }
 
