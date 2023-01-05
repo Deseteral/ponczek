@@ -2,9 +2,9 @@ import { Color } from 'marmolada/color';
 import { Engine } from 'marmolada/engine';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Vector2 } from 'marmolada/math/vector2';
-import { Stage } from 'marmolada/stage';
+import { Scene } from 'marmolada/scene';
 
-export class FontRenderingTestStage extends Stage {
+export class FontRenderingTestScene extends Scene {
   constructor() {
     super();
     Engine.graphicsDevice.font(Engine.defaultFont);

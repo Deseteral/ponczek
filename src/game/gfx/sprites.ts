@@ -1,4 +1,5 @@
-import { Assets, Texture } from 'marmolada/assets';
+import { Assets } from 'marmolada/assets';
+import { Texture } from 'marmolada/texture';
 import { GameManager } from 'src/game/game-manager';
 
 export interface Sprite {
@@ -53,8 +54,8 @@ export abstract class Sprites {
     }
 
     return {
-      normal: { drawable: canvas, width: w, height: h },
-      inverted: { drawable: invertedCanvas, width: w, height: h },
+      normal: Texture.createFromSource(canvas),
+      inverted: Texture.createFromSource(invertedCanvas),
     };
   }
 }

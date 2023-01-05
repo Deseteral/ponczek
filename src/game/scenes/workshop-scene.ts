@@ -1,8 +1,8 @@
-import { DaySummaryStage } from 'src/game/stages/day-summary-stage';
+import { DaySummaryScene } from 'src/game/scenes/day-summary-scene';
 import { Engine } from 'marmolada/engine';
 import { Font } from 'src/game/gfx/font';
 import { Input } from 'marmolada/input';
-import { Stage } from 'marmolada/stage';
+import { Scene } from 'marmolada/scene';
 import { dayOverMessage } from 'src/game/messages';
 import { drawRecipe, Recipe } from 'src/game/recipes';
 import { BrewingTable } from 'src/game/tables/brewing-table';
@@ -13,7 +13,7 @@ import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Sprites } from 'src/game/gfx/sprites';
 import { SoundPlayer } from 'marmolada/sound-player';
 
-export class WorkshopStage extends Stage {
+export class WorkshopScene extends Scene {
   selectedTable = 0;
   tables = [
     new ClientTable(() => this.nextTable(), () => this.prevTable(), () => this.openBook()),
@@ -57,7 +57,7 @@ export class WorkshopStage extends Stage {
 
     // Transition to day summary screen
     if (this.ticksUntilDayOver < 0 && GameManager.state.orders.length === 0) {
-      Engine.changeStage(new DaySummaryStage());
+      Engine.changeScene(new DaySummaryScene());
     }
   }
 

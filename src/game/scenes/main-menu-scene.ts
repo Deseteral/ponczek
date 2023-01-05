@@ -3,15 +3,15 @@ import { Font } from 'src/game/gfx/font';
 import { drawFrame } from 'src/game/gfx/frame';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
-import { Stage } from 'marmolada/stage';
+import { Scene } from 'marmolada/scene';
 import { GameManager } from 'src/game/game-manager';
 import { Sprites } from 'src/game/gfx/sprites';
-import { WorkshopStage } from 'src/game/stages/workshop-stage';
-import { HowToPlayStage } from 'src/game/stages/how-to-play-stage';
-import { StoryStage } from 'src/game/stages/story-stage';
+import { WorkshopScene } from 'src/game/scenes/workshop-scene';
+import { HowToPlayScene } from 'src/game/scenes/how-to-play-scene';
+import { StoryScene } from 'src/game/scenes/story-scene';
 import { SoundPlayer } from 'marmolada/sound-player';
 
-export class MainMenuStage extends Stage {
+export class MainMenuScene extends Scene {
   cursor = 0;
   hasSaveData = GameManager.hasSavedGame();
 
@@ -33,12 +33,12 @@ export class MainMenuStage extends Stage {
     if (Input.getButtonDown('a')) {
       if (this.cursor === 0) {
         GameManager.newGame();
-        Engine.changeStage(new StoryStage());
+        Engine.changeScene(new StoryScene());
       } else if (this.hasSaveData && this.cursor === 1) {
         GameManager.loadGame();
-        Engine.changeStage(new WorkshopStage());
+        Engine.changeScene(new WorkshopScene());
       } else if ((this.hasSaveData && this.cursor === 2) || (!this.hasSaveData && this.cursor === 1)) {
-        Engine.changeStage(new HowToPlayStage());
+        Engine.changeScene(new HowToPlayScene());
       }
 
       SoundPlayer.playSound('menu_confirm');

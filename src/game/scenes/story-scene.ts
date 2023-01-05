@@ -2,13 +2,13 @@ import { Engine } from 'marmolada/engine';
 import { Font } from 'src/game/gfx/font';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
-import { Stage } from 'marmolada/stage';
+import { Scene } from 'marmolada/scene';
 import { GameManager } from 'src/game/game-manager';
 import { Sprites } from 'src/game/gfx/sprites';
-import { WorkshopStage } from 'src/game/stages/workshop-stage';
+import { WorkshopScene } from 'src/game/scenes/workshop-scene';
 import { SoundPlayer } from 'marmolada/sound-player';
 
-export class StoryStage extends Stage {
+export class StoryScene extends Scene {
   pageNumber = 0;
 
   pages: (string[])[] = [
@@ -101,7 +101,7 @@ export class StoryStage extends Stage {
     this.pageNumber = Math.clamp(this.pageNumber, 0, Math.ceil(this.pages.length / 2) - 1);
 
     if (this.pageNumber === 5 && Input.getButtonDown('a')) {
-      Engine.changeStage(new WorkshopStage());
+      Engine.changeScene(new WorkshopScene());
       SoundPlayer.playSound('menu_confirm');
     }
   }

@@ -6,7 +6,7 @@ import { Assets } from 'marmolada/assets';
 import { Engine } from 'marmolada/engine';
 import { Input } from 'marmolada/input';
 import { Sprites } from 'src/game/gfx/sprites';
-import { MainMenuStage } from 'src/game/stages/main-menu-stage';
+import { MainMenuScene } from 'src/game/scenes/main-menu-scene';
 
 (async function main(): Promise<void> {
   await Assets.loadAssets();
@@ -16,6 +16,6 @@ import { MainMenuStage } from 'src/game/stages/main-menu-stage';
 
   Input.withGameBoyLikeBinds();
 
-  Engine.changeStage(new MainMenuStage());
-  Engine.tick();
+  Engine.changeScene(new MainMenuScene());
+  Engine.loop();
 }());

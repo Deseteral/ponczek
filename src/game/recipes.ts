@@ -4,8 +4,8 @@ import { findMatchingRecipe, preparedIngredientEquals } from 'src/game/recipe-lo
 import { POTION_NAMES } from 'src/game/potion-names';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Sprites } from 'src/game/gfx/sprites';
-import { Texture } from 'marmolada/assets';
 import { Random } from 'marmolada/math/random';
+import { Texture } from 'marmolada/texture';
 
 const random = Random.default;
 

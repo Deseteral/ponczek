@@ -1,7 +1,7 @@
 /*
  * TODO: Noise generator
  * TODO: Pathfinding
- * TODO: Stage transitions
+ * TODO: Scene transitions
  * TODO: Automatic conversion of sounds to webm
  * TODO: Simple GUI system (something like playdate's gridview?)
  * TODO: Particle system
@@ -15,7 +15,7 @@
  */
 
 import 'marmolada/polyfills';
-import { Stage } from 'marmolada/stage';
+import { Scene } from 'marmolada/scene';
 import { Input } from 'marmolada/input';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Font } from 'marmolada/font';
@@ -26,7 +26,7 @@ export abstract class Engine {
   static width: number;
   static height: number;
 
-  static activeStage: (Stage | null) = null;
+  static activeScene: (Scene | null) = null;
 
   static ticks: number = 0;
   static shouldCountTicks: boolean = true;
@@ -67,22 +67,22 @@ export abstract class Engine {
     containerEl.appendChild(canvas);
   }
 
-  static changeStage(nextStage: Stage): void {
-    this.activeStage?.onDestroy();
-    this.activeStage = nextStage;
-    this.activeStage.onActivate();
+  static changeScene(nextScene: Scene): void {
+    this.activeScene?.onDestroy();
+    this.activeScene = nextScene;
+    this.activeScene.onActivate();
   }
 
-  static tick(): void {
-    const stage = Engine.activeStage!;
-    stage.update();
-    stage.render(this.graphicsDevice);
+  static loop(): void {
+    const scene = Engine.activeScene!;
+    scene.update();
+    scene.render(this.graphicsDevice);
 
     Input.update();
 
     if (Engine.shouldCountTicks) Engine.ticks += 1;
 
-    requestAnimationFrame(() => this.tick());
+    requestAnimationFrame(() => this.loop());
   }
 
   static saveData<T>(data: T, key: string = 'save'): void {

@@ -2,7 +2,7 @@ import { Color } from 'marmolada/color';
 import { FragmentEffect } from 'marmolada/effect';
 import { Engine } from 'marmolada/engine';
 import { GraphicsDevice } from 'marmolada/graphics-device';
-import { Stage } from 'marmolada/stage';
+import { Scene } from 'marmolada/scene';
 
 class TestEffect extends FragmentEffect {
   fragment(x: number, y: number, color: Color, w: number, h: number): Color {
@@ -13,7 +13,7 @@ class TestEffect extends FragmentEffect {
   }
 }
 
-export class EffectsTestStage extends Stage {
+export class EffectsTestScene extends Scene {
   private testEffect = new TestEffect();
 
   onActivate(): void { }

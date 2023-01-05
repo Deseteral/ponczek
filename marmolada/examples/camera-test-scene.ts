@@ -3,9 +3,9 @@ import { Color } from 'marmolada/color';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
 import { Vector2 } from 'marmolada/math/vector2';
-import { Stage } from 'marmolada/stage';
+import { Scene } from 'marmolada/scene';
 
-export class CameraTestStage extends Stage {
+export class CameraTestScene extends Scene {
   camera: Camera;
   playerPosition: Vector2;
   redRectPosition: Vector2;

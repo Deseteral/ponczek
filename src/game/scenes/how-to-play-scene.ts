@@ -2,12 +2,12 @@ import { Engine } from 'marmolada/engine';
 import { Font } from 'src/game/gfx/font';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
-import { Stage } from 'marmolada/stage';
+import { Scene } from 'marmolada/scene';
 import { GameManager } from 'src/game/game-manager';
-import { MainMenuStage } from 'src/game/stages/main-menu-stage';
+import { MainMenuScene } from 'src/game/scenes/main-menu-scene';
 import { SoundPlayer } from 'marmolada/sound-player';
 
-export class HowToPlayStage extends Stage {
+export class HowToPlayScene extends Scene {
   lines = [
     'Use WASD or arrow keys to move',
     'Esc to go back, Enter to confirm/activate',
@@ -31,7 +31,7 @@ export class HowToPlayStage extends Stage {
 
   update(): void {
     if (Input.getButtonDown('b')) {
-      Engine.changeStage(new MainMenuStage());
+      Engine.changeScene(new MainMenuScene());
       SoundPlayer.playSound('menu_confirm');
     }
   }

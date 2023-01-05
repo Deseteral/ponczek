@@ -3,17 +3,17 @@ import { Font } from 'src/game/gfx/font';
 import { drawFrame } from 'src/game/gfx/frame';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Input } from 'marmolada/input';
-import { Stage } from 'marmolada/stage';
+import { Scene } from 'marmolada/scene';
 import { GameManager } from 'src/game/game-manager';
-import { WorkshopStage } from 'src/game/stages/workshop-stage';
+import { WorkshopScene } from 'src/game/scenes/workshop-scene';
 
-export class DaySummaryStage extends Stage {
+export class DaySummaryScene extends Scene {
   onActivate(): void {
   }
 
   update(): void {
     if (Input.getButtonDown('a')) {
-      Engine.changeStage(new WorkshopStage());
+      Engine.changeScene(new WorkshopScene());
     }
   }
 
