@@ -16,6 +16,5 @@ body {
 }
 
 canvas {
-  width: 100vw;
   image-rendering: pixelated;
 }

@@ -63,6 +63,9 @@ export abstract class Engine {
 
     containerEl.innerHTML = '';
     containerEl.appendChild(canvas);
+
+    window.addEventListener('resize', () => this.onWindowResize());
+    this.onWindowResize();
   }
 
   static changeScene(nextScene: Scene): void {
@@ -115,5 +118,12 @@ export abstract class Engine {
 
   static log(msg: string): void {
     console.log(`%c[ponczek] ${msg}`, 'color: palevioletred');
+  }
+
+  private static onWindowResize(): void {
+    const windowWidth = window.innerWidth;
+    const scale = ((windowWidth / this.width) | 0) || 1;
+    const canvasWidth = this.width * scale;
+    this.graphicsDevice.ctx.canvas.style.width = `${canvasWidth}px`;
   }
 }
