@@ -35,26 +35,26 @@ export abstract class Engine {
   static graphicsDevice: GraphicsDevice;
 
   static initialize(width: number, height: number): void {
-    this.width = width;
-    this.height = height;
+    Engine.width = width;
+    Engine.height = height;
 
     const canvas = document.createElement('canvas');
-    canvas.width = this.width;
-    canvas.height = this.height;
+    canvas.width = Engine.width;
+    canvas.height = Engine.height;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) {
       throw new Error('An error occured while creating canvas context');
     }
 
-    this.context = ctx;
-    this.context.imageSmoothingEnabled = false;
-    this.graphicsDevice = new GraphicsDevice(this.context);
+    Engine.context = ctx;
+    Engine.context.imageSmoothingEnabled = false;
+    Engine.graphicsDevice = new GraphicsDevice(Engine.context);
 
     Input.initialize(canvas);
 
-    this.defaultFont = new Font(Assets.texture('monogram'), 8, 8);
-    this.defaultFont.generateColorVariants([Color.black, Color.white]);
+    Engine.defaultFont = new Font(Assets.texture('monogram'), 8, 8);
+    Engine.defaultFont.generateColorVariants([Color.black, Color.white]);
 
     const containerEl = document.getElementById('container');
     if (!containerEl) {
@@ -64,26 +64,26 @@ export abstract class Engine {
     containerEl.innerHTML = '';
     containerEl.appendChild(canvas);
 
-    window.addEventListener('resize', () => this.onWindowResize());
-    this.onWindowResize();
+    window.addEventListener('resize', () => Engine.onWindowResize());
+    Engine.onWindowResize();
   }
 
   static changeScene(nextScene: Scene): void {
-    this.activeScene?.onDestroy();
-    this.activeScene = nextScene;
-    this.activeScene.onActivate();
+    Engine.activeScene?.onDestroy();
+    Engine.activeScene = nextScene;
+    Engine.activeScene.onActivate();
   }
 
   static loop(): void {
     const scene = Engine.activeScene!;
     scene.update();
-    scene.render(this.graphicsDevice);
+    scene.render(Engine.graphicsDevice);
 
     Input.update();
 
     if (Engine.shouldCountTicks) Engine.ticks += 1;
 
-    requestAnimationFrame(() => this.loop());
+    requestAnimationFrame(() => Engine.loop());
   }
 
   static saveData<T>(data: T, key: string = 'save'): void {
@@ -122,8 +122,8 @@ export abstract class Engine {
 
   private static onWindowResize(): void {
     const windowWidth = window.innerWidth;
-    const scale = ((windowWidth / this.width) | 0) || 1;
-    const canvasWidth = this.width * scale;
-    this.graphicsDevice.ctx.canvas.style.width = `${canvasWidth}px`;
+    const scale = ((windowWidth / Engine.width) | 0) || 1;
+    const canvasWidth = Engine.width * scale;
+    Engine.graphicsDevice.ctx.canvas.style.width = `${canvasWidth}px`;
   }
 }
