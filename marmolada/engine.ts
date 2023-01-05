@@ -20,6 +20,7 @@ import { Input } from 'marmolada/input';
 import { GraphicsDevice } from 'marmolada/graphics-device';
 import { Font } from 'marmolada/font';
 import { Assets } from 'marmolada/assets';
+import { Color } from 'marmolada/color';
 
 export abstract class Engine {
   static width: number;
@@ -55,6 +56,7 @@ export abstract class Engine {
     Input.initialize(canvas);
 
     this.defaultFont = new Font(Assets.texture('monogram'), 8, 8);
+    this.defaultFont.generateColorVariants([Color.black, Color.white]);
 
     const containerEl = document.getElementById('container');
     if (!containerEl) {

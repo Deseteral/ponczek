@@ -2,24 +2,37 @@ export type HTMLTextureSource = HTMLCanvasElement | HTMLImageElement | ImageBitm
 export type Drawable = HTMLCanvasElement;
 
 export class Texture {
-  width: number;
-  height: number;
-  get drawable(): Drawable { return this.canvas; }
+  public width: number;
+  public height: number;
+  public get drawable(): Drawable { return this.canvas; }
 
   private canvas: Drawable;
 
-  constructor(drawable: HTMLTextureSource) {
+  private constructor(drawable: Drawable) {
+    this.canvas = drawable;
     this.width = drawable.width;
     this.height = drawable.height;
+  }
 
-    this.canvas = document.createElement('canvas');
-    this.canvas.width = this.width;
-    this.canvas.height = this.height;
+  public static createEmpty(width: number, height: number): Texture {
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
 
-    const ctx = this.canvas.getContext('2d');
+    return new Texture(canvas);
+  }
+
+  public static createFromSource(source: HTMLTextureSource): Texture {
+    const canvas = document.createElement('canvas');
+    canvas.width = source.width;
+    canvas.height = source.height;
+
+    const ctx = canvas.getContext('2d');
     if (!ctx) throw new Error('Cannot create rendering context while creating a texture');
 
     ctx.imageSmoothingEnabled = false;
-    ctx.drawImage(drawable, 0, 0);
+    ctx.drawImage(source, 0, 0);
+
+    return new Texture(canvas);
   }
 }

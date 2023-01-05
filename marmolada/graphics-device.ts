@@ -1,8 +1,8 @@
 import { Engine } from 'marmolada/engine';
-import { Texture } from 'marmolada/assets';
 import { Font } from 'marmolada/font';
 import { Vector2 } from 'marmolada/math/vector2';
 import { Color } from 'marmolada/color';
+import { Texture } from 'marmolada/texture';
 
 export class GraphicsDevice {
   activeFont: (Font | null) = null;
@@ -86,16 +86,18 @@ export class GraphicsDevice {
     this.ctx.clip();
   }
 
-  drawText(text: string, position: Vector2): void {
+  drawText(text: string, position: Vector2, color: Color): void {
     if (!this.activeFont) {
       console.error('No active font was set');
       return;
     }
 
+    const fontTexture = this.activeFont.getTextureForColor(color);
+
     for (let idx = 0; idx < text.length; idx += 1) {
       const char = text[idx];
       this.drawTexturePart(
-        this.activeFont.texture,
+        fontTexture,
         this.activeFont.getSourceXForChar(char),
         this.activeFont.getSourceYForChar(char),
         this.activeFont.charWidth,

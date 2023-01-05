@@ -33,7 +33,7 @@ export abstract class Assets {
   static async loadTexture(name: string, format: string): Promise<Texture> {
     try {
       const image = await this.loadImageFromUrl(`assets/textures/${name}.${format}`);
-      const texture = new Texture(image);
+      const texture = Texture.createFromSource(image);
       this.textures.set(name, texture);
       return texture;
     } catch (e) {

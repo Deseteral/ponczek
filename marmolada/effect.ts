@@ -21,10 +21,10 @@ export abstract class FragmentEffect {
       const color = Color.from0255(sourceBuffer.data[idx], sourceBuffer.data[idx + 1], sourceBuffer.data[idx + 2], sourceBuffer.data[idx + 3]);
       const outColor = this.fragment(x, y, color, source.width, source.height);
 
-      targetBuffer.data[idx] = (outColor._r * 255) | 0;
-      targetBuffer.data[idx + 1] = (outColor._g * 255) | 0;
-      targetBuffer.data[idx + 2] = (outColor._b * 255) | 0;
-      targetBuffer.data[idx + 3] = (outColor._a * 255) | 0;
+      targetBuffer.data[idx] = (outColor.r * 255) | 0;
+      targetBuffer.data[idx + 1] = (outColor.g * 255) | 0;
+      targetBuffer.data[idx + 2] = (outColor.b * 255) | 0;
+      targetBuffer.data[idx + 3] = (outColor.a * 255) | 0;
     }
 
     targetCtx.putImageData(targetBuffer, 0, 0);

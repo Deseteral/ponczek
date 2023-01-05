@@ -8,6 +8,7 @@ export class FontRenderingTestStage extends Stage {
   constructor() {
     super();
     Engine.graphicsDevice.font(Engine.defaultFont);
+    Engine.defaultFont.generateColorVariant(Color.red);
   }
 
   onActivate(): void { }
@@ -16,7 +17,8 @@ export class FontRenderingTestStage extends Stage {
 
   render(g: GraphicsDevice): void {
     g.clearScreen(Color.cornflowerBlue);
-    g.drawText(`Current tick ${Engine.ticks}!`, new Vector2(10, 10));
+    g.drawText(`Current tick ${Engine.ticks}!`, new Vector2(10, 10), Color.black);
+    g.drawText('This text should be in red', new Vector2(10, 20), Color.red);
   }
 
   onDestroy(): void { }
