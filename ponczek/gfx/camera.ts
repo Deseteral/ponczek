@@ -27,8 +27,7 @@ export class Camera {
   }
 
   lookAt(position: Vector2): void {
-    this.position.x = position.x;
-    this.position.y = position.y;
+    this.position.set(position.x, position.y);
   }
 
   translate(translation: Vector2): void {
@@ -36,14 +35,12 @@ export class Camera {
   }
 
   screenToWorld(screenPosition: Vector2, out: Vector2): Vector2 {
-    out.x = screenPosition.x + this.left;
-    out.y = screenPosition.y + this.top;
+    out.set(screenPosition.x + this.left, screenPosition.y + this.top);
     return out;
   }
 
   worldToScreen(worldPosition: Vector2, out: Vector2): Vector2 {
-    out.x = (worldPosition.x - this.left);
-    out.y = (worldPosition.y - this.top);
+    out.set(worldPosition.x - this.left, worldPosition.y - this.top);
     return out;
   }
 

@@ -9,6 +9,12 @@ export class Vector2 {
     this.y = y;
   }
 
+  set(x: number, y: number): Vector2 {
+    this.x = x;
+    this.y = y;
+    return this;
+  }
+
   add(v: Vector2): Vector2 {
     this.x += v.x;
     this.y += v.y;

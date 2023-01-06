@@ -63,8 +63,10 @@ export abstract class Input {
       const rect = (e.target as HTMLCanvasElement).getBoundingClientRect();
       const x = (e.clientX - rect.left) | 0;
       const y = (e.clientY - rect.top) | 0;
-      Input.pointer.x = ((x / canvas.clientWidth) * Engine.width) | 0;
-      Input.pointer.y = ((y / canvas.clientHeight) * Engine.height) | 0;
+      Input.pointer.set(
+        ((x / canvas.clientWidth) * Engine.width) | 0,
+        ((y / canvas.clientHeight) * Engine.height) | 0,
+      );
     });
   }
 
