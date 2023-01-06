@@ -5,6 +5,7 @@ import { Color } from 'ponczek/gfx/color';
 import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
 import { GridView } from 'ponczek/gui/grid-view';
 import { Vector2 } from 'ponczek/math/vector2';
+import { ENDESGA16Palette } from 'ponczek/palettes/endesga16-palette';
 import { XNAPalette } from 'ponczek/palettes/xna-palette';
 
 interface Item {
@@ -18,8 +19,13 @@ class TestGridView extends GridView<Item> {
 
   public drawCell(item: (Item | null), _row: number, _column: number, x: number, y: number, isSelected: boolean, g: GraphicsDevice): void {
     if (!item) return;
-    g.drawText(item.text, new Vector2(x, y + 6), Color.black);
-    g.color(isSelected ? Color.red : XNAPalette.darkSlateGray);
+
+    g.color(ENDESGA16Palette.sap);
+    g.fillRect(x, y, this.cellWidth, this.cellHeight);
+
+    g.drawText(item.text, new Vector2(x + 2, y + 6), ENDESGA16Palette.darkBark);
+
+    g.color(isSelected ? ENDESGA16Palette.fabric : ENDESGA16Palette.pine);
     g.drawRect(x, y, this.cellWidth, this.cellHeight);
   }
 }
@@ -30,6 +36,7 @@ export class GridViewTestScene extends Scene {
 
   onActivate(): void {
     Engine.graphicsDevice.font(Engine.defaultFont);
+    Engine.defaultFont.generateColorVariants([ENDESGA16Palette.sap, ENDESGA16Palette.darkBark]);
 
     this.gridView.cells = [
       [{ text: 'this' }, { text: 'is' }, { text: 'test' }, null, null, { text: 'hello' }],
@@ -67,12 +74,12 @@ export class GridViewTestScene extends Scene {
   }
 
   render(g: GraphicsDevice): void {
-    g.clearScreen(XNAPalette.cornflowerBlue);
+    g.clearScreen(ENDESGA16Palette.darkBark);
 
     this.gridView.drawAt(new Vector2(10, 10), g);
     this.gridViewWithWrap.drawAt(new Vector2(10, 100), g);
 
-    g.drawText('Use WASD to move selection', new Vector2(5, 225), Color.black);
+    g.drawText('Use WASD to move selection', new Vector2(5, 225), ENDESGA16Palette.sap);
   }
 
   onDestroy(): void { }
