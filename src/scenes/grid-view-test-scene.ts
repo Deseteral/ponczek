@@ -1,12 +1,10 @@
 import { Input } from 'ponczek/core/input';
 import { Scene } from 'ponczek/core/scene';
 import { Engine } from 'ponczek/engine';
-import { Color } from 'ponczek/gfx/color';
 import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
 import { GridView } from 'ponczek/gui/grid-view';
 import { Vector2 } from 'ponczek/math/vector2';
 import { ENDESGA16Palette } from 'ponczek/palettes/endesga16-palette';
-import { XNAPalette } from 'ponczek/palettes/xna-palette';
 
 interface Item {
   text: string,
