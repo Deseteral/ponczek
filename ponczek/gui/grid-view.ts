@@ -7,14 +7,14 @@ export abstract class GridView<T> {
   public cellWidth: number;
   public cellHeight: number;
 
-  public selectedRow: number;
-  public selectedColumn: number;
+  public selectedRow: number = 0;
+  public selectedColumn: number = 0;
+
+  public withClipping: boolean = true;
 
   constructor(cellWidth: number, cellHeight: number) {
     this.cellWidth = cellWidth;
     this.cellHeight = cellHeight;
-    this.selectedRow = 0;
-    this.selectedColumn = 0;
   }
 
   public drawAt(position: Vector2, g: GraphicsDevice): void {
@@ -22,21 +22,20 @@ export abstract class GridView<T> {
       for (let column = 0; column < this.cells[row].length; column += 1) {
         const isSelected = this.selectedColumn === column && this.selectedRow === row;
         if (isSelected) continue;
-        const x = position.x + (column * (this.cellWidth - 1));
-        const y = position.y + (row * (this.cellHeight - 1));
-        this.drawCell(this.cells[row][column], row, column, x, y, false, g);
+        this.actualDrawCell(position, column, row, false, g);
       }
     }
 
-    this.drawCell(
-      this.cells[this.selectedRow][this.selectedColumn],
-      this.selectedRow,
-      this.selectedColumn,
-      (position.x + (this.selectedColumn * (this.cellWidth - 1))),
-      (position.y + (this.selectedRow * (this.cellHeight - 1))),
-      true,
-      g,
-    );
+    this.actualDrawCell(position, this.selectedColumn, this.selectedRow, true, g);
+  }
+
+  private actualDrawCell(drawAt: Vector2, column: number, row: number, isSelected: boolean, g: GraphicsDevice): void {
+    const x = drawAt.x + (column * (this.cellWidth - 1));
+    const y = drawAt.y + (row * (this.cellHeight - 1));
+
+    if (this.withClipping) g.clip(x, y, this.cellWidth, this.cellHeight);
+    this.drawCell(this.cells[row][column], row, column, x, y, isSelected, g);
+    g.clip();
   }
 
   public selectNextColumn(wrap: boolean = false): void {
