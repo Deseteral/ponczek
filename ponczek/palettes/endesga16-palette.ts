@@ -18,3 +18,5 @@ export const ENDESGA16Palette = {
   cyan: Color.fromRGBAHex('2ce8f4'),
   blue: Color.fromRGBAHex('0484d1'),
 };
+
+export const ENDESGA16PaletteIdx = Object.values(ENDESGA16Palette);

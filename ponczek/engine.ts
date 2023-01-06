@@ -10,6 +10,7 @@
  * TODO: Add support for seeding random number generator
  * TODO: Support page lifecycle APIs
  * TODO: Rendering text inside rectangle
+ * TODO: Dithering patterns
  */
 
 import 'ponczek/polyfills';
