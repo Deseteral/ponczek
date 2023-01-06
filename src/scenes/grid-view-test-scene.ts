@@ -67,9 +67,11 @@ export class GridViewTestScene extends Scene {
 
   render(g: GraphicsDevice): void {
     g.clearScreen(Color.cornflowerBlue);
-    this.gridView.drawAt(new Vector2(10, 10), g);
 
+    this.gridView.drawAt(new Vector2(10, 10), g);
     this.gridViewWithWrap.drawAt(new Vector2(10, 100), g);
+
+    g.drawText('Use WASD to move selection', new Vector2(5, 225), Color.black);
   }
 
   onDestroy(): void { }
