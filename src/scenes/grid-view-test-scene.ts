@@ -40,6 +40,9 @@ export class GridViewTestScene extends Scene {
       ...this.gridView.cells,
       [null, { text: 'with' }, { text: 'wrap' }],
     ];
+
+    this.gridView.cellMargin.set(-1, -1);
+    this.gridViewWithWrap.cellMargin.set(3, 3);
   }
 
   update(): void {

@@ -12,6 +12,8 @@ export abstract class GridView<T> {
 
   public withClipping: boolean = true;
 
+  public cellMargin: Vector2 = new Vector2();
+
   constructor(cellWidth: number, cellHeight: number) {
     this.cellWidth = cellWidth;
     this.cellHeight = cellHeight;
@@ -30,8 +32,8 @@ export abstract class GridView<T> {
   }
 
   private actualDrawCell(drawAt: Vector2, column: number, row: number, isSelected: boolean, g: GraphicsDevice): void {
-    const x = drawAt.x + (column * (this.cellWidth - 1));
-    const y = drawAt.y + (row * (this.cellHeight - 1));
+    const x = drawAt.x + (column * (this.cellWidth + this.cellMargin.x));
+    const y = drawAt.y + (row * (this.cellHeight + this.cellMargin.y));
 
     if (this.withClipping) g.clip(x, y, this.cellWidth, this.cellHeight);
     this.drawCell(this.cells[row][column], row, column, x, y, isSelected, g);
