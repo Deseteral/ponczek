@@ -5,6 +5,7 @@ import { Color } from 'ponczek/gfx/color';
 import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
 import { GridView } from 'ponczek/gui/grid-view';
 import { Vector2 } from 'ponczek/math/vector2';
+import { XNAPalette } from 'ponczek/palettes/xna-palette';
 
 interface Item {
   text: string,
@@ -18,7 +19,7 @@ class TestGridView extends GridView<Item> {
   public drawCell(item: (Item | null), _row: number, _column: number, x: number, y: number, isSelected: boolean, g: GraphicsDevice): void {
     if (!item) return;
     g.drawText(item.text, new Vector2(x, y + 6), Color.black);
-    g.color(isSelected ? Color.red : Color.darkSlateGray);
+    g.color(isSelected ? Color.red : XNAPalette.darkSlateGray);
     g.drawRect(x, y, this.cellWidth, this.cellHeight);
   }
 }
@@ -66,7 +67,7 @@ export class GridViewTestScene extends Scene {
   }
 
   render(g: GraphicsDevice): void {
-    g.clearScreen(Color.cornflowerBlue);
+    g.clearScreen(XNAPalette.cornflowerBlue);
 
     this.gridView.drawAt(new Vector2(10, 10), g);
     this.gridViewWithWrap.drawAt(new Vector2(10, 100), g);

@@ -4,6 +4,7 @@ import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
 import { Input } from 'ponczek/core/input';
 import { Vector2 } from 'ponczek/math/vector2';
 import { Scene } from 'ponczek/core/scene';
+import { XNAPalette } from 'ponczek/palettes/xna-palette';
 
 export class CameraTestScene extends Scene {
   camera: Camera;
@@ -43,7 +44,7 @@ export class CameraTestScene extends Scene {
   }
 
   render(g: GraphicsDevice): void {
-    g.clearScreen(Color.cornflowerBlue);
+    g.clearScreen(XNAPalette.cornflowerBlue);
 
     this.camera.begin();
 

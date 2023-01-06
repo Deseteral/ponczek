@@ -3,6 +3,7 @@ import { Engine } from 'ponczek/engine';
 import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
 import { Vector2 } from 'ponczek/math/vector2';
 import { Scene } from 'ponczek/core/scene';
+import { XNAPalette } from 'ponczek/palettes/xna-palette';
 
 export class FontRenderingTestScene extends Scene {
   constructor() {
@@ -16,7 +17,7 @@ export class FontRenderingTestScene extends Scene {
   update(): void { }
 
   render(g: GraphicsDevice): void {
-    g.clearScreen(Color.cornflowerBlue);
+    g.clearScreen(XNAPalette.cornflowerBlue);
     g.drawText(`Current tick ${Engine.ticks}!`, new Vector2(10, 10), Color.black);
     g.drawText('This text should be in red', new Vector2(10, 20), Color.red);
   }
