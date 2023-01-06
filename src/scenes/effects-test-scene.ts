@@ -9,7 +9,7 @@ class TestEffect extends FragmentEffect {
     if (color.equals(Color.black)) return color;
 
     const z = (Math.sin(Engine.ticks / 30) + 1) / 2;
-    return Color.from01(x / w, y / h, z);
+    return color.setFrom01(x / w, y / h, z);
   }
 }
 

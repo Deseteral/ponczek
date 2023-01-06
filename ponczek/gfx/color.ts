@@ -1,6 +1,3 @@
-// TODO: Since Color in an immutable data structure and there will be limited set of colors in one game
-//       I could cache all of the colors to avoid allocation and hitting GC
-
 export class Color {
   private _r: number;
   get r(): number { return this._r; }
@@ -14,34 +11,61 @@ export class Color {
   private _a: number;
   get a(): number { return this._a; }
 
-  private cachedHtmlString: string;
   public get htmlString(): string {
-    return this.cachedHtmlString;
+    return `rgba(${(this._r * 255) | 0},${(this._g * 255) | 0},${(this._b * 255) | 0},${(this._a * 255) | 0})`;
   }
 
-  private constructor(r: number, g: number, b: number, a: number) {
+  constructor(r: number, g: number, b: number, a: number) {
     this._r = r;
     this._g = g;
     this._b = b;
     this._a = a;
-    this.cachedHtmlString = `rgba(${(this._r * 255) | 0},${(this._g * 255) | 0},${(this._b * 255) | 0},${(this._a * 255) | 0})`;
   }
 
   equals(other: Color): boolean {
     return (this._r === other._r && this._g === other._g && this._b === other._b && this._a === other._a);
   }
 
+  setFrom01(r: number, g: number, b: number, a: number = 1.0): Color {
+    this._r = r;
+    this._g = g;
+    this._b = b;
+    this._a = a;
+    return this;
+  }
+
   static from01(r: number, g: number, b: number, a: number = 1.0): Color {
     return new Color(r, g, b, a);
+  }
+
+  setFrom0255(r: number, g: number, b: number, a: number = 255): Color {
+    this._r = r / 255;
+    this._g = g / 255;
+    this._b = b / 255;
+    this._a = a / 255;
+    return this;
   }
 
   static from0255(r: number, g: number, b: number, a: number = 255): Color {
     return new Color(r / 255, g / 255, b / 255, a / 255);
   }
 
+  setFromRGBA(rgba: number): Color {
+    const hex = rgba.toString(16);
+    return this.setFromRGBAHex(hex);
+  }
+
   static fromRGBA(rgba: number): Color {
     const hex = rgba.toString(16);
     return Color.fromRGBAHex(hex);
+  }
+
+  setFromRGBAHex(hex: string): Color {
+    const r = parseInt(hex.slice(0, 2), 16);
+    const g = parseInt(hex.slice(2, 4), 16);
+    const b = parseInt(hex.slice(4, 6), 16);
+    const a = (parseInt(hex.slice(6, 8), 16) || 255);
+    return this.setFrom0255(r, g, b, a);
   }
 
   static fromRGBAHex(hex: string): Color {
