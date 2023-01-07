@@ -73,6 +73,11 @@ export class GridViewTestScene extends Scene {
       this.gridViewWithWrap.selectPreviousRow(true);
     }
 
+    if (Input.getButtonDown('a')) {
+      console.log(`Selected value on gridView: ${this.gridView.selectedValue.text}`);
+      console.log(`Selected value on gridViewWithWrap: ${this.gridViewWithWrap.selectedValue.text}`);
+    }
+
     if (Input.getButtonDown('b')) SceneManager.popScene();
   }
 
