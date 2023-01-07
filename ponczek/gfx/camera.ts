@@ -3,7 +3,7 @@ import { Engine } from 'ponczek/engine';
 import { Vector2 } from 'ponczek/math/vector2';
 
 export class Camera {
-  position: Vector2;
+  public position: Vector2;
 
   private ctx: CanvasRenderingContext2D;
   private viewportHalfWidth: number;
@@ -17,29 +17,29 @@ export class Camera {
     this.viewportHalfHeight = this.ctx.canvas.height >> 1;
   }
 
-  begin(): void {
+  public begin(): void {
     this.ctx.save();
     this.ctx.translate(-this.left, -this.top);
   }
 
-  end(): void {
+  public end(): void {
     this.ctx.restore();
   }
 
-  lookAt(position: Vector2): void {
+  public lookAt(position: Vector2): void {
     this.position.set(position.x | 0, position.y | 0);
   }
 
-  translate(translation: Vector2): void {
+  public translate(translation: Vector2): void {
     this.position.add(translation);
   }
 
-  screenToWorld(screenPosition: Vector2, out: Vector2): Vector2 {
+  public screenToWorld(screenPosition: Vector2, out: Vector2): Vector2 {
     out.set(screenPosition.x + this.left, screenPosition.y + this.top);
     return out;
   }
 
-  worldToScreen(worldPosition: Vector2, out: Vector2): Vector2 {
+  public worldToScreen(worldPosition: Vector2, out: Vector2): Vector2 {
     out.set(worldPosition.x - this.left, worldPosition.y - this.top);
     return out;
   }
