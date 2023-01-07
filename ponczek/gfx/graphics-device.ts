@@ -49,14 +49,17 @@ export class GraphicsDevice {
   }
 
   drawTexture(texture: Texture, x: number, y: number, w: number = texture.width, h: number = texture.height): void {
-    this.ctx.drawImage(texture.drawable, x, y, w, h);
+    this.ctx.drawImage(texture.drawable, (x | 0), (y | 0), w, h);
   }
 
   drawTexturePart(texture: Texture, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number): void {
-    this.ctx.drawImage(texture.drawable, sx, sy, sw, sh, dx, dy, dw, dh);
+    this.ctx.drawImage(texture.drawable, sx, sy, sw, sh, (dx | 0), (dy | 0), dw, dh);
   }
 
   drawRect(x: number, y: number, w: number, h: number): void {
+    x |= 0; // eslint-disable-line no-param-reassign
+    y |= 0; // eslint-disable-line no-param-reassign
+
     this.ctx.fillRect(x, y, w, 1);
     this.ctx.fillRect(x, y + h - 1, w, 1);
     this.ctx.fillRect(x, y, 1, h);
@@ -64,10 +67,13 @@ export class GraphicsDevice {
   }
 
   fillRect(x: number, y: number, w: number, h: number): void {
-    this.ctx.fillRect(x, y, w, h);
+    this.ctx.fillRect((x | 0), (y | 0), w, h);
   }
 
   drawNinePatch(texture: Texture, x: number, y: number, w: number, h: number, patchWidth: number, patchHeight: number): void {
+    x |= 0; // eslint-disable-line no-param-reassign
+    y |= 0; // eslint-disable-line no-param-reassign
+
     // top-left corner
     this.drawTexturePart(texture, 0, 0, patchWidth, patchHeight, x - patchWidth, y - patchHeight, patchWidth, patchHeight);
 
@@ -102,6 +108,9 @@ export class GraphicsDevice {
       return;
     }
 
+    x |= 0; // eslint-disable-line no-param-reassign
+    y |= 0; // eslint-disable-line no-param-reassign
+
     this.ctx.save();
     this.ctx.beginPath();
     this.ctx.rect(x, y, w, h);
@@ -124,8 +133,8 @@ export class GraphicsDevice {
         this.activeFont.getSourceYForChar(char),
         this.activeFont.charWidth,
         this.activeFont.charHeight,
-        (position.x + (idx * this.activeFont.charWidth)),
-        position.y,
+        (position.x + (idx * this.activeFont.charWidth)) | 0,
+        (position.y) | 0,
         this.activeFont.charWidth,
         this.activeFont.charHeight,
       );

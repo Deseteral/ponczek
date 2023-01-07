@@ -76,7 +76,9 @@ export class SceneStackTestScene extends Scene {
   constructor() {
     super();
     this.rect = new Rectangle(random.nextInt(0, Engine.graphicsDevice.width / 2), random.nextInt(0, Engine.graphicsDevice.height / 2), 110, 30);
-    this.direction = new Vector2(1, 1);
+
+    const speed = 1;
+    this.direction = new Vector2(speed, speed);
   }
 
   update(): void {
