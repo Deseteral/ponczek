@@ -26,6 +26,10 @@ export class Color {
     return (this._r === other._r && this._g === other._g && this._b === other._b && this._a === other._a);
   }
 
+  copy(overwriteAlpha: number = this.a): Color {
+    return new Color(this.r, this.g, this.b, overwriteAlpha);
+  }
+
   setFrom01(r: number, g: number, b: number, a: number = 1.0): Color {
     this._r = r;
     this._g = g;
