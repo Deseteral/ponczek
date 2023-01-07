@@ -12,7 +12,7 @@ export class Color {
   get a(): number { return this._a; }
 
   public get htmlString(): string {
-    return `rgba(${(this._r * 255) | 0},${(this._g * 255) | 0},${(this._b * 255) | 0},${(this._a * 255) | 0})`;
+    return `rgb(${(this._r * 255) | 0}, ${(this._g * 255) | 0}, ${(this._b * 255) | 0}, ${this._a})`;
   }
 
   constructor(r: number, g: number, b: number, a: number) {
