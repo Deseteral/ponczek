@@ -39,10 +39,11 @@ class PauseMenuScene extends Scene {
 
   constructor() {
     super();
-    this.grid = new PauseMenuGrid(this.gridWidth);
+
     this.gridPosition = new Vector2(Engine.graphicsDevice.width / 2 - this.gridWidth / 2, 60);
     this.backgroundColor = ENDESGA16PaletteIdx[3].copy(0.9);
 
+    this.grid = new PauseMenuGrid(this.gridWidth);
     this.grid.cells = [
       [{ text: 'Resume', action: () => SceneManager.popScene() }],
       [{ text: 'Some action', action: () => console.log('Some action') }],
@@ -84,6 +85,7 @@ export class SceneStackTestScene extends Scene {
   update(): void {
     const w = Engine.graphicsDevice.width;
     const h = Engine.graphicsDevice.height;
+
     if (this.rect.x <= 0 || this.rect.y <= 0 || this.rect.x >= (w - this.rect.width) || this.rect.y >= (h - this.rect.height)) {
       this.direction.rotate90(false); // TODO: This should be somewhat random
     }
