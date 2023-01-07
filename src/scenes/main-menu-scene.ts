@@ -10,6 +10,7 @@ import { CameraTestScene } from 'src/scenes/camera-test-scene';
 import { EffectsTestScene } from 'src/scenes/effects-test-scene';
 import { FontRenderingTestScene } from 'src/scenes/font-rendering-test-scene';
 import { GridViewTestScene } from 'src/scenes/grid-view-test-scene';
+import { SceneStackTestScene } from 'src/scenes/scene-stack-test-scene';
 
 interface Item {
   text: string,
@@ -33,7 +34,6 @@ export class MainMenuScene extends Scene {
   demoScenesGridView = new DemoScenesGridView();
 
   onActivate(): void {
-    Engine.graphicsDevice.font(Engine.defaultFont);
     Engine.defaultFont.generateColorVariants(ENDESGA16PaletteIdx);
 
     this.demoScenesGridView.cells = [
@@ -41,6 +41,7 @@ export class MainMenuScene extends Scene {
       [{ text: 'Effects', scene: () => new EffectsTestScene() }],
       [{ text: 'Font rendering', scene: () => new FontRenderingTestScene() }],
       [{ text: 'Grid view', scene: () => new GridViewTestScene() }],
+      [{ text: 'Scene stack', scene: () => new SceneStackTestScene() }],
     ];
   }
 

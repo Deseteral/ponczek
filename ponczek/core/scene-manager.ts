@@ -20,4 +20,8 @@ export abstract class SceneManager {
     SceneManager.activeScene?.onDestroy();
     SceneManager.sceneStack.shift();
   }
+
+  static backToRoot(): void {
+    this.sceneStack = [this.sceneStack.at(-1)!];
+  }
 }
