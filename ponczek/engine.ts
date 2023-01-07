@@ -12,6 +12,7 @@
  * TODO: Dithering patterns
  * TODO: Frame timing
  * TODO: Data structure for defining color palettes
+ * TODO: Setup double buffering
  */
 
 import 'ponczek/polyfills';
@@ -52,6 +53,7 @@ export abstract class Engine {
 
     Engine.defaultFont = new Font(Assets.texture('monogram'), 8, 8);
     Engine.defaultFont.generateColorVariants([Color.black, Color.white]);
+    Engine.graphicsDevice.font(Engine.defaultFont);
 
     const containerEl = document.getElementById('container');
     if (!containerEl) {
