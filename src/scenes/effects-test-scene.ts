@@ -3,6 +3,8 @@ import { FragmentEffect } from 'ponczek/gfx/effect';
 import { Engine } from 'ponczek/engine';
 import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
 import { Scene } from 'ponczek/core/scene';
+import { SceneManager } from 'ponczek/core/scene-manager';
+import { Input } from 'ponczek/core/input';
 
 class TestEffect extends FragmentEffect {
   fragment(x: number, y: number, color: Color, w: number, h: number): Color {
@@ -18,7 +20,9 @@ export class EffectsTestScene extends Scene {
 
   onActivate(): void { }
 
-  update(): void { }
+  update(): void {
+    if (Input.getButtonDown('b')) SceneManager.popScene();
+  }
 
   render(g: GraphicsDevice): void {
     g.clearScreen(Color.black);

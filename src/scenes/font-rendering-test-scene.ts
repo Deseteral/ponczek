@@ -4,6 +4,8 @@ import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
 import { Vector2 } from 'ponczek/math/vector2';
 import { Scene } from 'ponczek/core/scene';
 import { XNAPalette } from 'ponczek/palettes/xna-palette';
+import { Input } from 'ponczek/core/input';
+import { SceneManager } from 'ponczek/core/scene-manager';
 
 export class FontRenderingTestScene extends Scene {
   constructor() {
@@ -14,7 +16,9 @@ export class FontRenderingTestScene extends Scene {
 
   onActivate(): void { }
 
-  update(): void { }
+  update(): void {
+    if (Input.getButtonDown('b')) SceneManager.popScene();
+  }
 
   render(g: GraphicsDevice): void {
     g.clearScreen(XNAPalette.cornflowerBlue);

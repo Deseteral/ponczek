@@ -1,5 +1,6 @@
 import { Input } from 'ponczek/core/input';
 import { Scene } from 'ponczek/core/scene';
+import { SceneManager } from 'ponczek/core/scene-manager';
 import { Engine } from 'ponczek/engine';
 import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
 import { GridView } from 'ponczek/gui/grid-view';
@@ -21,9 +22,10 @@ class TestGridView extends GridView<Item> {
     g.color(ENDESGA16Palette.sap);
     g.fillRect(x, y, this.cellWidth, this.cellHeight);
 
-    g.drawText(item.text, new Vector2(x + 2, y + 6), ENDESGA16Palette.darkBark);
+    const selectionColor = isSelected ? ENDESGA16Palette.fabric : ENDESGA16Palette.pine;
+    g.drawText(item.text, new Vector2(x + 2, y + 6), selectionColor);
 
-    g.color(isSelected ? ENDESGA16Palette.fabric : ENDESGA16Palette.pine);
+    g.color(selectionColor);
     g.drawRect(x, y, this.cellWidth, this.cellHeight);
   }
 }
@@ -69,6 +71,8 @@ export class GridViewTestScene extends Scene {
       this.gridView.selectPreviousRow();
       this.gridViewWithWrap.selectPreviousRow(true);
     }
+
+    if (Input.getButtonDown('b')) SceneManager.popScene();
   }
 
   render(g: GraphicsDevice): void {

@@ -1,5 +1,6 @@
 import { Assets } from 'ponczek/core/assets';
 import { Input } from 'ponczek/core/input';
+import { SceneManager } from 'ponczek/core/scene-manager';
 import { Engine } from 'ponczek/engine';
 import { MainMenuScene } from 'src/scenes/main-menu-scene';
 
@@ -10,6 +11,6 @@ import { MainMenuScene } from 'src/scenes/main-menu-scene';
 
   Input.withGameBoyLikeBinds();
 
-  Engine.changeScene(new MainMenuScene());
+  SceneManager.pushScene(new MainMenuScene());
   Engine.loop();
 }());

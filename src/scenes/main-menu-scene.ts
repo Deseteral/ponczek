@@ -1,7 +1,7 @@
 import { Input } from 'ponczek/core/input';
 import { Scene } from 'ponczek/core/scene';
+import { SceneManager } from 'ponczek/core/scene-manager';
 import { Engine } from 'ponczek/engine';
-import { Color } from 'ponczek/gfx/color';
 import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
 import { GridView } from 'ponczek/gui/grid-view';
 import { Vector2 } from 'ponczek/math/vector2';
@@ -21,7 +21,7 @@ class DemoScenesGridView extends GridView<Item> {
     super(120, 10);
   }
 
-  public drawCell(item: (Item | null), row: number, column: number, x: number, y: number, isSelected: boolean, g: GraphicsDevice): void {
+  public drawCell(item: (Item | null), _row: number, _column: number, x: number, y: number, isSelected: boolean, g: GraphicsDevice): void {
     if (!item) return;
 
     const selectionChar = isSelected ? '>' : ' ';
@@ -47,7 +47,7 @@ export class MainMenuScene extends Scene {
   update(): void {
     if (Input.getButtonDown('up')) this.demoScenesGridView.selectPreviousRow(true);
     if (Input.getButtonDown('down')) this.demoScenesGridView.selectNextRow(true);
-    if (Input.getButtonDown('a')) Engine.changeScene(this.demoScenesGridView.selectedValue.scene());
+    if (Input.getButtonDown('a')) SceneManager.pushScene(this.demoScenesGridView.selectedValue.scene());
   }
 
   render(g: GraphicsDevice): void {

@@ -5,6 +5,7 @@ import { Input } from 'ponczek/core/input';
 import { Vector2 } from 'ponczek/math/vector2';
 import { Scene } from 'ponczek/core/scene';
 import { XNAPalette } from 'ponczek/palettes/xna-palette';
+import { SceneManager } from 'ponczek/core/scene-manager';
 
 export class CameraTestScene extends Scene {
   camera: Camera;
@@ -41,6 +42,8 @@ export class CameraTestScene extends Scene {
       'Pointer in world position': this.camera.screenToWorld(Input.pointer, new Vector2()),
       'Red rectangle screen space position': this.camera.worldToScreen(this.redRectPosition, new Vector2()),
     });
+
+    if (Input.getButtonDown('b')) SceneManager.popScene();
   }
 
   render(g: GraphicsDevice): void {

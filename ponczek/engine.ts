@@ -6,7 +6,6 @@
  * TODO: Simple GUI system (something like playdate's gridview?)
  * TODO: Particle system
  * TODO: Font rendering
- * TODO: Stack based scene management
  * TODO: Add support for seeding random number generator
  * TODO: Support page lifecycle APIs
  * TODO: Rendering text inside rectangle
@@ -14,18 +13,16 @@
  */
 
 import 'ponczek/polyfills';
-import { Scene } from 'ponczek/core/scene';
 import { Input } from 'ponczek/core/input';
 import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
 import { Font } from 'ponczek/gfx/font';
 import { Assets } from 'ponczek/core/assets';
 import { Color } from 'ponczek/gfx/color';
+import { SceneManager } from 'ponczek/core/scene-manager';
 
 export abstract class Engine {
   static width: number;
   static height: number;
-
-  static activeScene: (Scene | null) = null;
 
   static ticks: number = 0;
   static shouldCountTicks: boolean = true;
@@ -67,22 +64,20 @@ export abstract class Engine {
     Engine.onWindowResize();
   }
 
-  static changeScene(nextScene: Scene): void {
-    Engine.activeScene?.onDestroy();
-    Engine.activeScene = nextScene;
-    Engine.activeScene.onActivate();
-  }
-
   static loop(): void {
-    const scene = Engine.activeScene!;
-    scene.update();
-    scene.render(Engine.graphicsDevice);
+    for (let idx = 0; idx < Math.min(SceneManager.updateDepth, SceneManager.sceneStack.length); idx += 1) {
+      SceneManager.sceneStack[idx].update();
+    }
+
+    for (let idx = Math.min(SceneManager.renderDepth, SceneManager.sceneStack.length - 1); idx >= 0; idx -= 1) {
+      SceneManager.sceneStack[idx].render(Engine.graphicsDevice);
+    }
 
     Input.update();
 
     if (Engine.shouldCountTicks) Engine.ticks += 1;
 
-    requestAnimationFrame(() => Engine.loop());
+    requestAnimationFrame(() => Engine.loop()); // TODO: Remove closure
   }
 
   static saveData<T>(data: T, key: string = 'save'): void {
