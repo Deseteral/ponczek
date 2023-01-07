@@ -1,7 +1,6 @@
 import { Input } from 'ponczek/core/input';
 import { Scene } from 'ponczek/core/scene';
 import { SceneManager } from 'ponczek/core/scene-manager';
-import { Engine } from 'ponczek/engine';
 import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
 import { GridView } from 'ponczek/gui/grid-view';
 import { Vector2 } from 'ponczek/math/vector2';
