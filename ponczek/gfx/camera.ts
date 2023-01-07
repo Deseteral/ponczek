@@ -27,7 +27,7 @@ export class Camera {
   }
 
   lookAt(position: Vector2): void {
-    this.position.set(position.x, position.y);
+    this.position.set(position.x | 0, position.y | 0);
   }
 
   translate(translation: Vector2): void {

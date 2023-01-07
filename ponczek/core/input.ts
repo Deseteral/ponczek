@@ -42,6 +42,7 @@ export abstract class Input {
   }
 
   static update(): void {
+    // TODO: This might generate GC hits
     this.previousKeyState = this.keyState;
     this.keyState = new Map(this.previousKeyState);
   }

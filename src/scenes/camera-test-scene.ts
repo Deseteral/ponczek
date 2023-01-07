@@ -22,7 +22,7 @@ export class CameraTestScene extends Scene {
   update(): void {
     let dx = 0;
     let dy = 0;
-    const speed = 2;
+    const speed = 2.1;
 
     if (Input.getKey('a')) dx -= 1;
     if (Input.getKey('d')) dx += 1;
