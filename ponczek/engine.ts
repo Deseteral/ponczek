@@ -21,17 +21,16 @@ import { Color } from 'ponczek/gfx/color';
 import { SceneManager } from 'ponczek/core/scene-manager';
 
 export abstract class Engine {
-  static width: number;
-  static height: number;
+  public static width: number;
+  public static height: number;
 
-  static ticks: number = 0;
-  static shouldCountTicks: boolean = true;
+  public static ticks: number = 0;
+  public static shouldCountTicks: boolean = true;
 
-  static defaultFont: Font;
+  public static defaultFont: Font;
+  public static graphicsDevice: GraphicsDevice;
 
-  static graphicsDevice: GraphicsDevice;
-
-  static initialize(width: number, height: number): void {
+  public static initialize(width: number, height: number): void {
     Engine.width = width;
     Engine.height = height;
 
@@ -64,20 +63,8 @@ export abstract class Engine {
     Engine.onWindowResize();
   }
 
-  static loop(): void {
-    for (let idx = 0; idx < Math.min(SceneManager.updateDepth, SceneManager.sceneStack.length); idx += 1) {
-      SceneManager.sceneStack[idx].update();
-    }
-
-    for (let idx = Math.min(SceneManager.renderDepth, SceneManager.sceneStack.length - 1); idx >= 0; idx -= 1) {
-      SceneManager.sceneStack[idx].render(Engine.graphicsDevice);
-    }
-
-    Input.update();
-
-    if (Engine.shouldCountTicks) Engine.ticks += 1;
-
-    requestAnimationFrame(Engine.loop);
+  public static start(): void {
+    Engine.loop();
   }
 
   static saveData<T>(data: T, key: string = 'save'): void {
@@ -110,8 +97,24 @@ export abstract class Engine {
     }
   }
 
-  static log(msg: string): void {
+  public static log(msg: string): void {
     console.log(`%c[ponczek] ${msg}`, 'color: palevioletred');
+  }
+
+  private static loop(): void {
+    for (let idx = 0; idx < Math.min(SceneManager.updateDepth, SceneManager.sceneStack.length); idx += 1) {
+      SceneManager.sceneStack[idx].update();
+    }
+
+    for (let idx = Math.min(SceneManager.renderDepth, SceneManager.sceneStack.length - 1); idx >= 0; idx -= 1) {
+      SceneManager.sceneStack[idx].render(Engine.graphicsDevice);
+    }
+
+    Input.update();
+
+    if (Engine.shouldCountTicks) Engine.ticks += 1;
+
+    requestAnimationFrame(Engine.loop);
   }
 
   private static onWindowResize(): void {
