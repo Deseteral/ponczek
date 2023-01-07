@@ -64,8 +64,8 @@ export abstract class Input {
       const x = (e.clientX - rect.left) | 0;
       const y = (e.clientY - rect.top) | 0;
       Input.pointer.set(
-        ((x / canvas.clientWidth) * Engine.width) | 0,
-        ((y / canvas.clientHeight) * Engine.height) | 0,
+        ((x / canvas.clientWidth) * canvas.width) | 0,
+        ((y / canvas.clientHeight) * canvas.height) | 0,
       );
     });
   }

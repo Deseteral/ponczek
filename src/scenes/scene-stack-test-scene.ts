@@ -40,7 +40,7 @@ class PauseMenuScene extends Scene {
   constructor() {
     super();
     this.grid = new PauseMenuGrid(this.gridWidth);
-    this.gridPosition = new Vector2(Engine.width / 2 - this.gridWidth / 2, 60);
+    this.gridPosition = new Vector2(Engine.graphicsDevice.width / 2 - this.gridWidth / 2, 60);
     this.backgroundColor = ENDESGA16PaletteIdx[3].copy(0.9);
 
     this.grid.cells = [
@@ -59,7 +59,7 @@ class PauseMenuScene extends Scene {
 
   render(g: GraphicsDevice): void {
     g.color(this.backgroundColor);
-    g.fillRect(0, 0, Engine.width, Engine.height);
+    g.fillRect(0, 0, g.width, g.height);
 
     g.color(ENDESGA16PaletteIdx[2]);
     g.fillRect(this.gridPosition.x - 5, this.gridPosition.y - 5, this.gridWidth + 10, 48);
@@ -75,12 +75,14 @@ export class SceneStackTestScene extends Scene {
 
   constructor() {
     super();
-    this.rect = new Rectangle(random.nextInt(0, Engine.width / 2), random.nextInt(0, Engine.height / 2), 110, 30);
+    this.rect = new Rectangle(random.nextInt(0, Engine.graphicsDevice.width / 2), random.nextInt(0, Engine.graphicsDevice.height / 2), 110, 30);
     this.direction = new Vector2(1, 1);
   }
 
   update(): void {
-    if (this.rect.x <= 0 || this.rect.y <= 0 || this.rect.x >= (Engine.width - this.rect.width) || this.rect.y >= (Engine.height - this.rect.height)) {
+    const w = Engine.graphicsDevice.width;
+    const h = Engine.graphicsDevice.height;
+    if (this.rect.x <= 0 || this.rect.y <= 0 || this.rect.x >= (w - this.rect.width) || this.rect.y >= (h - this.rect.height)) {
       this.direction.rotate90(false); // TODO: This should be somewhat random
     }
 

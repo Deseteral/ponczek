@@ -1,14 +1,36 @@
-import { Engine } from 'ponczek/engine';
 import { Font } from 'ponczek/gfx/font';
 import { Vector2 } from 'ponczek/math/vector2';
 import { Color } from 'ponczek/gfx/color';
 import { Texture } from 'ponczek/gfx/texture';
 
 export class GraphicsDevice {
-  activeFont: (Font | null) = null;
+  public width: number;
+  public height: number;
 
-  constructor(public ctx: CanvasRenderingContext2D) {
-    this.ctx = ctx;
+  public activeFont: (Font | null) = null;
+  public ctx: CanvasRenderingContext2D;
+
+  public get domElement(): HTMLCanvasElement { return this.ctx.canvas; }
+
+  constructor(width: number, height: number) {
+    this.width = width;
+    this.height = height;
+    this.ctx = GraphicsDevice.createCanvas(width, height);
+  }
+
+  private static createCanvas(width: number, height: number): CanvasRenderingContext2D {
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      throw new Error('An error occured while creating canvas context');
+    }
+
+    ctx.imageSmoothingEnabled = false;
+
+    return ctx;
   }
 
   color(color: Color): void {
@@ -22,7 +44,7 @@ export class GraphicsDevice {
   clearScreen(clearColor: Color = Color.black): void {
     const prevColor = this.ctx.fillStyle;
     this.ctx.fillStyle = clearColor.htmlString;
-    this.ctx.fillRect(0, 0, Engine.width, Engine.height);
+    this.ctx.fillRect(0, 0, this.width, this.height);
     this.ctx.fillStyle = prevColor;
   }
 

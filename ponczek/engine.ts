@@ -24,9 +24,6 @@ import { Color } from 'ponczek/gfx/color';
 import { SceneManager } from 'ponczek/core/scene-manager';
 
 export abstract class Engine {
-  public static width: number;
-  public static height: number;
-
   public static ticks: number = 0;
   public static shouldCountTicks: boolean = true;
 
@@ -34,22 +31,9 @@ export abstract class Engine {
   public static graphicsDevice: GraphicsDevice;
 
   public static initialize(width: number, height: number): void {
-    Engine.width = width;
-    Engine.height = height;
+    Engine.graphicsDevice = new GraphicsDevice(width, height);
 
-    const canvas = document.createElement('canvas');
-    canvas.width = Engine.width;
-    canvas.height = Engine.height;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) {
-      throw new Error('An error occured while creating canvas context');
-    }
-
-    ctx.imageSmoothingEnabled = false;
-    Engine.graphicsDevice = new GraphicsDevice(ctx);
-
-    Input.initialize(canvas);
+    Input.initialize(Engine.graphicsDevice.domElement);
 
     Engine.defaultFont = new Font(Assets.texture('monogram'), 8, 8);
     Engine.defaultFont.generateColorVariants([Color.black, Color.white]);
@@ -61,7 +45,7 @@ export abstract class Engine {
     }
 
     containerEl.innerHTML = '';
-    containerEl.appendChild(canvas);
+    containerEl.appendChild(Engine.graphicsDevice.domElement);
 
     window.addEventListener('resize', () => Engine.onWindowResize());
     Engine.onWindowResize();
@@ -93,8 +77,8 @@ export abstract class Engine {
 
   private static onWindowResize(): void {
     const windowWidth = window.innerWidth;
-    const scale = ((windowWidth / Engine.width) | 0) || 1;
-    const canvasWidth = Engine.width * scale;
-    Engine.graphicsDevice.ctx.canvas.style.width = `${canvasWidth}px`;
+    const scale = ((windowWidth / Engine.graphicsDevice.width) | 0) || 1;
+    const canvasWidth = Engine.graphicsDevice.width * scale;
+    Engine.graphicsDevice.domElement.style.width = `${canvasWidth}px`;
   }
 }
