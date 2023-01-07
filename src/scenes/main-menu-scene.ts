@@ -31,11 +31,13 @@ class DemoScenesGridView extends GridView<Item> {
 }
 
 export class MainMenuScene extends Scene {
-  demoScenesGridView = new DemoScenesGridView();
+  private demoScenesGridView: DemoScenesGridView;
 
-  onActivate(): void {
+  constructor() {
+    super();
     Engine.defaultFont.generateColorVariants(ENDESGA16PaletteIdx);
 
+    this.demoScenesGridView = new DemoScenesGridView();
     this.demoScenesGridView.cells = [
       [{ text: 'Camera', scene: () => new CameraTestScene() }],
       [{ text: 'Effects', scene: () => new EffectsTestScene() }],
@@ -56,6 +58,4 @@ export class MainMenuScene extends Scene {
     g.drawText('Ponczek', new Vector2(5, 5), ENDESGA16Palette.white);
     this.demoScenesGridView.drawAt(new Vector2(5, 20), g);
   }
-
-  onDestroy(): void { }
 }

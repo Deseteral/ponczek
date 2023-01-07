@@ -11,13 +11,10 @@ export abstract class SceneManager {
   }
 
   static pushScene(nextScene: Scene): void {
-    SceneManager.activeScene?.onDestroy();
     SceneManager.sceneStack.unshift(nextScene);
-    SceneManager.activeScene?.onActivate();
   }
 
   static popScene(): void {
-    SceneManager.activeScene?.onDestroy();
     SceneManager.sceneStack.shift();
   }
 

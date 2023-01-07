@@ -10,11 +10,8 @@ import { SceneManager } from 'ponczek/core/scene-manager';
 export class FontRenderingTestScene extends Scene {
   constructor() {
     super();
-    Engine.graphicsDevice.font(Engine.defaultFont);
     Engine.defaultFont.generateColorVariant(Color.red);
   }
-
-  onActivate(): void { }
 
   update(): void {
     if (Input.getButtonDown('b')) SceneManager.popScene();
@@ -25,6 +22,4 @@ export class FontRenderingTestScene extends Scene {
     g.drawText(`Current tick ${Engine.ticks}!`, new Vector2(10, 10), Color.black);
     g.drawText('This text should be in red', new Vector2(10, 20), Color.red);
   }
-
-  onDestroy(): void { }
 }

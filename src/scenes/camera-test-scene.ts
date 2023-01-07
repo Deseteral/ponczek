@@ -19,9 +19,6 @@ export class CameraTestScene extends Scene {
     this.redRectPosition = new Vector2(-10, 20);
   }
 
-  onActivate(): void {
-  }
-
   update(): void {
     let dx = 0;
     let dy = 0;
@@ -58,8 +55,5 @@ export class CameraTestScene extends Scene {
     g.fillRect(this.playerPosition.x, this.playerPosition.y, 20, 20);
 
     this.camera.end();
-  }
-
-  onDestroy(): void {
   }
 }

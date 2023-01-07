@@ -18,8 +18,6 @@ class TestEffect extends FragmentEffect {
 export class EffectsTestScene extends Scene {
   private testEffect = new TestEffect();
 
-  onActivate(): void { }
-
   update(): void {
     if (Input.getButtonDown('b')) SceneManager.popScene();
   }
@@ -32,6 +30,4 @@ export class EffectsTestScene extends Scene {
 
     this.testEffect.apply(g.ctx.canvas, g.ctx.canvas);
   }
-
-  onDestroy(): void { }
 }

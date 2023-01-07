@@ -8,6 +8,7 @@ import { ENDESGA16PaletteIdx } from 'ponczek/palettes/endesga16-palette';
 import { Rectangle } from 'ponczek/math/rectangle';
 import { Random } from 'ponczek/math/random';
 import { GridView } from 'ponczek/gui/grid-view';
+import { Color } from 'ponczek/gfx/color';
 
 const random = Random.default;
 
@@ -30,12 +31,18 @@ class PauseMenuGrid extends GridView<Item> {
 }
 
 class PauseMenuScene extends Scene {
-  private readonly gridWidth = 120;
-  private grid = new PauseMenuGrid(this.gridWidth);
-  private gridPosition = new Vector2(Engine.width / 2 - this.gridWidth / 2, 60);
-  private backgroundColor = ENDESGA16PaletteIdx[3].copy(0.9);
+  private grid: PauseMenuGrid;
+  private gridPosition: Vector2;
+  private backgroundColor: Color;
 
-  onActivate(): void {
+  private readonly gridWidth = 120;
+
+  constructor() {
+    super();
+    this.grid = new PauseMenuGrid(this.gridWidth);
+    this.gridPosition = new Vector2(Engine.width / 2 - this.gridWidth / 2, 60);
+    this.backgroundColor = ENDESGA16PaletteIdx[3].copy(0.9);
+
     this.grid.cells = [
       [{ text: 'Resume', action: () => SceneManager.popScene() }],
       [{ text: 'Some action', action: () => console.log('Some action') }],
@@ -58,9 +65,6 @@ class PauseMenuScene extends Scene {
     g.fillRect(this.gridPosition.x - 5, this.gridPosition.y - 5, this.gridWidth + 10, 48);
     this.grid.drawAt(this.gridPosition, g);
   }
-
-  onDestroy(): void {
-  }
 }
 
 export class SceneStackTestScene extends Scene {
@@ -69,7 +73,8 @@ export class SceneStackTestScene extends Scene {
 
   private tmpVec = new Vector2();
 
-  onActivate(): void {
+  constructor() {
+    super();
     this.rect = new Rectangle(random.nextInt(0, Engine.width / 2), random.nextInt(0, Engine.height / 2), 110, 30);
     this.direction = new Vector2(1, 1);
   }
@@ -101,6 +106,4 @@ export class SceneStackTestScene extends Scene {
     this.tmpVec.set(this.rect.x, this.rect.y + 1 + 20);
     g.drawText('menu', this.tmpVec, ENDESGA16PaletteIdx[11]);
   }
-
-  onDestroy(): void { }
 }

@@ -31,12 +31,14 @@ class TestGridView extends GridView<Item> {
 }
 
 export class GridViewTestScene extends Scene {
-  gridView = new TestGridView();
-  gridViewWithWrap = new TestGridView();
+  private gridView: TestGridView = new TestGridView();
+  private gridViewWithWrap: TestGridView = new TestGridView();
 
-  onActivate(): void {
-    Engine.graphicsDevice.font(Engine.defaultFont);
-    Engine.defaultFont.generateColorVariants([ENDESGA16Palette.sap, ENDESGA16Palette.darkBark]);
+  constructor() {
+    super();
+
+    this.gridView = new TestGridView();
+    this.gridViewWithWrap = new TestGridView();
 
     this.gridView.cells = [
       [{ text: 'this' }, { text: 'is' }, { text: 'test' }, null, null, { text: 'hello' }],
@@ -83,6 +85,4 @@ export class GridViewTestScene extends Scene {
 
     g.drawText('Use WASD to move selection', new Vector2(5, 225), ENDESGA16Palette.sap);
   }
-
-  onDestroy(): void { }
 }
