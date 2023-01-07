@@ -77,7 +77,7 @@ export abstract class Engine {
 
     if (Engine.shouldCountTicks) Engine.ticks += 1;
 
-    requestAnimationFrame(() => Engine.loop()); // TODO: Remove closure
+    requestAnimationFrame(Engine.loop);
   }
 
   static saveData<T>(data: T, key: string = 'save'): void {
