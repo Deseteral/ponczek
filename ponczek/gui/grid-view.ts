@@ -14,6 +14,10 @@ export abstract class GridView<T> {
 
   public cellMargin: Vector2 = new Vector2();
 
+  public get selectedValue(): T {
+    return this.cells[this.selectedRow][this.selectedColumn]!;
+  }
+
   constructor(cellWidth: number, cellHeight: number) {
     this.cellWidth = cellWidth;
     this.cellHeight = cellHeight;
