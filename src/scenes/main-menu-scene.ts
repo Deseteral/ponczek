@@ -13,7 +13,7 @@ import { GridViewTestScene } from 'src/scenes/grid-view-test-scene';
 
 interface Item {
   text: string,
-  scene: typeof Scene,
+  scene: () => Scene,
 }
 
 class DemoScenesGridView extends GridView<Item> {
@@ -37,16 +37,17 @@ export class MainMenuScene extends Scene {
     Engine.defaultFont.generateColorVariants(ENDESGA16PaletteIdx);
 
     this.demoScenesGridView.cells = [
-      [{ text: 'Camera', scene: CameraTestScene }],
-      [{ text: 'Effects', scene: EffectsTestScene }],
-      [{ text: 'Font rendering', scene: FontRenderingTestScene }],
-      [{ text: 'Grid view', scene: GridViewTestScene }],
+      [{ text: 'Camera', scene: () => new CameraTestScene() }],
+      [{ text: 'Effects', scene: () => new EffectsTestScene() }],
+      [{ text: 'Font rendering', scene: () => new FontRenderingTestScene() }],
+      [{ text: 'Grid view', scene: () => new GridViewTestScene() }],
     ];
   }
 
   update(): void {
     if (Input.getButtonDown('up')) this.demoScenesGridView.selectPreviousRow(true);
     if (Input.getButtonDown('down')) this.demoScenesGridView.selectNextRow(true);
+    if (Input.getButtonDown('a')) Engine.changeScene(this.demoScenesGridView.selectedValue.scene());
   }
 
   render(g: GraphicsDevice): void {
