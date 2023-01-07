@@ -10,6 +10,8 @@
  * TODO: Support page lifecycle APIs
  * TODO: Rendering text inside rectangle
  * TODO: Dithering patterns
+ * TODO: Frame timing
+ * TODO: Data structure for defining color palettes
  */
 
 import 'ponczek/polyfills';
@@ -65,36 +67,6 @@ export abstract class Engine {
 
   public static start(): void {
     Engine.loop();
-  }
-
-  static saveData<T>(data: T, key: string = 'save'): void {
-    try {
-      window.localStorage.setItem(key, JSON.stringify(data));
-      Engine.log(`Saved data for key "${key}"`);
-    } catch (e) {
-      Engine.log('Cannot save data');
-    }
-  }
-
-  static hasSavedData(key: string = 'save'): boolean {
-    try {
-      const data = window.localStorage.getItem(key);
-      return !!data;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  static loadData<T>(key: string = 'save'): T {
-    try {
-      const data = window.localStorage.getItem(key);
-      if (!data) throw new Error(`No save data for key "${key}"`);
-
-      Engine.log(`Loaded data for key "${key}"`);
-      return JSON.parse(data);
-    } catch (e) {
-      throw new Error(`Cannot load data for key "${key}"`);
-    }
   }
 
   public static log(msg: string): void {

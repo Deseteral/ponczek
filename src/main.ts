@@ -12,5 +12,5 @@ import { MainMenuScene } from 'src/scenes/main-menu-scene';
   Input.withGameBoyLikeBinds();
 
   SceneManager.pushScene(new MainMenuScene());
-  Engine.loop();
+  Engine.start();
 }());
