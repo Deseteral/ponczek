@@ -42,6 +42,10 @@ export class Font {
     this.colorVariants.set(color.htmlString, texture);
   }
 
+  public getLineLengthPx(text: string): number {
+    return text.length * this.charWidth;
+  }
+
   public generateColorVariants(colors: Color[]): void {
     for (let idx = 0; idx < colors.length; idx += 1) {
       this.generateColorVariant(colors[idx]);

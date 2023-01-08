@@ -2,6 +2,7 @@ import { Font } from 'ponczek/gfx/font';
 import { Vector2 } from 'ponczek/math/vector2';
 import { Color } from 'ponczek/gfx/color';
 import { Texture } from 'ponczek/gfx/texture';
+import { Rectangle } from 'ponczek/math/rectangle';
 
 export class GraphicsDevice {
   public width: number;
@@ -11,6 +12,8 @@ export class GraphicsDevice {
   public ctx: CanvasRenderingContext2D;
 
   public get domElement(): HTMLCanvasElement { return this.ctx.canvas; }
+
+  private _drawTextInRectPosition = new Vector2();
 
   constructor(width: number, height: number) {
     this.width = width;
@@ -139,5 +142,30 @@ export class GraphicsDevice {
         this.activeFont.charHeight,
       );
     }
+  }
+
+  drawTextInRect(text: string, rect: Rectangle, color: Color): void {
+    if (!this.activeFont) {
+      console.error('No active font was set');
+      return;
+    }
+
+    const tokens = text.split(' ');
+
+    let line = tokens[0];
+    this._drawTextInRectPosition.set(rect.x, rect.y);
+
+    for (let idx = 1; idx < tokens.length; idx += 1) {
+      const nextLine = (line + ' ' + tokens[idx]); // eslint-disable-line prefer-template
+
+      if (this.activeFont.getLineLengthPx(nextLine) > rect.width) {
+        this.drawText(line, this._drawTextInRectPosition, color);
+        line = tokens[idx];
+        this._drawTextInRectPosition.y += 8;
+      } else {
+        line = nextLine;
+      }
+    }
+    this.drawText(line, this._drawTextInRectPosition, color);
   }
 }

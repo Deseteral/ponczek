@@ -5,10 +5,8 @@
  * TODO: Automatic conversion of sounds to webm
  * TODO: Simple GUI system (something like playdate's gridview?)
  * TODO: Particle system
- * TODO: Font rendering
  * TODO: Add support for seeding random number generator
  * TODO: Support page lifecycle APIs
- * TODO: Rendering text inside rectangle
  * TODO: Dithering patterns
  * TODO: Frame timing
  * TODO: Data structure for defining color palettes
