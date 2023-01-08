@@ -1,6 +1,5 @@
 /*
  * TODO: Add new line support for text rendering
- * TODO: Debug view with fps and frame time
  * TODO: Add texture flipping
  * TODO: Add support for seeding random number generator
  * TODO: Noise generator
@@ -29,6 +28,7 @@ import { Color } from 'ponczek/gfx/color';
 import { SceneManager } from 'ponczek/core/scene-manager';
 import { Scene } from 'ponczek/core/scene';
 import { SplashScreenScene } from 'ponczek/scenes/splash-screen-scene';
+import { Vector2 } from 'ponczek/math/vector2';
 
 export abstract class Engine {
   public static ticks: number = 0;
@@ -36,6 +36,8 @@ export abstract class Engine {
 
   public static defaultFont: Font;
   public static graphicsDevice: GraphicsDevice;
+
+  public static debugMode: boolean = false;
 
   public static initialize(width: number, height: number, initialScene: () => Scene, skipSplashScreen: boolean = false): void {
     Engine.graphicsDevice = new GraphicsDevice(width, height);
@@ -73,6 +75,8 @@ export abstract class Engine {
   }
 
   private static loop(): void {
+    const st = performance.now();
+
     for (let idx = 0; idx < Math.min(SceneManager.updateDepth, SceneManager.sceneStack.length); idx += 1) {
       SceneManager.sceneStack[idx].update();
     }
@@ -81,9 +85,17 @@ export abstract class Engine {
       SceneManager.sceneStack[idx].render(Engine.graphicsDevice);
     }
 
+    if (Input.getKeyDown('F3')) Engine.debugMode = !Engine.debugMode;
+
     Input.update();
 
     if (Engine.shouldCountTicks) Engine.ticks += 1;
+
+    if (Engine.debugMode) {
+      const frameTime = (performance.now() - st);
+      const fps = ((1000 / frameTime) | 0).toString().padStart(5, '0');
+      Engine.graphicsDevice.drawText(`${fps} fps, ${frameTime.toFixed(2)} ms`, Vector2.zero, Color.white);
+    }
 
     requestAnimationFrame(Engine.loop);
   }
