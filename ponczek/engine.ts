@@ -12,6 +12,8 @@
  * TODO: Data structure for defining color palettes
  * TODO: Setup double buffering
  * TODO: Loading aseprite files
+ * TODO: Build ECS
+ * TODO: Add texture flipping
  */
 
 import 'ponczek/polyfills';
@@ -31,7 +33,6 @@ export abstract class Engine {
   public static defaultFont: Font;
   public static graphicsDevice: GraphicsDevice;
 
-  // TODO: Pass initialScene directly, without factory function
   public static initialize(width: number, height: number, initialScene: () => Scene, skipSplashScreen: boolean = false): void {
     Engine.graphicsDevice = new GraphicsDevice(width, height);
 
@@ -84,8 +85,13 @@ export abstract class Engine {
   }
 
   private static onWindowResize(): void {
-    const windowWidth = window.innerWidth;
-    const scale = ((windowWidth / Engine.graphicsDevice.width) | 0) || 1;
+    const scaleByWidth = ((window.innerWidth / Engine.graphicsDevice.width) | 0) || 1;
+    const scaleByHeight = ((window.innerHeight / Engine.graphicsDevice.height) | 0) || 1;
+
+    const scale = ((Engine.graphicsDevice.height * scaleByWidth) <= window.innerHeight)
+      ? scaleByWidth
+      : scaleByHeight;
+
     const canvasWidth = Engine.graphicsDevice.width * scale;
     Engine.graphicsDevice.domElement.style.width = `${canvasWidth}px`;
   }
