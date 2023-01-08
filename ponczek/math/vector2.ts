@@ -246,4 +246,8 @@ export class Vector2 {
   public static get zero(): Vector2 {
     return new Vector2(0, 0);
   }
+
+  public toString(): string {
+    return `<${this.x}, ${this.y}>`;
+  }
 }

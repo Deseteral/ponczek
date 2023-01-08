@@ -14,6 +14,7 @@
  * TODO: Loading aseprite files
  * TODO: Build ECS
  * TODO: Add texture flipping
+ * TODO: Add new line support for text rendering
  */
 
 import 'ponczek/polyfills';

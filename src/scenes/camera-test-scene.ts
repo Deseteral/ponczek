@@ -34,12 +34,6 @@ export class CameraTestScene extends Scene {
 
     this.camera.lookAt(this.playerPosition);
 
-    console.table({
-      'Pointer position': Input.pointer,
-      'Pointer in world position': this.camera.screenToWorld(Input.pointer, new Vector2()),
-      'Red rectangle screen space position': this.camera.worldToScreen(this.redRectPosition, new Vector2()),
-    });
-
     if (Input.getButtonDown('b')) SceneManager.popScene();
   }
 
@@ -55,5 +49,9 @@ export class CameraTestScene extends Scene {
     g.fillRect(this.playerPosition.x, this.playerPosition.y, 20, 20);
 
     this.camera.end();
+
+    g.drawText(`Pointer position: ${Input.pointer}`, new Vector2(0, 0), Color.white);
+    g.drawText(`Pointer in world position: ${this.camera.screenToWorld(Input.pointer, new Vector2())}`, new Vector2(0, 8), Color.white);
+    g.drawText(`Pointer position: ${Input.pointer}`, new Vector2(0, 16), Color.white);
   }
 }
