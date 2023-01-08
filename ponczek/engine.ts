@@ -15,6 +15,7 @@
  * TODO: Build ECS
  * TODO: Add texture flipping
  * TODO: Add new line support for text rendering
+ * TODO: Grid view scrolling
  */
 
 import 'ponczek/polyfills';

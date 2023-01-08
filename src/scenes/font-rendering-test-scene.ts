@@ -17,13 +17,13 @@ export class FontRenderingTestScene extends Scene {
   }
 
   render(g: GraphicsDevice): void {
-    g.clearScreen(ENDESGA16PaletteIdx[11]);
-    g.drawText(`Current tick ${Engine.ticks}!`, new Vector2(10, 10), ENDESGA16PaletteIdx[3]);
+    g.clearScreen(ENDESGA16PaletteIdx[10]);
+    g.drawText(`Current tick ${Engine.ticks}!`, new Vector2(10, 10), ENDESGA16PaletteIdx[13]);
     g.drawText('This text should be in red', new Vector2(10, 20), ENDESGA16PaletteIdx[5]);
 
-    g.color(ENDESGA16PaletteIdx[15]);
+    g.color(ENDESGA16PaletteIdx[11]);
     g.fillRect(this.rect.x, this.rect.y, this.rect.width, this.rect.height);
 
-    g.drawTextInRect('Glib jocks quiz nymph to vex dwarf.', this.rect, ENDESGA16PaletteIdx[10]);
+    g.drawTextInRect('Glib jocks quiz nymph to vex dwarf.', this.rect, ENDESGA16PaletteIdx[8]);
   }
 }
