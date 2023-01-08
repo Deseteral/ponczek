@@ -11,6 +11,7 @@
  * TODO: Frame timing
  * TODO: Data structure for defining color palettes
  * TODO: Setup double buffering
+ * TODO: Loading aseprite files
  */
 
 import 'ponczek/polyfills';
@@ -20,6 +21,8 @@ import { Font } from 'ponczek/gfx/font';
 import { Assets } from 'ponczek/core/assets';
 import { Color } from 'ponczek/gfx/color';
 import { SceneManager } from 'ponczek/core/scene-manager';
+import { Scene } from 'ponczek/core/scene';
+import { SplashScreenScene } from 'ponczek/scenes/splash-screen-scene';
 
 export abstract class Engine {
   public static ticks: number = 0;
@@ -28,7 +31,8 @@ export abstract class Engine {
   public static defaultFont: Font;
   public static graphicsDevice: GraphicsDevice;
 
-  public static initialize(width: number, height: number): void {
+  // TODO: Pass initialScene directly, without factory function
+  public static initialize(width: number, height: number, initialScene: () => Scene, skipSplashScreen: boolean = false): void {
     Engine.graphicsDevice = new GraphicsDevice(width, height);
 
     Input.initialize(Engine.graphicsDevice.domElement);
@@ -36,6 +40,12 @@ export abstract class Engine {
     Engine.defaultFont = new Font(Assets.texture('monogram'), 8, 8);
     Engine.defaultFont.generateColorVariants([Color.black, Color.white]);
     Engine.graphicsDevice.font(Engine.defaultFont);
+
+    if (skipSplashScreen) {
+      SceneManager.pushScene(initialScene());
+    } else {
+      SceneManager.pushScene(new SplashScreenScene(initialScene()));
+    }
 
     const containerEl = document.getElementById('container');
     if (!containerEl) {

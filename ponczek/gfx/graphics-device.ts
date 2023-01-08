@@ -4,6 +4,7 @@ import { Color } from 'ponczek/gfx/color';
 import { Texture } from 'ponczek/gfx/texture';
 import { Rectangle } from 'ponczek/math/rectangle';
 
+// TODO: Rename to "Screen"
 export class GraphicsDevice {
   public width: number;
   public height: number;

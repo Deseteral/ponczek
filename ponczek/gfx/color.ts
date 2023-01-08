@@ -1,29 +1,22 @@
 export class Color {
-  private _r: number;
-  get r(): number { return this._r; }
-
-  private _g: number;
-  get g(): number { return this._g; }
-
-  private _b: number;
-  get b(): number { return this._b; }
-
-  private _a: number;
-  get a(): number { return this._a; }
+  public r: number;
+  public g: number;
+  public b: number;
+  public a: number;
 
   public get htmlString(): string {
-    return `rgb(${(this._r * 255) | 0}, ${(this._g * 255) | 0}, ${(this._b * 255) | 0}, ${this._a})`;
+    return `rgb(${(this.r * 255) | 0}, ${(this.g * 255) | 0}, ${(this.b * 255) | 0}, ${this.a})`;
   }
 
   constructor(r: number, g: number, b: number, a: number) {
-    this._r = r;
-    this._g = g;
-    this._b = b;
-    this._a = a;
+    this.r = r;
+    this.g = g;
+    this.b = b;
+    this.a = a;
   }
 
   equals(other: Color): boolean {
-    return (this._r === other._r && this._g === other._g && this._b === other._b && this._a === other._a);
+    return (this.r === other.r && this.g === other.g && this.b === other.b && this.a === other.a);
   }
 
   copy(overwriteAlpha: number = this.a): Color {
@@ -31,10 +24,10 @@ export class Color {
   }
 
   setFrom01(r: number, g: number, b: number, a: number = 1.0): Color {
-    this._r = r;
-    this._g = g;
-    this._b = b;
-    this._a = a;
+    this.r = r;
+    this.g = g;
+    this.b = b;
+    this.a = a;
     return this;
   }
 
@@ -43,10 +36,10 @@ export class Color {
   }
 
   setFrom0255(r: number, g: number, b: number, a: number = 255): Color {
-    this._r = r / 255;
-    this._g = g / 255;
-    this._b = b / 255;
-    this._a = a / 255;
+    this.r = r / 255;
+    this.g = g / 255;
+    this.b = b / 255;
+    this.a = a / 255;
     return this;
   }
 

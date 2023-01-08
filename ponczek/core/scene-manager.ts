@@ -18,7 +18,11 @@ export abstract class SceneManager {
     SceneManager.sceneStack.shift();
   }
 
+  static replaceScene(nextScene: Scene): void {
+    this.sceneStack = [nextScene];
+  }
+
   static backToRoot(): void {
-    this.sceneStack = [this.sceneStack.at(-1)!];
+    this.replaceScene(this.sceneStack.at(-1)!);
   }
 }
