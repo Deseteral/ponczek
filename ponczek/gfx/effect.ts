@@ -2,9 +2,9 @@ import { Color } from 'ponczek/gfx/color';
 import { Drawable } from 'ponczek/gfx/texture';
 
 export abstract class FragmentEffect {
-  abstract fragment(x: number, y: number, color: Color, w: number, h: number): Color;
+  protected abstract fragment(x: number, y: number, color: Color, w: number, h: number): Color;
 
-  apply(source: Drawable, target: Drawable): void {
+  public apply(source: Drawable, target: Drawable = source): void {
     const sourceCtx = source.getContext('2d');
     if (!sourceCtx) throw new Error('Could not create source context in fragment effect');
 

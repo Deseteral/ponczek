@@ -2,6 +2,7 @@ import { Color } from 'ponczek/gfx/color';
 import { FragmentEffect } from 'ponczek/gfx/effect';
 
 export class ReplaceColorEffect extends FragmentEffect {
+  // TODO: For performance - add support for mulitple color replacement
   public sourceColor: Color;
   public targetColor: Color;
 
@@ -11,7 +12,12 @@ export class ReplaceColorEffect extends FragmentEffect {
     this.targetColor = targetColor;
   }
 
-  fragment(_x: number, _y: number, color: Color, _w: number, _h: number): Color {
+  public set(sourceColor: Color, targetColor: Color): void {
+    this.sourceColor = sourceColor;
+    this.targetColor = targetColor;
+  }
+
+  protected fragment(_x: number, _y: number, color: Color, _w: number, _h: number): Color {
     return color.equals(this.sourceColor)
       ? this.targetColor
       : color;

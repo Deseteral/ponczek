@@ -12,5 +12,6 @@ module.exports = {
     'no-multi-assign': 'off',
     'no-lonely-if': 'off',
     'no-console': 'off',
+    'prefer-destructuring': 'off',
   },
 };

@@ -82,6 +82,7 @@ export class Color {
 
   static transparent = Color.from01(0, 0, 0, 0);
   static white = Color.from01(1, 1, 1, 1);
+  static gray = Color.fromRGBAHex('808080');
   static black = Color.from01(0, 0, 0, 1);
   static red = Color.from01(1, 0, 0, 1);
   static green = Color.from01(0, 1, 0, 1);

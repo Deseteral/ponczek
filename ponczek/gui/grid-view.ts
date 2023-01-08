@@ -18,6 +18,20 @@ export abstract class GridView<T> {
     return this.cells[this.selectedRow][this.selectedColumn]!;
   }
 
+  // TODO: Cache this
+  public get totalWidth(): number {
+    let maxw = 0;
+    for (let row = 0; row < this.cells.length; row += 1) {
+      maxw = Math.max(this.cells[row].length, maxw);
+    }
+    return (maxw * (this.cellWidth + this.cellMargin.x));
+  }
+
+  // TODO: Cache this
+  public get totalHeight(): number {
+    return (this.cells.length * (this.cellHeight + this.cellMargin.y));
+  }
+
   constructor(cellWidth: number, cellHeight: number) {
     this.cellWidth = cellWidth;
     this.cellHeight = cellHeight;

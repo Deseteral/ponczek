@@ -7,7 +7,7 @@ import { SceneManager } from 'ponczek/core/scene-manager';
 import { Input } from 'ponczek/core/input';
 
 class TestEffect extends FragmentEffect {
-  fragment(x: number, y: number, color: Color, w: number, h: number): Color {
+  protected fragment(x: number, y: number, color: Color, w: number, h: number): Color {
     if (color.equals(Color.black)) return color;
 
     const z = (Math.sin(Engine.ticks / 30) + 1) / 2;

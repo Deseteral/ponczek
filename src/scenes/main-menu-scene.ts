@@ -1,8 +1,12 @@
+import { Assets } from 'ponczek/core/assets';
 import { Input } from 'ponczek/core/input';
 import { Scene } from 'ponczek/core/scene';
 import { SceneManager } from 'ponczek/core/scene-manager';
+import { ReplaceColorEffect } from 'ponczek/effects/replace-color-effect';
 import { Engine } from 'ponczek/engine';
+import { Color } from 'ponczek/gfx/color';
 import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
+import { Texture } from 'ponczek/gfx/texture';
 import { GridView } from 'ponczek/gui/grid-view';
 import { Vector2 } from 'ponczek/math/vector2';
 import { ENDESGA16Palette, ENDESGA16PaletteIdx } from 'ponczek/palettes/endesga16-palette';
@@ -32,6 +36,9 @@ class DemoScenesGridView extends GridView<Item> {
 
 export class MainMenuScene extends Scene {
   private demoScenesGridView: DemoScenesGridView;
+  private frameTexture: Texture;
+
+  private gridPosition = new Vector2(13, 25);
 
   constructor() {
     super();
@@ -45,6 +52,17 @@ export class MainMenuScene extends Scene {
       [{ text: 'Grid view', scene: () => new GridViewTestScene() }],
       [{ text: 'Scene stack', scene: () => new SceneStackTestScene() }],
     ];
+
+    this.frameTexture = Texture.createFromSource(Assets.texture('frame').drawable);
+
+    const replaceColorEffect = new ReplaceColorEffect(Color.white, Color.transparent);
+    replaceColorEffect.apply(this.frameTexture.drawable);
+
+    replaceColorEffect.set(Color.gray, ENDESGA16PaletteIdx[6]);
+    replaceColorEffect.apply(this.frameTexture.drawable);
+
+    replaceColorEffect.set(Color.black, ENDESGA16PaletteIdx[3]);
+    replaceColorEffect.apply(this.frameTexture.drawable);
   }
 
   update(): void {
@@ -55,7 +73,13 @@ export class MainMenuScene extends Scene {
 
   render(g: GraphicsDevice): void {
     g.clearScreen(ENDESGA16PaletteIdx[4]);
+
     g.drawText('Ponczek', new Vector2(5, 5), ENDESGA16Palette.white);
-    this.demoScenesGridView.drawAt(new Vector2(5, 20), g);
+
+    g.color(ENDESGA16PaletteIdx[2]);
+    g.fillRect(this.gridPosition.x - 3, this.gridPosition.y - 2, this.demoScenesGridView.totalWidth + 9, this.demoScenesGridView.totalHeight + 4);
+
+    g.drawNinePatch(this.frameTexture, this.gridPosition.x, this.gridPosition.y, this.demoScenesGridView.totalWidth, this.demoScenesGridView.totalHeight, 8, 8);
+    this.demoScenesGridView.drawAt(this.gridPosition, g);
   }
 }
