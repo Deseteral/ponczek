@@ -126,9 +126,11 @@ export class Vector2 {
   rotateRad(radians: number): Vector2 {
     const cos = Math.cos(radians);
     const sin = Math.sin(radians);
-    this.x = this.x * cos - this.y * sin;
-    this.y = this.x * sin + this.y * cos;
-    return this;
+
+    const nx = this.x * cos - this.y * sin;
+    const ny = this.x * sin + this.y * cos;
+
+    return this.set(nx, ny);
   }
 
   rotateDeg(degrees: number): Vector2 {
