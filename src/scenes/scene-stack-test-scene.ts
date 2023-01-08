@@ -86,12 +86,16 @@ export class SceneStackTestScene extends Scene {
     const w = Engine.graphicsDevice.width;
     const h = Engine.graphicsDevice.height;
 
-    if (this.rect.x <= 0 || this.rect.y <= 0 || this.rect.x >= (w - this.rect.width) || this.rect.y >= (h - this.rect.height)) {
-      this.direction.rotate90(false); // TODO: This should be somewhat random
-    }
+    const nx = this.rect.x + this.direction.x;
+    const ny = this.rect.y + this.direction.y;
+    const isColliding = nx <= 0 || ny <= 0 || nx >= (w - this.rect.width) || ny >= (h - this.rect.height);
 
-    this.rect.x += this.direction.x;
-    this.rect.y += this.direction.y;
+    if (isColliding) {
+      this.direction.rotateDeg(random.nextInt(15, 90)).normalize();
+    } else {
+      this.rect.x = nx;
+      this.rect.y = ny;
+    }
 
     if (Input.getButtonDown('b')) SceneManager.pushScene(new PauseMenuScene());
   }
