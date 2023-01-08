@@ -91,7 +91,7 @@ export class SceneStackTestScene extends Scene {
     const isColliding = nx <= 0 || ny <= 0 || nx >= (w - this.rect.width) || ny >= (h - this.rect.height);
 
     if (isColliding) {
-      this.direction.rotateDeg(random.nextInt(15, 90)).normalize();
+      this.direction.rotateDeg(random.nextInt(80, 90)).normalize();
     } else {
       this.rect.x = nx;
       this.rect.y = ny;
