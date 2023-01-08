@@ -1,7 +1,7 @@
 {
   "name": "ponczek",
-  "version": "1.0.0-prototype.1",
-  "description": "Game framework for small jam games",
+  "version": "1.0.0",
+  "description": "Deep-fried game framework with sweet filling",
   "scripts": {
     "start": "npm run dev",
     "dev": "npm run build:asset-lists && parcel src/index.html",
