@@ -22,11 +22,13 @@ export class DrawingTestScene extends Scene {
 
     g.drawText('Rectangle', new Vector2(0, 1), Color.white);
 
-    for (let idx = 0; idx < ENDESGA16PaletteIdx.length; idx += 1) {
+    for (let idx = 0; idx < 11; idx += 1) {
       g.color(ENDESGA16PaletteIdx[idx]);
       const n = idx + 8;
       const x = ((n * (n + 1)) / 2) - 34;
       g.fillRect(x, 10, idx + 1, idx + 1);
+
+      g.drawRect(x, 25, idx + 1, idx + 1);
     }
   }
 }
