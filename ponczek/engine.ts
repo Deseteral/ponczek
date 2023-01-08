@@ -1,21 +1,23 @@
 /*
+ * TODO: Add new line support for text rendering
+ * TODO: Debug view with fps and frame time
+ * TODO: Add texture flipping
+ * TODO: Add support for seeding random number generator
  * TODO: Noise generator
  * TODO: Pathfinding
+ * TODO: Grid view scrolling
  * TODO: Scene transitions
- * TODO: Automatic conversion of sounds to webm
- * TODO: Simple GUI system (something like playdate's gridview?)
- * TODO: Particle system
- * TODO: Add support for seeding random number generator
- * TODO: Support page lifecycle APIs
+ * TODO: Data structure for defining color palettes
  * TODO: Dithering patterns
  * TODO: Frame timing
- * TODO: Data structure for defining color palettes
- * TODO: Setup double buffering
+ * TODO: Particle system
+ * TODO: GUI text input
+ * TODO: GUI button
  * TODO: Loading aseprite files
- * TODO: Build ECS
- * TODO: Add texture flipping
- * TODO: Add new line support for text rendering
- * TODO: Grid view scrolling
+ * TODO: Entity component system
+ * TODO: Automatic conversion of sounds to webm
+ * TODO: Setup double buffering
+ * TODO: Support page lifecycle APIs
  */
 
 import 'ponczek/polyfills';
