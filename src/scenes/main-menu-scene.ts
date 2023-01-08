@@ -11,6 +11,7 @@ import { GridView } from 'ponczek/gui/grid-view';
 import { Vector2 } from 'ponczek/math/vector2';
 import { ENDESGA16Palette, ENDESGA16PaletteIdx } from 'ponczek/palettes/endesga16-palette';
 import { CameraTestScene } from 'src/scenes/camera-test-scene';
+import { DrawingTestScene } from 'src/scenes/drawing-test-scene';
 import { EffectsTestScene } from 'src/scenes/effects-test-scene';
 import { FontRenderingTestScene } from 'src/scenes/font-rendering-test-scene';
 import { GridViewTestScene } from 'src/scenes/grid-view-test-scene';
@@ -47,6 +48,7 @@ export class MainMenuScene extends Scene {
     this.demoScenesGridView = new DemoScenesGridView();
     this.demoScenesGridView.cells = [
       [{ text: 'Camera', scene: () => new CameraTestScene() }],
+      [{ text: 'Drawing', scene: () => new DrawingTestScene() }],
       [{ text: 'Effects', scene: () => new EffectsTestScene() }],
       [{ text: 'Font rendering', scene: () => new FontRenderingTestScene() }],
       [{ text: 'Grid view', scene: () => new GridViewTestScene() }],

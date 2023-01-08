@@ -7,6 +7,7 @@
  * TODO: Grid view scrolling
  * TODO: Scene transitions
  * TODO: Data structure for defining color palettes
+ * TODO: Add setPixel method to drawing API
  * TODO: Dithering patterns
  * TODO: Frame timing
  * TODO: Particle system
