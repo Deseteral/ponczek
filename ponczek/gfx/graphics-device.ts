@@ -131,8 +131,19 @@ export class GraphicsDevice {
     this.ctx.restore();
   }
 
-  drawTexturePart(texture: Texture, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number): void {
-    this.ctx.drawImage(texture.drawable, sx, sy, sw, sh, (dx | 0), (dy | 0), dw, dh);
+  drawTexturePart(texture: Texture, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number, flip: number = 0): void {
+    dx |= 0; // eslint-disable-line no-param-reassign
+    dy |= 0; // eslint-disable-line no-param-reassign
+
+    const flipH = !!(flip & FLIP_H);
+    const flipV = !!(flip & FLIP_V);
+
+    this.ctx.save();
+    this.ctx.translate((flipH ? dw : 0) + dx, (flipV ? dh : 0) + dy);
+    this.ctx.scale((flipH ? -1 : 1), (flipV ? -1 : 1));
+
+    this.ctx.drawImage(texture.drawable, sx, sy, sw, sh, 0, 0, dw, dh);
+    this.ctx.restore();
   }
 
   drawNinePatch(texture: Texture, x: number, y: number, w: number, h: number, patchWidth: number, patchHeight: number): void {

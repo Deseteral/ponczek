@@ -87,7 +87,7 @@ export class DrawingTestScene extends Scene {
       g.drawTexture(this.sprite, ((size + 1) * 3), baseY, size, size, (FLIP_H | FLIP_V));
 
       g.drawTexturePart(this.sprite, 0, 0, halfSize, halfSize, ((size + 1) * 4), baseY + halfSize, halfSize, halfSize);
-      g.drawTexturePart(this.sprite, 0, halfSize, halfSize, halfSize, ((size + 1) * 4) + halfSize, baseY, halfSize, halfSize);
+      g.drawTexturePart(this.sprite, 0, halfSize, halfSize, halfSize, ((size + 1) * 4) + halfSize, baseY, halfSize, halfSize, FLIP_V);
     }
   }
 }
