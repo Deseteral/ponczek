@@ -52,6 +52,45 @@ export class GraphicsDevice {
     this.ctx.fillStyle = prevColor;
   }
 
+  // TODO: Optimize
+  setPixel(x: number, y: number): void {
+    this.fillRect(x, y, 1, 1);
+  }
+
+  drawLine(x1: number, y1: number, x2: number, y2: number): void {
+    x1 |= x1; // eslint-disable-line no-param-reassign
+    y1 |= y1; // eslint-disable-line no-param-reassign
+    x2 |= x2; // eslint-disable-line no-param-reassign
+    y2 |= y2; // eslint-disable-line no-param-reassign
+
+    if (x1 === x2 && y1 === y2) {
+      this.setPixel(x1, y1);
+      return;
+    }
+
+    if (Math.abs(x1 - x2) > Math.abs(y1 - y2)) {
+      const startX = (x1 < x2) ? x1 : x2;
+      const startY = (x1 < x2) ? y1 : y2;
+      const endX = (x1 < x2) ? x2 : x1;
+      const endY = (x1 < x2) ? y2 : y1;
+      const d = (endY - startY) / (endX - startX);
+
+      for (let xx = 0; xx < (endX - startX + 1); xx += 1) {
+        this.setPixel(startX + xx, startY + ((d * xx) | 0));
+      }
+    } else {
+      const startX = (y1 < y2) ? x1 : x2;
+      const startY = (y1 < y2) ? y1 : y2;
+      const endX = (y1 < y2) ? x2 : x1;
+      const endY = (y1 < y2) ? y2 : y1;
+      const d = (endX - startX) / (endY - startY);
+
+      for (let yy = 0; yy < (endY - startY + 1); yy += 1) {
+        this.setPixel(startX + ((d * yy) | 0), startY + yy);
+      }
+    }
+  }
+
   drawTexture(texture: Texture, x: number, y: number, w: number = texture.width, h: number = texture.height): void {
     this.ctx.drawImage(texture.drawable, (x | 0), (y | 0), w, h);
   }
