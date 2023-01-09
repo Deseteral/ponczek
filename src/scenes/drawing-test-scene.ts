@@ -7,9 +7,17 @@ import { ENDESGA16PaletteIdx } from 'ponczek/palettes/endesga16-palette';
 import { Rectangle } from 'ponczek/math/rectangle';
 import { Vector2 } from 'ponczek/math/vector2';
 import { Color } from 'ponczek/gfx/color';
+import { Texture } from 'ponczek/gfx/texture';
+import { Assets } from 'ponczek/core/assets';
 
 export class DrawingTestScene extends Scene {
   private rect = new Rectangle(15, 40, 100, 80);
+  private sprite: Texture;
+
+  constructor() {
+    super();
+    this.sprite = Assets.texture('ponczek_sprite');
+  }
 
   update(): void {
     this.rect.width = (150 + (Math.sin(Engine.ticks / 60) * 100)) | 0;
@@ -65,6 +73,11 @@ export class DrawingTestScene extends Scene {
         g.fillCircle((r * 20) - 10, 100, r);
         g.drawCircle((r * 20) - 10, 115, 10 - r);
       }
+    }
+
+    {
+      g.drawText('Sprite', new Vector2(0, 130), Color.white);
+      g.drawTexture(this.sprite, 1, 138);
     }
   }
 }
