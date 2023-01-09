@@ -1,13 +1,13 @@
 /*
- * TODO: Add new line support for text rendering
+ * TODO: Circle drawing API
  * TODO: Add texture flipping
+ * TODO: Add new line support for text rendering
  * TODO: Add support for seeding random number generator
  * TODO: Noise generator
  * TODO: Pathfinding
  * TODO: Grid view scrolling
  * TODO: Scene transitions
  * TODO: Data structure for defining color palettes
- * TODO: Add setPixel method to drawing API
  * TODO: Dithering patterns
  * TODO: Frame timing
  * TODO: Particle system
