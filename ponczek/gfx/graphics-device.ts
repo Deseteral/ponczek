@@ -113,8 +113,16 @@ export class GraphicsDevice {
     this.circ(x, y, radius, true);
   }
 
-  drawTexture(texture: Texture, x: number, y: number, w: number = texture.width, h: number = texture.height): void {
-    this.ctx.drawImage(texture.drawable, (x | 0), (y | 0), w, h);
+  drawTexture(texture: Texture, x: number, y: number, w: number = texture.width, h: number = texture.height, flipH: boolean = false, flipV: boolean = false): void {
+    x |= 0; // eslint-disable-line no-param-reassign
+    y |= 0; // eslint-disable-line no-param-reassign
+
+    this.ctx.save();
+    this.ctx.translate((flipH ? w : 0) + x, (flipV ? h : 0) + y);
+    this.ctx.scale((flipH ? -1 : 1), (flipV ? -1 : 1));
+
+    this.ctx.drawImage(texture.drawable, 0, 0, w, h);
+    this.ctx.restore();
   }
 
   drawTexturePart(texture: Texture, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number): void {

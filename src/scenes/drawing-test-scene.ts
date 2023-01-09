@@ -77,7 +77,14 @@ export class DrawingTestScene extends Scene {
 
     {
       g.drawText('Sprite', new Vector2(0, 130), Color.white);
-      g.drawTexture(this.sprite, 1, 138);
+
+      g.drawTexture(this.sprite, 1, 138, 32, 32, false, false);
+      g.drawTexture(this.sprite, 1 + 32 * 1, 138, 32, 32, false, true);
+      g.drawTexture(this.sprite, 1 + 32 * 2, 138, 32, 32, true, false);
+      g.drawTexture(this.sprite, 1 + 32 * 3, 138, 32, 32, true, true);
+
+      g.drawTexturePart(this.sprite, 0, 0, 16, 16, 1 + 32 * 4, 138 + 16, 16, 16);
+      g.drawTexturePart(this.sprite, 0, 16, 16, 16, 1 + 32 * 4 + 16, 138, 16, 16);
     }
   }
 }
