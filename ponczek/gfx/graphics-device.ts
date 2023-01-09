@@ -54,7 +54,7 @@ export class GraphicsDevice {
 
   // TODO: Optimize
   setPixel(x: number, y: number): void {
-    this.fillRect(x, y, 1, 1);
+    this.fillRect((x | 0), (y | 0), 1, 1);
   }
 
   drawLine(x1: number, y1: number, x2: number, y2: number): void {
@@ -91,14 +91,6 @@ export class GraphicsDevice {
     }
   }
 
-  drawTexture(texture: Texture, x: number, y: number, w: number = texture.width, h: number = texture.height): void {
-    this.ctx.drawImage(texture.drawable, (x | 0), (y | 0), w, h);
-  }
-
-  drawTexturePart(texture: Texture, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number): void {
-    this.ctx.drawImage(texture.drawable, sx, sy, sw, sh, (dx | 0), (dy | 0), dw, dh);
-  }
-
   drawRect(x: number, y: number, w: number, h: number): void {
     x |= 0; // eslint-disable-line no-param-reassign
     y |= 0; // eslint-disable-line no-param-reassign
@@ -111,6 +103,22 @@ export class GraphicsDevice {
 
   fillRect(x: number, y: number, w: number, h: number): void {
     this.ctx.fillRect((x | 0), (y | 0), w, h);
+  }
+
+  drawCircle(x: number, y: number, radius: number): void {
+    this.circ(x, y, radius, false);
+  }
+
+  fillCircle(x: number, y: number, radius: number): void {
+    this.circ(x, y, radius, true);
+  }
+
+  drawTexture(texture: Texture, x: number, y: number, w: number = texture.width, h: number = texture.height): void {
+    this.ctx.drawImage(texture.drawable, (x | 0), (y | 0), w, h);
+  }
+
+  drawTexturePart(texture: Texture, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number): void {
+    this.ctx.drawImage(texture.drawable, sx, sy, sw, sh, (dx | 0), (dy | 0), dw, dh);
   }
 
   drawNinePatch(texture: Texture, x: number, y: number, w: number, h: number, patchWidth: number, patchHeight: number): void {
@@ -207,5 +215,37 @@ export class GraphicsDevice {
       }
     }
     this.drawText(line, this._drawTextInRectPosition, color);
+  }
+
+  private circ(x: number, y: number, radius: number, fill: boolean): void {
+    x |= 0; // eslint-disable-line no-param-reassign
+    y |= 0; // eslint-disable-line no-param-reassign
+    radius |= 0; // eslint-disable-line no-param-reassign
+
+    for (let xx = 0; xx <= radius; xx += 1) {
+      const dd = (radius * Math.sqrt(1 - ((xx ** 2) / (radius ** 2))));
+      const x1 = (-xx + 0.1) | 0;
+      const y1 = (-dd + 0.1) | 0;
+      const x2 = (+xx - 0.1) | 0;
+      const y2 = (+dd - 0.1) | 0;
+
+      if (fill) {
+        for (let yy = y1; yy <= y2; yy += 1) {
+          this.setPixel(x + x1, y + yy);
+          this.setPixel(x + x2, y + yy);
+          this.setPixel(x + yy, y + x1);
+          this.setPixel(x + yy, y + x2);
+        }
+      } else {
+        this.setPixel(x + x1, y + y1);
+        this.setPixel(x + x2, y + y1);
+        this.setPixel(x + x1, y + y2);
+        this.setPixel(x + x2, y + y2);
+        this.setPixel(x + y1, y + x1);
+        this.setPixel(x + y1, y + x2);
+        this.setPixel(x + y2, y + x1);
+        this.setPixel(x + y2, y + x2);
+      }
+    }
   }
 }

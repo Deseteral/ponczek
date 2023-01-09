@@ -34,7 +34,7 @@ export class DrawingTestScene extends Scene {
     }
 
     {
-      g.drawText('Lines', new Vector2(0, 40), Color.white);
+      g.drawText('Line', new Vector2(0, 40), Color.white);
 
       const size = 20;
       const baseX = 2;
@@ -54,6 +54,17 @@ export class DrawingTestScene extends Scene {
         g.color(ENDESGA16PaletteIdx[idx]);
         g.drawLine(x1, y1, x2, y2);
       });
+    }
+
+    {
+      g.drawText('Circle', new Vector2(0, 80), Color.white);
+
+      for (let r = 1; r < 11; r += 1) {
+        g.color(ENDESGA16PaletteIdx[r]);
+
+        g.fillCircle((r * 20) - 10, 100, r);
+        g.drawCircle((r * 20) - 10, 115, 10 - r);
+      }
     }
   }
 }
