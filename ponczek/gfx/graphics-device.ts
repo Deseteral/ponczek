@@ -25,30 +25,15 @@ export class GraphicsDevice {
     this.ctx = GraphicsDevice.createCanvas(width, height);
   }
 
-  private static createCanvas(width: number, height: number): CanvasRenderingContext2D {
-    const canvas = document.createElement('canvas');
-    canvas.width = width;
-    canvas.height = height;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) {
-      throw new Error('An error occured while creating canvas context');
-    }
-
-    ctx.imageSmoothingEnabled = false;
-
-    return ctx;
-  }
-
-  color(color: Color): void {
+  public color(color: Color): void {
     this.ctx.fillStyle = color.htmlString;
   }
 
-  font(font: Font): void {
+  public font(font: Font): void {
     this.activeFont = font;
   }
 
-  clearScreen(clearColor: Color = Color.black): void {
+  public clearScreen(clearColor: Color = Color.black): void {
     const prevColor = this.ctx.fillStyle;
     this.ctx.fillStyle = clearColor.htmlString;
     this.ctx.fillRect(0, 0, this.width, this.height);
@@ -56,11 +41,11 @@ export class GraphicsDevice {
   }
 
   // TODO: Optimize
-  setPixel(x: number, y: number): void {
+  public setPixel(x: number, y: number): void {
     this.fillRect((x | 0), (y | 0), 1, 1);
   }
 
-  drawLine(x1: number, y1: number, x2: number, y2: number): void {
+  public drawLine(x1: number, y1: number, x2: number, y2: number): void {
     x1 |= x1; // eslint-disable-line no-param-reassign
     y1 |= y1; // eslint-disable-line no-param-reassign
     x2 |= x2; // eslint-disable-line no-param-reassign
@@ -94,7 +79,7 @@ export class GraphicsDevice {
     }
   }
 
-  drawRect(x: number, y: number, w: number, h: number): void {
+  public drawRect(x: number, y: number, w: number, h: number): void {
     x |= 0; // eslint-disable-line no-param-reassign
     y |= 0; // eslint-disable-line no-param-reassign
 
@@ -104,19 +89,19 @@ export class GraphicsDevice {
     this.ctx.fillRect(x + w - 1, y, 1, h);
   }
 
-  fillRect(x: number, y: number, w: number, h: number): void {
+  public fillRect(x: number, y: number, w: number, h: number): void {
     this.ctx.fillRect((x | 0), (y | 0), w, h);
   }
 
-  drawCircle(x: number, y: number, radius: number): void {
+  public drawCircle(x: number, y: number, radius: number): void {
     this.circ(x, y, radius, false);
   }
 
-  fillCircle(x: number, y: number, radius: number): void {
+  public fillCircle(x: number, y: number, radius: number): void {
     this.circ(x, y, radius, true);
   }
 
-  drawTexture(texture: Texture, x: number, y: number, w: number = texture.width, h: number = texture.height, flip: number = 0): void {
+  public drawTexture(texture: Texture, x: number, y: number, w: number = texture.width, h: number = texture.height, flip: number = 0): void {
     x |= 0; // eslint-disable-line no-param-reassign
     y |= 0; // eslint-disable-line no-param-reassign
 
@@ -131,7 +116,7 @@ export class GraphicsDevice {
     this.ctx.restore();
   }
 
-  drawTexturePart(texture: Texture, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number, flip: number = 0): void {
+  public drawTexturePart(texture: Texture, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number, flip: number = 0): void {
     dx |= 0; // eslint-disable-line no-param-reassign
     dy |= 0; // eslint-disable-line no-param-reassign
 
@@ -146,7 +131,7 @@ export class GraphicsDevice {
     this.ctx.restore();
   }
 
-  drawNinePatch(texture: Texture, x: number, y: number, w: number, h: number, patchWidth: number, patchHeight: number): void {
+  public drawNinePatch(texture: Texture, x: number, y: number, w: number, h: number, patchWidth: number, patchHeight: number): void {
     x |= 0; // eslint-disable-line no-param-reassign
     y |= 0; // eslint-disable-line no-param-reassign
 
@@ -178,7 +163,7 @@ export class GraphicsDevice {
     this.drawTexturePart(texture, patchWidth, patchHeight, patchWidth, patchHeight, x, y, w, h);
   }
 
-  clip(x?: number, y?: number, w?: number, h?: number): void {
+  public clip(x?: number, y?: number, w?: number, h?: number): void {
     if (x === undefined || y === undefined || w === undefined || h === undefined) {
       this.ctx.restore();
       return;
@@ -193,7 +178,7 @@ export class GraphicsDevice {
     this.ctx.clip();
   }
 
-  drawText(text: string, position: Vector2, color: Color): void {
+  public drawText(text: string, position: Vector2, color: Color): void {
     if (!this.activeFont) {
       console.error('No active font was set');
       return;
@@ -217,7 +202,7 @@ export class GraphicsDevice {
     }
   }
 
-  drawTextInRect(text: string, rect: Rectangle, color: Color): void {
+  public drawTextInRect(text: string, rect: Rectangle, color: Color): void {
     if (!this.activeFont) {
       console.error('No active font was set');
       return;
@@ -272,5 +257,20 @@ export class GraphicsDevice {
         this.setPixel(x + y2, y + x2);
       }
     }
+  }
+
+  private static createCanvas(width: number, height: number): CanvasRenderingContext2D {
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      throw new Error('An error occured while creating canvas context');
+    }
+
+    ctx.imageSmoothingEnabled = false;
+
+    return ctx;
   }
 }
