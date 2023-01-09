@@ -56,6 +56,7 @@ class PauseMenuScene extends Scene {
     if (Input.getButtonDown('up')) this.grid.selectPreviousRow(true);
     if (Input.getButtonDown('down')) this.grid.selectNextRow(true);
     if (Input.getButtonDown('a')) this.grid.selectedValue.action();
+    if (Input.getButtonDown('b')) SceneManager.popScene();
   }
 
   render(g: GraphicsDevice): void {
