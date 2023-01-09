@@ -1,5 +1,5 @@
 import { Engine } from 'ponczek/engine';
-import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
+import { FLIP_H, FLIP_V, GraphicsDevice } from 'ponczek/gfx/graphics-device';
 import { Scene } from 'ponczek/core/scene';
 import { Input } from 'ponczek/core/input';
 import { SceneManager } from 'ponczek/core/scene-manager';
@@ -77,14 +77,17 @@ export class DrawingTestScene extends Scene {
 
     {
       g.drawText('Sprite', new Vector2(0, 130), Color.white);
+      const size = this.sprite.width;
+      const halfSize = size >> 1;
+      const baseY = 138;
 
-      g.drawTexture(this.sprite, 1, 138, 32, 32, false, false);
-      g.drawTexture(this.sprite, 1 + 32 * 1, 138, 32, 32, false, true);
-      g.drawTexture(this.sprite, 1 + 32 * 2, 138, 32, 32, true, false);
-      g.drawTexture(this.sprite, 1 + 32 * 3, 138, 32, 32, true, true);
+      g.drawTexture(this.sprite, 1, baseY);
+      g.drawTexture(this.sprite, ((size + 1) * 1), baseY, size, size, FLIP_H);
+      g.drawTexture(this.sprite, ((size + 1) * 2), baseY, size, size, FLIP_V);
+      g.drawTexture(this.sprite, ((size + 1) * 3), baseY, size, size, (FLIP_H | FLIP_V));
 
-      g.drawTexturePart(this.sprite, 0, 0, 16, 16, 1 + 32 * 4, 138 + 16, 16, 16);
-      g.drawTexturePart(this.sprite, 0, 16, 16, 16, 1 + 32 * 4 + 16, 138, 16, 16);
+      g.drawTexturePart(this.sprite, 0, 0, halfSize, halfSize, ((size + 1) * 4), baseY + halfSize, halfSize, halfSize);
+      g.drawTexturePart(this.sprite, 0, halfSize, halfSize, halfSize, ((size + 1) * 4) + halfSize, baseY, halfSize, halfSize);
     }
   }
 }

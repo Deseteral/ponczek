@@ -4,6 +4,9 @@ import { Color } from 'ponczek/gfx/color';
 import { Texture } from 'ponczek/gfx/texture';
 import { Rectangle } from 'ponczek/math/rectangle';
 
+export const FLIP_H = 1 << 0;
+export const FLIP_V = 1 << 1;
+
 // TODO: Rename to "Screen"
 export class GraphicsDevice {
   public width: number;
@@ -113,9 +116,12 @@ export class GraphicsDevice {
     this.circ(x, y, radius, true);
   }
 
-  drawTexture(texture: Texture, x: number, y: number, w: number = texture.width, h: number = texture.height, flipH: boolean = false, flipV: boolean = false): void {
+  drawTexture(texture: Texture, x: number, y: number, w: number = texture.width, h: number = texture.height, flip: number = 0): void {
     x |= 0; // eslint-disable-line no-param-reassign
     y |= 0; // eslint-disable-line no-param-reassign
+
+    const flipH = !!(flip & FLIP_H);
+    const flipV = !!(flip & FLIP_V);
 
     this.ctx.save();
     this.ctx.translate((flipH ? w : 0) + x, (flipV ? h : 0) + y);
