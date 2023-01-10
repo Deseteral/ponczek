@@ -5,7 +5,7 @@ import { SceneManager } from 'ponczek/core/scene-manager';
 import { ReplaceColorEffect } from 'ponczek/effects/replace-color-effect';
 import { Engine } from 'ponczek/engine';
 import { Color } from 'ponczek/gfx/color';
-import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
+import { Screen } from 'ponczek/gfx/screen';
 import { Texture } from 'ponczek/gfx/texture';
 import { GridView } from 'ponczek/gui/grid-view';
 import { Vector2 } from 'ponczek/math/vector2';
@@ -27,11 +27,11 @@ class DemoScenesGridView extends GridView<Item> {
     super(120, 10);
   }
 
-  public drawCell(item: (Item | null), _row: number, _column: number, x: number, y: number, isSelected: boolean, g: GraphicsDevice): void {
+  public drawCell(item: (Item | null), _row: number, _column: number, x: number, y: number, isSelected: boolean, scr: Screen): void {
     if (!item) return;
 
     const selectionChar = isSelected ? '>' : ' ';
-    g.drawText(`${selectionChar}${item.text}`, x, y, ENDESGA16PaletteIdx[6]);
+    scr.drawText(`${selectionChar}${item.text}`, x, y, ENDESGA16PaletteIdx[6]);
   }
 }
 
@@ -73,15 +73,15 @@ export class MainMenuScene extends Scene {
     if (Input.getButtonDown('a')) SceneManager.pushScene(this.demoScenesGridView.selectedValue.scene());
   }
 
-  render(g: GraphicsDevice): void {
-    g.clearScreen(ENDESGA16PaletteIdx[4]);
+  render(scr: Screen): void {
+    scr.clearScreen(ENDESGA16PaletteIdx[4]);
 
-    g.drawText('Ponczek', 5, 5, ENDESGA16Palette.white);
+    scr.drawText('Ponczek', 5, 5, ENDESGA16Palette.white);
 
-    g.color(ENDESGA16PaletteIdx[2]);
-    g.fillRect(this.gridPosition.x - 3, this.gridPosition.y - 2, this.demoScenesGridView.totalWidth + 9, this.demoScenesGridView.totalHeight + 4);
+    scr.color(ENDESGA16PaletteIdx[2]);
+    scr.fillRect(this.gridPosition.x - 3, this.gridPosition.y - 2, this.demoScenesGridView.totalWidth + 9, this.demoScenesGridView.totalHeight + 4);
 
-    g.drawNinePatch(this.frameTexture, this.gridPosition.x, this.gridPosition.y, this.demoScenesGridView.totalWidth, this.demoScenesGridView.totalHeight, 8, 8);
-    this.demoScenesGridView.drawAt(this.gridPosition, g);
+    scr.drawNinePatch(this.frameTexture, this.gridPosition.x, this.gridPosition.y, this.demoScenesGridView.totalWidth, this.demoScenesGridView.totalHeight, 8, 8);
+    this.demoScenesGridView.drawAt(this.gridPosition, scr);
   }
 }

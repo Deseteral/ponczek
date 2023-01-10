@@ -1,7 +1,7 @@
 import { Input } from 'ponczek/core/input';
 import { Scene } from 'ponczek/core/scene';
 import { SceneManager } from 'ponczek/core/scene-manager';
-import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
+import { Screen } from 'ponczek/gfx/screen';
 import { GridView } from 'ponczek/gui/grid-view';
 import { Vector2 } from 'ponczek/math/vector2';
 import { ENDESGA16Palette } from 'ponczek/palettes/endesga16-palette';
@@ -15,17 +15,17 @@ class TestGridView extends GridView<Item> {
     super(45, 18);
   }
 
-  public drawCell(item: (Item | null), _row: number, _column: number, x: number, y: number, isSelected: boolean, g: GraphicsDevice): void {
+  public drawCell(item: (Item | null), _row: number, _column: number, x: number, y: number, isSelected: boolean, scr: Screen): void {
     if (!item) return;
 
-    g.color(ENDESGA16Palette.sap);
-    g.fillRect(x, y, this.cellWidth, this.cellHeight);
+    scr.color(ENDESGA16Palette.sap);
+    scr.fillRect(x, y, this.cellWidth, this.cellHeight);
 
     const selectionColor = isSelected ? ENDESGA16Palette.fabric : ENDESGA16Palette.pine;
-    g.drawText(item.text, x + 2, y + 6, selectionColor);
+    scr.drawText(item.text, x + 2, y + 6, selectionColor);
 
-    g.color(selectionColor);
-    g.drawRect(x, y, this.cellWidth, this.cellHeight);
+    scr.color(selectionColor);
+    scr.drawRect(x, y, this.cellWidth, this.cellHeight);
   }
 }
 
@@ -81,12 +81,12 @@ export class GridViewTestScene extends Scene {
     if (Input.getButtonDown('b')) SceneManager.popScene();
   }
 
-  render(g: GraphicsDevice): void {
-    g.clearScreen(ENDESGA16Palette.darkBark);
+  render(scr: Screen): void {
+    scr.clearScreen(ENDESGA16Palette.darkBark);
 
-    this.gridView.drawAt(new Vector2(10, 10), g);
-    this.gridViewWithWrap.drawAt(new Vector2(10, 100), g);
+    this.gridView.drawAt(new Vector2(10, 10), scr);
+    this.gridViewWithWrap.drawAt(new Vector2(10, 100), scr);
 
-    g.drawText('Use WASD to move selection', 5, 225, ENDESGA16Palette.sap);
+    scr.drawText('Use WASD to move selection', 5, 225, ENDESGA16Palette.sap);
   }
 }

@@ -12,7 +12,7 @@ export class Camera {
   constructor(position: Vector2 = Vector2.zero) {
     this.position = position;
 
-    this.ctx = Engine.graphicsDevice.ctx;
+    this.ctx = Engine.screen.ctx;
     this.viewportHalfWidth = this.ctx.canvas.width >> 1;
     this.viewportHalfHeight = this.ctx.canvas.height >> 1;
   }

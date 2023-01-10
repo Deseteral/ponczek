@@ -7,8 +7,7 @@ import { Rectangle } from 'ponczek/math/rectangle';
 export const FLIP_H = 1 << 0;
 export const FLIP_V = 1 << 1;
 
-// TODO: Rename to "Screen"
-export class GraphicsDevice {
+export class Screen {
   public width: number;
   public height: number;
 
@@ -20,7 +19,7 @@ export class GraphicsDevice {
   constructor(width: number, height: number) {
     this.width = width;
     this.height = height;
-    this.ctx = GraphicsDevice.createCanvas(width, height);
+    this.ctx = Screen.createCanvas(width, height);
   }
 
   public color(color: Color): void {

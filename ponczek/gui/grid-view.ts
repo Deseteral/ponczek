@@ -1,4 +1,4 @@
-import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
+import { Screen } from 'ponczek/gfx/screen';
 import { Vector2 } from 'ponczek/math/vector2';
 
 export abstract class GridView<T> {
@@ -37,25 +37,25 @@ export abstract class GridView<T> {
     this.cellHeight = cellHeight;
   }
 
-  public drawAt(position: Vector2, g: GraphicsDevice): void {
+  public drawAt(position: Vector2, scr: Screen): void {
     for (let row = 0; row < this.cells.length; row += 1) {
       for (let column = 0; column < this.cells[row].length; column += 1) {
         const isSelected = this.selectedColumn === column && this.selectedRow === row;
         if (isSelected) continue;
-        this.actualDrawCell(position, column, row, false, g);
+        this.actualDrawCell(position, column, row, false, scr);
       }
     }
 
-    this.actualDrawCell(position, this.selectedColumn, this.selectedRow, true, g);
+    this.actualDrawCell(position, this.selectedColumn, this.selectedRow, true, scr);
   }
 
-  private actualDrawCell(drawAt: Vector2, column: number, row: number, isSelected: boolean, g: GraphicsDevice): void {
+  private actualDrawCell(drawAt: Vector2, column: number, row: number, isSelected: boolean, scr: Screen): void {
     const x = drawAt.x + (column * (this.cellWidth + this.cellMargin.x));
     const y = drawAt.y + (row * (this.cellHeight + this.cellMargin.y));
 
-    if (this.withClipping) g.clip(x, y, this.cellWidth, this.cellHeight);
-    this.drawCell(this.cells[row][column], row, column, x, y, isSelected, g);
-    g.clip();
+    if (this.withClipping) scr.clip(x, y, this.cellWidth, this.cellHeight);
+    this.drawCell(this.cells[row][column], row, column, x, y, isSelected, scr);
+    scr.clip();
   }
 
   public selectNextColumn(wrap: boolean = false): void {
@@ -178,5 +178,5 @@ export abstract class GridView<T> {
     }
   }
 
-  public abstract drawCell(item: (T | null), row: number, column: number, x: number, y: number, isSelected: boolean, g: GraphicsDevice): void;
+  public abstract drawCell(item: (T | null), row: number, column: number, x: number, y: number, isSelected: boolean, scr: Screen): void;
 }

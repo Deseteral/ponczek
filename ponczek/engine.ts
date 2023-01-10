@@ -21,32 +21,31 @@
 
 import 'ponczek/polyfills';
 import { Input } from 'ponczek/core/input';
-import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
+import { Screen } from 'ponczek/gfx/screen';
 import { Font } from 'ponczek/gfx/font';
 import { Assets } from 'ponczek/core/assets';
 import { Color } from 'ponczek/gfx/color';
 import { SceneManager } from 'ponczek/core/scene-manager';
 import { Scene } from 'ponczek/core/scene';
 import { SplashScreenScene } from 'ponczek/scenes/splash-screen-scene';
-import { Vector2 } from 'ponczek/math/vector2';
 
 export abstract class Engine {
   public static ticks: number = 0;
   public static shouldCountTicks: boolean = true;
 
   public static defaultFont: Font;
-  public static graphicsDevice: GraphicsDevice;
+  public static screen: Screen;
 
   public static debugMode: boolean = false;
 
   public static initialize(width: number, height: number, initialScene: () => Scene, skipSplashScreen: boolean = false): void {
-    Engine.graphicsDevice = new GraphicsDevice(width, height);
+    Engine.screen = new Screen(width, height);
 
-    Input.initialize(Engine.graphicsDevice.domElement);
+    Input.initialize(Engine.screen.domElement);
 
     Engine.defaultFont = new Font(Assets.texture('monogram'), 8, 8);
     Engine.defaultFont.generateColorVariants([Color.black, Color.white]);
-    Engine.graphicsDevice.font(Engine.defaultFont);
+    Engine.screen.font(Engine.defaultFont);
 
     if (skipSplashScreen) {
       SceneManager.pushScene(initialScene());
@@ -60,7 +59,7 @@ export abstract class Engine {
     }
 
     containerEl.innerHTML = '';
-    containerEl.appendChild(Engine.graphicsDevice.domElement);
+    containerEl.appendChild(Engine.screen.domElement);
 
     window.addEventListener('resize', () => Engine.onWindowResize());
     Engine.onWindowResize();
@@ -82,7 +81,7 @@ export abstract class Engine {
     }
 
     for (let idx = Math.min(SceneManager.renderDepth, SceneManager.sceneStack.length - 1); idx >= 0; idx -= 1) {
-      SceneManager.sceneStack[idx].render(Engine.graphicsDevice);
+      SceneManager.sceneStack[idx].render(Engine.screen);
     }
 
     if (Input.getKeyDown('F3')) Engine.debugMode = !Engine.debugMode;
@@ -94,21 +93,21 @@ export abstract class Engine {
     if (Engine.debugMode) {
       const frameTime = (performance.now() - st);
       const fps = ((1000 / frameTime) | 0).toString().padStart(5, '0');
-      Engine.graphicsDevice.drawText(`${fps} fps, ${frameTime.toFixed(2)} ms`, 0, 0, Color.white);
+      Engine.screen.drawText(`${fps} fps, ${frameTime.toFixed(2)} ms`, 0, 0, Color.white);
     }
 
     requestAnimationFrame(Engine.loop);
   }
 
   private static onWindowResize(): void {
-    const scaleByWidth = ((window.innerWidth / Engine.graphicsDevice.width) | 0) || 1;
-    const scaleByHeight = ((window.innerHeight / Engine.graphicsDevice.height) | 0) || 1;
+    const scaleByWidth = ((window.innerWidth / Engine.screen.width) | 0) || 1;
+    const scaleByHeight = ((window.innerHeight / Engine.screen.height) | 0) || 1;
 
-    const scale = ((Engine.graphicsDevice.height * scaleByWidth) <= window.innerHeight)
+    const scale = ((Engine.screen.height * scaleByWidth) <= window.innerHeight)
       ? scaleByWidth
       : scaleByHeight;
 
-    const canvasWidth = Engine.graphicsDevice.width * scale;
-    Engine.graphicsDevice.domElement.style.width = `${canvasWidth}px`;
+    const canvasWidth = Engine.screen.width * scale;
+    Engine.screen.domElement.style.width = `${canvasWidth}px`;
   }
 }

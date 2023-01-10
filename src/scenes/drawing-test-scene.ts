@@ -1,5 +1,5 @@
 import { Engine } from 'ponczek/engine';
-import { FLIP_H, FLIP_V, GraphicsDevice } from 'ponczek/gfx/graphics-device';
+import { FLIP_H, FLIP_V, Screen } from 'ponczek/gfx/screen';
 import { Scene } from 'ponczek/core/scene';
 import { Input } from 'ponczek/core/input';
 import { SceneManager } from 'ponczek/core/scene-manager';
@@ -24,7 +24,7 @@ export class DrawingTestScene extends Scene {
     if (Input.getButtonDown('b')) SceneManager.popScene();
   }
 
-  render(g: GraphicsDevice): void {
+  render(g: Screen): void {
     g.clearScreen(ENDESGA16PaletteIdx[15]);
 
     {

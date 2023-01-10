@@ -1,6 +1,6 @@
 import { Camera } from 'ponczek/gfx/camera';
 import { Color } from 'ponczek/gfx/color';
-import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
+import { Screen } from 'ponczek/gfx/screen';
 import { Input } from 'ponczek/core/input';
 import { Vector2 } from 'ponczek/math/vector2';
 import { Scene } from 'ponczek/core/scene';
@@ -38,21 +38,21 @@ export class CameraTestScene extends Scene {
     if (Input.getButtonDown('b')) SceneManager.popScene();
   }
 
-  render(g: GraphicsDevice): void {
-    g.clearScreen(XNAPalette.cornflowerBlue);
+  render(scr: Screen): void {
+    scr.clearScreen(XNAPalette.cornflowerBlue);
 
     this.camera.begin();
 
-    g.color(Color.red);
-    g.fillRectR(this.redRectangle);
+    scr.color(Color.red);
+    scr.fillRectR(this.redRectangle);
 
-    g.color(Color.green);
-    g.fillRect(this.playerPosition.x, this.playerPosition.y, 20, 20);
+    scr.color(Color.green);
+    scr.fillRect(this.playerPosition.x, this.playerPosition.y, 20, 20);
 
     this.camera.end();
 
-    g.drawText(`Pointer position: ${Input.pointer}`, 0, 0, Color.white);
-    g.drawText(`Pointer in world position: ${this.camera.screenToWorld(Input.pointer, new Vector2())}`, 0, 8, Color.white);
-    g.drawText(`Pointer position: ${Input.pointer}`, 0, 16, Color.white); // TODO: This should be rect in screen position
+    scr.drawText(`Pointer position: ${Input.pointer}`, 0, 0, Color.white);
+    scr.drawText(`Pointer in world position: ${this.camera.screenToWorld(Input.pointer, new Vector2())}`, 0, 8, Color.white);
+    scr.drawText(`Pointer position: ${Input.pointer}`, 0, 16, Color.white); // TODO: This should be rect in screen position
   }
 }

@@ -1,5 +1,5 @@
 import { Engine } from 'ponczek/engine';
-import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
+import { Screen } from 'ponczek/gfx/screen';
 import { Scene } from 'ponczek/core/scene';
 import { Input } from 'ponczek/core/input';
 import { SceneManager } from 'ponczek/core/scene-manager';
@@ -15,14 +15,14 @@ export class FontRenderingTestScene extends Scene {
     if (Input.getButtonDown('b')) SceneManager.popScene();
   }
 
-  render(g: GraphicsDevice): void {
-    g.clearScreen(ENDESGA16PaletteIdx[10]);
-    g.drawText(`Current tick ${Engine.ticks}!`, 10, 10, ENDESGA16PaletteIdx[13]);
-    g.drawText('This text should be in red', 10, 20, ENDESGA16PaletteIdx[5]);
+  render(scr: Screen): void {
+    scr.clearScreen(ENDESGA16PaletteIdx[10]);
+    scr.drawText(`Current tick ${Engine.ticks}!`, 10, 10, ENDESGA16PaletteIdx[13]);
+    scr.drawText('This text should be in red', 10, 20, ENDESGA16PaletteIdx[5]);
 
-    g.color(ENDESGA16PaletteIdx[11]);
-    g.fillRectR(this.rect);
+    scr.color(ENDESGA16PaletteIdx[11]);
+    scr.fillRectR(this.rect);
 
-    g.drawTextInRect('Glib jocks quiz nymph to vex dwarf.', this.rect, ENDESGA16PaletteIdx[8]);
+    scr.drawTextInRect('Glib jocks quiz nymph to vex dwarf.', this.rect, ENDESGA16PaletteIdx[8]);
   }
 }

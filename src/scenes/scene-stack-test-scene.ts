@@ -1,5 +1,5 @@
 import { Engine } from 'ponczek/engine';
-import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
+import { Screen } from 'ponczek/gfx/screen';
 import { Vector2 } from 'ponczek/math/vector2';
 import { Scene } from 'ponczek/core/scene';
 import { Input } from 'ponczek/core/input';
@@ -22,11 +22,11 @@ class PauseMenuGrid extends GridView<Item> {
     super(width, 10);
   }
 
-  public drawCell(item: (Item | null), _row: number, _column: number, x: number, y: number, isSelected: boolean, g: GraphicsDevice): void {
+  public drawCell(item: (Item | null), _row: number, _column: number, x: number, y: number, isSelected: boolean, scr: Screen): void {
     if (!item) return;
 
     const selectionChar = isSelected ? '>' : ' ';
-    g.drawText(`${selectionChar}${item.text}`, x, y, ENDESGA16PaletteIdx[6]);
+    scr.drawText(`${selectionChar}${item.text}`, x, y, ENDESGA16PaletteIdx[6]);
   }
 }
 
@@ -40,7 +40,7 @@ class PauseMenuScene extends Scene {
   constructor() {
     super();
 
-    this.gridPosition = new Vector2(Engine.graphicsDevice.width / 2 - this.gridWidth / 2, 60);
+    this.gridPosition = new Vector2(Engine.screen.width / 2 - this.gridWidth / 2, 60);
     this.backgroundColor = ENDESGA16PaletteIdx[3].copy(0.9);
 
     this.grid = new PauseMenuGrid(this.gridWidth);
@@ -59,13 +59,13 @@ class PauseMenuScene extends Scene {
     if (Input.getButtonDown('b')) SceneManager.popScene();
   }
 
-  render(g: GraphicsDevice): void {
-    g.color(this.backgroundColor);
-    g.fillRect(0, 0, g.width, g.height);
+  render(scr: Screen): void {
+    scr.color(this.backgroundColor);
+    scr.fillRect(0, 0, scr.width, scr.height);
 
-    g.color(ENDESGA16PaletteIdx[2]);
-    g.fillRect(this.gridPosition.x - 5, this.gridPosition.y - 5, this.gridWidth + 10, 48);
-    this.grid.drawAt(this.gridPosition, g);
+    scr.color(ENDESGA16PaletteIdx[2]);
+    scr.fillRect(this.gridPosition.x - 5, this.gridPosition.y - 5, this.gridWidth + 10, 48);
+    this.grid.drawAt(this.gridPosition, scr);
   }
 }
 
@@ -75,15 +75,15 @@ export class SceneStackTestScene extends Scene {
 
   constructor() {
     super();
-    this.rect = new Rectangle(random.nextInt(0, Engine.graphicsDevice.width / 2), random.nextInt(0, Engine.graphicsDevice.height / 2), 110, 30);
+    this.rect = new Rectangle(random.nextInt(0, Engine.screen.width / 2), random.nextInt(0, Engine.screen.height / 2), 110, 30);
 
     const speed = 1;
     this.direction = new Vector2(speed, speed);
   }
 
   update(): void {
-    const w = Engine.graphicsDevice.width;
-    const h = Engine.graphicsDevice.height;
+    const w = Engine.screen.width;
+    const h = Engine.screen.height;
 
     const nx = this.rect.x + this.direction.x;
     const ny = this.rect.y + this.direction.y;
@@ -99,11 +99,11 @@ export class SceneStackTestScene extends Scene {
     if (Input.getButtonDown('b')) SceneManager.pushScene(new PauseMenuScene());
   }
 
-  render(g: GraphicsDevice): void {
-    g.clearScreen(ENDESGA16PaletteIdx[9]);
+  render(scr: Screen): void {
+    scr.clearScreen(ENDESGA16PaletteIdx[9]);
 
-    g.color(ENDESGA16PaletteIdx[10]);
-    g.fillRectR(this.rect);
-    g.drawTextInRect('Press "back" to open pause menu', this.rect, ENDESGA16PaletteIdx[11]);
+    scr.color(ENDESGA16PaletteIdx[10]);
+    scr.fillRectR(this.rect);
+    scr.drawTextInRect('Press "back" to open pause menu', this.rect, ENDESGA16PaletteIdx[11]);
   }
 }

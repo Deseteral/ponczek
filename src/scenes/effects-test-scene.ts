@@ -1,7 +1,7 @@
 import { Color } from 'ponczek/gfx/color';
 import { FragmentEffect } from 'ponczek/gfx/effect';
 import { Engine } from 'ponczek/engine';
-import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
+import { Screen } from 'ponczek/gfx/screen';
 import { Scene } from 'ponczek/core/scene';
 import { SceneManager } from 'ponczek/core/scene-manager';
 import { Input } from 'ponczek/core/input';
@@ -22,12 +22,12 @@ export class EffectsTestScene extends Scene {
     if (Input.getButtonDown('b')) SceneManager.popScene();
   }
 
-  render(g: GraphicsDevice): void {
-    g.clearScreen(Color.black);
+  render(scr: Screen): void {
+    scr.clearScreen(Color.black);
 
-    g.color(Color.green);
-    g.fillRect(5, 10, 300, 200);
+    scr.color(Color.green);
+    scr.fillRect(5, 10, 300, 200);
 
-    this.testEffect.apply(g.ctx.canvas, g.ctx.canvas);
+    this.testEffect.apply(scr.ctx.canvas, scr.ctx.canvas);
   }
 }

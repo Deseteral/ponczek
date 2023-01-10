@@ -1,4 +1,4 @@
-import { GraphicsDevice } from 'ponczek/gfx/graphics-device';
+import { Screen } from 'ponczek/gfx/screen';
 import { Scene } from 'ponczek/core/scene';
 import { SceneManager } from 'ponczek/core/scene-manager';
 import { Texture } from 'ponczek/gfx/texture';
@@ -57,9 +57,9 @@ export class SplashScreenScene extends Scene {
     }
   }
 
-  render(g: GraphicsDevice): void {
-    g.clearScreen(Color.black);
-    g.drawTexture(this.filteredPonczekTexture, 0, 0, this.filteredPonczekTexture.width, this.filteredPonczekTexture.height);
-    g.drawText('Ponczek', 5, 5, Color.white);
+  render(scr: Screen): void {
+    scr.clearScreen(Color.black);
+    scr.drawTexture(this.filteredPonczekTexture, 0, 0, this.filteredPonczekTexture.width, this.filteredPonczekTexture.height);
+    scr.drawText('Ponczek', 5, 5, Color.white);
   }
 }
