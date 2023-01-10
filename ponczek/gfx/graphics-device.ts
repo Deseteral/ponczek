@@ -130,6 +130,10 @@ export class GraphicsDevice {
     this.circ(x, y, radius, true);
   }
 
+  public drawTextureV(texture: Texture, position: Vector2, w: number = texture.width, h: number = texture.height, flip: number = 0): void {
+    this.drawTexture(texture, position.x, position.y, w, h, flip);
+  }
+
   public drawTexture(texture: Texture, x: number, y: number, w: number = texture.width, h: number = texture.height, flip: number = 0): void {
     x |= 0; // eslint-disable-line no-param-reassign
     y |= 0; // eslint-disable-line no-param-reassign
