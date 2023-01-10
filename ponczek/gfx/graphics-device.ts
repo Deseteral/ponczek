@@ -88,6 +88,10 @@ export class GraphicsDevice {
     this.drawRect(position.x, position.y, w, h);
   }
 
+  public drawRectR(rect: Rectangle): void {
+    this.drawRect(rect.x, rect.y, rect.width, rect.height);
+  }
+
   public drawRect(x: number, y: number, w: number, h: number): void {
     x |= 0; // eslint-disable-line no-param-reassign
     y |= 0; // eslint-disable-line no-param-reassign
