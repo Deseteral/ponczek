@@ -6,17 +6,18 @@ import { Vector2 } from 'ponczek/math/vector2';
 import { Scene } from 'ponczek/core/scene';
 import { XNAPalette } from 'ponczek/palettes/xna-palette';
 import { SceneManager } from 'ponczek/core/scene-manager';
+import { Rectangle } from 'ponczek/math/rectangle';
 
 export class CameraTestScene extends Scene {
   camera: Camera;
   playerPosition: Vector2;
-  redRectPosition: Vector2;
+  redRectangle: Rectangle;
 
   constructor() {
     super();
     this.camera = new Camera();
     this.playerPosition = new Vector2();
-    this.redRectPosition = new Vector2(-10, 20);
+    this.redRectangle = new Rectangle(-10, 20, 100, 200);
   }
 
   update(): void {
@@ -43,7 +44,7 @@ export class CameraTestScene extends Scene {
     this.camera.begin();
 
     g.color(Color.red);
-    g.fillRect(this.redRectPosition.x, this.redRectPosition.y, 100, 200);
+    g.fillRectR(this.redRectangle);
 
     g.color(Color.green);
     g.fillRect(this.playerPosition.x, this.playerPosition.y, 20, 20);

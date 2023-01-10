@@ -21,7 +21,7 @@ export class FontRenderingTestScene extends Scene {
     g.drawText('This text should be in red', 10, 20, ENDESGA16PaletteIdx[5]);
 
     g.color(ENDESGA16PaletteIdx[11]);
-    g.fillRect(this.rect.x, this.rect.y, this.rect.width, this.rect.height);
+    g.fillRectR(this.rect);
 
     g.drawTextInRect('Glib jocks quiz nymph to vex dwarf.', this.rect, ENDESGA16PaletteIdx[8]);
   }

@@ -106,6 +106,10 @@ export class GraphicsDevice {
     this.fillRect(position.x, position.y, w, h);
   }
 
+  public fillRectR(rect: Rectangle): void {
+    this.fillRect(rect.x, rect.y, rect.width, rect.height);
+  }
+
   public fillRect(x: number, y: number, w: number, h: number): void {
     this.ctx.fillRect((x | 0), (y | 0), w, h);
   }

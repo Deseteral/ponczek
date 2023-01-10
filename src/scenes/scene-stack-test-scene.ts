@@ -103,7 +103,7 @@ export class SceneStackTestScene extends Scene {
     g.clearScreen(ENDESGA16PaletteIdx[9]);
 
     g.color(ENDESGA16PaletteIdx[10]);
-    g.fillRect(this.rect.x, this.rect.y, this.rect.width, this.rect.height);
+    g.fillRectR(this.rect);
     g.drawTextInRect('Press "back" to open pause menu', this.rect, ENDESGA16PaletteIdx[11]);
   }
 }
