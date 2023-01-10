@@ -84,6 +84,10 @@ export class GraphicsDevice {
     }
   }
 
+  public drawRectV(position: Vector2, w: number, h: number): void {
+    this.drawRect(position.x, position.y, w, h);
+  }
+
   public drawRect(x: number, y: number, w: number, h: number): void {
     x |= 0; // eslint-disable-line no-param-reassign
     y |= 0; // eslint-disable-line no-param-reassign
