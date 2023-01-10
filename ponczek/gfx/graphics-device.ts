@@ -38,6 +38,10 @@ export class GraphicsDevice {
     this.ctx.fillStyle = prevColor;
   }
 
+  public setPixelV(position: Vector2): void {
+    this.setPixel(position.x, position.y);
+  }
+
   public setPixel(x: number, y: number): void {
     this.fillRect((x | 0), (y | 0), 1, 1);
   }
