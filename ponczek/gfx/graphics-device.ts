@@ -46,6 +46,10 @@ export class GraphicsDevice {
     this.fillRect((x | 0), (y | 0), 1, 1);
   }
 
+  public drawLineV(from: Vector2, to: Vector2): void {
+    this.drawLine(from.x, from.y, to.x, to.y);
+  }
+
   public drawLine(x1: number, y1: number, x2: number, y2: number): void {
     x1 |= x1; // eslint-disable-line no-param-reassign
     y1 |= y1; // eslint-disable-line no-param-reassign
