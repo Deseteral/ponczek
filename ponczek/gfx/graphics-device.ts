@@ -17,8 +17,6 @@ export class GraphicsDevice {
 
   public get domElement(): HTMLCanvasElement { return this.ctx.canvas; }
 
-  private _drawTextInRectPosition = new Vector2();
-
   constructor(width: number, height: number) {
     this.width = width;
     this.height = height;
@@ -40,7 +38,6 @@ export class GraphicsDevice {
     this.ctx.fillStyle = prevColor;
   }
 
-  // TODO: Optimize
   public setPixel(x: number, y: number): void {
     this.fillRect((x | 0), (y | 0), 1, 1);
   }
@@ -178,7 +175,11 @@ export class GraphicsDevice {
     this.ctx.clip();
   }
 
-  public drawText(text: string, position: Vector2, color: Color): void {
+  public drawTextV(text: string, position: Vector2, color: Color): void {
+    this.drawText(text, position.x, position.y, color);
+  }
+
+  public drawText(text: string, x: number, y: number, color: Color): void {
     if (!this.activeFont) {
       console.error('No active font was set');
       return;
@@ -194,8 +195,8 @@ export class GraphicsDevice {
         this.activeFont.getSourceYForChar(char),
         this.activeFont.charWidth,
         this.activeFont.charHeight,
-        (position.x + (idx * this.activeFont.charWidth)) | 0,
-        (position.y) | 0,
+        (x + (idx * this.activeFont.charWidth)) | 0,
+        y | 0,
         this.activeFont.charWidth,
         this.activeFont.charHeight,
       );
@@ -211,20 +212,20 @@ export class GraphicsDevice {
     const tokens = text.split(' ');
 
     let line = tokens[0];
-    this._drawTextInRectPosition.set(rect.x, rect.y);
+    let yy = rect.y;
 
     for (let idx = 1; idx < tokens.length; idx += 1) {
       const nextLine = (line + ' ' + tokens[idx]); // eslint-disable-line prefer-template
 
       if (this.activeFont.getLineLengthPx(nextLine) > rect.width) {
-        this.drawText(line, this._drawTextInRectPosition, color);
+        this.drawText(line, rect.x, yy, color);
         line = tokens[idx];
-        this._drawTextInRectPosition.y += 8;
+        yy += 8;
       } else {
         line = nextLine;
       }
     }
-    this.drawText(line, this._drawTextInRectPosition, color);
+    this.drawText(line, rect.x, yy, color);
   }
 
   private circ(x: number, y: number, radius: number, fill: boolean): void {

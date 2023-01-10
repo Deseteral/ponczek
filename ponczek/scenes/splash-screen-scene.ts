@@ -6,7 +6,6 @@ import { Assets } from 'ponczek/core/assets';
 import { Timer } from 'ponczek/core/timer';
 import { Color } from 'ponczek/gfx/color';
 import { FilterColorChannelEffect } from 'ponczek/effects/filter-color-channel-effect';
-import { Vector2 } from 'ponczek/math/vector2';
 
 const transitionTime = 70;
 
@@ -17,7 +16,6 @@ export class SplashScreenScene extends Scene {
   private filter: FilterColorChannelEffect;
   private timer: Timer;
   private stage = 0;
-  private textPosition = new Vector2(5, 5);
 
   constructor(transitionToScene: Scene) {
     super();
@@ -62,6 +60,6 @@ export class SplashScreenScene extends Scene {
   render(g: GraphicsDevice): void {
     g.clearScreen(Color.black);
     g.drawTexture(this.filteredPonczekTexture, 0, 0, this.filteredPonczekTexture.width, this.filteredPonczekTexture.height);
-    g.drawText('Ponczek', this.textPosition, Color.white);
+    g.drawText('Ponczek', 5, 5, Color.white);
   }
 }

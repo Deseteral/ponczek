@@ -26,7 +26,7 @@ class PauseMenuGrid extends GridView<Item> {
     if (!item) return;
 
     const selectionChar = isSelected ? '>' : ' ';
-    g.drawText(`${selectionChar}${item.text}`, new Vector2(x, y), ENDESGA16PaletteIdx[6]);
+    g.drawText(`${selectionChar}${item.text}`, x, y, ENDESGA16PaletteIdx[6]);
   }
 }
 
@@ -73,8 +73,6 @@ export class SceneStackTestScene extends Scene {
   private rect: Rectangle;
   private direction: Vector2;
 
-  private tmpVec = new Vector2();
-
   constructor() {
     super();
     this.rect = new Rectangle(random.nextInt(0, Engine.graphicsDevice.width / 2), random.nextInt(0, Engine.graphicsDevice.height / 2), 110, 30);
@@ -106,15 +104,6 @@ export class SceneStackTestScene extends Scene {
 
     g.color(ENDESGA16PaletteIdx[10]);
     g.fillRect(this.rect.x, this.rect.y, this.rect.width, this.rect.height);
-
-    // TODO: Convert to "draw inside rect"
-    this.tmpVec.set(this.rect.x, this.rect.y + 1);
-    g.drawText('Press "back"', this.tmpVec, ENDESGA16PaletteIdx[11]);
-
-    this.tmpVec.set(this.rect.x, this.rect.y + 1 + 10);
-    g.drawText('to open pause', this.tmpVec, ENDESGA16PaletteIdx[11]);
-
-    this.tmpVec.set(this.rect.x, this.rect.y + 1 + 20);
-    g.drawText('menu', this.tmpVec, ENDESGA16PaletteIdx[11]);
+    g.drawTextInRect('Press "back" to open pause menu', this.rect, ENDESGA16PaletteIdx[11]);
   }
 }

@@ -31,7 +31,7 @@ class DemoScenesGridView extends GridView<Item> {
     if (!item) return;
 
     const selectionChar = isSelected ? '>' : ' ';
-    g.drawText(`${selectionChar}${item.text}`, new Vector2(x, y), ENDESGA16PaletteIdx[6]);
+    g.drawText(`${selectionChar}${item.text}`, x, y, ENDESGA16PaletteIdx[6]);
   }
 }
 
@@ -76,7 +76,7 @@ export class MainMenuScene extends Scene {
   render(g: GraphicsDevice): void {
     g.clearScreen(ENDESGA16PaletteIdx[4]);
 
-    g.drawText('Ponczek', new Vector2(5, 5), ENDESGA16Palette.white);
+    g.drawText('Ponczek', 5, 5, ENDESGA16Palette.white);
 
     g.color(ENDESGA16PaletteIdx[2]);
     g.fillRect(this.gridPosition.x - 3, this.gridPosition.y - 2, this.demoScenesGridView.totalWidth + 9, this.demoScenesGridView.totalHeight + 4);

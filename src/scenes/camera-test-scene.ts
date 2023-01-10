@@ -50,8 +50,8 @@ export class CameraTestScene extends Scene {
 
     this.camera.end();
 
-    g.drawText(`Pointer position: ${Input.pointer}`, new Vector2(0, 0), Color.white);
-    g.drawText(`Pointer in world position: ${this.camera.screenToWorld(Input.pointer, new Vector2())}`, new Vector2(0, 8), Color.white);
-    g.drawText(`Pointer position: ${Input.pointer}`, new Vector2(0, 16), Color.white);
+    g.drawText(`Pointer position: ${Input.pointer}`, 0, 0, Color.white);
+    g.drawText(`Pointer in world position: ${this.camera.screenToWorld(Input.pointer, new Vector2())}`, 0, 8, Color.white);
+    g.drawText(`Pointer position: ${Input.pointer}`, 0, 16, Color.white); // TODO: This should be rect in screen position
   }
 }

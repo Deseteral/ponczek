@@ -5,7 +5,6 @@ import { Input } from 'ponczek/core/input';
 import { SceneManager } from 'ponczek/core/scene-manager';
 import { ENDESGA16PaletteIdx } from 'ponczek/palettes/endesga16-palette';
 import { Rectangle } from 'ponczek/math/rectangle';
-import { Vector2 } from 'ponczek/math/vector2';
 import { Color } from 'ponczek/gfx/color';
 import { Texture } from 'ponczek/gfx/texture';
 import { Assets } from 'ponczek/core/assets';
@@ -29,7 +28,7 @@ export class DrawingTestScene extends Scene {
     g.clearScreen(ENDESGA16PaletteIdx[15]);
 
     {
-      g.drawText('Rectangle', new Vector2(0, 1), Color.white);
+      g.drawText('Rectangle', 0, 1, Color.white);
 
       for (let idx = 0; idx < 11; idx += 1) {
         g.color(ENDESGA16PaletteIdx[idx]);
@@ -42,7 +41,7 @@ export class DrawingTestScene extends Scene {
     }
 
     {
-      g.drawText('Line', new Vector2(0, 40), Color.white);
+      g.drawText('Line', 0, 40, Color.white);
 
       const size = 20;
       const baseX = 2;
@@ -65,7 +64,7 @@ export class DrawingTestScene extends Scene {
     }
 
     {
-      g.drawText('Circle', new Vector2(0, 80), Color.white);
+      g.drawText('Circle', 0, 80, Color.white);
 
       for (let r = 1; r < 11; r += 1) {
         g.color(ENDESGA16PaletteIdx[r]);
@@ -76,7 +75,7 @@ export class DrawingTestScene extends Scene {
     }
 
     {
-      g.drawText('Sprite', new Vector2(0, 130), Color.white);
+      g.drawText('Sprite', 0, 130, Color.white);
       const size = this.sprite.width;
       const halfSize = size >> 1;
       const baseY = 138;

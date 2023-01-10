@@ -94,7 +94,7 @@ export abstract class Engine {
     if (Engine.debugMode) {
       const frameTime = (performance.now() - st);
       const fps = ((1000 / frameTime) | 0).toString().padStart(5, '0');
-      Engine.graphicsDevice.drawText(`${fps} fps, ${frameTime.toFixed(2)} ms`, Vector2.zero, Color.white);
+      Engine.graphicsDevice.drawText(`${fps} fps, ${frameTime.toFixed(2)} ms`, 0, 0, Color.white);
     }
 
     requestAnimationFrame(Engine.loop);

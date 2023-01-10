@@ -22,7 +22,7 @@ class TestGridView extends GridView<Item> {
     g.fillRect(x, y, this.cellWidth, this.cellHeight);
 
     const selectionColor = isSelected ? ENDESGA16Palette.fabric : ENDESGA16Palette.pine;
-    g.drawText(item.text, new Vector2(x + 2, y + 6), selectionColor);
+    g.drawText(item.text, x + 2, y + 6, selectionColor);
 
     g.color(selectionColor);
     g.drawRect(x, y, this.cellWidth, this.cellHeight);
@@ -87,6 +87,6 @@ export class GridViewTestScene extends Scene {
     this.gridView.drawAt(new Vector2(10, 10), g);
     this.gridViewWithWrap.drawAt(new Vector2(10, 100), g);
 
-    g.drawText('Use WASD to move selection', new Vector2(5, 225), ENDESGA16Palette.sap);
+    g.drawText('Use WASD to move selection', 5, 225, ENDESGA16Palette.sap);
   }
 }
