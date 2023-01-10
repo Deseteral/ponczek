@@ -114,8 +114,16 @@ export class GraphicsDevice {
     this.ctx.fillRect((x | 0), (y | 0), w, h);
   }
 
+  public drawCircleV(position: Vector2, radius: number): void {
+    this.drawCircle(position.x, position.y, radius);
+  }
+
   public drawCircle(x: number, y: number, radius: number): void {
     this.circ(x, y, radius, false);
+  }
+
+  public fillCircleV(position: Vector2, radius: number): void {
+    this.fillCircle(position.x, position.y, radius);
   }
 
   public fillCircle(x: number, y: number, radius: number): void {
