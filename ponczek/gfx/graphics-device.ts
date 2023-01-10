@@ -102,6 +102,10 @@ export class GraphicsDevice {
     this.ctx.fillRect(x + w - 1, y, 1, h);
   }
 
+  public fillRectV(position: Vector2, w: number, h: number): void {
+    this.fillRect(position.x, position.y, w, h);
+  }
+
   public fillRect(x: number, y: number, w: number, h: number): void {
     this.ctx.fillRect((x | 0), (y | 0), w, h);
   }
