@@ -24,24 +24,24 @@ export class DrawingTestScene extends Scene {
     if (Input.getButtonDown('b')) SceneManager.popScene();
   }
 
-  render(g: Screen): void {
-    g.clearScreen(ENDESGA16PaletteIdx[15]);
+  render(scr: Screen): void {
+    scr.clearScreen(ENDESGA16PaletteIdx[15]);
 
     {
-      g.drawText('Rectangle', 0, 1, Color.white);
+      scr.drawText('Rectangle', 0, 1, Color.white);
 
       for (let idx = 0; idx < 11; idx += 1) {
-        g.color(ENDESGA16PaletteIdx[idx]);
+        scr.color(ENDESGA16PaletteIdx[idx]);
 
         const n = idx + 8;
         const x = ((n * (n + 1)) / 2) - 34;
-        g.fillRect(x, 10, idx + 1, idx + 1);
-        g.drawRect(x, 25, idx + 1, idx + 1);
+        scr.fillRect(x, 10, idx + 1, idx + 1);
+        scr.drawRect(x, 25, idx + 1, idx + 1);
       }
     }
 
     {
-      g.drawText('Line', 0, 40, Color.white);
+      scr.drawText('Line', 0, 40, Color.white);
 
       const size = 20;
       const baseX = 2;
@@ -58,35 +58,35 @@ export class DrawingTestScene extends Scene {
         [baseX, baseY, (baseX + (size * 3)), (baseY + size)],
         [(baseX + size), baseY, (baseX + (size * 2)), (baseY + size)],
       ].forEach(([x1, y1, x2, y2], idx) => {
-        g.color(ENDESGA16PaletteIdx[idx]);
-        g.drawLine(x1, y1, x2, y2);
+        scr.color(ENDESGA16PaletteIdx[idx]);
+        scr.drawLine(x1, y1, x2, y2);
       });
     }
 
     {
-      g.drawText('Circle', 0, 80, Color.white);
+      scr.drawText('Circle', 0, 80, Color.white);
 
       for (let r = 1; r < 11; r += 1) {
-        g.color(ENDESGA16PaletteIdx[r]);
+        scr.color(ENDESGA16PaletteIdx[r]);
 
-        g.fillCircle((r * 20) - 10, 100, r);
-        g.drawCircle((r * 20) - 10, 115, 10 - r);
+        scr.fillCircle((r * 20) - 10, 100, r);
+        scr.drawCircle((r * 20) - 10, 115, 10 - r);
       }
     }
 
     {
-      g.drawText('Sprite', 0, 130, Color.white);
+      scr.drawText('Sprite', 0, 130, Color.white);
       const size = this.sprite.width;
       const halfSize = size >> 1;
       const baseY = 138;
 
-      g.drawTexture(this.sprite, 1, baseY);
-      g.drawTexture(this.sprite, ((size + 1) * 1), baseY, size, size, FLIP_H);
-      g.drawTexture(this.sprite, ((size + 1) * 2), baseY, size, size, FLIP_V);
-      g.drawTexture(this.sprite, ((size + 1) * 3), baseY, size, size, (FLIP_H | FLIP_V));
+      scr.drawTexture(this.sprite, 1, baseY);
+      scr.drawTexture(this.sprite, ((size + 1) * 1), baseY, size, size, FLIP_H);
+      scr.drawTexture(this.sprite, ((size + 1) * 2), baseY, size, size, FLIP_V);
+      scr.drawTexture(this.sprite, ((size + 1) * 3), baseY, size, size, (FLIP_H | FLIP_V));
 
-      g.drawTexturePart(this.sprite, 0, 0, halfSize, halfSize, ((size + 1) * 4), baseY + halfSize, halfSize, halfSize);
-      g.drawTexturePart(this.sprite, 0, halfSize, halfSize, halfSize, ((size + 1) * 4) + halfSize, baseY, halfSize, halfSize, FLIP_V);
+      scr.drawTexturePart(this.sprite, 0, 0, halfSize, halfSize, ((size + 1) * 4), baseY + halfSize, halfSize, halfSize);
+      scr.drawTexturePart(this.sprite, 0, halfSize, halfSize, halfSize, ((size + 1) * 4) + halfSize, baseY, halfSize, halfSize, FLIP_V);
     }
   }
 }
