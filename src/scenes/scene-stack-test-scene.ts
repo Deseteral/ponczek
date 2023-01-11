@@ -104,6 +104,6 @@ export class SceneStackTestScene extends Scene {
 
     scr.color(ENDESGA16PaletteIdx[10]);
     scr.fillRectR(this.rect);
-    scr.drawTextInRect('Press "back" to open pause menu', this.rect, ENDESGA16PaletteIdx[11]);
+    scr.drawTextInRectR('Press "back" to open pause menu', this.rect, ENDESGA16PaletteIdx[11]);
   }
 }

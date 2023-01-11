@@ -215,52 +215,67 @@ export class Screen {
   }
 
   public drawText(text: string, x: number, y: number, color: Color): void {
+    this.drawTextInRect(text, x, y, Infinity, Infinity, color);
+  }
+
+  public drawTextInRectR(text: string, rect: Rectangle, color: Color): void {
+    this.drawTextInRect(text, rect.x, rect.y, rect.width, rect.height, color);
+  }
+
+  public drawTextInRect(text: string, x: number, y: number, w: number, h: number, color: Color): void {
     if (!this.activeFont) {
       console.error('No active font was set');
       return;
     }
 
-    const fontTexture = this.activeFont.getTextureForColor(color);
+    if (w !== Infinity || h !== Infinity) {
+      this.clip(x, y, w, h);
+    }
+
+    const lines = text.split('\n');
+    const lineHeight = 8;
+    let yy = y;
+
+    for (let lineIdx = 0; lineIdx < lines.length; lineIdx += 1) {
+      const tokens = lines[lineIdx].split(' ');
+      let line = tokens[0];
+
+      for (let idx = 1; idx < tokens.length; idx += 1) {
+        const nextLine = (line + ' ' + tokens[idx]); // eslint-disable-line prefer-template
+
+        if (this.activeFont.getLineLengthPx(nextLine) > w) {
+          this.textLine(line, x, yy, color);
+          line = tokens[idx];
+          yy += lineHeight;
+        } else {
+          line = nextLine;
+        }
+      }
+      this.textLine(line, x, yy, color);
+      yy += lineHeight;
+    }
+
+    this.clip();
+  }
+
+  private textLine(text: string, x: number, y: number, color: Color): void {
+    const font = this.activeFont!;
+    const fontTexture = font.getTextureForColor(color);
 
     for (let idx = 0; idx < text.length; idx += 1) {
       const char = text[idx];
       this.drawTexturePart(
         fontTexture,
-        this.activeFont.getSourceXForChar(char),
-        this.activeFont.getSourceYForChar(char),
-        this.activeFont.charWidth,
-        this.activeFont.charHeight,
-        (x + (idx * this.activeFont.charWidth)) | 0,
+        font.getSourceXForChar(char),
+        font.getSourceYForChar(char),
+        font.charWidth,
+        font.charHeight,
+        (x + (idx * font.charWidth)) | 0,
         y | 0,
-        this.activeFont.charWidth,
-        this.activeFont.charHeight,
+        font.charWidth,
+        font.charHeight,
       );
     }
-  }
-
-  public drawTextInRect(text: string, rect: Rectangle, color: Color): void {
-    if (!this.activeFont) {
-      console.error('No active font was set');
-      return;
-    }
-
-    const tokens = text.split(' ');
-
-    let line = tokens[0];
-    let yy = rect.y;
-
-    for (let idx = 1; idx < tokens.length; idx += 1) {
-      const nextLine = (line + ' ' + tokens[idx]); // eslint-disable-line prefer-template
-
-      if (this.activeFont.getLineLengthPx(nextLine) > rect.width) {
-        this.drawText(line, rect.x, yy, color);
-        line = tokens[idx];
-        yy += 8;
-      } else {
-        line = nextLine;
-      }
-    }
-    this.drawText(line, rect.x, yy, color);
   }
 
   private circ(x: number, y: number, radius: number, fill: boolean): void {
