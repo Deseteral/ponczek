@@ -1,12 +1,12 @@
 import { Color } from 'ponczek/gfx/color';
-import { FragmentEffect } from 'ponczek/gfx/effect';
+import { Effect } from 'ponczek/gfx/effect';
 import { Engine } from 'ponczek/engine';
 import { Screen } from 'ponczek/gfx/screen';
 import { Scene } from 'ponczek/core/scene';
 import { SceneManager } from 'ponczek/core/scene-manager';
 import { Input } from 'ponczek/core/input';
 
-class TestEffect extends FragmentEffect {
+class TestEffect extends Effect {
   protected fragment(x: number, y: number, color: Color, w: number, h: number): Color {
     if (color.equals(Color.black)) return color;
 
@@ -28,6 +28,6 @@ export class EffectsTestScene extends Scene {
     scr.color(Color.green);
     scr.fillRect(5, 10, 300, 200);
 
-    this.testEffect.apply(scr.ctx.canvas, scr.ctx.canvas);
+    this.testEffect.apply(scr.ctx.canvas);
   }
 }

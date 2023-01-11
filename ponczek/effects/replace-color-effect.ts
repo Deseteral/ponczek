@@ -1,7 +1,7 @@
 import { Color } from 'ponczek/gfx/color';
-import { FragmentEffect } from 'ponczek/gfx/effect';
+import { Effect } from 'ponczek/gfx/effect';
 
-export class ReplaceColorEffect extends FragmentEffect {
+export class ReplaceColorEffect extends Effect {
   // TODO: For performance - add support for mulitple color replacement
   public sourceColor: Color;
   public targetColor: Color;

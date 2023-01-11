@@ -26,7 +26,7 @@ export class SplashScreenScene extends Scene {
     this.timer = new Timer();
     this.timer.set(500);
 
-    this.filter.apply(this.ponczekTexture.drawable, this.filteredPonczekTexture.drawable);
+    this.filter.applyToTexture(this.ponczekTexture, this.filteredPonczekTexture);
   }
 
   update(): void {
@@ -35,19 +35,19 @@ export class SplashScreenScene extends Scene {
 
       if (this.stage === 1) {
         this.filter.filterRed = false;
-        this.filter.apply(this.ponczekTexture.drawable, this.filteredPonczekTexture.drawable);
+        this.filter.applyToTexture(this.ponczekTexture, this.filteredPonczekTexture);
         this.timer.set(transitionTime);
       }
 
       if (this.stage === 2) {
         this.filter.filterGreen = false;
-        this.filter.apply(this.ponczekTexture.drawable, this.filteredPonczekTexture.drawable);
+        this.filter.applyToTexture(this.ponczekTexture, this.filteredPonczekTexture);
         this.timer.set(transitionTime);
       }
 
       if (this.stage === 3) {
         this.filter.filterBlue = false;
-        this.filter.apply(this.ponczekTexture.drawable, this.filteredPonczekTexture.drawable);
+        this.filter.applyToTexture(this.ponczekTexture, this.filteredPonczekTexture);
         this.timer.set(1000);
       }
 
@@ -59,7 +59,7 @@ export class SplashScreenScene extends Scene {
 
   render(scr: Screen): void {
     scr.clearScreen(Color.black);
-    scr.drawTexture(this.filteredPonczekTexture, 0, 0, this.filteredPonczekTexture.width, this.filteredPonczekTexture.height);
+    scr.drawTexture(this.filteredPonczekTexture, 0, 0);
     scr.drawText('Ponczek', 5, 5, Color.white);
   }
 }

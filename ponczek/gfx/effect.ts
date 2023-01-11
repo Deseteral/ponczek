@@ -1,8 +1,12 @@
 import { Color } from 'ponczek/gfx/color';
-import { Drawable } from 'ponczek/gfx/texture';
+import { Drawable, Texture } from 'ponczek/gfx/texture';
 
-export abstract class FragmentEffect {
+export abstract class Effect {
   protected abstract fragment(x: number, y: number, color: Color, w: number, h: number): Color;
+
+  public applyToTexture(source: Texture, target: Texture = source): void {
+    this.apply(source.drawable, target.drawable);
+  }
 
   public apply(source: Drawable, target: Drawable = source): void {
     const sourceCtx = source.getContext('2d');

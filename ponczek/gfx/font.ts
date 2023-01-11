@@ -36,8 +36,8 @@ export class Font {
 
     const texture = Texture.copy(this.sourceTexture);
 
-    removeWhite.apply(texture.drawable, texture.drawable);
-    setColor.apply(texture.drawable, texture.drawable);
+    removeWhite.applyToTexture(texture);
+    setColor.applyToTexture(texture);
 
     this.colorVariants.set(color.htmlString, texture);
   }

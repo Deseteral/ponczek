@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { Color } from 'ponczek/gfx/color';
-import { FragmentEffect } from 'ponczek/gfx/effect';
+import { Effect } from 'ponczek/gfx/effect';
 
-export class FilterColorChannelEffect extends FragmentEffect {
+export class FilterColorChannelEffect extends Effect {
   public filterRed: boolean;
   public filterGreen: boolean;
   public filterBlue: boolean;
