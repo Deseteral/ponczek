@@ -3,12 +3,12 @@
 
 <img src="./resources/logo.svg" alt="Project logo" width="500">
 
-## Why?
+## 🤔 Why?
 I wanted something that would make it easier for me to create 2D games during game jams. This framework's design and future development reflects the type of games I like to make.
 
 I've made this for myself, but anyone is welcome to use it. Expect breaking changes though.
 
-## What it is?
+## 👩‍💻 What it is?
 - Very opinionated
 - Software rendering
 - Easy to use with *fantasy console*-like API
@@ -18,12 +18,12 @@ I've made this for myself, but anyone is welcome to use it. Expect breaking chan
 - (almost) zero dependencies
 - Easy to understand and extend code base
 
-## What it is not?
+## 🙅‍♀️ What it is not?
 - Not made for high fidelity games
 - Not a fully featured game engine
 - Does not support mobile
 
-## Features
+## 🍩 Features
 - 2D software rendering
   - Primitive shape rendering (lines, rectangles, circles)
   - Drawing textures
@@ -50,5 +50,5 @@ Uses fantastic font [Monogram by datagoblin](https://datagoblin.itch.io/monogram
 
 Works in every major browser.
 
-## License
+## 📝 License
 This project is licensed under the [MIT license](LICENSE).
