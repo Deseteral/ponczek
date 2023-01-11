@@ -37,6 +37,8 @@ I've made this for myself, but anyone is welcome to use it. Expect breaking chan
 - Math module
   - Data structures and algorithms (Vector2, Rectangle)
   - Random number generator
+- GUI
+  - Grid component with keyboard navigation
 - Asset loader
 - Stack based scene manager
 - Data storage for save data (uses `localStorage`)
