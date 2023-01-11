@@ -1,5 +1,4 @@
 /*
- * TODO: Add texture flipping
  * TODO: Add new line support for text rendering
  * TODO: Add support for seeding random number generator
  * TODO: Noise generator
