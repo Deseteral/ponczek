@@ -4,14 +4,14 @@ import { Screen } from 'ponczek/gfx/screen';
 import { Input } from 'ponczek/core/input';
 import { Vector2 } from 'ponczek/math/vector2';
 import { Scene } from 'ponczek/core/scene';
-import { XNAPalette } from 'ponczek/palettes/xna-palette';
 import { SceneManager } from 'ponczek/core/scene-manager';
 import { Rectangle } from 'ponczek/math/rectangle';
+import { ENDESGA16PaletteIdx } from 'ponczek/palettes/endesga16-palette';
 
 export class CameraTestScene extends Scene {
   private camera: Camera;
   private playerPosition: Vector2;
-  private redRectangle: Rectangle;
+  private rect: Rectangle;
 
   private _pointerInWorld: Vector2 = Vector2.zero;
   private _rectInScreen: Vector2 = Vector2.zero;
@@ -20,7 +20,7 @@ export class CameraTestScene extends Scene {
     super();
     this.camera = new Camera();
     this.playerPosition = new Vector2();
-    this.redRectangle = new Rectangle(-10, 20, 100, 200);
+    this.rect = new Rectangle(-10, 20, 100, 200);
   }
 
   update(): void {
@@ -39,20 +39,20 @@ export class CameraTestScene extends Scene {
     this.camera.lookAt(this.playerPosition);
 
     this.camera.screenToWorld(Input.pointer, this._pointerInWorld);
-    this.camera.worldToScreen(new Vector2(this.redRectangle.x, this.redRectangle.y), this._rectInScreen);
+    this.camera.worldToScreen(new Vector2(this.rect.x, this.rect.y), this._rectInScreen);
 
     if (Input.getButtonDown('b')) SceneManager.popScene();
   }
 
   render(scr: Screen): void {
-    scr.clearScreen(XNAPalette.cornflowerBlue);
+    scr.clearScreen(ENDESGA16PaletteIdx[2]);
 
     this.camera.begin();
 
-    scr.color(Color.red);
-    scr.fillRectR(this.redRectangle);
+    scr.color(ENDESGA16PaletteIdx[9]);
+    scr.fillRectR(this.rect);
 
-    scr.color(Color.green);
+    scr.color(ENDESGA16PaletteIdx[6]);
     scr.fillRect(this.playerPosition.x, this.playerPosition.y, 20, 20);
 
     this.camera.end();
