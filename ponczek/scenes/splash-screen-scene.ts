@@ -7,7 +7,7 @@ import { Timer } from 'ponczek/core/timer';
 import { Color } from 'ponczek/gfx/color';
 import { FilterColorChannelEffect } from 'ponczek/effects/filter-color-channel-effect';
 
-const transitionTime = 70;
+const transitionTime = 86;
 
 export class SplashScreenScene extends Scene {
   private transitionToScene: Scene;
