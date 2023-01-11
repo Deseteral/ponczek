@@ -16,6 +16,7 @@ I've made this for myself, but anyone is welcome to use it. Expect breaking chan
 - Tries really hard to avoid GC in game loop
 - Provides API that makes it easy to avoid GC in game loop
 - (almost) zero dependencies
+- Easy to understand and extend code base
 
 ## What it is not?
 - Not made for high fidelity games
@@ -43,6 +44,8 @@ I've made this for myself, but anyone is welcome to use it. Expect breaking chan
 - Stack based scene manager
 - Data storage for save data (uses `localStorage`)
 - Timers
+
+Uses fantastic font [Monogram by datagoblin](https://datagoblin.itch.io/monogram) as default font.
 
 ## License
 This project is licensed under the [MIT license](LICENSE).
