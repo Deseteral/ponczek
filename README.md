@@ -25,13 +25,14 @@ I've made this for myself, but anyone is welcome to use it. Expect breaking chan
 
 ## Features
 - 2D software rendering
-  - Primitive shape rendering (rectangles, circles)
+  - Primitive shape rendering (lines, rectangles, circles)
   - Drawing textures
   - Drawing nine slices
   - Drawing monospaced sprite fonts
   - Clipping
   - *Fragment shader*-like effect system
   - Camera
+  - Allows to drop to [browser's Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) for unsupported features
 - Simple sound effects player
 - Keyboard and mouse input system
   - Supports binding
@@ -46,6 +47,8 @@ I've made this for myself, but anyone is welcome to use it. Expect breaking chan
 - Timers
 
 Uses fantastic font [Monogram by datagoblin](https://datagoblin.itch.io/monogram) as default font.
+
+Works in every major browser.
 
 ## License
 This project is licensed under the [MIT license](LICENSE).
