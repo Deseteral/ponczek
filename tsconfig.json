@@ -16,14 +16,14 @@
     "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
-      "src/*": ["./src/*"],
-      "ponczek/*": ["./ponczek/*"],
+      "examples/*": ["./examples/*"],
+      "ponczek/*": ["./src/*"],
       "*": ["node_modules/*"],
     },
     "target": "ES2022"
   },
   "include": [
     "src/**/*",
-    "ponczek/**/*"
+    "examples/**/*"
   ]
 }

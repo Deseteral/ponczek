@@ -4,9 +4,9 @@
   "description": "Deep-fried game framework with sweet filling",
   "scripts": {
     "start": "npm run dev",
-    "dev": "npm run build:asset-lists && parcel src/index.html",
-    "build": "npm run clean && parcel build src/index.html --public-url . && npm run build:asset-lists",
-    "build:asset-lists": "node ./ponczek/scripts/generate-asset-list.js",
+    "dev": "npm run build:asset-lists && parcel examples/index.html",
+    "build": "npm run clean && parcel build examples/index.html --public-url . && npm run build:asset-lists",
+    "build:asset-lists": "node ./src/scripts/generate-asset-list.js",
     "test": "npm run test:type-check",
     "test:type-check": "tsc --noEmit",
     "test:type-check:watch": "tsc --noEmit -w",
@@ -27,8 +27,8 @@
     "staticOutPath": "assets"
   },
   "alias": {
-    "src": "./src",
-    "ponczek": "./ponczek"
+    "ponczek": "./src",
+    "examples": "./examples"
   },
   "dependencies": {
     "howler": "2.2.3"

@@ -10,12 +10,12 @@ import { Texture } from 'ponczek/gfx/texture';
 import { GridView } from 'ponczek/gui/grid-view';
 import { Vector2 } from 'ponczek/math/vector2';
 import { ENDESGA16Palette, ENDESGA16PaletteIdx } from 'ponczek/palettes/endesga16-palette';
-import { CameraTestScene } from 'src/scenes/camera-test-scene';
-import { DrawingTestScene } from 'src/scenes/drawing-test-scene';
-import { EffectsTestScene } from 'src/scenes/effects-test-scene';
-import { FontRenderingTestScene } from 'src/scenes/font-rendering-test-scene';
-import { GridViewTestScene } from 'src/scenes/grid-view-test-scene';
-import { SceneStackTestScene } from 'src/scenes/scene-stack-test-scene';
+import { CameraTestScene } from 'examples/scenes/camera-test-scene';
+import { DrawingTestScene } from 'examples/scenes/drawing-test-scene';
+import { EffectsTestScene } from 'examples/scenes/effects-test-scene';
+import { FontRenderingTestScene } from 'examples/scenes/font-rendering-test-scene';
+import { GridViewTestScene } from 'examples/scenes/grid-view-test-scene';
+import { SceneStackTestScene } from 'examples/scenes/scene-stack-test-scene';
 
 interface Item {
   text: string,
