@@ -163,7 +163,7 @@ export class Screen {
     this.ctx.restore();
   }
 
-  public drawNinePatch(texture: Texture, x: number, y: number, w: number, h: number, patchWidth: number, patchHeight: number): void {
+  public drawNineSlice(texture: Texture, x: number, y: number, w: number, h: number, patchWidth: number, patchHeight: number): void {
     x |= 0; // eslint-disable-line no-param-reassign
     y |= 0; // eslint-disable-line no-param-reassign
 

@@ -1,4 +1,6 @@
 /*
+ * TODO: Add support for triangle rendering
+ * TODO: Some data structure to represent "texture tiles"
  * TODO: Add support for seeding random number generator
  * TODO: Noise generator
  * TODO: Pathfinding
