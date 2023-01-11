@@ -4,8 +4,8 @@ export type Drawable = HTMLCanvasElement;
 export class Texture {
   public width: number;
   public height: number;
-  public get drawable(): Drawable { return this.canvas; }
 
+  public get drawable(): Drawable { return this.canvas; }
   private canvas: Drawable;
 
   private constructor(drawable: Drawable) {
@@ -20,6 +20,10 @@ export class Texture {
     canvas.height = height;
 
     return new Texture(canvas);
+  }
+
+  public static copy(texture: Texture): Texture {
+    return Texture.createFromSource(texture.drawable);
   }
 
   public static createFromSource(source: HTMLTextureSource): Texture {

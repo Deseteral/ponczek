@@ -21,7 +21,7 @@ export class SplashScreenScene extends Scene {
     super();
     this.transitionToScene = transitionToScene;
     this.ponczekTexture = Assets.texture('ponczek');
-    this.filteredPonczekTexture = Texture.createFromSource(this.ponczekTexture.drawable);
+    this.filteredPonczekTexture = Texture.copy(this.ponczekTexture);
     this.filter = new FilterColorChannelEffect(true, true, true);
     this.timer = new Timer();
     this.timer.set(500);

@@ -16,6 +16,7 @@
  * TODO: Automatic conversion of sounds to webm
  * TODO: Setup double buffering
  * TODO: Support page lifecycle APIs
+ * TODO: Documentation
  */
 
 import 'ponczek/polyfills';

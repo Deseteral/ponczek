@@ -34,7 +34,7 @@ export class Font {
     const removeWhite = new ReplaceColorEffect(Color.white, Color.transparent);
     const setColor = new ReplaceColorEffect(Color.black, color);
 
-    const texture = Texture.createFromSource(this.sourceTexture.drawable);
+    const texture = Texture.copy(this.sourceTexture);
 
     removeWhite.apply(texture.drawable, texture.drawable);
     setColor.apply(texture.drawable, texture.drawable);

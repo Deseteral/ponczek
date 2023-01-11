@@ -55,7 +55,7 @@ export class MainMenuScene extends Scene {
       [{ text: 'Scene stack', scene: () => new SceneStackTestScene() }],
     ];
 
-    this.frameTexture = Texture.createFromSource(Assets.texture('frame').drawable);
+    this.frameTexture = Texture.copy(Assets.texture('frame'));
 
     const replaceColorEffect = new ReplaceColorEffect(Color.white, Color.transparent);
     replaceColorEffect.apply(this.frameTexture.drawable);
