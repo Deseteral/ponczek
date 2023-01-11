@@ -9,9 +9,12 @@ import { SceneManager } from 'ponczek/core/scene-manager';
 import { Rectangle } from 'ponczek/math/rectangle';
 
 export class CameraTestScene extends Scene {
-  camera: Camera;
-  playerPosition: Vector2;
-  redRectangle: Rectangle;
+  private camera: Camera;
+  private playerPosition: Vector2;
+  private redRectangle: Rectangle;
+
+  private _pointerInWorld: Vector2 = Vector2.zero;
+  private _rectInScreen: Vector2 = Vector2.zero;
 
   constructor() {
     super();
@@ -35,6 +38,9 @@ export class CameraTestScene extends Scene {
 
     this.camera.lookAt(this.playerPosition);
 
+    this.camera.screenToWorld(Input.pointer, this._pointerInWorld);
+    this.camera.worldToScreen(new Vector2(this.redRectangle.x, this.redRectangle.y), this._rectInScreen);
+
     if (Input.getButtonDown('b')) SceneManager.popScene();
   }
 
@@ -52,7 +58,7 @@ export class CameraTestScene extends Scene {
     this.camera.end();
 
     scr.drawText(`Pointer position: ${Input.pointer}`, 0, 0, Color.white);
-    scr.drawText(`Pointer in world position: ${this.camera.screenToWorld(Input.pointer, new Vector2())}`, 0, 8, Color.white);
-    scr.drawText(`Pointer position: ${Input.pointer}`, 0, 16, Color.white); // TODO: This should be rect in screen position
+    scr.drawText(`Pointer in world position: ${this._pointerInWorld}`, 0, 8, Color.white);
+    scr.drawText(`Rectangle in screen position: ${this._rectInScreen}`, 0, 16, Color.white);
   }
 }
