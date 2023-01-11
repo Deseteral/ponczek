@@ -3,21 +3,13 @@ import { Engine } from 'ponczek/engine';
 
 export type SoundPlaybackId = number;
 
-export interface PlaySoundOptions {
-  loop: boolean,
-}
-
-const defaultPlaySoundOptions: (() => PlaySoundOptions) = () => ({
-  loop: false,
-});
-
 export abstract class SoundPlayer {
   private static idToName: Map<SoundPlaybackId, string> = new Map();
 
-  static playSound(name: string, options: PlaySoundOptions = defaultPlaySoundOptions()): SoundPlaybackId {
+  static playSound(name: string, loop: boolean = false): SoundPlaybackId {
     const { howl } = Assets.sound(name);
     const id = howl.play();
-    howl.loop(options.loop, id);
+    howl.loop(loop, id);
 
     this.idToName.set(id, name);
     return id;
