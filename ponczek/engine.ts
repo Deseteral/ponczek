@@ -18,6 +18,7 @@
  * TODO: Setup double buffering
  * TODO: Support page lifecycle APIs
  * TODO: Documentation
+ * TODO: Link to examples and demo page in readme
  */
 
 import 'ponczek/polyfills';
