@@ -15,8 +15,10 @@ I've made this for myself, but anyone is welcome to use it. Expect breaking chan
 - Prioritizes performance over memory usage and bundle size
 - Tries really hard to avoid GC in game loop
 - Provides API that makes it easy to avoid GC in game loop
-- (almost) zero dependencies
+- (almost) zero dependencies _*_
 - Easy to understand and extend code base
+
+_* Runtime dependencies are temporary - they're solutions to problems I didn't want to tackle at that specific moment, and will be removed eventually._
 
 ## 🙅‍♀️ What it is not?
 - Not made for high fidelity games
@@ -24,6 +26,8 @@ I've made this for myself, but anyone is welcome to use it. Expect breaking chan
 - Does not support mobile
 
 ## 🍩 Features
+*For example usage of these feature check out the [demo page](https://deseteral.github.io/ponczek) and its [source](/Deseteral/ponczek/tree/main/examples).*
+
 - 2D software rendering
   - Primitive shape rendering (lines, rectangles, circles)
   - Drawing textures
