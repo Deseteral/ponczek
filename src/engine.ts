@@ -30,6 +30,9 @@ import { Color } from 'ponczek/gfx/color';
 import { SceneManager } from 'ponczek/core/scene-manager';
 import { Scene } from 'ponczek/core/scene';
 import { SplashScreenScene } from 'ponczek/scenes/splash-screen-scene';
+import { Texture } from 'ponczek/gfx/texture';
+
+const monogramDataUrl = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAABwAQMAAADsYuqRAAAABlBMVEX///8AAABVwtN+AAABb0lEQVR42nyQAYejTRCES3ut8ok1YvD6tNFKRLzWiWAdRv//n3V6ksUJ94DxKFV6AHZQO7eGwkr0oQuLH5G3rcRRYgOI7hwgPZHgEv+1CypBcDXlVAmWiJWg/ketNCDwhtP9nJ7uKBzapXOESeQH7sKVZppPsefJcHA7pc3NRzXahgdpZqJsJQixqfKvDsAz3by20AAQb7hPn5muNIXkuEpShES7xLeEQwpFhGi3OB4lZmjOX0m7hw7hmishUbfQVQhJL3GpN1y1Eq4akhxvTJ+eKvIUOwFJogpjsC8RJXrf2ChganoJLgBEZdWPzsbtJUT1bzFoS7icTol5sh0JfOBvGgKGE4IW9xIc04efRwBqczqgomnuH5d2SCVCOSXa7x8hRRuiXonV0Uzp+jzkeOH4Jw2LjfWY42tMFfm8VnpEk9S1kTw7pPAmHVTd/2UlrNV/jEYSA3PE/BzssiwhhOGJr5WBP6MWGAWjYBSMAgA9WDsJuJYmBQAAAABJRU5ErkJggg==';
 
 export abstract class Engine {
   public static ticks: number = 0;
@@ -40,12 +43,13 @@ export abstract class Engine {
 
   public static debugMode: boolean = false;
 
-  public static initialize(width: number, height: number, initialScene: () => Scene, skipSplashScreen: boolean = false): void {
+  public static async initialize(width: number, height: number, initialScene: () => Scene, skipSplashScreen: boolean = false): Promise<void> {
     Engine.screen = new Screen(width, height);
 
     Input.initialize(Engine.screen.domElement);
 
-    Engine.defaultFont = new Font(Assets.texture('monogram'), 8, 8);
+    const monogramTexture = Texture.createFromSource(await Assets.fetchImageFromUrl(monogramDataUrl));
+    Engine.defaultFont = new Font(monogramTexture, 8, 8);
     Engine.defaultFont.generateColorVariants([Color.black, Color.white]);
     Engine.screen.font(Engine.defaultFont);
 

@@ -30,9 +30,9 @@ export abstract class Assets {
     return s;
   }
 
-  static async loadTexture(name: string, format: string): Promise<Texture> {
+  public static async loadTexture(name: string, format: string): Promise<Texture> {
     try {
-      const image = await this.loadImageFromUrl(`assets/textures/${name}.${format}`);
+      const image = await this.fetchImageFromUrl(`assets/textures/${name}.${format}`);
       const texture = Texture.createFromSource(image);
       this.textures.set(name, texture);
       return texture;
@@ -41,9 +41,9 @@ export abstract class Assets {
     }
   }
 
-  static async loadSound(name: string, format: string): Promise<Sound> {
+  public static async loadSound(name: string, format: string): Promise<Sound> {
     try {
-      const sound = await this.loadSoundFromUrl(`/assets/sounds/${name}.${format}`);
+      const sound = await this.fetchSoundFromUrl(`/assets/sounds/${name}.${format}`);
       this.sounds.set(name, sound);
       return sound;
     } catch (e) {
@@ -51,7 +51,7 @@ export abstract class Assets {
     }
   }
 
-  private static loadImageFromUrl(url: string): Promise<HTMLTextureSource> {
+  public static fetchImageFromUrl(url: string): Promise<HTMLTextureSource> {
     return new Promise((resolve, reject) => {
       const image = new Image();
       image.onload = () => resolve(image);
@@ -60,7 +60,7 @@ export abstract class Assets {
     });
   }
 
-  private static loadSoundFromUrl(url: string): Promise<Sound> {
+  public static fetchSoundFromUrl(url: string): Promise<Sound> {
     return new Promise((resolve, reject) => {
       const howl: Howl = new Howl({
         src: [url],

@@ -9,7 +9,7 @@ import soundList from '../assets/sounds.json';
 (async function main(): Promise<void> {
   await Assets.loadAssets(textureList as AssetDefinition[], soundList as AssetDefinition[]);
 
-  Engine.initialize(320, 240, () => new MainMenuScene());
+  await Engine.initialize(320, 240, () => new MainMenuScene());
   Input.withGameBoyLikeBinds();
   Engine.start();
 }());
