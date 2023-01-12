@@ -3,34 +3,27 @@
   "version": "1.0.0",
   "description": "Deep-fried game framework with sweet filling",
   "scripts": {
-    "start": "npm run dev",
-    "dev": "npm run build:asset-lists && parcel examples/index.html",
-    "build": "npm run clean && parcel build examples/index.html --public-url . && npm run build:asset-lists",
-    "build:asset-lists": "node ./src/scripts/generate-asset-list.js",
-    "test": "npm run test:type-check",
+    "test": "npm run test:type-check && npm run test:lint",
+    "test:lint": "eslint src --ext ts,js",
     "test:type-check": "tsc --noEmit",
-    "test:type-check:watch": "tsc --noEmit -w",
-    "clean": "rm -rf ./.parcel-cache ./dist"
+    "test:type-check:watch": "tsc --noEmit -w"
   },
   "author": "Deseteral <github.com/deseteral>",
   "license": "MIT",
-  "devDependencies": {
-    "@deseteral/eslint-config": "6.1.0",
-    "@types/howler": "2.2.7",
-    "eslint": "8.30.0",
-    "parcel": "2.8.2",
-    "parcel-reporter-static-files-copy": "1.4.0",
-    "typescript": "4.9.4"
-  },
   "staticFiles": {
     "staticPath": "assets",
     "staticOutPath": "assets"
   },
   "alias": {
-    "ponczek": "./src",
-    "examples": "./examples"
+    "ponczek": "./src"
   },
   "dependencies": {
     "howler": "2.2.3"
+  },
+  "devDependencies": {
+    "@deseteral/eslint-config": "6.1.0",
+    "@types/howler": "2.2.7",
+    "eslint": "8.30.0",
+    "typescript": "4.9.4"
   }
 }

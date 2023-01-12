@@ -1,0 +1,30 @@
+{
+  "name": "ponczek-examples",
+  "version": "1.0.0",
+  "description": "Examples for poneczek framework",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "npm run build:asset-lists && parcel src/index.html",
+    "build": "npm run clean && parcel build src/index.html --public-url . && npm run build:asset-lists",
+    "build:asset-lists": "node ../src/scripts/generate-asset-list.js",
+    "test": "npm run test:type-check && npm run test:lint",
+    "test:lint": "eslint src --ext ts,js",
+    "test:type-check": "tsc --noEmit",
+    "test:type-check:watch": "tsc --noEmit -w",
+    "clean": "rm -rf ./.parcel-cache ./dist"
+  },
+  "author": "Deseteral <github.com/deseteral>",
+  "license": "MIT",
+  "staticFiles": {
+    "staticPath": "assets",
+    "staticOutPath": "assets"
+  },
+  "alias": {
+    "ponczek": "../src",
+    "examples": "./src"
+  },
+  "devDependencies": {
+    "parcel": "2.8.2",
+    "parcel-reporter-static-files-copy": "1.4.0"
+  }
+}
