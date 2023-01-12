@@ -23,7 +23,7 @@ export class FontRenderingTestScene extends Scene {
     scr.color(ENDESGA16PaletteIdx[11]);
     scr.fillRectR(this.rect);
 
-    scr.drawTextInRectR('Glib jocks quiz nymph to vex dwarf.', this.rect, ENDESGA16PaletteIdx[8]);
+    scr.drawTextInRectR('Glib jocks quiz nymph to vex dwarf.\n\nSphinx of black quartz, judge my vow.', this.rect, ENDESGA16PaletteIdx[8]);
 
     scr.drawText('This is one line.\nThis is next line.\nHello :)', 10, 130, ENDESGA16PaletteIdx[8]);
   }
