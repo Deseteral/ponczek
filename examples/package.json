@@ -6,7 +6,7 @@
     "start": "npm run dev",
     "dev": "npm run build:asset-lists && parcel src/index.html",
     "build": "npm run clean && parcel build src/index.html --public-url . && npm run build:asset-lists",
-    "build:asset-lists": "node ../src/scripts/generate-asset-list.js",
+    "build:asset-lists": "npx ts-node ./scripts/generate-asset-list.ts",
     "test": "npm run test:type-check && npm run test:lint",
     "test:lint": "eslint src --ext ts,js",
     "test:type-check": "tsc --noEmit",
@@ -24,6 +24,7 @@
     "examples": "./src"
   },
   "devDependencies": {
+    "@types/node": "18.11.18",
     "parcel": "2.8.2",
     "parcel-reporter-static-files-copy": "1.4.0"
   }
