@@ -39,7 +39,7 @@ export class CameraTestScene extends Scene {
     this.camera.lookAt(this.playerPosition);
 
     this.camera.screenToWorld(Input.pointer, this._pointerInWorld);
-    this.camera.worldToScreen(new Vector2(this.rect.x, this.rect.y), this._rectInScreen);
+    this.camera.worldToScreen(this.rect.position, this._rectInScreen);
 
     if (Input.getButtonDown('b')) SceneManager.popScene();
   }

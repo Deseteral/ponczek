@@ -92,8 +92,7 @@ export class SceneStackTestScene extends Scene {
     if (isColliding) {
       this.direction.rotateDeg(random.nextInt(80, 90)).normalize();
     } else {
-      this.rect.x = nx;
-      this.rect.y = ny;
+      this.rect.position.set(nx, ny);
     }
 
     if (Input.getButtonDown('b')) SceneManager.pushScene(new PauseMenuScene());
