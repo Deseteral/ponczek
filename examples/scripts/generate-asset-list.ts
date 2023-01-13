@@ -11,5 +11,12 @@ function writeData(filePath: string, data: any): void {
   fs.writeFileSync(filePath, JSON.stringify(data), { encoding: 'utf-8' });
 }
 
-writeData('./assets/textures.json', readFileNames('./assets/textures'));
-writeData('./assets/sounds.json', readFileNames('./assets/sounds'));
+writeData(
+  path.resolve(__dirname, '../assets/textures.json'),
+  readFileNames(path.resolve(__dirname, '../assets/textures')),
+);
+
+writeData(
+  path.resolve(__dirname, '../assets/sounds.json'),
+  readFileNames(path.resolve(__dirname, '../assets/sounds')),
+);

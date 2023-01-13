@@ -17,11 +17,14 @@
     "baseUrl": "./",
     "paths": {
       "ponczek/*": ["./src/*"],
+      "examples/*": ["./examples/src/*"],
       "*": ["node_modules/*"],
     },
     "target": "ES2022"
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "examples/src/**/*",
+    "examples/scripts/**/*"
   ]
 }

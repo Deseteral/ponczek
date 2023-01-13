@@ -4,26 +4,26 @@
   "description": "Deep-fried game framework with sweet filling",
   "scripts": {
     "test": "npm run test:type-check && npm run test:lint",
-    "test:lint": "eslint src --ext ts,js",
+    "test:lint": "eslint . --ext ts,js",
     "test:type-check": "tsc --noEmit",
-    "test:type-check:watch": "tsc --noEmit -w"
+    "test:type-check:watch": "tsc --noEmit -w",
+    "examples:build": "npm run examples:clean && npm run examples:build-assets && vite build",
+    "examples:dev": "npm run examples:build-assets && vite",
+    "examples:preview": "vite preview",
+    "examples:build-assets": "npx ts-node ./examples/scripts/generate-asset-list.ts",
+    "examples:clean": "rm -rf ./examples/dist"
   },
   "author": "Deseteral <github.com/deseteral>",
   "license": "MIT",
-  "staticFiles": {
-    "staticPath": "assets",
-    "staticOutPath": "assets"
-  },
-  "alias": {
-    "ponczek": "./src"
-  },
   "dependencies": {
     "howler": "2.2.3"
   },
   "devDependencies": {
     "@deseteral/eslint-config": "6.1.0",
     "@types/howler": "2.2.7",
+    "@types/node": "18.11.18",
     "eslint": "8.30.0",
-    "typescript": "4.9.4"
+    "typescript": "4.9.4",
+    "vite": "4.0.4"
   }
 }

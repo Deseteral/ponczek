@@ -32,7 +32,7 @@ export abstract class Assets {
 
   public static async loadTexture(name: string, format: string): Promise<Texture> {
     try {
-      const image = await this.fetchImageFromUrl(`assets/textures/${name}.${format}`);
+      const image = await this.fetchImageFromUrl(`/textures/${name}.${format}`);
       const texture = Texture.createFromSource(image);
       this.textures.set(name, texture);
       return texture;
@@ -43,7 +43,7 @@ export abstract class Assets {
 
   public static async loadSound(name: string, format: string): Promise<Sound> {
     try {
-      const sound = await this.fetchSoundFromUrl(`/assets/sounds/${name}.${format}`);
+      const sound = await this.fetchSoundFromUrl(`/sounds/${name}.${format}`);
       this.sounds.set(name, sound);
       return sound;
     } catch (e) {
