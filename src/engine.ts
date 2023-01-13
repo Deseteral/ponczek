@@ -1,7 +1,7 @@
 /*
  * 1.0.0:
  * TODO: Noise generator
- * TODO: Pathfinding
+ * TODO: A* pathfinding
  * TODO: Some data structure to represent "texture tiles"
  * TODO: Scene transitions
  * TODO: Documentation
