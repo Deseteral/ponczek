@@ -1,24 +1,29 @@
 /*
- * TODO: Add support for triangle rendering
- * TODO: Some data structure to represent "texture tiles"
+ * 1.0.0:
  * TODO: Add support for seeding random number generator
  * TODO: Noise generator
  * TODO: Pathfinding
- * TODO: Grid view scrolling
+ * TODO: Some data structure to represent "texture tiles"
  * TODO: Scene transitions
+ * TODO: Documentation
+ * TODO: Template repository (to be used with npm/yarn create)
+ *
+ * Next release:
+ * TODO: Add support for triangle rendering
+ * TODO: Grid view scrolling
  * TODO: Data structure for defining color palettes
+ * TODO: GUI text input
+ * TODO: GUI button
+ *
+ * Future:
+ * TODO: ImGui support
  * TODO: Dithering patterns
  * TODO: Frame timing
  * TODO: Particle system
- * TODO: GUI text input
- * TODO: GUI button
  * TODO: Loading aseprite files
  * TODO: Entity component system
  * TODO: Automatic conversion of sounds to webm
- * TODO: Setup double buffering
  * TODO: Support page lifecycle APIs
- * TODO: Documentation
- * TODO: Link to examples and demo page in readme
  */
 
 import 'ponczek/polyfills';
@@ -34,6 +39,7 @@ import { Texture } from 'ponczek/gfx/texture';
 
 const monogramDataUrl = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAABwAQMAAADsYuqRAAAABlBMVEX///8AAABVwtN+AAABb0lEQVR42nyQAYejTRCES3ut8ok1YvD6tNFKRLzWiWAdRv//n3V6ksUJ94DxKFV6AHZQO7eGwkr0oQuLH5G3rcRRYgOI7hwgPZHgEv+1CypBcDXlVAmWiJWg/ketNCDwhtP9nJ7uKBzapXOESeQH7sKVZppPsefJcHA7pc3NRzXahgdpZqJsJQixqfKvDsAz3by20AAQb7hPn5muNIXkuEpShES7xLeEQwpFhGi3OB4lZmjOX0m7hw7hmishUbfQVQhJL3GpN1y1Eq4akhxvTJ+eKvIUOwFJogpjsC8RJXrf2ChganoJLgBEZdWPzsbtJUT1bzFoS7icTol5sh0JfOBvGgKGE4IW9xIc04efRwBqczqgomnuH5d2SCVCOSXa7x8hRRuiXonV0Uzp+jzkeOH4Jw2LjfWY42tMFfm8VnpEk9S1kTw7pPAmHVTd/2UlrNV/jEYSA3PE/BzssiwhhOGJr5WBP6MWGAWjYBSMAgA9WDsJuJYmBQAAAABJRU5ErkJggg==';
 
+// TODO: Maybe rename to Ponczek?
 export abstract class Engine {
   public static ticks: number = 0;
   public static shouldCountTicks: boolean = true;
