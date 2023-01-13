@@ -1,32 +1,62 @@
+const fullMask = 0xffffffff;
+const lowerMask = 0x7fffffff;
+const upperMask = 0x80000000;
+
+const w = 32;
+const n = 624;
+const m = 397;
+const a = 0x9908b0df;
+const u = 11;
+const s = 7;
+const b = 0x9d2c5680;
+const t = 15;
+const c = 0xefc60000;
+const l = 18;
+const f = 1812433253;
+
 export class Random {
-  static readonly default = new Random();
+  public static readonly default = new Random();
+
+  private mt: number[];
+  private index: number;
+
+  constructor(public seed: number = Date.now()) {
+    this.index = n;
+    this.mt = new Array<number>(n);
+    this.mt[0] = (seed | 0);
+
+    for (let idx = 1; idx < n; idx += 1) {
+      const ext = this.mt[idx - 1] ^ (this.mt[idx - 1] >>> (w - 2));
+      this.mt[idx] = (((f * ((ext & 0xffff0000) >>> 16)) << 16) + (f * (ext & 0xffff)) + idx) | 0;
+    }
+  }
 
   /**
    * Returns the next random float in range [min, max).
    */
-  nextFloat(min: number, max: number): number {
-    return ((max - min) * Math.random()) + min;
+  public nextFloat(min: number, max: number): number {
+    return ((max - min) * this.extractNumber()) + min;
   }
 
   /**
    * Returns the next random int in range [min, max].
    */
-  nextInt(min: number, max: number): number {
-    return ((max - min + 1) * Math.random() + min) | 0;
+  public nextInt(min: number, max: number): number {
+    return ((max - min + 1) * this.extractNumber() + min) | 0;
   }
 
   /**
    * Returns true or false randomly with specified odds (50/50 by default).
    * @param chance takes values between [0, 1]. Given 0 it will always return false.
    */
-  nextBoolean(chance: number = 0.5): boolean {
-    return (chance === 0) ? false : (Math.random() <= chance);
+  public nextBoolean(chance: number = 0.5): boolean {
+    return (chance === 0) ? false : (this.extractNumber() <= chance);
   }
 
   /**
    * Returns a random element from array.
    */
-  pickOne<T>(array: T[]): T {
+  public pickOne<T>(array: T[]): T {
     return array[this.nextInt(0, array.length - 1)];
   }
 
@@ -36,7 +66,7 @@ export class Random {
    * When duplicates are not allowed it will only deduplicate by indices.
    * This may lead to duplicate values being returned if the source array has duplicated values.
    */
-  pickMany<T>(array: T[], pickCount: number, allowDuplicates: boolean = false): T[] {
+  public pickMany<T>(array: T[], pickCount: number, allowDuplicates: boolean = false): T[] {
     return allowDuplicates
       ? this.pickManyWithDuplicates(array, pickCount)
       : this.pickManyWithoutDuplicates(array, pickCount);
@@ -45,58 +75,58 @@ export class Random {
   /*
    * Shuffles given array in place.
    */
-  shuffleInPlace<T>(array: T[]): void {
-    array.sort(() => (0.5 - Math.random()));
+  public shuffleInPlace<T>(array: T[]): void {
+    array.sort(() => (0.5 - this.extractNumber()));
   }
 
   /*
    * Returns new array that is the shuffled copy of the given array.
    */
-  shuffle<T>(array: T[]): T[] {
-    const a = array.slice();
-    this.shuffleInPlace(a);
-    return a;
+  public shuffle<T>(array: T[]): T[] {
+    const arr = array.slice();
+    this.shuffleInPlace(arr);
+    return arr;
   }
 
   /**
    * Returns a random number in range [1, 4] (same as d4 dice roll).
    */
-  d4(): number {
+  public d4(): number {
     return this.nextInt(1, 4);
   }
 
   /**
    * Returns a random number in range [1, 6] (same as d6 dice roll).
    */
-  d6(): number {
+  public d6(): number {
     return this.nextInt(1, 6);
   }
 
   /**
    * Returns a random number in range [1, 8] (same as d8 dice roll).
    */
-  d8(): number {
+  public d8(): number {
     return this.nextInt(1, 8);
   }
 
   /**
    * Returns a random number in range [1, 10] (same as d10 dice roll).
    */
-  d10(): number {
+  public d10(): number {
     return this.nextInt(1, 10);
   }
 
   /**
    * Returns a random number in range [1, 12] (same as d12 dice roll).
    */
-  d12(): number {
+  public d12(): number {
     return this.nextInt(1, 12);
   }
 
   /**
    * Returns a random number in range [1, 20] (same as d20 dice roll).
    */
-  d20(): number {
+  public d20(): number {
     return this.nextInt(1, 20);
   }
 
@@ -130,5 +160,40 @@ export class Random {
     for (let idx = 0; idx < pickCount; idx += 1) result[idx] = this.pickOne(array);
 
     return result;
+  }
+
+  private twist(): void {
+    let y = 0;
+
+    for (let idx = 0; idx < (n - m); idx += 1) {
+      y = (this.mt[idx] & upperMask) | (this.mt[idx + 1] & lowerMask);
+      this.mt[idx] = this.mt[idx + m] ^ (y >>> 1) ^ ((((y >>> 0) % 2) * a) & fullMask);
+    }
+
+    for (let idx = (n - m); idx < (n - 1); idx += 1) {
+      y = (this.mt[idx] & upperMask) | (this.mt[idx + 1] & lowerMask);
+      this.mt[idx] = this.mt[idx + (m - n)] ^ (y >>> 1) ^ ((((y >>> 0) % 2) * a) & fullMask);
+    }
+
+    y = (this.mt[n - 1] & upperMask) | (this.mt[0] & lowerMask);
+    this.mt[n - 1] = this.mt[m - 1] ^ (y >>> 1) ^ ((((y >>> 0) % 2) * a) & fullMask);
+
+    this.index = 0;
+  }
+
+  private extractNumber(): number {
+    if (this.index >= n) {
+      this.twist();
+    }
+
+    let y = this.mt[this.index];
+    this.index += 1;
+
+    y ^= (y >>> u);
+    y ^= ((y << s) & b);
+    y ^= ((y << t) & c);
+    y ^= (y >>> l);
+
+    return (y >>> 0) * (1 / 4294967296);
   }
 }

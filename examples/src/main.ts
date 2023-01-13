@@ -2,7 +2,6 @@ import { AssetDefinition, Assets } from 'ponczek/core/assets';
 import { Input } from 'ponczek/core/input';
 import { Engine } from 'ponczek/engine';
 import { MainMenuScene } from 'examples/scenes/main-menu-scene';
-
 import textureList from '../assets/textures.json';
 import soundList from '../assets/sounds.json';
 
