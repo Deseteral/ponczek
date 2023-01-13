@@ -1,6 +1,5 @@
 /*
  * 1.0.0:
- * TODO: Add support for seeding random number generator
  * TODO: Noise generator
  * TODO: Pathfinding
  * TODO: Some data structure to represent "texture tiles"
