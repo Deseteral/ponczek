@@ -1,6 +1,6 @@
 import { AssetDefinition, Assets } from 'ponczek/core/assets';
 import { Input } from 'ponczek/core/input';
-import { Engine } from 'ponczek/engine';
+import { STARTUP_AUTOPLAY, Engine, STARTUP_SKIP_SPLASH_SCREEN } from 'ponczek/engine';
 import { MainMenuScene } from 'examples/scenes/main-menu-scene';
 import textureList from '../assets/textures.json';
 import soundList from '../assets/sounds.json';
@@ -10,5 +10,4 @@ import soundList from '../assets/sounds.json';
 
   await Engine.initialize(320, 240, () => new MainMenuScene());
   Input.withGameBoyLikeBinds();
-  Engine.start();
 }());

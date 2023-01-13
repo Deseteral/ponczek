@@ -6,6 +6,7 @@ import { Assets } from 'ponczek/core/assets';
 import { Timer } from 'ponczek/core/timer';
 import { Color } from 'ponczek/gfx/color';
 import { FilterColorChannelEffect } from 'ponczek/effects/filter-color-channel-effect';
+import { SoundPlayer } from 'ponczek/sound/sound-player';
 
 const transitionTime = 86;
 
@@ -36,6 +37,7 @@ export class SplashScreenScene extends Scene {
       if (this.stage === 1) {
         this.filter.filterRed = false;
         this.filter.applyToTexture(this.ponczekTexture, this.filteredPonczekTexture);
+        SoundPlayer.playSound('startup');
         this.timer.set(transitionTime);
       }
 
