@@ -19,7 +19,7 @@
     "howler": "2.2.3"
   },
   "devDependencies": {
-    "@deseteral/eslint-config": "6.1.1",
+    "@deseteral/eslint-config": "7.0.0",
     "@types/howler": "2.2.7",
     "@types/node": "18.11.18",
     "eslint": "8.31.0",
