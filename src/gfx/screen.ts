@@ -3,6 +3,7 @@ import { Vector2 } from 'ponczek/math/vector2';
 import { Color } from 'ponczek/gfx/color';
 import { Texture } from 'ponczek/gfx/texture';
 import { Rectangle } from 'ponczek/math/rectangle';
+import { Sprite } from 'ponczek/gfx/spritesheet';
 
 export const FLIP_H = 1 << 0;
 export const FLIP_V = 1 << 1;
@@ -161,6 +162,10 @@ export class Screen {
 
     this.ctx.drawImage(texture.drawable, sx, sy, sw, sh, 0, 0, dw, dh);
     this.ctx.restore();
+  }
+
+  public drawSprite(sprite: Sprite, dx: number, dy: number, flip: number = 0, scale: number = 1): void {
+    this.drawTexturePart(sprite.sheet.texture, sprite.sx, sprite.sy, sprite.sw, sprite.sh, dx, dy, sprite.sw * scale, sprite.sh * scale, flip);
   }
 
   public drawNineSlice(texture: Texture, x: number, y: number, w: number, h: number, patchWidth: number, patchHeight: number): void {

@@ -8,14 +8,23 @@ import { Rectangle } from 'ponczek/math/rectangle';
 import { Color } from 'ponczek/gfx/color';
 import { Texture } from 'ponczek/gfx/texture';
 import { Assets } from 'ponczek/core/assets';
+import { SpriteSheet } from 'ponczek/gfx/spritesheet';
 
 export class DrawingTestScene extends Scene {
   private rect = new Rectangle(15, 40, 100, 80);
-  private sprite: Texture;
+  private ponczek: Texture;
+  private ponczekSpriteSheet: SpriteSheet;
 
   constructor() {
     super();
-    this.sprite = Assets.texture('ponczek_sprite');
+    this.ponczek = Assets.texture('ponczek_sprite');
+    this.ponczekSpriteSheet = new SpriteSheet('ponczek_sprite', 16);
+    this.ponczekSpriteSheet.addTiles({
+      'top-left': { x: 0, y: 0 },
+      'top-right': { x: 1, y: 0 },
+      'bottom-left': { x: 0, y: 1 },
+      'bottom-right': { x: 1, y: 1 },
+    });
   }
 
   update(): void {
@@ -76,17 +85,17 @@ export class DrawingTestScene extends Scene {
 
     {
       scr.drawText('Sprite', 0, 130, Color.white);
-      const size = this.sprite.width;
+      const size = this.ponczek.width;
       const halfSize = size >> 1;
       const baseY = 138;
 
-      scr.drawTexture(this.sprite, 1, baseY);
-      scr.drawTexture(this.sprite, ((size + 1) * 1), baseY, size, size, FLIP_H);
-      scr.drawTexture(this.sprite, ((size + 1) * 2), baseY, size, size, FLIP_V);
-      scr.drawTexture(this.sprite, ((size + 1) * 3), baseY, size, size, (FLIP_H | FLIP_V));
+      scr.drawTexture(this.ponczek, 1, baseY);
+      scr.drawTexture(this.ponczek, ((size + 1) * 1), baseY, size, size, FLIP_H);
+      scr.drawTexture(this.ponczek, ((size + 1) * 2), baseY, size, size, FLIP_V);
+      scr.drawTexture(this.ponczek, ((size + 1) * 3), baseY, size, size, (FLIP_H | FLIP_V));
 
-      scr.drawTexturePart(this.sprite, 0, 0, halfSize, halfSize, ((size + 1) * 4), baseY + halfSize, halfSize, halfSize);
-      scr.drawTexturePart(this.sprite, 0, halfSize, halfSize, halfSize, ((size + 1) * 4) + halfSize, baseY, halfSize, halfSize, FLIP_V);
+      scr.drawSprite(this.ponczekSpriteSheet.getTile('top-left'), ((size + 1) * 4), baseY + halfSize);
+      scr.drawSprite(this.ponczekSpriteSheet.getTile('bottom-right'), ((size + 1) * 4) + halfSize, baseY);
     }
   }
 }

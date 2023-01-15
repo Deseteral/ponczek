@@ -2,7 +2,6 @@
  * 1.0.0:
  * TODO: Noise generator
  * TODO: A* pathfinding
- * TODO: Some data structure to represent "texture tiles"
  * TODO: Scene transitions
  * TODO: Documentation
  * TODO: Template repository (to be used with npm/yarn create)
