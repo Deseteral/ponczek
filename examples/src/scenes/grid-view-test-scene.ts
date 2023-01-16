@@ -55,20 +55,20 @@ export class GridViewTestScene extends Scene {
   }
 
   update(): void {
-    if (Input.getKeyDown('d')) {
+    if (Input.getButtonDown('right')) {
       this.gridView.selectNextColumn();
       this.gridViewWithWrap.selectNextColumn(true);
     }
-    if (Input.getKeyDown('a')) {
+    if (Input.getButtonDown('left')) {
       this.gridView.selectPreviousColumn();
       this.gridViewWithWrap.selectPreviousColumn(true);
     }
 
-    if (Input.getKeyDown('s')) {
+    if (Input.getButtonDown('down')) {
       this.gridView.selectNextRow();
       this.gridViewWithWrap.selectNextRow(true);
     }
-    if (Input.getKeyDown('w')) {
+    if (Input.getButtonDown('up')) {
       this.gridView.selectPreviousRow();
       this.gridViewWithWrap.selectPreviousRow(true);
     }

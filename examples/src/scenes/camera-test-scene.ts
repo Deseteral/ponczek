@@ -28,10 +28,10 @@ export class CameraTestScene extends Scene {
     let dy = 0;
     const speed = 2.1;
 
-    if (Input.getKey('a')) dx -= 1;
-    if (Input.getKey('d')) dx += 1;
-    if (Input.getKey('w')) dy -= 1;
-    if (Input.getKey('s')) dy += 1;
+    if (Input.getButton('left')) dx -= 1;
+    if (Input.getButton('right')) dx += 1;
+    if (Input.getButton('up')) dy -= 1;
+    if (Input.getButton('down')) dy += 1;
 
     this.playerPosition.x += (dx * speed);
     this.playerPosition.y += (dy * speed);

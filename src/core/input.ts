@@ -50,13 +50,13 @@ export abstract class Input {
   static initialize(canvas: HTMLCanvasElement): void {
     document.addEventListener('keydown', (e) => {
       if (e.metaKey) return;
-      this.keyState.set(e.key, true);
+      this.keyState.set(e.code, true);
       e.preventDefault();
     }, false);
 
     document.addEventListener('keyup', (e) => {
       if (e.metaKey) return;
-      this.keyState.set(e.key, false);
+      this.keyState.set(e.code, false);
       e.preventDefault();
     }, false);
 
@@ -77,10 +77,10 @@ export abstract class Input {
 
   static withGameBoyLikeBinds(): void {
     this.withBinds({
-      up: ['ArrowUp', 'w'],
-      down: ['ArrowDown', 's'],
-      left: ['ArrowLeft', 'a'],
-      right: ['ArrowRight', 'd'],
+      up: ['ArrowUp', 'KeyW'],
+      down: ['ArrowDown', 'KeyS'],
+      left: ['ArrowLeft', 'KeyA'],
+      right: ['ArrowRight', 'KeyD'],
       a: ['Enter'],
       b: ['Escape'],
     });
