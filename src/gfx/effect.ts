@@ -2,6 +2,7 @@ import { Color } from 'ponczek/gfx/color';
 import { Drawable, Texture } from 'ponczek/gfx/texture';
 
 export abstract class Effect {
+  protected beforePass(): void { }
   protected abstract fragment(x: number, y: number, color: Color, w: number, h: number): Color;
 
   public applyToTexture(source: Texture, target: Texture = source): void {
@@ -17,6 +18,8 @@ export abstract class Effect {
 
     const sourceBuffer = sourceCtx.getImageData(0, 0, source.width, source.height);
     const targetBuffer = targetCtx.getImageData(0, 0, source.width, source.height);
+
+    this.beforePass();
 
     const color = new Color(0, 0, 0, 0);
 
