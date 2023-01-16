@@ -23,6 +23,14 @@ export class Color {
     return new Color(this.r, this.g, this.b, overwriteAlpha);
   }
 
+  setFromColor(color: Color): Color {
+    this.r = color.r;
+    this.g = color.g;
+    this.b = color.b;
+    this.a = color.a;
+    return this;
+  }
+
   setFrom01(r: number, g: number, b: number, a: number = 1.0): Color {
     this.r = r;
     this.g = g;
