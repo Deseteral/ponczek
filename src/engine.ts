@@ -1,6 +1,5 @@
 /*
  * 1.0.0:
- * TODO: Noise generator
  * TODO: A* pathfinding
  * TODO: Scene transitions
  * TODO: Documentation

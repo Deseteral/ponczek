@@ -16,6 +16,7 @@ import { EffectsTestScene } from 'examples/scenes/effects-test-scene';
 import { FontRenderingTestScene } from 'examples/scenes/font-rendering-test-scene';
 import { GridViewTestScene } from 'examples/scenes/grid-view-test-scene';
 import { SceneStackTestScene } from 'examples/scenes/scene-stack-test-scene';
+import { SimplexNoiseTestScene } from 'examples/scenes/simplex-noise-test-scene';
 
 interface Item {
   text: string,
@@ -53,6 +54,7 @@ export class MainMenuScene extends Scene {
       [{ text: 'Font rendering', scene: () => new FontRenderingTestScene() }],
       [{ text: 'Grid view', scene: () => new GridViewTestScene() }],
       [{ text: 'Scene stack', scene: () => new SceneStackTestScene() }],
+      [{ text: 'Simplex noise', scene: () => new SimplexNoiseTestScene() }],
     ];
 
     this.frameTexture = Texture.copy(Assets.texture('frame'));
