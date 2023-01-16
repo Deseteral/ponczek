@@ -46,6 +46,22 @@ export class Random {
   }
 
   /**
+   * Returns the next random integer number in range [0, 255].
+   */
+  public nextByte(): number {
+    return this.nextInt(0, 255);
+  }
+
+  /**
+   * Returns the specified buffer with random integers in range [0, 255].
+   */
+  public nextBytes(buffer: number[]): void {
+    for (let idx = 0; idx < buffer.length; idx += 1) {
+      buffer[idx] = this.nextInt(0, 255); // eslint-disable-line no-param-reassign
+    }
+  }
+
+  /**
    * Returns true or false randomly with specified odds (50/50 by default).
    * @param chance takes values between [0, 1]. Given 0 it will always return false.
    */
