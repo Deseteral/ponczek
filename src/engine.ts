@@ -11,6 +11,7 @@
  * TODO: Data structure for defining color palettes
  * TODO: GUI text input
  * TODO: GUI button
+ * TODO: Gamepad support
  *
  * Future:
  * TODO: Remove howler dependency
