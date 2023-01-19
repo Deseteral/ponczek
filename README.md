@@ -43,8 +43,10 @@ _* Runtime dependencies are temporary - they're solutions to problems I didn't w
 - Math module
   - Data structures and algorithms (Vector2, Rectangle)
   - Random number generator
+  - Simplex noise generator
 - GUI
   - Grid component with keyboard navigation
+- Tilemap data structure
 - Asset loader
 - Stack based scene manager
 - Data storage for save data (uses `localStorage`)
