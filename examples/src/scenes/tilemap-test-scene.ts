@@ -6,6 +6,8 @@ import { ENDESGA16PaletteIdx } from 'ponczek/palettes/endesga16-palette';
 import { Tilemap } from 'ponczek/data/tilemap';
 import { SpriteSheet } from 'ponczek/gfx/spritesheet';
 import { Random } from 'ponczek/math/random';
+import { Camera } from 'ponczek/gfx/camera';
+import { Engine } from 'ponczek/engine';
 
 const random = Random.default;
 
@@ -35,6 +37,7 @@ class TestTilemap extends Tilemap<TestTile> {
 export class TilemapTestScene extends Scene {
   private map: TestTilemap;
   private tileset: SpriteSheet;
+  private camera: Camera;
 
   constructor() {
     super();
@@ -52,14 +55,32 @@ export class TilemapTestScene extends Scene {
         this.map.setTileAt(x, y, tile);
       }
     }
+
+    this.camera = new Camera();
+    this.camera.position.set(Engine.screen.width >> 1, Engine.screen.height >> 1);
   }
 
   update(): void {
+    let dx = 0;
+    let dy = 0;
+    const cameraSpeed = 2;
+
+    if (Input.getButton('left')) dx -= 1;
+    if (Input.getButton('right')) dx += 1;
+    if (Input.getButton('up')) dy -= 1;
+    if (Input.getButton('down')) dy += 1;
+
+    this.camera.position.x += (dx * cameraSpeed);
+    this.camera.position.y += (dy * cameraSpeed);
+
     if (Input.getButtonDown('b')) SceneManager.popScene();
   }
 
   render(scr: Screen): void {
     scr.clearScreen();
+
+    this.camera.begin();
     this.map.draw(0, 0, scr);
+    this.camera.end();
   }
 }
