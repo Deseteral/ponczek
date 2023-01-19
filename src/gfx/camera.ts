@@ -5,25 +5,23 @@ import { Vector2 } from 'ponczek/math/vector2';
 export class Camera {
   public position: Vector2;
 
-  private ctx: CanvasRenderingContext2D;
   private viewportHalfWidth: number;
   private viewportHalfHeight: number;
 
   constructor(position: Vector2 = Vector2.zero) {
     this.position = position;
 
-    this.ctx = Engine.screen.ctx;
-    this.viewportHalfWidth = this.ctx.canvas.width >> 1;
-    this.viewportHalfHeight = this.ctx.canvas.height >> 1;
+    this.viewportHalfWidth = Engine.screen.width >> 1;
+    this.viewportHalfHeight = Engine.screen.height >> 1;
   }
 
   public begin(): void {
-    this.ctx.save();
-    this.ctx.translate(-this.left, -this.top);
+    Engine.screen.ctx.save();
+    Engine.screen.ctx.translate(-this.left, -this.top);
   }
 
   public end(): void {
-    this.ctx.restore();
+    Engine.screen.ctx.restore();
   }
 
   public lookAt(position: Vector2): void {
