@@ -45,7 +45,11 @@ export class TilemapTestScene extends Scene {
     this.map = new TestTilemap(128, 128, this.tileset);
     for (let y = 0; y < size; y += 1) {
       for (let x = 0; x < size; x += 1) {
-        this.map.setTileAt(x, y, { type: 'grass', variant: random.nextInt(0, 4), flip: random.nextInt(0, 2) });
+        const tile: TestTile = ((x === 4 && (y < 3 || y > 5)) || (x === 12 && (y < 12 || y > 13)))
+          ? { type: 'wall', variant: 0, flip: 0 }
+          : { type: 'grass', variant: random.nextInt(0, 4), flip: random.nextInt(0, 2) };
+
+        this.map.setTileAt(x, y, tile);
       }
     }
   }
