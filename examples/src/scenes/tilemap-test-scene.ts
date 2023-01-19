@@ -26,7 +26,7 @@ class TestTilemap extends Tilemap<TestTile> {
   protected drawTile(x: number, y: number, tile: TestTile, scr: Screen): void {
     scr.color(ENDESGA16PaletteIdx[2]);
     const sprite = tile.type === 'grass'
-      ? this.tileset.getSpriteAt(tile.variant, 0)
+      ? this.tileset.getSprite(tile.variant)
       : this.tileset.getSpriteAt(0, 1);
     scr.drawSprite(sprite, x * this.tileset.size, y * this.tileset.size, tile.flip);
   }
