@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { Engine } from 'ponczek/engine';
+import { Rectangle } from 'ponczek/math/rectangle';
 import { Vector2 } from 'ponczek/math/vector2';
 
 export class Camera {
@@ -8,11 +9,15 @@ export class Camera {
   private viewportHalfWidth: number;
   private viewportHalfHeight: number;
 
+  private viewportRect: Rectangle;
+
   constructor(position: Vector2 = Vector2.zero) {
     this.position = position;
 
     this.viewportHalfWidth = Engine.screen.width >> 1;
     this.viewportHalfHeight = Engine.screen.height >> 1;
+
+    this.viewportRect = new Rectangle(position.x, position.y, Engine.screen.width, Engine.screen.height);
   }
 
   public begin(): void {
@@ -40,6 +45,11 @@ export class Camera {
   public worldToScreen(worldPosition: Vector2, out: Vector2): Vector2 {
     out.set(worldPosition.x - this.left, worldPosition.y - this.top);
     return out;
+  }
+
+  public get viewport(): Rectangle {
+    this.viewportRect.position.set(this.left, this.top);
+    return this.viewportRect;
   }
 
   private get left(): number {
