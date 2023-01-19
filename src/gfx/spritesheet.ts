@@ -1,55 +1,69 @@
 import { Assets } from 'ponczek/core/assets';
 import { Texture } from 'ponczek/gfx/texture';
 
-// TODO: Make this immutable
 export class Sprite {
-  public x: number;
-  public y: number;
-  public widthTiles: number;
-  public heightTiles: number;
-  public sheet: SpriteSheet;
+  public readonly x: number;
+  public readonly y: number;
+
+  public readonly widthTiles: number;
+  public readonly heightTiles: number;
+
+  public readonly sx: number;
+  public readonly sy: number;
+  public readonly sw: number;
+  public readonly sh: number;
+
+  public readonly sheet: SpriteSheet;
 
   constructor(x: number, y: number, widthTiles: number, heightTiles: number, sheet: SpriteSheet) {
     this.x = x;
     this.y = y;
+
     this.widthTiles = widthTiles;
     this.heightTiles = heightTiles;
-    this.sheet = sheet;
-  }
 
-  public get sx(): number { return this.x * this.sheet.size; }
-  public get sy(): number { return this.y * this.sheet.size; }
-  public get sw(): number { return this.sheet.size * this.widthTiles; }
-  public get sh(): number { return this.sheet.size * this.heightTiles; }
+    this.sheet = sheet;
+
+    this.sx = this.x * this.sheet.size;
+    this.sy = this.y * this.sheet.size;
+    this.sw = this.sheet.size * this.widthTiles;
+    this.sh = this.sheet.size * this.heightTiles;
+  }
 }
 
 export class SpriteSheet {
-  public texture: Texture;
-  public size: number;
+  public readonly texture: Texture;
+  public readonly size: number;
 
-  private tiles: Map<string, Sprite>;
+  private readonly columnCount: number;
+  private readonly rowCount: number;
+  private readonly tiles: Sprite[];
 
   constructor(textureName: string, size: number) {
     this.texture = Assets.texture(textureName);
     this.size = size;
-    this.tiles = new Map();
-  }
+    this.columnCount = (this.texture.width / size) | 0;
+    this.rowCount = (this.texture.height / size) | 0;
+    this.tiles = new Array(this.columnCount * this.rowCount);
 
-  public getTile(name: string): Sprite {
-    const t = this.tiles.get(name);
-    if (!t) {
-      throw new Error(`No such tile "${name}"`);
+    for (let y = 0; y < this.rowCount; y += 1) {
+      for (let x = 0; x < this.columnCount; x += 1) {
+        this.tiles[x + y * this.columnCount] = new Sprite(x, y, 1, 1, this);
+      }
     }
-    return t;
   }
 
-  public addTile(name: string, x: number, y: number, widthTiles: number = 1, heightTiles: number = 1): void {
-    this.tiles.set(name, new Sprite(x, y, widthTiles, heightTiles, this));
+  /**
+   * Returns n-th sprite in sprite sheet.
+   */
+  public getSprite(idx: number): Sprite {
+    return this.tiles[idx];
   }
 
-  public addTiles(tiles: ({ [name: string]: { x: number, y: number, widthTiles?: number, heightTiles?: number } })): void {
-    Object.entries(tiles).forEach(([name, { x, y, widthTiles, heightTiles }]) => {
-      this.addTile(name, x, y, widthTiles, heightTiles);
-    });
+  /**
+   * Returns sprite x column and y row from sprite sheet.
+   */
+  public getSpriteAt(x: number, y: number): Sprite {
+    return this.tiles[x + y * this.columnCount];
   }
 }

@@ -19,12 +19,6 @@ export class DrawingTestScene extends Scene {
     super();
     this.ponczek = Assets.texture('ponczek_sprite');
     this.ponczekSpriteSheet = new SpriteSheet('ponczek_sprite', 16);
-    this.ponczekSpriteSheet.addTiles({
-      'top-left': { x: 0, y: 0 },
-      'top-right': { x: 1, y: 0 },
-      'bottom-left': { x: 0, y: 1 },
-      'bottom-right': { x: 1, y: 1 },
-    });
   }
 
   update(): void {
@@ -94,8 +88,8 @@ export class DrawingTestScene extends Scene {
       scr.drawTexture(this.ponczek, ((size + 1) * 2), baseY, size, size, FLIP_V);
       scr.drawTexture(this.ponczek, ((size + 1) * 3), baseY, size, size, (FLIP_H | FLIP_V));
 
-      scr.drawSprite(this.ponczekSpriteSheet.getTile('top-left'), ((size + 1) * 4), baseY + halfSize);
-      scr.drawSprite(this.ponczekSpriteSheet.getTile('bottom-right'), ((size + 1) * 4) + halfSize, baseY);
+      scr.drawSprite(this.ponczekSpriteSheet.getSpriteAt(0, 0), ((size + 1) * 4), baseY + halfSize);
+      scr.drawSprite(this.ponczekSpriteSheet.getSpriteAt(1, 1), ((size + 1) * 4) + halfSize, baseY);
     }
   }
 }
