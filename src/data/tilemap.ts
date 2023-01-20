@@ -1,15 +1,18 @@
 import { Vector2 } from 'ponczek/math/vector2';
 import { Screen } from 'ponczek/gfx/screen';
+import { Rectangle } from 'ponczek/math/rectangle';
 
 export abstract class Tilemap<TileT> {
   public width: number;
   public height: number;
+  public size: number;
 
   private tiles: TileT[];
 
-  constructor(width: number, height: number) {
+  constructor(width: number, height: number, size: number) {
     this.width = width;
     this.height = height;
+    this.size = size;
 
     this.tiles = new Array(width * height);
   }
@@ -25,12 +28,28 @@ export abstract class Tilemap<TileT> {
     }
   }
 
-  public draw(drawAtX: number, drawAtY: number, scr: Screen): void {
+  public draw(drawAtX: number, drawAtY: number, scr: Screen, renderingLimits?: Rectangle): void {
     scr.ctx.save();
     scr.ctx.translate(drawAtX, drawAtY);
 
-    for (let y = 0; y < this.height; y += 1) {
-      for (let x = 0; x < this.width; x += 1) {
+    const startX = renderingLimits
+      ? Math.max((renderingLimits.left / this.size) | 0, 0)
+      : 0;
+
+    const startY = renderingLimits
+      ? Math.max((renderingLimits.top / this.size) | 0, 0)
+      : 0;
+
+    const endX = renderingLimits
+      ? Math.min((renderingLimits.right / this.size) + 1 | 0, this.width)
+      : this.width;
+
+    const endY = renderingLimits
+      ? Math.min((renderingLimits.bottom / this.size) + 1 | 0, this.height)
+      : this.height;
+
+    for (let y = startY; y < endY; y += 1) {
+      for (let x = startX; x < endX; x += 1) {
         this.drawTile(x, y, this.getTileAt(x, y)!, scr);
       }
     }
@@ -38,8 +57,8 @@ export abstract class Tilemap<TileT> {
     scr.ctx.restore();
   }
 
-  public drawV(v: Vector2, scr: Screen): void {
-    this.draw(v.x, v.y, scr);
+  public drawV(v: Vector2, scr: Screen, renderingLimits?: Rectangle): void {
+    this.draw(v.x, v.y, scr, renderingLimits);
   }
 
   protected abstract drawTile(x: number, y: number, tile: TileT, scr: Screen): void;

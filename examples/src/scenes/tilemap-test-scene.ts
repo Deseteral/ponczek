@@ -21,7 +21,7 @@ class TestTilemap extends Tilemap<TestTile> {
   private tileset: SpriteSheet;
 
   constructor(width: number, height: number, tileset: SpriteSheet) {
-    super(width, height);
+    super(width, height, tileset.size);
     this.tileset = tileset;
   }
 
@@ -30,7 +30,7 @@ class TestTilemap extends Tilemap<TestTile> {
     const sprite = tile.type === 'grass'
       ? this.tileset.getSprite(tile.variant)
       : this.tileset.getSpriteAt(0, 1);
-    scr.drawSprite(sprite, x * this.tileset.size, y * this.tileset.size, tile.flip);
+    scr.drawSprite(sprite, x * this.size, y * this.size, tile.flip);
   }
 }
 
@@ -80,7 +80,7 @@ export class TilemapTestScene extends Scene {
     scr.clearScreen();
 
     this.camera.begin();
-    this.map.draw(0, 0, scr);
+    this.map.draw(0, 0, scr, this.camera.viewport);
     this.camera.end();
   }
 }
