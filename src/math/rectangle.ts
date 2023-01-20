@@ -10,6 +10,11 @@ export class Rectangle {
   public get y(): number { return this.position.y; }
   public set y(value: number) { this.position.y = value; }
 
+  public get left(): number { return this.position.x; }
+  public get right(): number { return this.position.x + this.width; }
+  public get top(): number { return this.position.y; }
+  public get bottom(): number { return this.position.y + this.height; }
+
   constructor(x: number, y: number, w: number, h: number) {
     this.position = new Vector2(x, y);
     this.width = w;
