@@ -6,6 +6,7 @@
  * TODO: Template repository (to be used with npm/yarn create)
  *
  * Next release:
+ * TODO: Mouse buttons support
  * TODO: Add support for triangle rendering
  * TODO: Grid view scrolling
  * TODO: Data structure for defining color palettes
