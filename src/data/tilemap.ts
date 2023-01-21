@@ -21,6 +21,16 @@ export abstract class Tilemap<TileT> {
     return this.tiles[x + y * this.width] || null;
   }
 
+  public getTileAtWorldPosition(x: number, y: number): (TileT | null) {
+    const xx = (x / this.size) | 0;
+    const yy = (y / this.size) | 0;
+    return this.getTileAt(xx, yy);
+  }
+
+  public getTileAtWorldPositionV(v: Vector2): (TileT | null) {
+    return this.getTileAtWorldPosition(v.x, v.y);
+  }
+
   public setTileAt(x: number, y: number, tile: TileT): void {
     const idx = x + y * this.width;
     if (idx < this.tiles.length) {
