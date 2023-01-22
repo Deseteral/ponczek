@@ -16,6 +16,7 @@
   "author": "Deseteral <github.com/deseteral>",
   "license": "MIT",
   "dependencies": {
+    "heapify": "0.6.0",
     "howler": "2.2.3"
   },
   "devDependencies": {
