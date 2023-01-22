@@ -1,6 +1,6 @@
 /*
  * 1.0.0:
- * TODO: A* pathfinding
+ * TODO: Diagonal movement in pathfinding
  * TODO: Scene transitions
  * TODO: Documentation
  * TODO: Template repository (to be used with npm/yarn create)
