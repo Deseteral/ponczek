@@ -4,6 +4,7 @@
  * TODO: Scene transitions
  * TODO: Documentation
  * TODO: Template repository (to be used with npm/yarn create)
+ * TODO: Generate favicons for examples page
  *
  * Next release:
  * TODO: Mouse buttons support
