@@ -1,11 +1,13 @@
 import { Vector2 } from 'ponczek/math/vector2';
 import { Screen } from 'ponczek/gfx/screen';
 import { Rectangle } from 'ponczek/math/rectangle';
+import { Pathfinder } from 'ponczek/math/pathfinder';
 
 export abstract class Tilemap<TileT> {
   public width: number;
   public height: number;
   public size: number;
+  public pathfinder: Pathfinder;
 
   private tiles: TileT[];
 
@@ -15,6 +17,7 @@ export abstract class Tilemap<TileT> {
     this.size = size;
 
     this.tiles = new Array(width * height);
+    this.pathfinder = new Pathfinder(width, height);
   }
 
   public getTileAt(x: number, y: number): (TileT | null) {
@@ -31,10 +34,11 @@ export abstract class Tilemap<TileT> {
     return this.getTileAtWorldPosition(v.x, v.y);
   }
 
-  public setTileAt(x: number, y: number, tile: TileT): void {
+  public setTileAt(x: number, y: number, tile: TileT, weight: number = 1): void {
     const idx = x + y * this.width;
     if (idx < this.tiles.length) {
       this.tiles[idx] = tile;
+      this.pathfinder.setWeight(idx, weight);
     }
   }
 
