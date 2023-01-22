@@ -7,6 +7,9 @@
  * TODO: Generate favicons for examples page
  *
  * Next release:
+ * TODO: Camera boundaries
+ * TODO: Camera shake
+ * TODO: Add loading map from texture in tilemap test scene
  * TODO: Mouse buttons support
  * TODO: Add support for triangle rendering
  * TODO: Grid view scrolling
@@ -25,6 +28,7 @@
  * TODO: Entity component system
  * TODO: Automatic conversion of sounds to webm
  * TODO: Support page lifecycle APIs
+ * TODO: Make 2D rendering optional and tie in with three.js for 3D
  */
 
 import 'ponczek/polyfills';
