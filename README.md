@@ -18,7 +18,7 @@ I've made this for myself, but anyone is welcome to use it. Expect breaking chan
 - (almost) zero dependencies _*_
 - Easy to understand and extend code base
 
-_* Runtime dependencies are temporary - they're solutions to problems I didn't want to tackle at that specific moment, and will be removed eventually._
+_* Only uses minimal amount of high quality runtime dependencies that are in and of themselves no dependency libraries._
 
 ## 🙅‍♀️ What it is not?
 - Not made for high fidelity games
