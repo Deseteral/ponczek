@@ -43,8 +43,9 @@ export class TilemapTestScene extends Scene {
   private tileset: SpriteSheet;
   private camera: Camera;
   private pointerInWorld: Vector2;
-  private startingTile: (TestTile | null);
-  private targetTile: (TestTile | null);
+  private startingTile: TestTile;
+  private targetTile: TestTile;
+  private path: number[][];
 
   constructor() {
     super();
@@ -55,11 +56,12 @@ export class TilemapTestScene extends Scene {
     this.map = new TestTilemap(128, 128, this.tileset);
     for (let y = 0; y < size; y += 1) {
       for (let x = 0; x < size; x += 1) {
-        const tile: TestTile = ((x === 4 && (y < 3 || y > 5)) || (x === 12 && (y < 12 || y > 13)))
+        const isWall = ((x === 4 && (y < 3 || y > 5)) || (x === 12 && (y < 12 || y > 13)));
+        const tile: TestTile = isWall
           ? { x, y, type: 'wall', variant: 0, flip: 0 }
           : { x, y, type: 'grass', variant: random.nextInt(0, 4), flip: random.nextInt(0, 2) };
 
-        this.map.setTileAt(x, y, tile);
+        this.map.setTileAt(x, y, tile, isWall ? 0 : 1);
       }
     }
 
@@ -67,8 +69,10 @@ export class TilemapTestScene extends Scene {
     this.camera.position.set(Engine.screen.width >> 1, Engine.screen.height >> 1);
 
     this.pointerInWorld = Vector2.zero;
-    this.startingTile = null;
-    this.targetTile = null;
+    this.startingTile = this.map.getTileAt(0, 0)!;
+    this.targetTile = this.map.getTileAt(0, 0)!;
+
+    this.path = [];
   }
 
   update(): void {
@@ -85,11 +89,17 @@ export class TilemapTestScene extends Scene {
     this.camera.position.y += (dy * cameraSpeed);
 
     this.camera.screenToWorld(Input.pointer, this.pointerInWorld);
-    this.targetTile = this.map.getTileAtWorldPositionV(this.pointerInWorld);
+
+    const pointerTile = this.map.getTileAtWorldPositionV(this.pointerInWorld);
+    if (pointerTile) {
+      this.targetTile = pointerTile;
+    }
 
     if (Input.getKeyDown('KeyF')) {
       this.startingTile = this.targetTile;
     }
+
+    this.path = this.map.pathfinder.search(this.startingTile.x, this.startingTile.y, this.targetTile.x, this.targetTile.y);
 
     if (Input.getButtonDown('b')) SceneManager.popScene();
   }
@@ -101,14 +111,16 @@ export class TilemapTestScene extends Scene {
     {
       this.map.draw(0, 0, scr, this.camera.viewport);
 
-      if (this.startingTile) {
-        scr.drawSprite(this.tileset.getSpriteAt(0, 2), this.startingTile.x * this.map.size, this.startingTile.y * this.map.size);
+      scr.drawSprite(this.tileset.getSpriteAt(0, 2), this.startingTile.x * this.map.size, this.startingTile.y * this.map.size);
+      scr.drawSprite(this.tileset.getSpriteAt(0, 2), this.targetTile.x * this.map.size, this.targetTile.y * this.map.size);
+
+      for (let idx = 0; idx < this.path.length; idx += 1) {
+        const [x, y] = this.path[idx];
+        scr.drawSprite(this.tileset.getSpriteAt(1, 2), x * this.map.size, y * this.map.size);
       }
     }
     this.camera.end();
 
-    if (this.targetTile) {
-      scr.drawText(`Target tile: <${this.targetTile.x}, ${this.targetTile.y}>`, 0, 0, Color.white);
-    }
+    scr.drawText('Press F to set new starting tile', 0, scr.height - 8, Color.white);
   }
 }
