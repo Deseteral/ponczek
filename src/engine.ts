@@ -6,6 +6,7 @@
  * TODO: Generate favicons for examples page
  *
  * Next release:
+ * TODO: Text alignment
  * TODO: Camera boundaries
  * TODO: Camera shake
  * TODO: Add loading map from texture in tilemap test scene
