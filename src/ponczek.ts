@@ -48,8 +48,7 @@ export const STARTUP_NORMAL = 1 << 1;
 export const STARTUP_SKIP_SPLASH_SCREEN = 1 << 2;
 export const STARTUP_AUTOPLAY = 1 << 3;
 
-// TODO: Maybe rename to Ponczek?
-export abstract class Engine {
+export abstract class Ponczek {
   public static ticks: number = 0;
   public static shouldCountTicks: boolean = true;
 
@@ -59,14 +58,14 @@ export abstract class Engine {
   public static debugMode: boolean = false;
 
   public static async initialize(width: number, height: number, initialScene: () => Scene, startupConfig: number = STARTUP_NORMAL): Promise<void> {
-    Engine.screen = new Screen(width, height);
+    Ponczek.screen = new Screen(width, height);
 
-    Input.initialize(Engine.screen.domElement);
+    Input.initialize(Ponczek.screen.domElement);
 
     const monogramTexture = Texture.createFromSource(await Assets.fetchImageFromUrl(monogramDataUrl));
-    Engine.defaultFont = new Font(monogramTexture, 8, 8);
-    Engine.defaultFont.generateColorVariants([Color.black, Color.white]);
-    Engine.screen.font(Engine.defaultFont);
+    Ponczek.defaultFont = new Font(monogramTexture, 8, 8);
+    Ponczek.defaultFont.generateColorVariants([Color.black, Color.white]);
+    Ponczek.screen.font(Ponczek.defaultFont);
 
     if (startupConfig & STARTUP_SKIP_SPLASH_SCREEN) {
       SceneManager.pushScene(initialScene());
@@ -80,13 +79,13 @@ export abstract class Engine {
     }
 
     if (startupConfig & STARTUP_AUTOPLAY) {
-      Engine.start();
+      Ponczek.start();
     } else {
       containerEl.innerHTML = '▶ Play';
       containerEl.style.cursor = 'pointer';
       containerEl.addEventListener('click', () => {
         containerEl.style.cursor = 'default';
-        Engine.start();
+        Ponczek.start();
       }, { once: true });
     }
   }
@@ -102,11 +101,11 @@ export abstract class Engine {
     }
 
     containerEl.innerHTML = '';
-    containerEl.appendChild(Engine.screen.domElement);
+    containerEl.appendChild(Ponczek.screen.domElement);
 
-    window.addEventListener('resize', () => Engine.onWindowResize());
-    Engine.onWindowResize();
-    Engine.loop();
+    window.addEventListener('resize', () => Ponczek.onWindowResize());
+    Ponczek.onWindowResize();
+    Ponczek.loop();
   }
 
   private static loop(): void {
@@ -117,33 +116,33 @@ export abstract class Engine {
     }
 
     for (let idx = Math.min(SceneManager.renderDepth, SceneManager.sceneStack.length - 1); idx >= 0; idx -= 1) {
-      SceneManager.sceneStack[idx].render(Engine.screen);
+      SceneManager.sceneStack[idx].render(Ponczek.screen);
     }
 
-    if (Input.getKeyDown('F3')) Engine.debugMode = !Engine.debugMode;
+    if (Input.getKeyDown('F3')) Ponczek.debugMode = !Ponczek.debugMode;
 
     Input.update();
 
-    if (Engine.shouldCountTicks) Engine.ticks += 1;
+    if (Ponczek.shouldCountTicks) Ponczek.ticks += 1;
 
-    if (Engine.debugMode) {
+    if (Ponczek.debugMode) {
       const frameTime = (performance.now() - st);
       const fps = ((1000 / frameTime) | 0).toString().padStart(5, '0');
-      Engine.screen.drawText(`${fps} fps, ${frameTime.toFixed(2)} ms`, 0, 0, Color.white);
+      Ponczek.screen.drawText(`${fps} fps, ${frameTime.toFixed(2)} ms`, 0, 0, Color.white);
     }
 
-    requestAnimationFrame(Engine.loop);
+    requestAnimationFrame(Ponczek.loop);
   }
 
   private static onWindowResize(): void {
-    const scaleByWidth = ((window.innerWidth / Engine.screen.width) | 0) || 1;
-    const scaleByHeight = ((window.innerHeight / Engine.screen.height) | 0) || 1;
+    const scaleByWidth = ((window.innerWidth / Ponczek.screen.width) | 0) || 1;
+    const scaleByHeight = ((window.innerHeight / Ponczek.screen.height) | 0) || 1;
 
-    const scale = ((Engine.screen.height * scaleByWidth) <= window.innerHeight)
+    const scale = ((Ponczek.screen.height * scaleByWidth) <= window.innerHeight)
       ? scaleByWidth
       : scaleByHeight;
 
-    const canvasWidth = Engine.screen.width * scale;
-    Engine.screen.domElement.style.width = `${canvasWidth}px`;
+    const canvasWidth = Ponczek.screen.width * scale;
+    Ponczek.screen.domElement.style.width = `${canvasWidth}px`;
   }
 }

@@ -1,6 +1,6 @@
 import { Color } from 'ponczek/gfx/color';
 import { Effect } from 'ponczek/gfx/effect';
-import { Engine } from 'ponczek/engine';
+import { Ponczek } from 'ponczek/ponczek';
 import { Screen } from 'ponczek/gfx/screen';
 import { Scene } from 'ponczek/core/scene';
 import { SceneManager } from 'ponczek/core/scene-manager';
@@ -10,7 +10,7 @@ class TestEffect extends Effect {
   protected fragment(x: number, y: number, color: Color, w: number, h: number): Color {
     if (color.equals(Color.black)) return color;
 
-    const z = (Math.sin(Engine.ticks / 30) + 1) / 2;
+    const z = (Math.sin(Ponczek.ticks / 30) + 1) / 2;
     return color.setFrom01(x / w, y / h, z);
   }
 }

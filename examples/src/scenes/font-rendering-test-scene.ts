@@ -1,4 +1,4 @@
-import { Engine } from 'ponczek/engine';
+import { Ponczek } from 'ponczek/ponczek';
 import { Screen } from 'ponczek/gfx/screen';
 import { Scene } from 'ponczek/core/scene';
 import { Input } from 'ponczek/core/input';
@@ -10,14 +10,14 @@ export class FontRenderingTestScene extends Scene {
   private rect = new Rectangle(15, 40, 100, 80);
 
   update(): void {
-    this.rect.width = (150 + (Math.sin(Engine.ticks / 60) * 100)) | 0;
+    this.rect.width = (150 + (Math.sin(Ponczek.ticks / 60) * 100)) | 0;
 
     if (Input.getButtonDown('b')) SceneManager.popScene();
   }
 
   render(scr: Screen): void {
     scr.clearScreen(ENDESGA16PaletteIdx[10]);
-    scr.drawText(`Current tick ${Engine.ticks}!`, 10, 10, ENDESGA16PaletteIdx[13]);
+    scr.drawText(`Current tick ${Ponczek.ticks}!`, 10, 10, ENDESGA16PaletteIdx[13]);
     scr.drawText('This text should be in red', 10, 20, ENDESGA16PaletteIdx[5]);
 
     scr.color(ENDESGA16PaletteIdx[11]);

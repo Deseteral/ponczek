@@ -1,4 +1,4 @@
-import { Engine } from 'ponczek/engine';
+import { Ponczek } from 'ponczek/ponczek';
 import { Screen } from 'ponczek/gfx/screen';
 import { Vector2 } from 'ponczek/math/vector2';
 import { Scene } from 'ponczek/core/scene';
@@ -40,7 +40,7 @@ class PauseMenuScene extends Scene {
   constructor() {
     super();
 
-    this.gridPosition = new Vector2(Engine.screen.width / 2 - this.gridWidth / 2, 60);
+    this.gridPosition = new Vector2(Ponczek.screen.width / 2 - this.gridWidth / 2, 60);
     this.backgroundColor = ENDESGA16PaletteIdx[3].copy(0.9);
 
     this.grid = new PauseMenuGrid(this.gridWidth);
@@ -75,15 +75,15 @@ export class SceneStackTestScene extends Scene {
 
   constructor() {
     super();
-    this.rect = new Rectangle(random.nextInt(0, Engine.screen.width / 2), random.nextInt(0, Engine.screen.height / 2), 110, 30);
+    this.rect = new Rectangle(random.nextInt(0, Ponczek.screen.width / 2), random.nextInt(0, Ponczek.screen.height / 2), 110, 30);
 
     const speed = 1;
     this.direction = new Vector2(speed, speed);
   }
 
   update(): void {
-    const w = Engine.screen.width;
-    const h = Engine.screen.height;
+    const w = Ponczek.screen.width;
+    const h = Ponczek.screen.height;
 
     const nx = this.rect.x + this.direction.x;
     const ny = this.rect.y + this.direction.y;

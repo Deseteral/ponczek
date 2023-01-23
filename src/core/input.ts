@@ -1,4 +1,4 @@
-import { Engine } from 'ponczek/engine';
+import { Ponczek } from 'ponczek/ponczek';
 import { Vector2 } from 'ponczek/math/vector2';
 
 export abstract class Input {
@@ -20,7 +20,7 @@ export abstract class Input {
   static getButton(action: string): boolean {
     const keys = this.binds.get(action) ?? [];
     if (keys.isEmpty()) {
-      Engine.log(`Nothing bound to action ${action}`);
+      Ponczek.log(`Nothing bound to action ${action}`);
       return false;
     }
 
@@ -30,7 +30,7 @@ export abstract class Input {
   static getButtonDown(action: string): boolean {
     const keys = this.binds.get(action) ?? [];
     if (keys.isEmpty()) {
-      Engine.log(`Nothing bound to action ${action}`);
+      Ponczek.log(`Nothing bound to action ${action}`);
       return false;
     }
 

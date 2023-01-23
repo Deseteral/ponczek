@@ -7,7 +7,7 @@ import { Tilemap } from 'ponczek/data/tilemap';
 import { SpriteSheet } from 'ponczek/gfx/spritesheet';
 import { Random } from 'ponczek/math/random';
 import { Camera } from 'ponczek/gfx/camera';
-import { Engine } from 'ponczek/engine';
+import { Ponczek } from 'ponczek/ponczek';
 import { Color } from 'ponczek/gfx/color';
 import { Vector2 } from 'ponczek/math/vector2';
 
@@ -67,7 +67,7 @@ export class TilemapTestScene extends Scene {
     }
 
     this.camera = new Camera();
-    this.camera.position.set(Engine.screen.width >> 1, Engine.screen.height >> 1);
+    this.camera.position.set(Ponczek.screen.width >> 1, Ponczek.screen.height >> 1);
 
     this.pointerInWorld = Vector2.zero;
     this.startingTile = this.map.getTileAt(0, 0)!;

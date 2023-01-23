@@ -8,7 +8,7 @@ import { Input } from 'ponczek/core/input';
 import { SceneManager } from 'ponczek/core/scene-manager';
 import { ENDESGA16PaletteIdx } from 'ponczek/palettes/endesga16-palette';
 import { Vector2 } from 'ponczek/math/vector2';
-import { Engine } from 'ponczek/engine';
+import { Ponczek } from 'ponczek/ponczek';
 
 class NoiseEffect extends Effect {
   public colorMode: boolean = false;
@@ -57,7 +57,7 @@ export class SimplexNoiseTestScene extends Scene {
 
   constructor() {
     super();
-    this.noiseTexture = Texture.createEmpty(Engine.screen.height, Engine.screen.height);
+    this.noiseTexture = Texture.createEmpty(Ponczek.screen.height, Ponczek.screen.height);
     this.effect = new NoiseEffect();
   }
 

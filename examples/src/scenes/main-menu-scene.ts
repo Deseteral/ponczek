@@ -3,7 +3,7 @@ import { Input } from 'ponczek/core/input';
 import { Scene } from 'ponczek/core/scene';
 import { SceneManager } from 'ponczek/core/scene-manager';
 import { ReplaceColorEffect } from 'ponczek/effects/replace-color-effect';
-import { Engine } from 'ponczek/engine';
+import { Ponczek } from 'ponczek/ponczek';
 import { Color } from 'ponczek/gfx/color';
 import { Screen } from 'ponczek/gfx/screen';
 import { Texture } from 'ponczek/gfx/texture';
@@ -45,7 +45,7 @@ export class MainMenuScene extends Scene {
 
   constructor() {
     super();
-    Engine.defaultFont.generateColorVariants(ENDESGA16PaletteIdx);
+    Ponczek.defaultFont.generateColorVariants(ENDESGA16PaletteIdx);
 
     this.demoScenesGridView = new DemoScenesGridView();
     this.demoScenesGridView.cells = [

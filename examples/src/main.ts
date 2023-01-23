@@ -1,6 +1,6 @@
 import { AssetDefinition, Assets } from 'ponczek/core/assets';
 import { Input } from 'ponczek/core/input';
-import { Engine } from 'ponczek/engine';
+import { Ponczek } from 'ponczek/ponczek';
 import { MainMenuScene } from 'examples/scenes/main-menu-scene';
 import textureList from '../assets/textures.json';
 import soundList from '../assets/sounds.json';
@@ -9,5 +9,5 @@ import soundList from '../assets/sounds.json';
   await Assets.loadAssets(textureList as AssetDefinition[], soundList as AssetDefinition[]);
 
   Input.withGameBoyLikeBinds();
-  await Engine.initialize(320, 240, () => new MainMenuScene());
+  await Ponczek.initialize(320, 240, () => new MainMenuScene());
 }());

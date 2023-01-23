@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { Engine } from 'ponczek/engine';
+import { Ponczek } from 'ponczek/ponczek';
 import { Rectangle } from 'ponczek/math/rectangle';
 import { Vector2 } from 'ponczek/math/vector2';
 
@@ -14,19 +14,19 @@ export class Camera {
   constructor(position: Vector2 = Vector2.zero) {
     this.position = position;
 
-    this.viewportHalfWidth = Engine.screen.width >> 1;
-    this.viewportHalfHeight = Engine.screen.height >> 1;
+    this.viewportHalfWidth = Ponczek.screen.width >> 1;
+    this.viewportHalfHeight = Ponczek.screen.height >> 1;
 
-    this.viewportRect = new Rectangle(position.x, position.y, Engine.screen.width, Engine.screen.height);
+    this.viewportRect = new Rectangle(position.x, position.y, Ponczek.screen.width, Ponczek.screen.height);
   }
 
   public begin(): void {
-    Engine.screen.ctx.save();
-    Engine.screen.ctx.translate(-this.left, -this.top);
+    Ponczek.screen.ctx.save();
+    Ponczek.screen.ctx.translate(-this.left, -this.top);
   }
 
   public end(): void {
-    Engine.screen.ctx.restore();
+    Ponczek.screen.ctx.restore();
   }
 
   public lookAt(position: Vector2): void {

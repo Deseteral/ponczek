@@ -1,5 +1,5 @@
 import { Assets } from 'ponczek/core/assets';
-import { Engine } from 'ponczek/engine';
+import { Ponczek } from 'ponczek/ponczek';
 
 export type SoundPlaybackId = number;
 
@@ -19,7 +19,7 @@ export abstract class SoundPlayer {
     const name = this.idToName.get(id);
 
     if (!name) {
-      Engine.log(`No sound with id ${id} was played`);
+      Ponczek.log(`No sound with id ${id} was played`);
       return;
     }
 
