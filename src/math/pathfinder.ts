@@ -7,6 +7,17 @@ const DIRECTIONS = [
   [-1, 0],
 ];
 
+const DIRECTIONS_WITH_DIAGONALS = [
+  [0, -1],
+  [1, -1],
+  [1, 0],
+  [1, 1],
+  [0, 1],
+  [-1, 1],
+  [-1, 0],
+  [-1, -1],
+];
+
 export class Pathfinder {
   private graph: number[];
   private width: number;
@@ -26,11 +37,11 @@ export class Pathfinder {
     this.graph[idx] = weight;
   }
 
-  public search(startX: number, startY: number, endX: number, endY: number): number[][] {
+  public search(startX: number, startY: number, endX: number, endY: number, withDiagonals: boolean = false): number[][] {
     const startIdx = startX + (startY * this.width);
     const endIdx = endX + (endY * this.width);
 
-    const indices = this.searchIdx(startIdx, endIdx);
+    const indices = this.searchIdx(startIdx, endIdx, withDiagonals);
     const path = new Array(indices.length);
     for (let it = 0; it < indices.length; it += 1) {
       const idx = indices[it];
@@ -40,7 +51,7 @@ export class Pathfinder {
     return path;
   }
 
-  public searchIdx(start: number, end: number): number[] {
+  public searchIdx(start: number, end: number, withDiagonals: boolean = false): number[] {
     if (this.graph[end] === 0) {
       return [];
     }
@@ -59,7 +70,7 @@ export class Pathfinder {
         break;
       }
 
-      const neighbors = this.neighbors(current);
+      const neighbors = this.neighbors(current, withDiagonals);
 
       for (let idx = 0; idx < neighbors.length; idx += 1) {
         const next = neighbors[idx];
@@ -67,7 +78,7 @@ export class Pathfinder {
 
         if (costSoFar.has(next) === false || newCost < costSoFar.get(next)!) {
           costSoFar.set(next, newCost);
-          const priority = newCost + this.heuristic(end, next);
+          const priority = newCost + this.manhattanHeuristic(end, next);
           frontier.push(next, priority);
           cameFrom.set(next, current);
         }
@@ -78,7 +89,6 @@ export class Pathfinder {
     let next = end;
     while (next !== start) {
       const previous = cameFrom.get(next)!;
-
       path.unshift(previous);
       next = previous;
     }
@@ -86,24 +96,23 @@ export class Pathfinder {
     return path;
   }
 
-  private neighbors(idx: number): number[] {
+  private neighbors(idx: number, withDiagonals: boolean = false): number[] {
     const x = (idx % this.width) | 0;
     const y = (idx / this.width) | 0;
     const n = [];
 
-    for (let di = 0; di < DIRECTIONS.length; di += 1) {
-      const nx = x + DIRECTIONS[di][0];
-      const ny = y + DIRECTIONS[di][1];
+    const dirs = withDiagonals ? DIRECTIONS_WITH_DIAGONALS : DIRECTIONS;
+
+    for (let di = 0; di < dirs.length; di += 1) {
+      const nx = x + dirs[di][0];
+      const ny = y + dirs[di][1];
 
       if (nx < 0 || ny < 0 || nx >= this.width || ny >= this.height) {
         continue;
       }
 
       const nidx = nx + (ny * this.width);
-
-      if (this.graph[nidx] === 0) {
-        continue;
-      }
+      if (this.graph[nidx] === 0) continue;
 
       n.push(nidx);
     }
@@ -111,7 +120,7 @@ export class Pathfinder {
     return n;
   }
 
-  private heuristic(a: number, b: number): number {
+  private manhattanHeuristic(a: number, b: number): number {
     const ax = (a % this.width) | 0;
     const ay = (a / this.width) | 0;
     const bx = (b % this.width) | 0;

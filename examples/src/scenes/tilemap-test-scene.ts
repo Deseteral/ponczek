@@ -46,6 +46,7 @@ export class TilemapTestScene extends Scene {
   private startingTile: TestTile;
   private targetTile: TestTile;
   private path: number[][];
+  private withDiagonals: boolean = false;
 
   constructor() {
     super();
@@ -99,7 +100,11 @@ export class TilemapTestScene extends Scene {
       this.startingTile = this.targetTile;
     }
 
-    this.path = this.map.pathfinder.search(this.startingTile.x, this.startingTile.y, this.targetTile.x, this.targetTile.y);
+    if (Input.getKeyDown('KeyE')) {
+      this.withDiagonals = !this.withDiagonals;
+    }
+
+    this.path = this.map.pathfinder.search(this.startingTile.x, this.startingTile.y, this.targetTile.x, this.targetTile.y, this.withDiagonals);
 
     if (Input.getButtonDown('b')) SceneManager.popScene();
   }
@@ -121,6 +126,7 @@ export class TilemapTestScene extends Scene {
     }
     this.camera.end();
 
-    scr.drawText('Press F to set new starting tile', 0, scr.height - 8, Color.white);
+    scr.drawText('Press F to set new starting tile', 0, scr.height - 16, Color.white);
+    scr.drawText('Press E to toggle diagonal flag', 0, scr.height - 8, Color.white);
   }
 }
