@@ -31,6 +31,6 @@ export class EffectsTestScene extends Scene {
     scr.fillRect(10, 180, 50, 50);
     scr.fillCircle(250, 40, 25);
 
-    this.testEffect.apply(scr.ctx.canvas);
+    this.testEffect.applyToScreen(scr);
   }
 }
