@@ -12,7 +12,7 @@ import { Ponczek } from 'ponczek/ponczek';
 
 class NoiseEffect extends Effect {
   public colorMode: boolean = false;
-  public offset: Vector2 = Vector2.zero; // TODO: Convert to use camera
+  public offset: Vector2 = Vector2.zero;
   public scale: number = 0.1;
 
   private noise: SimplexNoise;
