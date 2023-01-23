@@ -84,7 +84,10 @@ export abstract class Engine {
     } else {
       containerEl.innerHTML = '▶ Play';
       containerEl.style.cursor = 'pointer';
-      containerEl.addEventListener('click', () => Engine.start());
+      containerEl.addEventListener('click', () => {
+        containerEl.style.cursor = 'default';
+        Engine.start();
+      }, { once: true });
     }
   }
 
