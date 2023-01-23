@@ -26,7 +26,7 @@ class NoiseEffect extends Effect {
     this.noise = new SimplexNoise();
   }
 
-  protected fragment(x: number, y: number, color: Color, _w: number, _h: number): Color {
+  protected fragment(x: number, y: number, color: Color, _w: number, _h: number): void {
     const xx = (this.offset.x + x) | 0;
     const yy = (this.offset.y + y) | 0;
     const value = this.noise.get(xx, yy, this.scale);
@@ -46,8 +46,6 @@ class NoiseEffect extends Effect {
     } else {
       color.setFrom01(value, value, value);
     }
-
-    return color;
   }
 }
 
@@ -75,7 +73,7 @@ export class SimplexNoiseTestScene extends Scene {
 
     if (Input.getButtonDown('b')) SceneManager.popScene();
 
-    this.effect.applyToTexture(this.noiseTexture);
+    this.effect.apply(this.noiseTexture);
   }
 
   render(scr: Screen): void {

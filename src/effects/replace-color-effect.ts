@@ -17,9 +17,9 @@ export class ReplaceColorEffect extends Effect {
     this.targetColor = targetColor;
   }
 
-  protected fragment(_x: number, _y: number, color: Color, _w: number, _h: number): Color {
-    return color.equals(this.sourceColor)
-      ? this.targetColor
-      : color;
+  protected fragment(_x: number, _y: number, color: Color, _w: number, _h: number): void {
+    if (color.equals(this.sourceColor)) {
+      color.setFromColor(this.targetColor);
+    }
   }
 }

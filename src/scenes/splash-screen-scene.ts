@@ -27,7 +27,8 @@ export class SplashScreenScene extends Scene {
     this.timer = new Timer();
     this.timer.set(500);
 
-    this.filter.applyToTexture(this.ponczekTexture, this.filteredPonczekTexture);
+    this.filter.source = this.ponczekTexture;
+    this.filter.apply(this.filteredPonczekTexture);
   }
 
   update(): void {
@@ -36,20 +37,20 @@ export class SplashScreenScene extends Scene {
 
       if (this.stage === 1) {
         this.filter.filterRed = false;
-        this.filter.applyToTexture(this.ponczekTexture, this.filteredPonczekTexture);
+        this.filter.apply(this.filteredPonczekTexture);
         SoundPlayer.playSound('startup');
         this.timer.set(transitionTime);
       }
 
       if (this.stage === 2) {
         this.filter.filterGreen = false;
-        this.filter.applyToTexture(this.ponczekTexture, this.filteredPonczekTexture);
+        this.filter.apply(this.filteredPonczekTexture);
         this.timer.set(transitionTime);
       }
 
       if (this.stage === 3) {
         this.filter.filterBlue = false;
-        this.filter.applyToTexture(this.ponczekTexture, this.filteredPonczekTexture);
+        this.filter.apply(this.filteredPonczekTexture);
         this.timer.set(1000);
       }
 

@@ -7,11 +7,11 @@ import { SceneManager } from 'ponczek/core/scene-manager';
 import { Input } from 'ponczek/core/input';
 
 class TestEffect extends Effect {
-  protected fragment(x: number, y: number, color: Color, w: number, h: number): Color {
-    if (color.equals(Color.black)) return color;
+  protected fragment(x: number, y: number, color: Color, w: number, h: number): void {
+    if (color.equals(Color.black)) return;
 
     const z = (Math.sin(Ponczek.ticks / 30) + 1) / 2;
-    return color.setFrom01(x / w, y / h, z);
+    color.setFrom01(x / w, y / h, z);
   }
 }
 

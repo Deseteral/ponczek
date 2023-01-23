@@ -62,13 +62,13 @@ export class MainMenuScene extends Scene {
     this.frameTexture = Texture.copy(Assets.texture('frame'));
 
     const replaceColorEffect = new ReplaceColorEffect(Color.white, Color.transparent);
-    replaceColorEffect.applyToTexture(this.frameTexture);
+    replaceColorEffect.apply(this.frameTexture);
 
     replaceColorEffect.set(Color.gray, ENDESGA16PaletteIdx[6]);
-    replaceColorEffect.applyToTexture(this.frameTexture);
+    replaceColorEffect.apply(this.frameTexture);
 
     replaceColorEffect.set(Color.black, ENDESGA16PaletteIdx[3]);
-    replaceColorEffect.applyToTexture(this.frameTexture);
+    replaceColorEffect.apply(this.frameTexture);
   }
 
   update(): void {
