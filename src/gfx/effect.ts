@@ -36,9 +36,6 @@ export abstract class Effect {
       const x = (idx % w) | 0;
       const y = (idx / w) | 0;
 
-      // console.log(x, y);
-      debugger;
-
       outColor.setFromColor(target.data.getPixelIdx(idx));
       this.fragment(x, y, outColor, w, h);
 
