@@ -263,6 +263,11 @@ export class Screen {
     this.clip();
   }
 
+  public getPixel(x: number, y: number, out: Color): void {
+    const data = this.ctx.getImageData(x, y, 1, 1).data;
+    out.setFrom0255(data[0], data[1], data[2], data[3]);
+  }
+
   private textLine(text: string, x: number, y: number, color: Color): void {
     const font = this.activeFont!;
     const fontTexture = font.getTextureForColor(color);
