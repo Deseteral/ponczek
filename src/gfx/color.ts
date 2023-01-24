@@ -81,6 +81,11 @@ export class Color {
     return new Color(r, g, b, a);
   }
 
+  public static lerp(a: Color, b: Color, t: number, out: Color): void {
+    const tt = Math.clamp(t, 0, 1);
+    out.setFrom01(a.r + (b.r - a.r) * tt, a.g + (b.g - a.g) * tt, a.b + (b.b - a.b) * tt, a.a + (b.a - a.a) * tt);
+  }
+
   static transparent = Color.from01(0, 0, 0, 0);
   static white = Color.from01(1, 1, 1, 1);
   static gray = Color.fromRGBAHex('808080');
