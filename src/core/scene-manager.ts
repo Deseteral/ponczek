@@ -6,8 +6,8 @@ export abstract class SceneManager {
   static updateDepth = 1;
   static renderDepth = 2;
 
-  static get activeScene(): (Scene | null) {
-    return this.sceneStack[0] || null;
+  static get activeScene(): Scene {
+    return this.sceneStack[0];
   }
 
   static pushScene(nextScene: Scene): void {
