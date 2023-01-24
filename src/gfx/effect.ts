@@ -17,7 +17,7 @@ export abstract class Effect {
       outColor.setFrom0255(targetBuffer.data[idx], targetBuffer.data[idx + 1], targetBuffer.data[idx + 2], targetBuffer.data[idx + 3]);
       this.fragment(x, y, outColor, target.width, target.height);
 
-      targetBuffer.data[idx] = (outColor.r * 255) | 0;
+      targetBuffer.data[idx + 0] = (outColor.r * 255) | 0;
       targetBuffer.data[idx + 1] = (outColor.g * 255) | 0;
       targetBuffer.data[idx + 2] = (outColor.b * 255) | 0;
       targetBuffer.data[idx + 3] = (outColor.a * 255) | 0;
