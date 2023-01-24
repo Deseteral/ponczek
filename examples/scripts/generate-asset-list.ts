@@ -4,7 +4,9 @@ import { AssetDefinition } from 'ponczek/core/assets';
 
 function readFileNames(directoryPath: string): AssetDefinition[] {
   fs.mkdirSync(directoryPath, { recursive: true });
-  return fs.readdirSync(directoryPath).map((fileName: string) => [path.parse(fileName).name, path.extname(fileName).slice(1)]);
+  return fs.readdirSync(directoryPath)
+    .filter((fileName: string) => !fileName.startsWith('.'))
+    .map((fileName: string) => [path.parse(fileName).name, path.extname(fileName).slice(1)]);
 }
 
 function writeData(filePath: string, data: any): void {
