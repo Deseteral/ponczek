@@ -1,28 +1,45 @@
 export class Timer {
+  private active = false;
   private timeMs: number;
   private datetimeMsWhenTimerWasSet: number;
 
   /*
    * Time in milliseconds since timer was set.
    */
-  get millisecondsSinceStart(): number {
+  public get millisecondsSinceStart(): number {
     return (Date.now() - this.datetimeMsWhenTimerWasSet);
+  }
+
+  /**
+   * Whether the timer is active.
+   * When inactive check method will always return false and getProgress will always return 0.
+   */
+  public get isActive(): boolean {
+    return this.active;
   }
 
   /*
    * Sets the timer for given time in milliseconds.
    */
-  set(timeMs: number): void {
+  public set(timeMs: number): void {
     this.timeMs = timeMs;
     this.datetimeMsWhenTimerWasSet = Date.now();
+    this.active = true;
   }
 
   /*
    * Returns true when timer had it's set time elapsed.
    * Returns false then the timer is still counting down.
    */
-  check(): boolean {
-    return (this.millisecondsSinceStart >= this.timeMs);
+  public check(): boolean {
+    return this.active && (this.millisecondsSinceStart >= this.timeMs);
+  }
+
+  /**
+   * Deactivates the timer.
+   */
+  public disable(): void {
+    this.active = false;
   }
 
   /*
@@ -30,7 +47,7 @@ export class Timer {
    * If that is the case immediatly set new time.
    * Returns false then the timer is still counting down.
    */
-  checkSet(timeMs: number): boolean {
+  public checkSet(timeMs: number): boolean {
     if (this.check()) {
       this.set(timeMs);
       return true;
@@ -42,8 +59,8 @@ export class Timer {
   /*
    * Returns a number in range [0, 1] indicating completion progress of this timer.
    */
-  getProgress(): number {
-    if (this.timeMs === -1) return 0;
+  public getProgress(): number {
+    if (this.timeMs === -1 || !this.active) return 0;
 
     const progress = this.millisecondsSinceStart / this.timeMs;
     return progress > 1 ? 1 : progress;
