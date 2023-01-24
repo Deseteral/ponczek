@@ -33,10 +33,12 @@ _* Only uses minimal amount of high quality runtime dependencies that are in and
   - Drawing textures
   - Drawing nine slices
   - Drawing monospaced sprite fonts
-  - Clipping
+  - Color utilities
   - *Fragment shader*-like effect system
   - Camera
-  - Allows to drop to [browser's Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) for unsupported features
+  - Spritesheets
+  - Clipping
+  - Allows dropping to [browser's Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) for unsupported features
 - Simple sound effects player
 - Keyboard and mouse input system
   - Supports binding
@@ -44,15 +46,20 @@ _* Only uses minimal amount of high quality runtime dependencies that are in and
   - Data structures and algorithms (Vector2, Rectangle)
   - Random number generator
   - Simplex noise generator
+  - A* pathfinding
 - GUI
   - Grid component with keyboard navigation
-- Tilemap data structure
+- Data structures
+  - Tilemap
+  - Priority queue (via [heapify](https://github.com/luciopaiva/heapify) package)
 - Asset loader
-- Stack based scene manager
+- Scene manager
+  - Stack based
+  - Scene transition animation system
 - Data storage for save data (uses `localStorage`)
 - Timers
 
-Uses fantastic font [Monogram by datagoblin](https://datagoblin.itch.io/monogram) as default font.
+Uses fantastic font [Monogram by datagoblin](https://datagoblin.itch.io/monogram) as a default font.
 
 Works in every major browser.
 
