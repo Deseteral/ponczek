@@ -48,6 +48,12 @@ export class TextureData {
     return this.getPixelIdx(idx);
   }
 
+  public getPixelUV(u: number, v: number): Color {
+    const x = (u * this.ctx.canvas.width) | 0;
+    const y = (v * this.ctx.canvas.height) | 0;
+    return this.getPixel(x, y);
+  }
+
   public commit(): void {
     const buffer = this.ctx.getImageData(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 
