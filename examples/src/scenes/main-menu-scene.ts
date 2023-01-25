@@ -88,7 +88,7 @@ export class MainMenuScene extends Scene {
     if (Input.getButtonDown('down')) this.demoScenesGridView.selectNextRow(true);
     if (Input.getButtonDown('a')) {
       SceneManager.pushScene(new TransitionScene(
-        this.demoScenesGridView.selectedValue.scene(),
+        () => SceneManager.pushScene(this.demoScenesGridView.selectedValue.scene()),
         700,
         random.pickOne(this.transitionTextures),
         random.pickOne(this.transitionTextures),

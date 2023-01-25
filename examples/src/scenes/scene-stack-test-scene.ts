@@ -9,6 +9,8 @@ import { Rectangle } from 'ponczek/math/rectangle';
 import { Random } from 'ponczek/math/random';
 import { GridView } from 'ponczek/gui/grid-view';
 import { Color } from 'ponczek/gfx/color';
+import { TransitionScene } from 'ponczek/scenes/transition-scene';
+import { Assets } from 'ponczek/core/assets';
 
 const random = Random.default;
 
@@ -48,7 +50,15 @@ class PauseMenuScene extends Scene {
       [{ text: 'Resume', action: () => SceneManager.popScene() }],
       [{ text: 'Some action', action: () => console.log('Some action') }],
       [{ text: 'Some submenu', action: () => console.log('Some submenu') }],
-      [{ text: 'Return to menu', action: () => SceneManager.backToRoot() }],
+      [{ text: 'Return to menu',
+        action: () => {
+          SceneManager.pushScene(new TransitionScene(
+            () => SceneManager.backToRoot(),
+            600,
+            Assets.texture('transition_circle'),
+            Assets.texture('transition_circle'),
+          ));
+        } }],
     ];
   }
 

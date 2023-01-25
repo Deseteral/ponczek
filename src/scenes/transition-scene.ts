@@ -13,7 +13,7 @@ enum TransitionState {
 }
 
 export class TransitionScene extends Scene {
-  private nextScene: Scene;
+  private action: () => void;
   private animationTimeMs: number;
   private transitionOut: Texture;
   private transitionIn: Texture;
@@ -23,9 +23,9 @@ export class TransitionScene extends Scene {
   private timer: Timer;
   private state: TransitionState = TransitionState.FadeOut;
 
-  constructor(nextScene: Scene, animationTimeMs: number, transitionOut: Texture, transitionIn: Texture, color: Color = Color.black) {
+  constructor(action: () => void, animationTimeMs: number, transitionOut: Texture, transitionIn: Texture, color: Color = Color.black) {
     super();
-    this.nextScene = nextScene;
+    this.action = action;
     this.animationTimeMs = animationTimeMs;
     this.transitionOut = transitionOut;
     this.transitionIn = transitionIn;
@@ -44,7 +44,11 @@ export class TransitionScene extends Scene {
 
       if (this.timer.check()) {
         this.effect.transitionTexture = this.transitionIn;
-        SceneManager.putSceneBehindActive(this.nextScene);
+
+        SceneManager.popScene();
+        this.action();
+        SceneManager.pushScene(this);
+
         this.state = TransitionState.Waiting;
         this.timer.set(200);
       }

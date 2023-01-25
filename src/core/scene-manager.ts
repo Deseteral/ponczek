@@ -7,7 +7,7 @@ export abstract class SceneManager {
   static renderDepth = 2;
 
   static get activeScene(): Scene {
-    return this.sceneStack[0];
+    return this.sceneStack[0]; // TODO: Loose typechecking
   }
 
   static pushScene(nextScene: Scene): void {
@@ -20,10 +20,6 @@ export abstract class SceneManager {
 
   static replaceScene(nextScene: Scene): void {
     this.sceneStack = [nextScene];
-  }
-
-  static putSceneBehindActive(nextScene: Scene): void {
-    SceneManager.sceneStack.splice(1, 0, nextScene);
   }
 
   static backToRoot(): void {
