@@ -18,10 +18,7 @@ import { GridViewTestScene } from 'examples/scenes/grid-view-test-scene';
 import { SceneStackTestScene } from 'examples/scenes/scene-stack-test-scene';
 import { SimplexNoiseTestScene } from 'examples/scenes/simplex-noise-test-scene';
 import { TilemapTestScene } from 'examples/scenes/tilemap-test-scene';
-import { Random } from 'ponczek/math/random';
-import { TransitionScene } from 'ponczek/scenes/transition-scene';
-
-const random = Random.default;
+import { withTransition } from 'examples/utils/with-transition';
 
 interface Item {
   text: string,
@@ -45,7 +42,6 @@ export class MainMenuScene extends Scene {
   private demoScenesGridView: DemoScenesGridView;
   private frameTexture: Texture;
 
-  private transitionTextures: Texture[];
   private gridPosition = new Vector2(13, 36);
 
   constructor() {
@@ -74,26 +70,12 @@ export class MainMenuScene extends Scene {
 
     replaceColorEffect.set(Color.black, ENDESGA16PaletteIdx[3]);
     replaceColorEffect.apply(this.frameTexture);
-
-    this.transitionTextures = [
-      Assets.texture('transition_circle'),
-      Assets.texture('transition_fan'),
-      Assets.texture('transition_left_right'),
-      Assets.texture('transition_noise'),
-    ];
   }
 
   update(): void {
     if (Input.getButtonDown('up')) this.demoScenesGridView.selectPreviousRow(true);
     if (Input.getButtonDown('down')) this.demoScenesGridView.selectNextRow(true);
-    if (Input.getButtonDown('a')) {
-      SceneManager.pushScene(new TransitionScene(
-        () => SceneManager.pushScene(this.demoScenesGridView.selectedValue.scene()),
-        700,
-        random.pickOne(this.transitionTextures),
-        random.pickOne(this.transitionTextures),
-      ));
-    }
+    if (Input.getButtonDown('a')) withTransition(() => SceneManager.pushScene(this.demoScenesGridView.selectedValue.scene()));
   }
 
   render(scr: Screen): void {

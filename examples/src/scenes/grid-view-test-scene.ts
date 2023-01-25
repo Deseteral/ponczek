@@ -1,3 +1,4 @@
+import { withTransition } from 'examples/utils/with-transition';
 import { Input } from 'ponczek/core/input';
 import { Scene } from 'ponczek/core/scene';
 import { SceneManager } from 'ponczek/core/scene-manager';
@@ -78,7 +79,7 @@ export class GridViewTestScene extends Scene {
       console.log(`Selected value on gridViewWithWrap: ${this.gridViewWithWrap.selectedValue.text}`);
     }
 
-    if (Input.getButtonDown('b')) SceneManager.popScene();
+    if (Input.getButtonDown('b')) withTransition(() => SceneManager.popScene());
   }
 
   render(scr: Screen): void {

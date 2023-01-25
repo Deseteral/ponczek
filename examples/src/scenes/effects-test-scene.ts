@@ -5,6 +5,7 @@ import { Screen } from 'ponczek/gfx/screen';
 import { Scene } from 'ponczek/core/scene';
 import { SceneManager } from 'ponczek/core/scene-manager';
 import { Input } from 'ponczek/core/input';
+import { withTransition } from 'examples/utils/with-transition';
 
 class TestEffect extends Effect {
   protected fragment(x: number, y: number, color: Color, w: number, h: number): void {
@@ -19,7 +20,7 @@ export class EffectsTestScene extends Scene {
   private testEffect = new TestEffect();
 
   update(): void {
-    if (Input.getButtonDown('b')) SceneManager.popScene();
+    if (Input.getButtonDown('b')) withTransition(() => SceneManager.popScene());
   }
 
   render(scr: Screen): void {

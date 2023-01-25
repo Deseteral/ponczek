@@ -5,6 +5,7 @@ import { Input } from 'ponczek/core/input';
 import { SceneManager } from 'ponczek/core/scene-manager';
 import { ENDESGA16PaletteIdx } from 'ponczek/palettes/endesga16-palette';
 import { Rectangle } from 'ponczek/math/rectangle';
+import { withTransition } from 'examples/utils/with-transition';
 
 export class FontRenderingTestScene extends Scene {
   private rect = new Rectangle(15, 40, 100, 80);
@@ -12,7 +13,7 @@ export class FontRenderingTestScene extends Scene {
   update(): void {
     this.rect.width = (150 + (Math.sin(Ponczek.ticks / 60) * 100)) | 0;
 
-    if (Input.getButtonDown('b')) SceneManager.popScene();
+    if (Input.getButtonDown('b')) withTransition(() => SceneManager.popScene());
   }
 
   render(scr: Screen): void {

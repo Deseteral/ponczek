@@ -7,6 +7,7 @@ import { Scene } from 'ponczek/core/scene';
 import { SceneManager } from 'ponczek/core/scene-manager';
 import { Rectangle } from 'ponczek/math/rectangle';
 import { ENDESGA16PaletteIdx } from 'ponczek/palettes/endesga16-palette';
+import { withTransition } from 'examples/utils/with-transition';
 
 export class CameraTestScene extends Scene {
   private camera: Camera;
@@ -41,7 +42,7 @@ export class CameraTestScene extends Scene {
     this.camera.screenToWorld(Input.pointer, this._pointerInWorld);
     this.camera.worldToScreen(this.rect.position, this._rectInScreen);
 
-    if (Input.getButtonDown('b')) SceneManager.popScene();
+    if (Input.getButtonDown('b')) withTransition(() => SceneManager.popScene());
   }
 
   render(scr: Screen): void {

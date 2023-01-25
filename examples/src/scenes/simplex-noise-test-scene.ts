@@ -9,6 +9,7 @@ import { SceneManager } from 'ponczek/core/scene-manager';
 import { ENDESGA16PaletteIdx } from 'ponczek/palettes/endesga16-palette';
 import { Vector2 } from 'ponczek/math/vector2';
 import { Ponczek } from 'ponczek/ponczek';
+import { withTransition } from 'examples/utils/with-transition';
 
 class NoiseEffect extends Effect {
   public colorMode: boolean = false;
@@ -71,7 +72,7 @@ export class SimplexNoiseTestScene extends Scene {
     if (Input.getKeyDown('Space')) this.effect.colorMode = !this.effect.colorMode;
     if (Input.getKeyDown('KeyR')) this.effect.regenerate();
 
-    if (Input.getButtonDown('b')) SceneManager.popScene();
+    if (Input.getButtonDown('b')) withTransition(() => SceneManager.popScene());
 
     this.effect.apply(this.noiseTexture);
   }

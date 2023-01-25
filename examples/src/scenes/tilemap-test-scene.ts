@@ -10,6 +10,7 @@ import { Camera } from 'ponczek/gfx/camera';
 import { Ponczek } from 'ponczek/ponczek';
 import { Color } from 'ponczek/gfx/color';
 import { Vector2 } from 'ponczek/math/vector2';
+import { withTransition } from 'examples/utils/with-transition';
 
 const random = Random.default;
 
@@ -106,7 +107,7 @@ export class TilemapTestScene extends Scene {
 
     this.path = this.map.pathfinder.search(this.startingTile.x, this.startingTile.y, this.targetTile.x, this.targetTile.y, this.withDiagonals);
 
-    if (Input.getButtonDown('b')) SceneManager.popScene();
+    if (Input.getButtonDown('b')) withTransition(() => SceneManager.popScene());
   }
 
   render(scr: Screen): void {

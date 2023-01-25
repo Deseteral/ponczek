@@ -9,6 +9,7 @@ import { Color } from 'ponczek/gfx/color';
 import { Texture } from 'ponczek/gfx/texture';
 import { Assets } from 'ponczek/core/assets';
 import { SpriteSheet } from 'ponczek/gfx/spritesheet';
+import { withTransition } from 'examples/utils/with-transition';
 
 export class DrawingTestScene extends Scene {
   private rect = new Rectangle(15, 40, 100, 80);
@@ -24,7 +25,7 @@ export class DrawingTestScene extends Scene {
   update(): void {
     this.rect.width = (150 + (Math.sin(Ponczek.ticks / 60) * 100)) | 0;
 
-    if (Input.getButtonDown('b')) SceneManager.popScene();
+    if (Input.getButtonDown('b')) withTransition(() => SceneManager.popScene());
   }
 
   render(scr: Screen): void {
