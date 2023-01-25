@@ -18,9 +18,8 @@ import { GridViewTestScene } from 'examples/scenes/grid-view-test-scene';
 import { SceneStackTestScene } from 'examples/scenes/scene-stack-test-scene';
 import { SimplexNoiseTestScene } from 'examples/scenes/simplex-noise-test-scene';
 import { TilemapTestScene } from 'examples/scenes/tilemap-test-scene';
-import { TransitionEffect } from 'ponczek/effects/transition-effect';
 import { Random } from 'ponczek/math/random';
-import { Timer } from 'ponczek/core/timer';
+import { TransitionScene } from 'ponczek/scenes/transition-scene';
 
 const random = Random.default;
 
@@ -47,9 +46,6 @@ export class MainMenuScene extends Scene {
   private frameTexture: Texture;
 
   private transitionTextures: Texture[];
-  private transitionEffect: TransitionEffect;
-  private transitionTimer: Timer;
-
   private gridPosition = new Vector2(13, 36);
 
   constructor() {
@@ -85,22 +81,19 @@ export class MainMenuScene extends Scene {
       Assets.texture('transition_left_right'),
       Assets.texture('transition_noise'),
     ];
-    this.transitionEffect = new TransitionEffect(random.pickOne(this.transitionTextures));
-    this.transitionTimer = new Timer();
   }
 
   update(): void {
-    if (this.transitionTimer.check()) {
-      this.transitionTimer.disable();
-      this.transitionEffect.transitionTexture = random.pickOne(this.transitionTextures);
-      SceneManager.pushScene(this.demoScenesGridView.selectedValue.scene());
-    }
-
-    this.transitionEffect.cutoff = this.transitionTimer.getProgress();
-
     if (Input.getButtonDown('up')) this.demoScenesGridView.selectPreviousRow(true);
     if (Input.getButtonDown('down')) this.demoScenesGridView.selectNextRow(true);
-    if (Input.getButtonDown('a')) this.transitionTimer.set(500);
+    if (Input.getButtonDown('a')) {
+      SceneManager.pushScene(new TransitionScene(
+        this.demoScenesGridView.selectedValue.scene(),
+        700,
+        random.pickOne(this.transitionTextures),
+        random.pickOne(this.transitionTextures),
+      ));
+    }
   }
 
   render(scr: Screen): void {
@@ -117,9 +110,5 @@ export class MainMenuScene extends Scene {
     scr.fillRect(this.gridPosition.x - 3, this.gridPosition.y - 2, this.demoScenesGridView.totalWidth + 9, this.demoScenesGridView.totalHeight + 4);
     scr.drawNineSlice(this.frameTexture, this.gridPosition.x, this.gridPosition.y, this.demoScenesGridView.totalWidth, this.demoScenesGridView.totalHeight, 8, 8);
     this.demoScenesGridView.drawAt(this.gridPosition, scr);
-
-    if (this.transitionTimer.isActive) {
-      this.transitionEffect.applyToScreen(scr);
-    }
   }
 }

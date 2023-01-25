@@ -22,6 +22,10 @@ export abstract class SceneManager {
     this.sceneStack = [nextScene];
   }
 
+  static putSceneBehindActive(nextScene: Scene): void {
+    SceneManager.sceneStack.splice(1, 0, nextScene);
+  }
+
   static backToRoot(): void {
     this.replaceScene(this.sceneStack.at(-1)!);
   }
