@@ -7,7 +7,11 @@ export abstract class SceneManager {
   static renderDepth = 2;
 
   static get activeScene(): Scene {
-    return this.sceneStack[0]; // TODO: Loose typechecking
+    if (SceneManager.sceneStack.isEmpty()) {
+      throw new Error('No active scene');
+    }
+
+    return SceneManager.sceneStack.at(0)!;
   }
 
   static pushScene(nextScene: Scene): void {
