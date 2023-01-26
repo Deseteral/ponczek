@@ -18,7 +18,7 @@ export class TransitionEffect extends Effect {
 
   protected fragment(x: number, y: number, color: Color, w: number, h: number): void {
     const u = x / w;
-    const v = y / h;
+    const v = y / h; // TODO: Move uv to Effect
 
     const transitionColor = this.transitionTexture
       ? this.transitionTexture.data.getPixelUV(u, v)
