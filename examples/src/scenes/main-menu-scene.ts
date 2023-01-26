@@ -81,7 +81,7 @@ export class MainMenuScene extends Scene {
   render(scr: Screen): void {
     scr.clearScreen(ENDESGA16PaletteIdx[4]);
 
-    scr.drawText('Ponczek', 5, 5, ENDESGA16Palette.white);
+    scr.drawText(`Ponczek v${PONCZEK_VERSION}`, 5, 5, ENDESGA16Palette.white);
 
     scr.color(ENDESGA16PaletteIdx[2]);
 

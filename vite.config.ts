@@ -21,4 +21,7 @@ export default defineConfig({
   preview: {
     port: 1234,
   },
+  define: {
+    PONCZEK_VERSION: JSON.stringify(process.env.npm_package_version),
+  },
 });
