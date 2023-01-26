@@ -55,7 +55,7 @@ export class SplashScreenScene extends Scene {
       }
 
       if (this.stage === 4) {
-        SceneManager.replaceScene(this.transitionToScene);
+        SceneManager.clearStack(this.transitionToScene);
       }
     }
   }

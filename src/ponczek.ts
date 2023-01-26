@@ -107,13 +107,8 @@ export abstract class Ponczek {
   private static loop(): void {
     const st = performance.now();
 
-    for (let idx = 0; idx < Math.min(SceneManager.updateDepth, SceneManager.sceneStack.length); idx += 1) {
-      SceneManager.sceneStack[idx].update();
-    }
-
-    for (let idx = Math.min(SceneManager.renderDepth, SceneManager.sceneStack.length - 1); idx >= 0; idx -= 1) {
-      SceneManager.sceneStack[idx].render(Ponczek.screen);
-    }
+    SceneManager._update();
+    SceneManager._render(Ponczek.screen);
 
     if (Input.getKeyDown('F3')) Ponczek.debugMode = !Ponczek.debugMode;
 
