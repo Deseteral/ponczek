@@ -17,11 +17,11 @@ export class FilterColorChannelEffect extends Effect {
     this.filterBlue = filterBlue;
   }
 
-  protected fragment(x: number, y: number, color: Color, _w: number, _h: number): void {
-    color.setFromColor(this.source.data.getPixel(x, y));
+  protected fragment(x: number, y: number, _w: number, _h: number, _u: number, _v: number, outColor: Color): void {
+    outColor.setFromColor(this.source.data.getPixel(x, y));
 
-    if (this.filterRed) color.r = 0;
-    if (this.filterGreen) color.g = 0;
-    if (this.filterBlue) color.b = 0;
+    if (this.filterRed) outColor.r = 0;
+    if (this.filterGreen) outColor.g = 0;
+    if (this.filterBlue) outColor.b = 0;
   }
 }

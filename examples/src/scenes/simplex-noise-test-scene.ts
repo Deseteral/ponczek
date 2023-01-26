@@ -27,25 +27,25 @@ class NoiseEffect extends Effect {
     this.noise = new SimplexNoise();
   }
 
-  protected fragment(x: number, y: number, color: Color, _w: number, _h: number): void {
+  protected fragment(x: number, y: number, _w: number, _h: number, _u: number, _v: number, outColor: Color): void {
     const xx = (this.offset.x + x) | 0;
     const yy = (this.offset.y + y) | 0;
     const value = this.noise.get(xx, yy, this.scale);
 
     if (this.colorMode) {
       if (value < 0.4) {
-        color.setFromColor(ENDESGA16PaletteIdx[15]);
+        outColor.setFromColor(ENDESGA16PaletteIdx[15]);
       } else if (value < 0.48) {
-        color.setFromColor(ENDESGA16PaletteIdx[7]);
+        outColor.setFromColor(ENDESGA16PaletteIdx[7]);
       } else if (value < 0.8) {
-        color.setFromColor(ENDESGA16PaletteIdx[9]);
+        outColor.setFromColor(ENDESGA16PaletteIdx[9]);
       } else if (value < 0.9) {
-        color.setFromColor(ENDESGA16PaletteIdx[12]);
+        outColor.setFromColor(ENDESGA16PaletteIdx[12]);
       } else {
-        color.setFromColor(ENDESGA16PaletteIdx[13]);
+        outColor.setFromColor(ENDESGA16PaletteIdx[13]);
       }
     } else {
-      color.setFrom01(value, value, value);
+      outColor.setFrom01(value, value, value);
     }
   }
 }

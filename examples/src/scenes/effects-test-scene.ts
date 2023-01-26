@@ -8,11 +8,11 @@ import { Input } from 'ponczek/core/input';
 import { withTransition } from 'examples/utils/with-transition';
 
 class TestEffect extends Effect {
-  protected fragment(x: number, y: number, color: Color, w: number, h: number): void {
-    if (color.equals(Color.black)) return;
+  protected fragment(x: number, y: number, w: number, h: number, _u: number, _v: number, outColor: Color): void {
+    if (outColor.equals(Color.black)) return;
 
     const z = (Math.sin(Ponczek.ticks / 30) + 1) / 2;
-    color.setFrom01(x / w, y / h, z);
+    outColor.setFrom01(x / w, y / h, z);
   }
 }
 

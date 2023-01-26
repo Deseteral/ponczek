@@ -16,16 +16,13 @@ export class TransitionEffect extends Effect {
     this.transitionTexture = transitionTexture || null;
   }
 
-  protected fragment(x: number, y: number, color: Color, w: number, h: number): void {
-    const u = x / w;
-    const v = y / h; // TODO: Move uv to Effect
-
+  protected fragment(_x: number, _y: number, _w: number, _h: number, u: number, v: number, outColor: Color): void {
     const transitionColor = this.transitionTexture
       ? this.transitionTexture.data.getPixelUV(u, v)
       : Color.black;
 
     if (transitionColor.b < this.cutoff) {
-      Color.lerp(color, this.transitionColor, this.opacity, color);
+      Color.lerp(outColor, this.transitionColor, this.opacity, outColor);
     }
   }
 }
