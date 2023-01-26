@@ -2,7 +2,15 @@ import { Ponczek } from 'ponczek/ponczek';
 
 const DEFAULT_KEY = 'gamedata';
 
+/**
+ * Singleton class representing key-value storage for game data (like saves, highscores, achievements etc.).
+ */
 export abstract class Datastore {
+  /**
+   * Writes given data to storage under specifed `key`.
+   * @param data JSON serializable data to be written.
+   * @param key *(optional)* data identifier.
+   */
   public static write<T>(data: T, key: string = DEFAULT_KEY): void {
     try {
       window.localStorage.setItem(key, JSON.stringify(data));
@@ -12,6 +20,11 @@ export abstract class Datastore {
     }
   }
 
+  /**
+   * Reads data from storage for specified `key`.
+   * @param key *(optional)* data identifier.
+   * @returns requested data or `null` when there's nothing saved for that `key`, or data couldn't be read.
+   */
   public static read<T>(key: string = DEFAULT_KEY): (T | null) {
     try {
       const data = window.localStorage.getItem(key);
@@ -23,6 +36,11 @@ export abstract class Datastore {
     }
   }
 
+  /**
+   * Checks if the data exists for specified `key`.
+   * @param key *(optional)* data identifier.
+   * @returns `true` when there is something written for that `key`. `false` otherwise.
+   */
   public exists(key: string = DEFAULT_KEY): boolean {
     try {
       const data = window.localStorage.getItem(key);
@@ -32,6 +50,10 @@ export abstract class Datastore {
     }
   }
 
+  /**
+   * Deletes data for specified `key`. Does nothing when there is no data for that `key`.
+   * @param key *(optional)* data identifier.
+   */
   public delete(key: string = DEFAULT_KEY): void {
     try {
       window.localStorage.removeItem(key);
