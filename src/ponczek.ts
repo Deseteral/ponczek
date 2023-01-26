@@ -56,7 +56,7 @@ export abstract class Ponczek {
   public static async initialize(width: number, height: number, initialScene: () => Scene, startupConfig: number = STARTUP_NORMAL): Promise<void> {
     Ponczek.screen = new Screen(width, height);
 
-    Input.initialize(Ponczek.screen.domElement);
+    Input._initialize(Ponczek.screen.domElement);
 
     const monogramTexture = await Assets.defaultFontTexture();
     Ponczek.defaultFont = new Font(monogramTexture, 8, 8);
@@ -117,7 +117,7 @@ export abstract class Ponczek {
 
     if (Input.getKeyDown('F3')) Ponczek.debugMode = !Ponczek.debugMode;
 
-    Input.update();
+    Input._update();
 
     if (Ponczek.shouldCountTicks) Ponczek.ticks += 1;
 
