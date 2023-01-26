@@ -30,7 +30,7 @@
  * TODO: Make 2D rendering optional and tie in with three.js for 3D
  */
 
-import 'ponczek/polyfills';
+import 'ponczek/utils/polyfills';
 import { Input } from 'ponczek/core/input';
 import { Screen } from 'ponczek/gfx/screen';
 import { Font } from 'ponczek/gfx/font';
