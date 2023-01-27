@@ -2,6 +2,9 @@ import { Howl } from 'howler';
 import { HTMLTextureSource, Texture } from 'ponczek/gfx/texture';
 import { Sound } from 'ponczek/sound/sound';
 
+/**
+ * Definition of an asset to be used by asset loader.
+ */
 export type AssetDefinition = [ name: string, format: string ];
 
 /**
