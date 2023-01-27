@@ -3,11 +3,28 @@ import { Color } from 'ponczek/gfx/color';
 import { Effect } from 'ponczek/gfx/effect';
 import { Texture } from 'ponczek/gfx/texture';
 
+/**
+ * Effect for filtering RGB color channels.
+ */
 export class FilterColorChannelEffect extends Effect {
+  /**
+   * Source texture on which the filter will be applied.
+   */
   public source: Texture;
 
+  /**
+   * Whether to filter out red channel.
+   */
   public filterRed: boolean;
+
+  /**
+   * Whether to filter out green channel.
+   */
   public filterGreen: boolean;
+
+  /**
+   * Whether to filter out blue channel.
+   */
   public filterBlue: boolean;
 
   constructor(filterRed: boolean = false, filterGreen: boolean = false, filterBlue: boolean = false) {
