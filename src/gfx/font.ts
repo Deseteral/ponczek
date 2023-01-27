@@ -17,7 +17,7 @@ export class Font {
   }
 
   public getTextureForColor(color: Color): Texture {
-    return this.colorVariants.getOrElse(color.htmlString, this.sourceTexture);
+    return this.colorVariants.getOrElse(color.cssString, this.sourceTexture);
   }
 
   public getSourceXForChar(char: string): number {
@@ -39,7 +39,7 @@ export class Font {
     removeWhite.apply(texture);
     setColor.apply(texture);
 
-    this.colorVariants.set(color.htmlString, texture);
+    this.colorVariants.set(color.cssString, texture);
   }
 
   public getLineLengthPx(text: string): number {

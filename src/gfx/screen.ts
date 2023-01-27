@@ -24,7 +24,7 @@ export class Screen {
   }
 
   public color(color: Color): void {
-    this.ctx.fillStyle = color.htmlString;
+    this.ctx.fillStyle = color.cssString;
   }
 
   public font(font: Font): void {
@@ -33,7 +33,7 @@ export class Screen {
 
   public clearScreen(clearColor: Color = Color.black): void {
     const prevColor = this.ctx.fillStyle;
-    this.ctx.fillStyle = clearColor.htmlString;
+    this.ctx.fillStyle = clearColor.cssString;
     this.ctx.fillRect(0, 0, this.width, this.height);
     this.ctx.fillStyle = prevColor;
   }

@@ -1,13 +1,22 @@
+/**
+ * Data structure representing RGBA color.
+ */
 export class Color {
   public r: number;
   public g: number;
   public b: number;
   public a: number;
 
-  public get htmlString(): string {
+  /**
+   * CSS respresentation of color.
+   */
+  public get cssString(): string {
     return `rgb(${(this.r * 255) | 0}, ${(this.g * 255) | 0}, ${(this.b * 255) | 0}, ${this.a})`;
   }
 
+  /**
+   * Creates new color from RGBA values that are number in range [0, 1].
+   */
   constructor(r: number, g: number, b: number, a: number) {
     this.r = r;
     this.g = g;
@@ -15,15 +24,25 @@ export class Color {
     this.a = a;
   }
 
-  equals(other: Color): boolean {
+  /**
+   * Returns true when colors are the same.
+   */
+  public equals(other: Color): boolean {
     return (this.r === other.r && this.g === other.g && this.b === other.b && this.a === other.a);
   }
 
-  copy(overwriteAlpha: number = this.a): Color {
+  /**
+   * Creates new color with the same values.
+   * Allows for optional alpha channel overwrite.
+   */
+  public copy(overwriteAlpha: number = this.a): Color {
     return new Color(this.r, this.g, this.b, overwriteAlpha);
   }
 
-  setFromColor(color: Color): Color {
+  /**
+   * Sets values from other color.
+   */
+  public setFromColor(color: Color): Color {
     this.r = color.r;
     this.g = color.g;
     this.b = color.b;
@@ -31,7 +50,10 @@ export class Color {
     return this;
   }
 
-  setFrom01(r: number, g: number, b: number, a: number = 1.0): Color {
+  /**
+   * Sets values from RGBA values in range [0, 1].
+   */
+  public setFrom01(r: number, g: number, b: number, a: number = 1.0): Color {
     this.r = r;
     this.g = g;
     this.b = b;
@@ -39,11 +61,17 @@ export class Color {
     return this;
   }
 
-  static from01(r: number, g: number, b: number, a: number = 1.0): Color {
+  /**
+   * Creates new color from RGBA values that are number in range [0, 1].
+   */
+  public static from01(r: number, g: number, b: number, a: number = 1.0): Color {
     return new Color(r, g, b, a);
   }
 
-  setFrom0255(r: number, g: number, b: number, a: number = 255): Color {
+  /**
+   * Sets values from RGBA values in range [0, 255].
+   */
+  public setFrom0255(r: number, g: number, b: number, a: number = 255): Color {
     this.r = r / 255;
     this.g = g / 255;
     this.b = b / 255;
@@ -51,21 +79,33 @@ export class Color {
     return this;
   }
 
-  static from0255(r: number, g: number, b: number, a: number = 255): Color {
+  /**
+   * Creates new color from RGBA values that are number in range [0, 255].
+   */
+  public static from0255(r: number, g: number, b: number, a: number = 255): Color {
     return new Color(r / 255, g / 255, b / 255, a / 255);
   }
 
-  setFromRGBA(rgba: number): Color {
+  /**
+   * Sets values from 32-bit number representing RGBA values.
+   */
+  public setFromRGBA(rgba: number): Color {
     const hex = rgba.toString(16);
     return this.setFromRGBAHex(hex);
   }
 
-  static fromRGBA(rgba: number): Color {
+  /**
+   * Creates new color from 32-bit number representing RGBA values.
+   */
+  public static fromRGBA(rgba: number): Color {
     const hex = rgba.toString(16);
     return Color.fromRGBAHex(hex);
   }
 
-  setFromRGBAHex(hex: string): Color {
+  /**
+   * Sets values from a string representing 32-bit RGBA value.
+   */
+  public setFromRGBAHex(hex: string): Color {
     const r = parseInt(hex.slice(0, 2), 16);
     const g = parseInt(hex.slice(2, 4), 16);
     const b = parseInt(hex.slice(4, 6), 16);
@@ -73,7 +113,10 @@ export class Color {
     return this.setFrom0255(r, g, b, a);
   }
 
-  static fromRGBAHex(hex: string): Color {
+  /**
+   * Creates new color from a string representing 32-bit RGBA value.
+   */
+  public static fromRGBAHex(hex: string): Color {
     const r = parseInt(hex.slice(0, 2), 16) / 255;
     const g = parseInt(hex.slice(2, 4), 16) / 255;
     const b = parseInt(hex.slice(4, 6), 16) / 255;
@@ -81,16 +124,20 @@ export class Color {
     return new Color(r, g, b, a);
   }
 
+  /**
+   * Linearly interpolates between colors `a` and `b` by `t`, and writes the resulting values into `out`.
+   * `t` is a number in range [0, 1].
+   */
   public static lerp(a: Color, b: Color, t: number, out: Color): void {
     const tt = Math.clamp(t, 0, 1);
     out.setFrom01(a.r + (b.r - a.r) * tt, a.g + (b.g - a.g) * tt, a.b + (b.b - a.b) * tt, a.a + (b.a - a.a) * tt);
   }
 
-  static transparent = Color.from01(0, 0, 0, 0);
-  static white = Color.from01(1, 1, 1, 1);
-  static gray = Color.fromRGBAHex('808080');
-  static black = Color.from01(0, 0, 0, 1);
-  static red = Color.from01(1, 0, 0, 1);
-  static green = Color.from01(0, 1, 0, 1);
-  static blue = Color.from01(0, 0, 1, 1);
+  public static transparent = Color.from01(0, 0, 0, 0);
+  public static white = Color.from01(1, 1, 1, 1);
+  public static gray = Color.fromRGBAHex('808080');
+  public static black = Color.from01(0, 0, 0, 1);
+  public static red = Color.from01(1, 0, 0, 1);
+  public static green = Color.from01(0, 1, 0, 1);
+  public static blue = Color.from01(0, 0, 1, 1);
 }
