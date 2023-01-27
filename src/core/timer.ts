@@ -1,25 +1,28 @@
+/**
+ * Data structure for efficient counting down time.
+ */
 export class Timer {
   private active = false;
   private timeMs: number;
   private datetimeMsWhenTimerWasSet: number;
 
-  /*
-   * Time in milliseconds since timer was set.
+  /**
+   * Returns time in milliseconds since timer was set.
    */
   public get millisecondsSinceStart(): number {
     return (Date.now() - this.datetimeMsWhenTimerWasSet);
   }
 
   /**
-   * Whether the timer is active.
-   * When inactive check method will always return false and getProgress will always return 0.
+   * Returns whether the timer is active.
+   * When inactive - `Timer#check` method will always return `false` and `Timer#getProgress` will always return `0`.
    */
-  public get isActive(): boolean {
+  public isActive(): boolean {
     return this.active;
   }
 
-  /*
-   * Sets the timer for given time in milliseconds.
+  /**
+   * Sets the timer for given time (in milliseconds) and activates it.
    */
   public set(timeMs: number): void {
     this.timeMs = timeMs;
@@ -27,9 +30,9 @@ export class Timer {
     this.active = true;
   }
 
-  /*
-   * Returns true when timer had it's set time elapsed.
-   * Returns false then the timer is still counting down.
+  /**
+   * Returns `true` when timer had it's set time elapsed,
+   * or `false` then the timer is still counting down.
    */
   public check(): boolean {
     return this.active && (this.millisecondsSinceStart >= this.timeMs);
@@ -42,10 +45,10 @@ export class Timer {
     this.active = false;
   }
 
-  /*
-   * Returns true when timer had it's set time elapsed.
+  /**
+   * Returns `true` when timer had it's set time elapsed.
    * If that is the case immediatly set new time.
-   * Returns false then the timer is still counting down.
+   * Returns `false` then the timer is still counting down.
    */
   public checkSet(timeMs: number): boolean {
     if (this.check()) {
@@ -56,7 +59,7 @@ export class Timer {
     return false;
   }
 
-  /*
+  /**
    * Returns a number in range [0, 1] indicating completion progress of this timer.
    */
   public getProgress(): number {
