@@ -9,18 +9,18 @@ export abstract class SceneManager {
   /**
    * How many scenes should be updated each frame.
    */
-  static updateDepth = 1;
+  public static updateDepth = 1;
 
   /**
    * How many scenes should be rendered each frame.
    */
-  static renderDepth = 2;
+  public static renderDepth = 2;
 
   private static sceneStack: Scene[] = [];
 
   /**
-   * @returns active scene.
-   * @throws when no scene is active.
+   * Returns active scene.
+   * Throws an error when no scene is active.
    */
   public static getActiveScene(): Scene {
     if (SceneManager.sceneStack.isEmpty()) {
@@ -45,8 +45,7 @@ export abstract class SceneManager {
   }
 
   /**
-   * Removes all scenes from the stack.
-   * @param nextScene next active scene.
+   * Removes all scenes from the stack and makes `nextScene` next active scene.
    */
   public static clearStack(nextScene: Scene): void {
     // TODO: This generates unnecessary allocation.

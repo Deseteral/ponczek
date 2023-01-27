@@ -16,7 +16,7 @@ export abstract class Assets {
 
   /**
    * Loads assets from provided asset definitions.
-   * @returns a promise that fulfils when all assets are loaded.
+   * Returns a promise that fulfils when all assets are loaded.
    */
   public static async loadAssets(textureList: AssetDefinition[], soundList: AssetDefinition[]): Promise<void> {
     await Promise.all([
@@ -26,8 +26,8 @@ export abstract class Assets {
   }
 
   /**
-   * @returns texture with a given name.
-   * @throws when no such texture is loaded.
+   * Returns texture with a given name.
+   * Throws an error when no such texture is loaded.
    */
   public static texture(name: string): Texture {
     const t = this.textures.get(name);
@@ -36,8 +36,8 @@ export abstract class Assets {
   }
 
   /**
-   * @returns sound with a given name.
-   * @throws when no such texture is loaded.
+   * Returns sound with a given name.
+   * Throws an error when no such texture is loaded.
    */
   public static sound(name: string): Sound {
     const s = this.sounds.get(name);
@@ -46,7 +46,7 @@ export abstract class Assets {
   }
 
   /**
-   * @returns texture of default font.
+   * Returns texture of default font.
    */
   public static async defaultFontTexture(): Promise<Texture> {
     const monogramDataUrl = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAABwAQMAAADsYuqRAAAABlBMVEX///8AAABVwtN+AAABb0lEQVR42nyQAYejTRCES3ut8ok1YvD6tNFKRLzWiWAdRv//n3V6ksUJ94DxKFV6AHZQO7eGwkr0oQuLH5G3rcRRYgOI7hwgPZHgEv+1CypBcDXlVAmWiJWg/ketNCDwhtP9nJ7uKBzapXOESeQH7sKVZppPsefJcHA7pc3NRzXahgdpZqJsJQixqfKvDsAz3by20AAQb7hPn5muNIXkuEpShES7xLeEQwpFhGi3OB4lZmjOX0m7hw7hmishUbfQVQhJL3GpN1y1Eq4akhxvTJ+eKvIUOwFJogpjsC8RJXrf2ChganoJLgBEZdWPzsbtJUT1bzFoS7icTol5sh0JfOBvGgKGE4IW9xIc04efRwBqczqgomnuH5d2SCVCOSXa7x8hRRuiXonV0Uzp+jzkeOH4Jw2LjfWY42tMFfm8VnpEk9S1kTw7pPAmHVTd/2UlrNV/jEYSA3PE/BzssiwhhOGJr5WBP6MWGAWjYBSMAgA9WDsJuJYmBQAAAABJRU5ErkJggg==';

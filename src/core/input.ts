@@ -16,26 +16,26 @@ export abstract class Input {
   private static binds: Map<string, string[]> = new Map();
 
   /**
-   * @param key `KeyboardEvent.code` representing a physical key on the keyboard.
-   * @returns `true` if the key is pressed, `false` otherwise.
-   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code}
+   * Returns `true` if the key is pressed, `false` otherwise.
+   *
+   * See [KeyboardEvent.code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code) for possible `key` values.
    */
   public static getKey(key: string): boolean {
     return this.keyState.getOrElse(key, false);
   }
 
   /**
-   * @param key `KeyboardEvent.code` representing a physical key on the keyboard.
-   * @returns `true` if the key is pressed and wasn't pressed on the previous frame, `false` otherwise.
-   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code}
+   * Returns `true` if the key is pressed and wasn't pressed on the previous frame, `false` otherwise.
+   *
+   * See [KeyboardEvent.code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code) for possible `key` values.
    */
   public static getKeyDown(key: string): boolean {
     return this.getKey(key) && !this.previousKeyState.getOrElse(key, false);
   }
 
   /**
-   * @param action string representing bindable action.
-   * @returns `true` if the action is active, `false` otherwise.
+   * Returns `true` if the action is active, `false` otherwise.
+   * Provided `action` string is an identifier representing bindable action.
    */
   public static getButton(action: string): boolean {
     const keys = this.binds.get(action) ?? [];
@@ -48,8 +48,8 @@ export abstract class Input {
   }
 
   /**
-   * @param action string representing bindable action.
-   * @returns `true` if the action is active and wasn't active on the previous frame, `false` otherwise.
+   * Returns `true` if the action is active and wasn't active on the previous frame, `false` otherwise.
+   * Provided `action` string is an identifier representing bindable action.
    */
   public static getButtonDown(action: string): boolean {
     const keys = this.binds.get(action) ?? [];
@@ -63,9 +63,8 @@ export abstract class Input {
 
   /**
    * Creates an action with given name and assigns set of keys that will trigger that action.
-   * @param action name of the action.
-   * @param keys array of `KeyboardEvent.code` that will be associated with this action.
-   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code}
+   *
+   * See [KeyboardEvent.code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code) for possible `keys` values.
    */
   public static bindAction(action: string, keys: string[]): void {
     this.binds.set(action, keys);
@@ -73,8 +72,8 @@ export abstract class Input {
 
   /**
    * Creates multiple actions with given names and assigns set of keys that will trigger those actions.
-   * @param bindings key-value object where `key` is an action name and `value` is array of `KeyboardEvent.code` associated with this action.
-   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code}
+   *
+   * See [KeyboardEvent.code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code) for possible keys values.
    */
   public static bindActions(bindings: ({ [key: string]: string[] })): void {
     this.binds = new Map(Object.entries(bindings));

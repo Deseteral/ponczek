@@ -8,8 +8,7 @@ const DEFAULT_KEY = 'gamedata';
 export abstract class Datastore {
   /**
    * Writes given data to storage under specifed `key`.
-   * @param data JSON serializable data to be written.
-   * @param key *(optional)* data identifier.
+   * Given data has to be JSON serializable to be written.
    */
   public static write<T>(data: T, key: string = DEFAULT_KEY): void {
     try {
@@ -22,8 +21,7 @@ export abstract class Datastore {
 
   /**
    * Reads data from storage for specified `key`.
-   * @param key *(optional)* data identifier.
-   * @returns requested data or `null` when there's nothing saved for that `key`, or data couldn't be read.
+   * Returns requested data or `null` when there's nothing saved for that `key`, or when data couldn't be read.
    */
   public static read<T>(key: string = DEFAULT_KEY): (T | null) {
     try {
@@ -38,8 +36,7 @@ export abstract class Datastore {
 
   /**
    * Checks if the data exists for specified `key`.
-   * @param key *(optional)* data identifier.
-   * @returns `true` when there is something written for that `key`. `false` otherwise.
+   * Returns `true` when there is something written for that `key`, `false` otherwise.
    */
   public exists(key: string = DEFAULT_KEY): boolean {
     try {
@@ -52,7 +49,6 @@ export abstract class Datastore {
 
   /**
    * Deletes data for specified `key`. Does nothing when there is no data for that `key`.
-   * @param key *(optional)* data identifier.
    */
   public delete(key: string = DEFAULT_KEY): void {
     try {
