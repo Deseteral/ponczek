@@ -35,7 +35,7 @@ class TestTilemap extends Tilemap<TestTile> {
     const sprite = tile.type === 'grass'
       ? this.tileset.getSprite(tile.variant)
       : this.tileset.getSpriteAt(0, 1);
-    scr.drawSprite(sprite, x * this.size, y * this.size, tile.flip);
+    scr.drawSprite(sprite, x * this.sizePx, y * this.sizePx, tile.flip);
   }
 }
 
@@ -117,12 +117,12 @@ export class TilemapTestScene extends Scene {
     {
       this.map.draw(0, 0, scr, this.camera.viewport);
 
-      scr.drawSprite(this.tileset.getSpriteAt(0, 2), this.startingTile.x * this.map.size, this.startingTile.y * this.map.size);
-      scr.drawSprite(this.tileset.getSpriteAt(0, 2), this.targetTile.x * this.map.size, this.targetTile.y * this.map.size);
+      scr.drawSprite(this.tileset.getSpriteAt(0, 2), this.startingTile.x * this.map.sizePx, this.startingTile.y * this.map.sizePx);
+      scr.drawSprite(this.tileset.getSpriteAt(0, 2), this.targetTile.x * this.map.sizePx, this.targetTile.y * this.map.sizePx);
 
       for (let idx = 0; idx < this.path.length; idx += 1) {
         const [x, y] = this.path[idx];
-        scr.drawSprite(this.tileset.getSpriteAt(1, 2), x * this.map.size, y * this.map.size);
+        scr.drawSprite(this.tileset.getSpriteAt(1, 2), x * this.map.sizePx, y * this.map.sizePx);
       }
     }
     this.camera.end();
