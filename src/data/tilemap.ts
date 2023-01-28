@@ -83,8 +83,8 @@ export abstract class Tilemap<TileT> {
    * When given (optional) `renderingLimits` rectangle (with world-space coordinates) it will perform culling when drawing tiles.
    */
   public draw(drawAtX: number, drawAtY: number, scr: Screen, renderingLimits?: Rectangle): void {
-    scr.ctx.save();
-    scr.ctx.translate(drawAtX, drawAtY);
+    scr._ctx.save();
+    scr._ctx.translate(drawAtX, drawAtY);
 
     const startX = renderingLimits
       ? Math.max((renderingLimits.left / this.sizePx) | 0, 0)
@@ -108,7 +108,7 @@ export abstract class Tilemap<TileT> {
       }
     }
 
-    scr.ctx.restore();
+    scr._ctx.restore();
   }
 
   /**

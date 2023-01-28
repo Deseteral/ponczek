@@ -8,48 +8,88 @@ import { Sprite } from 'ponczek/gfx/spritesheet';
 export const FLIP_H = 1 << 0;
 export const FLIP_V = 1 << 1;
 
+/**
+ * Representation of video buffer used for drawing stuff onto the screen.
+ *
+ * Uses coordinate system with root in the upper-left corner of the screen (coordinates <0, 0>).
+ * X-axis values grow to the right and Y-axis values grow down.
+ */
 export class Screen {
-  public width: number;
-  public height: number;
+  /**
+   * Width of the screen in pixels.
+   */
+  public readonly width: number;
 
+  /**
+   * Height of the screen in pixels.
+   */
+  public readonly height: number;
+
+  /**
+   * Font that will be used for drawing text.
+   */
   public activeFont: (Font | null) = null;
-  public ctx: CanvasRenderingContext2D;
 
-  public get domElement(): HTMLCanvasElement { return this.ctx.canvas; }
+  public readonly _ctx: CanvasRenderingContext2D;
+  public get _domElement(): HTMLCanvasElement { return this._ctx.canvas; }
 
+  /**
+   * Creates new screen of specified size.
+   */
   constructor(width: number, height: number) {
     this.width = width;
     this.height = height;
-    this.ctx = Screen.createCanvas(width, height);
+    this._ctx = Screen.createCanvas(width, height);
   }
 
+  /**
+   * Sets active color.
+   */
   public color(color: Color): void {
-    this.ctx.fillStyle = color.cssString;
+    this._ctx.fillStyle = color.cssString;
   }
 
+  /**
+   * Sets active font.
+   */
   public font(font: Font): void {
     this.activeFont = font;
   }
 
+  /**
+   * Fills entire screen with specified color.
+   */
   public clearScreen(clearColor: Color = Color.black): void {
-    const prevColor = this.ctx.fillStyle;
-    this.ctx.fillStyle = clearColor.cssString;
-    this.ctx.fillRect(0, 0, this.width, this.height);
-    this.ctx.fillStyle = prevColor;
+    const prevColor = this._ctx.fillStyle;
+    this._ctx.fillStyle = clearColor.cssString;
+    this._ctx.fillRect(0, 0, this.width, this.height);
+    this._ctx.fillStyle = prevColor;
   }
 
+  /**
+   * Sets pixel in given position to active color.
+   */
   public setPixelV(position: Vector2): void {
     this.setPixel(position.x, position.y);
   }
 
+  /**
+   * Sets pixel in given position to active color.
+   */
   public setPixel(x: number, y: number): void {
     this.fillRect((x | 0), (y | 0), 1, 1);
   }
 
+  /**
+   * Draws line between two points.
+   */
   public drawLineV(from: Vector2, to: Vector2): void {
     this.drawLine(from.x, from.y, to.x, to.y);
   }
 
+  /**
+   * Draws line between two points.
+   */
   public drawLine(x1: number, y1: number, x2: number, y2: number): void {
     x1 |= x1; // eslint-disable-line no-param-reassign
     y1 |= y1; // eslint-disable-line no-param-reassign
@@ -84,56 +124,94 @@ export class Screen {
     }
   }
 
+  /**
+   * Draws rectangle border with upper-left corner at specified position and provided width and height.
+   */
   public drawRectV(position: Vector2, w: number, h: number): void {
     this.drawRect(position.x, position.y, w, h);
   }
 
+  /**
+   * Draws rectangle border.
+   */
   public drawRectR(rect: Rectangle): void {
     this.drawRect(rect.x, rect.y, rect.width, rect.height);
   }
 
+  /**
+   * Draws rectangle border with upper-left corner at specified position and provided width and height.
+   */
   public drawRect(x: number, y: number, w: number, h: number): void {
     x |= 0; // eslint-disable-line no-param-reassign
     y |= 0; // eslint-disable-line no-param-reassign
 
-    this.ctx.fillRect(x, y, w, 1);
-    this.ctx.fillRect(x, y + h - 1, w, 1);
-    this.ctx.fillRect(x, y, 1, h);
-    this.ctx.fillRect(x + w - 1, y, 1, h);
+    this._ctx.fillRect(x, y, w, 1);
+    this._ctx.fillRect(x, y + h - 1, w, 1);
+    this._ctx.fillRect(x, y, 1, h);
+    this._ctx.fillRect(x + w - 1, y, 1, h);
   }
 
+  /**
+   * Draws filled rectangle with upper-left corner at specified position and provided width and height.
+   */
   public fillRectV(position: Vector2, w: number, h: number): void {
     this.fillRect(position.x, position.y, w, h);
   }
 
+  /**
+   * Draws filled rectangle.
+   */
   public fillRectR(rect: Rectangle): void {
     this.fillRect(rect.x, rect.y, rect.width, rect.height);
   }
 
+  /**
+   * Draws filled rectangle with upper-left corner at specified position and provided width and height.
+   */
   public fillRect(x: number, y: number, w: number, h: number): void {
-    this.ctx.fillRect((x | 0), (y | 0), w, h);
+    this._ctx.fillRect((x | 0), (y | 0), w, h);
   }
 
+  /**
+   * Draws circle border with its center at specified position with given radius.
+   */
   public drawCircleV(position: Vector2, radius: number): void {
     this.drawCircle(position.x, position.y, radius);
   }
 
+  /**
+   * Draws circle border with its center at specified position with given radius.
+   */
   public drawCircle(x: number, y: number, radius: number): void {
     this.circ(x, y, radius, false);
   }
 
+  /**
+   * Draws filled circle with its center at specified position with given radius.
+   */
   public fillCircleV(position: Vector2, radius: number): void {
     this.fillCircle(position.x, position.y, radius);
   }
 
+  /**
+   * Draws filled circle with its center at specified position with given radius.
+   */
   public fillCircle(x: number, y: number, radius: number): void {
     this.circ(x, y, radius, true);
   }
 
+  /**
+   * Draws entire texture at given position, with optional scaling by `w`, `h` parameters.
+   * Allow for horizontal and vertical flipping using `FLIP_H` and `FLIP_V` bitmask options.
+   */
   public drawTextureV(texture: Texture, position: Vector2, w: number = texture.width, h: number = texture.height, flip: number = 0): void {
     this.drawTexture(texture, position.x, position.y, w, h, flip);
   }
 
+  /**
+   * Draws entire texture at given position, with optional scaling by `w`, `h` parameters.
+   * Allow for horizontal and vertical flipping using `FLIP_H` and `FLIP_V` bitmask options.
+   */
   public drawTexture(texture: Texture, x: number, y: number, w: number = texture.width, h: number = texture.height, flip: number = 0): void {
     x |= 0; // eslint-disable-line no-param-reassign
     y |= 0; // eslint-disable-line no-param-reassign
@@ -141,14 +219,20 @@ export class Screen {
     const flipH = !!(flip & FLIP_H);
     const flipV = !!(flip & FLIP_V);
 
-    this.ctx.save();
-    this.ctx.translate((flipH ? w : 0) + x, (flipV ? h : 0) + y);
-    this.ctx.scale((flipH ? -1 : 1), (flipV ? -1 : 1));
+    this._ctx.save();
+    this._ctx.translate((flipH ? w : 0) + x, (flipV ? h : 0) + y);
+    this._ctx.scale((flipH ? -1 : 1), (flipV ? -1 : 1));
 
-    this.ctx.drawImage(texture.drawable, 0, 0, w, h);
-    this.ctx.restore();
+    this._ctx.drawImage(texture.drawable, 0, 0, w, h);
+    this._ctx.restore();
   }
 
+  /**
+   * Draws part of the texture.
+   * Texture part is defined by source position (`sx`, `sy`) and source size (`sw`, `sh`).
+   * On screen position is defined by position (`dx`, `dy`) and scaled by width and height (`dw`, `dh`).
+   * Allow for horizontal and vertical flipping using `FLIP_H` and `FLIP_V` bitmask options.
+   */
   public drawTexturePart(texture: Texture, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number, flip: number = 0): void {
     dx |= 0; // eslint-disable-line no-param-reassign
     dy |= 0; // eslint-disable-line no-param-reassign
@@ -156,18 +240,27 @@ export class Screen {
     const flipH = !!(flip & FLIP_H);
     const flipV = !!(flip & FLIP_V);
 
-    this.ctx.save();
-    this.ctx.translate((flipH ? dw : 0) + dx, (flipV ? dh : 0) + dy);
-    this.ctx.scale((flipH ? -1 : 1), (flipV ? -1 : 1));
+    this._ctx.save();
+    this._ctx.translate((flipH ? dw : 0) + dx, (flipV ? dh : 0) + dy);
+    this._ctx.scale((flipH ? -1 : 1), (flipV ? -1 : 1));
 
-    this.ctx.drawImage(texture.drawable, sx, sy, sw, sh, 0, 0, dw, dh);
-    this.ctx.restore();
+    this._ctx.drawImage(texture.drawable, sx, sy, sw, sh, 0, 0, dw, dh);
+    this._ctx.restore();
   }
 
+  /**
+   * Draws predefined sprite at given position.
+   * Allow for horizontal and vertical flipping using `FLIP_H` and `FLIP_V` bitmask options.
+   * Allows for scaling using scale factor (where 1 = original size as defined in provided sprite).
+   */
   public drawSprite(sprite: Sprite, dx: number, dy: number, flip: number = 0, scale: number = 1): void {
     this.drawTexturePart(sprite.sheet.texture, sprite.sx, sprite.sy, sprite.sw, sprite.sh, dx, dy, sprite.sw * scale, sprite.sh * scale, flip);
   }
 
+  /**
+   * Draws a [9-slice](https://en.wikipedia.org/wiki/9-slice_scaling) with upper-left corner at specified position and with width and height.
+   * This simplifed implementation allows for 9-slices with equal size patches defined by `patchWidth` and `patchHeight` parameters.
+   */
   public drawNineSlice(texture: Texture, x: number, y: number, w: number, h: number, patchWidth: number, patchHeight: number): void {
     x |= 0; // eslint-disable-line no-param-reassign
     y |= 0; // eslint-disable-line no-param-reassign
@@ -200,33 +293,55 @@ export class Screen {
     this.drawTexturePart(texture, patchWidth, patchHeight, patchWidth, patchHeight, x, y, w, h);
   }
 
+  /**
+   * Sets the area in which the drawing will be performed.
+   * To reset the area to full screen call it without arguments.
+   */
   public clip(x?: number, y?: number, w?: number, h?: number): void {
     if (x === undefined || y === undefined || w === undefined || h === undefined) {
-      this.ctx.restore();
+      this._ctx.restore();
       return;
     }
 
     x |= 0; // eslint-disable-line no-param-reassign
     y |= 0; // eslint-disable-line no-param-reassign
 
-    this.ctx.save();
-    this.ctx.beginPath();
-    this.ctx.rect(x, y, w, h);
-    this.ctx.clip();
+    this._ctx.save();
+    this._ctx.beginPath();
+    this._ctx.rect(x, y, w, h);
+    this._ctx.clip();
   }
 
+  /**
+   * Draws text at given position, and color.
+   * Active font has to have generated color variant for the specified color.
+   */
   public drawTextV(text: string, position: Vector2, color: Color): void {
     this.drawText(text, position.x, position.y, color);
   }
 
+  /**
+   * Draws text at given position, and color.
+   * Active font has to have generated color variant for the specified color.
+   */
   public drawText(text: string, x: number, y: number, color: Color): void {
     this.drawTextInRect(text, x, y, Infinity, Infinity, color);
   }
 
-  public drawTextInRectR(text: string, rect: Rectangle, color: Color): void {
-    this.drawTextInRect(text, rect.x, rect.y, rect.width, rect.height, color);
+  /**
+   * Draws text inside given bounds, with provided color.
+   * Active font has to have generated color variant for the specified color.
+   * The text will be laid out inside rectangle bounds - text will be split into new lines and clipped.
+   */
+  public drawTextInRectR(text: string, bounds: Rectangle, color: Color): void {
+    this.drawTextInRect(text, bounds.x, bounds.y, bounds.width, bounds.height, color);
   }
 
+  /**
+   * Draws text inside given bounds, with provided color.
+   * Active font has to have generated color variant for the specified color.
+   * The text will be laid out inside rectangle bounds - text will be split into new lines and clipped.
+   */
   public drawTextInRect(text: string, x: number, y: number, w: number, h: number, color: Color): void {
     if (!this.activeFont) {
       console.error('No active font was set');
@@ -263,8 +378,12 @@ export class Screen {
     this.clip();
   }
 
+  /**
+   * Writes the color of the pixel in `out` parameter.
+   * Warning! This is performance intensive call.
+   */
   public getPixel(x: number, y: number, out: Color): void {
-    const data = this.ctx.getImageData(x, y, 1, 1).data;
+    const data = this._ctx.getImageData(x, y, 1, 1).data;
     out.setFrom0255(data[0], data[1], data[2], data[3]);
   }
 

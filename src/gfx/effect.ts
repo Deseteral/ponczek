@@ -25,7 +25,7 @@ export abstract class Effect {
    * Applies effect to given `Screen`.
    */
   public applyToScreen(target: Screen): void {
-    const targetBuffer = target.ctx.getImageData(0, 0, target.width, target.height);
+    const targetBuffer = target._ctx.getImageData(0, 0, target.width, target.height);
 
     const outColor = new Color(0, 0, 0, 0);
     const w = target.width;
@@ -46,7 +46,7 @@ export abstract class Effect {
       targetBuffer.data[idx + 3] = (outColor.a * 255) | 0;
     }
 
-    target.ctx.putImageData(targetBuffer, 0, 0);
+    target._ctx.putImageData(targetBuffer, 0, 0);
   }
 
   /**

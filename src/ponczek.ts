@@ -56,7 +56,7 @@ export abstract class Ponczek {
   public static async initialize(width: number, height: number, initialScene: () => Scene, startupConfig: number = STARTUP_NORMAL): Promise<void> {
     Ponczek.screen = new Screen(width, height);
 
-    Input._initialize(Ponczek.screen.domElement);
+    Input._initialize(Ponczek.screen._domElement);
 
     const monogramTexture = await Assets.defaultFontTexture();
     Ponczek.defaultFont = new Font(monogramTexture, 8, 8);
@@ -97,7 +97,7 @@ export abstract class Ponczek {
     }
 
     containerEl.innerHTML = '';
-    containerEl.appendChild(Ponczek.screen.domElement);
+    containerEl.appendChild(Ponczek.screen._domElement);
 
     window.addEventListener('resize', () => Ponczek.onWindowResize());
     Ponczek.onWindowResize();
@@ -134,6 +134,6 @@ export abstract class Ponczek {
       : scaleByHeight;
 
     const canvasWidth = Ponczek.screen.width * scale;
-    Ponczek.screen.domElement.style.width = `${canvasWidth}px`;
+    Ponczek.screen._domElement.style.width = `${canvasWidth}px`;
   }
 }

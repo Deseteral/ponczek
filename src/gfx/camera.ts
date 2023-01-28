@@ -41,15 +41,15 @@ export class Camera {
    * Sets up camera for drawing. Call this before any draw calls that need to be translated.
    */
   public begin(): void {
-    Ponczek.screen.ctx.save();
-    Ponczek.screen.ctx.translate(-this.left, -this.top);
+    Ponczek.screen._ctx.save();
+    Ponczek.screen._ctx.translate(-this.left, -this.top);
   }
 
   /**
    * Completes camera work after drawing. Call this method after all draw calls have been made.
    */
   public end(): void {
-    Ponczek.screen.ctx.restore();
+    Ponczek.screen._ctx.restore();
   }
 
   /**
