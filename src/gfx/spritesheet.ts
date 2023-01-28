@@ -1,20 +1,26 @@
 import { Assets } from 'ponczek/core/assets';
 import { Texture } from 'ponczek/gfx/texture';
 
+/**
+ * Single, drawable sprite. Part of spritesheet texture.
+ */
 export class Sprite {
-  public readonly x: number;
-  public readonly y: number;
+  public readonly _sx: number;
+  public readonly _sy: number;
+  public readonly _sw: number;
+  public readonly _sh: number;
 
-  public readonly widthTiles: number;
-  public readonly heightTiles: number;
+  public readonly _sheet: SpriteSheet;
 
-  public readonly sx: number;
-  public readonly sy: number;
-  public readonly sw: number;
-  public readonly sh: number;
+  private readonly x: number;
+  private readonly y: number;
+  private readonly widthTiles: number;
+  private readonly heightTiles: number;
 
-  public readonly sheet: SpriteSheet;
-
+  /**
+   * Creates new sprite from spritesheet's x-column and y-row.
+   * One sprite can be made out of multiple tiles as defined by `widthTiles` and `heightTiles`.
+   */
   constructor(x: number, y: number, widthTiles: number, heightTiles: number, sheet: SpriteSheet) {
     this.x = x;
     this.y = y;
@@ -22,28 +28,38 @@ export class Sprite {
     this.widthTiles = widthTiles;
     this.heightTiles = heightTiles;
 
-    this.sheet = sheet;
+    this._sheet = sheet;
 
-    this.sx = this.x * this.sheet.size;
-    this.sy = this.y * this.sheet.size;
-    this.sw = this.sheet.size * this.widthTiles;
-    this.sh = this.sheet.size * this.heightTiles;
+    this._sx = this.x * this._sheet.size;
+    this._sy = this.y * this._sheet.size;
+    this._sw = this._sheet.size * this.widthTiles;
+    this._sh = this._sheet.size * this.heightTiles;
   }
 }
 
+/**
+ * View into large texture divided into equal, square tiles called sprites.
+ */
 export class SpriteSheet {
-  public readonly texture: Texture;
+  /**
+   * Width and height in pixels of single, square sprite.
+   */
   public readonly size: number;
+
+  public readonly _texture: Texture;
 
   private readonly columnCount: number;
   private readonly rowCount: number;
   private readonly tiles: Sprite[];
 
+  /**
+   * Creates new spritesheet for given texture with sprites of a given size (in pixels).
+   */
   constructor(textureName: string, size: number) {
-    this.texture = Assets.texture(textureName);
+    this._texture = Assets.texture(textureName);
     this.size = size;
-    this.columnCount = (this.texture.width / size) | 0;
-    this.rowCount = (this.texture.height / size) | 0;
+    this.columnCount = (this._texture.width / size) | 0;
+    this.rowCount = (this._texture.height / size) | 0;
     this.tiles = new Array(this.columnCount * this.rowCount);
 
     for (let y = 0; y < this.rowCount; y += 1) {
@@ -61,7 +77,7 @@ export class SpriteSheet {
   }
 
   /**
-   * Returns sprite x column and y row from sprite sheet.
+   * Returns sprite at x-column and y-row from sprite sheet.
    */
   public getSpriteAt(x: number, y: number): Sprite {
     return this.tiles[x + y * this.columnCount];

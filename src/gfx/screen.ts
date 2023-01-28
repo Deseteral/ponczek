@@ -254,7 +254,7 @@ export class Screen {
    * Allows for scaling using scale factor (where 1 = original size as defined in provided sprite).
    */
   public drawSprite(sprite: Sprite, dx: number, dy: number, flip: number = 0, scale: number = 1): void {
-    this.drawTexturePart(sprite.sheet.texture, sprite.sx, sprite.sy, sprite.sw, sprite.sh, dx, dy, sprite.sw * scale, sprite.sh * scale, flip);
+    this.drawTexturePart(sprite._sheet._texture, sprite._sx, sprite._sy, sprite._sw, sprite._sh, dx, dy, sprite._sw * scale, sprite._sh * scale, flip);
   }
 
   /**
