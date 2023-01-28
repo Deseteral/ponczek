@@ -2,9 +2,28 @@ import { Color } from 'ponczek/gfx/color';
 import { Texture } from 'ponczek/gfx/texture';
 import { Screen } from 'ponczek/gfx/screen';
 
+/**
+ * Graphical effect that can be applied to any `Texture` or `Screen`.
+ *
+ * From developer perspective effects work in similar way to fragment shaders.
+ * The developer has to implement `fragment` method that decides what color any pixel should be.
+ */
 export abstract class Effect {
+  /**
+   * Decides the color of pixel. Calculated color values has to be set on the `outColor` parameter.
+   * - `x` - x-coordinate of the pixel.
+   * - `y` - x-coordinate of the pixel.
+   * - `w` - width of the target texture/screen.
+   * - `h` - height of the target texture/screen.
+   * - `u` - number in range [0, 1], coordinate of the pixel in target (essentialy `x/w`).
+   * - `v` - number in range [0, 1], coordinate of the pixel in target (essentialy `y/h`).
+   * - `outColor` - current color of the target pixel and where the calculation result should be set.
+   */
   protected abstract fragment(x: number, y: number, w: number, h: number, u: number, v: number, outColor: Color): void;
 
+  /**
+   * Applies effect to given `Screen`.
+   */
   public applyToScreen(target: Screen): void {
     const targetBuffer = target.ctx.getImageData(0, 0, target.width, target.height);
 
@@ -30,6 +49,9 @@ export abstract class Effect {
     target.ctx.putImageData(targetBuffer, 0, 0);
   }
 
+  /**
+   * Applies effect to given `Texture`.
+   */
   public apply(target: Texture): void {
     const w = target.width;
     const h = target.height;
