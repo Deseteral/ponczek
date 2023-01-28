@@ -9,15 +9,15 @@ export class Font {
   /**
    * Width in pixels of single character in font spritesheet.
    */
-  public charWidth: number;
+  public readonly charWidth: number;
 
   /**
    * Height in pixels of single character in font spritesheet.
    */
-  public charHeight: number;
+  public readonly charHeight: number;
 
-  private sourceTexture: Texture;
-  private colorVariants: Map<string, Texture>;
+  private readonly sourceTexture: Texture;
+  private readonly colorVariants: Map<string, Texture>;
 
   /**
    * Creates new font from spritesheet, width and height of a single character in pixels.
