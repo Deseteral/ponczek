@@ -270,14 +270,14 @@ export class Screen {
 
   private textLine(text: string, x: number, y: number, color: Color): void {
     const font = this.activeFont!;
-    const fontTexture = font.getTextureForColor(color);
+    const fontTexture = font._getTextureForColor(color);
 
     for (let idx = 0; idx < text.length; idx += 1) {
       const char = text[idx];
       this.drawTexturePart(
         fontTexture,
-        font.getSourceXForChar(char),
-        font.getSourceYForChar(char),
+        font._getSourceXForChar(char),
+        font._getSourceYForChar(char),
         font.charWidth,
         font.charHeight,
         (x + (idx * font.charWidth)) | 0,
