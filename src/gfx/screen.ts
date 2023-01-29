@@ -223,7 +223,7 @@ export class Screen {
     this._ctx.translate((flipH ? w : 0) + x, (flipV ? h : 0) + y);
     this._ctx.scale((flipH ? -1 : 1), (flipV ? -1 : 1));
 
-    this._ctx.drawImage(texture.drawable, 0, 0, w, h);
+    this._ctx.drawImage(texture._drawable, 0, 0, w, h);
     this._ctx.restore();
   }
 
@@ -244,7 +244,7 @@ export class Screen {
     this._ctx.translate((flipH ? dw : 0) + dx, (flipV ? dh : 0) + dy);
     this._ctx.scale((flipH ? -1 : 1), (flipV ? -1 : 1));
 
-    this._ctx.drawImage(texture.drawable, sx, sy, sw, sh, 0, 0, dw, dh);
+    this._ctx.drawImage(texture._drawable, sx, sy, sw, sh, 0, 0, dw, dh);
     this._ctx.restore();
   }
 

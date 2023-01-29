@@ -3,6 +3,9 @@ import { Color } from 'ponczek/gfx/color';
 export type HTMLTextureSource = HTMLCanvasElement | HTMLImageElement | ImageBitmap | OffscreenCanvas;
 export type Drawable = HTMLCanvasElement;
 
+/**
+ * Pixel-color data for the texture. Allows to modify texture color data.
+ */
 export class TextureData {
   private pixels: Color[];
   private ctx: CanvasRenderingContext2D;
@@ -30,30 +33,48 @@ export class TextureData {
     }
   }
 
+  /**
+   * Sets color for n-th pixel.
+   */
   public setPixelIdx(idx: number, color: Color): void {
     this.pixels[idx].setFromColor(color);
   }
 
+  /**
+   * Sets color for pixel at <x, y> coordinate.
+   */
   public setPixel(x: number, y: number, color: Color): void {
     const idx = x + (this.ctx.canvas.width * y);
     this.setPixelIdx(idx, color);
   }
 
+  /**
+   * Returns color of the n-th pixel.
+   */
   public getPixelIdx(idx: number): Color {
     return this.pixels[idx];
   }
 
+  /**
+   * Returns color of the pixel at <x, y> coordinate.
+   */
   public getPixel(x: number, y: number): Color {
     const idx = x + (this.ctx.canvas.width * y);
     return this.getPixelIdx(idx);
   }
 
+  /**
+   * Returns color of the pixel at <u, v> coordinate where u/v is in range [0, 1].
+   */
   public getPixelUV(u: number, v: number): Color {
     const x = (u * this.ctx.canvas.width) | 0;
     const y = (v * this.ctx.canvas.height) | 0;
     return this.getPixel(x, y);
   }
 
+  /**
+   * Commits color changes into texture memory.
+   */
   public commit(): void {
     const buffer = this.ctx.getImageData(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 
@@ -70,17 +91,32 @@ export class TextureData {
   }
 }
 
+/**
+ * In memory representation of a drawable texture.
+ */
 export class Texture {
-  public readonly drawable: Drawable;
+  /**
+   * Width of the texture in pixels.
+   */
   public readonly width: number;
+
+  /**
+   * Height of the texture in pixels.
+   */
   public readonly height: number;
+
+  /**
+   * Pixel-color data for the texture.
+   */
   public readonly data: TextureData;
 
+  public readonly _drawable: Drawable;
+
   private constructor(drawable: Drawable) {
-    this.drawable = drawable;
+    this._drawable = drawable;
     this.width = drawable.width;
     this.height = drawable.height;
-    this.data = new TextureData(this.drawable);
+    this.data = new TextureData(this._drawable);
   }
 
   public static createEmpty(width: number, height: number): Texture {
@@ -92,7 +128,7 @@ export class Texture {
   }
 
   public static copy(texture: Texture): Texture {
-    return Texture.createFromSource(texture.drawable);
+    return Texture.createFromSource(texture._drawable);
   }
 
   public static createFromSource(source: HTMLTextureSource): Texture {
