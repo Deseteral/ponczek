@@ -46,7 +46,7 @@ export class TilemapTestScene extends Scene {
   private pointerInWorld: Vector2;
   private startingTile: TestTile;
   private targetTile: TestTile;
-  private path: number[][];
+  private path: Vector2[];
   private withDiagonals: boolean = false;
 
   constructor() {
@@ -121,8 +121,8 @@ export class TilemapTestScene extends Scene {
       scr.drawSprite(this.tileset.getSpriteAt(0, 2), this.targetTile.x * this.map.sizePx, this.targetTile.y * this.map.sizePx);
 
       for (let idx = 0; idx < this.path.length; idx += 1) {
-        const [x, y] = this.path[idx];
-        scr.drawSprite(this.tileset.getSpriteAt(1, 2), x * this.map.sizePx, y * this.map.sizePx);
+        const pathNode = this.path[idx];
+        scr.drawSprite(this.tileset.getSpriteAt(1, 2), pathNode.x * this.map.sizePx, pathNode.y * this.map.sizePx);
       }
     }
     this.camera.end();

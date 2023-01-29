@@ -1,4 +1,5 @@
 import { PriorityQueue } from 'ponczek/data/priority-queue';
+import { Vector2 } from 'ponczek/math/vector2';
 
 const DIRECTIONS = [
   [0, -1],
@@ -51,7 +52,7 @@ export class Pathfinder {
    * Start/end node is described as coordinate pair (x-column, y-row).
    * When the path does not exist - an empty array will be returned.
    */
-  public search(startX: number, startY: number, endX: number, endY: number, withDiagonals: boolean = false): number[][] {
+  public search(startX: number, startY: number, endX: number, endY: number, withDiagonals: boolean = false): Vector2[] {
     const startIdx = startX + (startY * this.width);
     const endIdx = endX + (endY * this.width);
 
@@ -59,7 +60,7 @@ export class Pathfinder {
     const path = new Array(indices.length);
     for (let it = 0; it < indices.length; it += 1) {
       const idx = indices[it];
-      path[it] = [((idx % this.width) | 0), ((idx / this.width) | 0)];
+      path[it] = new Vector2((idx % this.width) | 0, (idx / this.width) | 0);
     }
 
     return path;
