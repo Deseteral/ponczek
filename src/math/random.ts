@@ -14,12 +14,21 @@ const c = 0xefc60000;
 const l = 18;
 const f = 1812433253;
 
+/**
+ * Mersenne Twister based random number generator.
+ */
 export class Random {
+  /**
+   * Default instance of RNG with time-based seed.
+   */
   public static readonly default = new Random();
 
   private mt: number[];
   private index: number;
 
+  /**
+   * Creates new random number generator using (optional) seed.
+   */
   constructor(public seed: number = Date.now()) {
     this.index = n;
     this.mt = new Array<number>(n);
