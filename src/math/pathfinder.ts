@@ -18,11 +18,17 @@ const DIRECTIONS_WITH_DIAGONALS = [
   [-1, -1],
 ];
 
+/**
+ * A* pathfinding in two dimensional grid.
+ */
 export class Pathfinder {
   private graph: number[];
   private width: number;
   private height: number;
 
+  /**
+   * Creates new pathfinder for a graph of given size.
+   */
   constructor(width: number, height: number) {
     this.graph = new Array(width * height);
     this.width = width;
@@ -33,10 +39,18 @@ export class Pathfinder {
     }
   }
 
-  public setWeight(idx: number, weight: number): void {
-    this.graph[idx] = weight;
+  /**
+   * Sets the cost of movement to n-th tile.
+   */
+  public setCost(idx: number, cost: number): void {
+    this.graph[idx] = cost;
   }
 
+  /**
+   * Returns array of coordinates that make up the path from start node to end node.
+   * Start/end node is described as coordinate pair (x-column, y-row).
+   * When the path does not exist - an empty array will be returned.
+   */
   public search(startX: number, startY: number, endX: number, endY: number, withDiagonals: boolean = false): number[][] {
     const startIdx = startX + (startY * this.width);
     const endIdx = endX + (endY * this.width);
@@ -51,6 +65,11 @@ export class Pathfinder {
     return path;
   }
 
+  /**
+   * Returns array of coordinates that make up the path from start node to end node.
+   * Start/end node is described as tile-index pair.
+   * When the path does not exist - an empty array will be returned.
+   */
   public searchIdx(start: number, end: number, withDiagonals: boolean = false): number[] {
     if (this.graph[end] === 0) {
       return [];

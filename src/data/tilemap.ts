@@ -74,7 +74,7 @@ export abstract class Tilemap<TileT> {
     const idx = x + y * this.width;
     if (idx < this.tiles.length) {
       this.tiles[idx] = tile;
-      this.pathfinder.setWeight(idx, cost);
+      this.pathfinder.setCost(idx, cost);
     }
   }
 
