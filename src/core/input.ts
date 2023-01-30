@@ -40,7 +40,7 @@ export abstract class Input {
   public static getButton(action: string): boolean {
     const keys = this.binds.get(action) ?? [];
     if (keys.isEmpty()) {
-      Ponczek.log(`Nothing bound to action ${action}`);
+      Ponczek._log(`Nothing bound to action ${action}`);
       return false;
     }
 
@@ -54,7 +54,7 @@ export abstract class Input {
   public static getButtonDown(action: string): boolean {
     const keys = this.binds.get(action) ?? [];
     if (keys.isEmpty()) {
-      Ponczek.log(`Nothing bound to action ${action}`);
+      Ponczek._log(`Nothing bound to action ${action}`);
       return false;
     }
 

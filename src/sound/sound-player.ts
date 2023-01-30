@@ -29,7 +29,7 @@ export abstract class SoundPlayer {
     const name = this.idToName.get(id);
 
     if (!name) {
-      Ponczek.log(`No sound with id ${id} was played`);
+      Ponczek._log(`No sound with id ${id} was played`);
       return;
     }
 

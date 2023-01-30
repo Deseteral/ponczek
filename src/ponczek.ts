@@ -1,6 +1,5 @@
 /*
  * 1.0.0:
- * TODO: Documentation
  * TODO: Template repository (to be used with npm/yarn create)
  * TODO: Generate favicons for examples page
  *
@@ -40,19 +39,57 @@ import { Scene } from 'ponczek/core/scene';
 import { SplashScreenScene } from 'ponczek/scenes/splash-screen-scene';
 import { Assets } from 'ponczek/core/assets';
 
+/**
+ * Default start up option.
+ */
 export const STARTUP_NORMAL = 1 << 1;
+
+/**
+ * Starts without Ponczek splash screen.
+ */
 export const STARTUP_SKIP_SPLASH_SCREEN = 1 << 2;
+
+/**
+ * Skips the requirement to click "▶️ Play" before running the game loop.
+ * Not recommended since it may introduce problems with sound playback in some browsers.
+ */
 export const STARTUP_AUTOPLAY = 1 << 3;
 
+/**
+ * Singleton class for general framework options and operations.
+ */
 export abstract class Ponczek {
+  /**
+   * Number of update ticks since application start.
+   */
   public static ticks: number = 0;
+
+  /**
+   * Whether updates should increase `ticks` value.
+   */
   public static shouldCountTicks: boolean = true;
 
+  /**
+   * Default font used to render debug information.
+   */
   public static defaultFont: Font;
+
+  /**
+   * Drawing target that will be presented to the player.
+   */
   public static screen: Screen;
 
+  /**
+   * Whether Ponczek is operating in debug mode. This might display debug information like performance stats.
+   * Can be toggled using F3 key.
+   */
   public static debugMode: boolean = false;
 
+  /**
+   * Initializes and starts new Ponczek application.
+   * `width` and `height` represent the size of video buffer that you will be drawing on.
+   * `startupConfig` is a bit mask deciding how the initial scene will run.
+   */
   public static async initialize(width: number, height: number, initialScene: () => Scene, startupConfig: number = STARTUP_NORMAL): Promise<void> {
     Ponczek.screen = new Screen(width, height);
 
@@ -86,7 +123,7 @@ export abstract class Ponczek {
     }
   }
 
-  public static log(msg: string): void {
+  public static _log(msg: string): void {
     console.log(`%c[ponczek] ${msg}`, 'color: palevioletred');
   }
 
