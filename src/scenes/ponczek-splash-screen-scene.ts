@@ -10,7 +10,7 @@ import { SoundPlayer } from 'ponczek/sound/sound-player';
 
 const transitionTime = 86;
 
-export class SplashScreenScene extends Scene {
+export class PonczekSplashScreenScene extends Scene {
   private transitionToScene: Scene;
   private ponczekTexture: Texture;
   private filteredPonczekTexture: Texture;

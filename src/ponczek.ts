@@ -36,7 +36,7 @@ import { Font } from 'ponczek/gfx/font';
 import { Color } from 'ponczek/gfx/color';
 import { SceneManager } from 'ponczek/core/scene-manager';
 import { Scene } from 'ponczek/core/scene';
-import { SplashScreenScene } from 'ponczek/scenes/splash-screen-scene';
+import { PonczekSplashScreenScene } from 'ponczek/scenes/ponczek-splash-screen-scene';
 import { Assets } from 'ponczek/core/assets';
 
 /**
@@ -103,7 +103,7 @@ export abstract class Ponczek {
     if (startupConfig & STARTUP_SKIP_SPLASH_SCREEN) {
       SceneManager.pushScene(initialScene());
     } else {
-      SceneManager.pushScene(new SplashScreenScene(initialScene()));
+      SceneManager.pushScene(new PonczekSplashScreenScene(initialScene()));
     }
 
     const containerEl = document.getElementById('container');
