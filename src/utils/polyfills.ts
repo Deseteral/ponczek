@@ -1,17 +1,24 @@
 Math.radiansToDegrees = 180 / Math.PI;
 Math.degreesToRadians = Math.PI / 180;
 
+/**
+ * Clamps given number between `min` and `max`.
+ */
 Math.clamp = function clamp(num: number, min: number, max: number): number {
   return Math.min(Math.max(num, min), max);
 };
 
-// eslint-disable-next-line no-extend-native
-Map.prototype.getOrElse = function getOr<K, V>(key: K, defaultValue: V): V {
+/**
+ * Returns value for that key or `defaultValue` if there is none.
+ */
+Map.prototype.getOrElse = function getOr<K, V>(key: K, defaultValue: V): V { // eslint-disable-line no-extend-native
   return this.get(key) || defaultValue;
 };
 
-// eslint-disable-next-line no-extend-native
-Array.prototype.isEmpty = function isEmpty(): boolean {
+/**
+ * Returns `true` when the array is empty (has length equal to zero).
+ */
+Array.prototype.isEmpty = function isEmpty(): boolean { // eslint-disable-line no-extend-native
   return this.length === 0;
 };
 
