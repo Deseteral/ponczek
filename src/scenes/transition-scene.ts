@@ -6,12 +6,17 @@ import { Color } from 'ponczek/gfx/color';
 import { Screen } from 'ponczek/gfx/screen';
 import { Texture } from 'ponczek/gfx/texture';
 
+const WAIT_TIME_MS = 200;
+
 enum TransitionState {
   FadeOut,
   Waiting,
   FadeIn,
 }
 
+/**
+ * Scene that renders in-and-out transition effect with user defined action in between.
+ */
 export class TransitionScene extends Scene {
   private action: () => void;
   private animationTimeMs: number;
@@ -23,6 +28,11 @@ export class TransitionScene extends Scene {
   private timer: Timer;
   private state: TransitionState = TransitionState.FadeOut;
 
+  /**
+   * Creates new transition with user defined action.
+   * The transition begins with `animationTimeMs` ms in-transition, a `WAIT_TIME_MS` ms waiting time and `animationTimeMs` ms out-transition.
+   * User can also specify transition fill color (defaults to black).
+   */
   constructor(action: () => void, animationTimeMs: number, transitionOut: Texture, transitionIn: Texture, color: Color = Color.black) {
     super();
     this.action = action;
@@ -50,7 +60,7 @@ export class TransitionScene extends Scene {
         SceneManager.pushScene(this);
 
         this.state = TransitionState.Waiting;
-        this.timer.set(200);
+        this.timer.set(WAIT_TIME_MS);
       }
     }
 
