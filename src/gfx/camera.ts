@@ -20,7 +20,7 @@ export class Camera {
   /**
    * Creates new camera with initial position (defaults to <0, 0>).
    */
-  constructor(position: Vector2 = Vector2.zero) {
+  constructor(position: Vector2 = Vector2.zero()) {
     this.position = position;
 
     this.viewportHalfWidth = Ponczek.screen.width >> 1;

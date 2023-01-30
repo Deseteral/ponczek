@@ -14,8 +14,8 @@ export class CameraTestScene extends Scene {
   private playerPosition: Vector2;
   private rect: Rectangle;
 
-  private _pointerInWorld: Vector2 = Vector2.zero;
-  private _rectInScreen: Vector2 = Vector2.zero;
+  private _pointerInWorld: Vector2 = Vector2.zero();
+  private _rectInScreen: Vector2 = Vector2.zero();
 
   constructor() {
     super();

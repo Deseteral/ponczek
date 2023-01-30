@@ -70,7 +70,7 @@ export class TilemapTestScene extends Scene {
     this.camera = new Camera();
     this.camera.position.set(Ponczek.screen.width >> 1, Ponczek.screen.height >> 1);
 
-    this.pointerInWorld = Vector2.zero;
+    this.pointerInWorld = Vector2.zero();
     this.startingTile = this.map.getTileAt(0, 0)!;
     this.targetTile = this.map.getTileAt(0, 0)!;
 
