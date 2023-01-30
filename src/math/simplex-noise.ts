@@ -1,13 +1,22 @@
 import { Random } from 'ponczek/math/random';
 
+/**
+ * Two dimensional implementation of simplex noise.
+ */
 export class SimplexNoise {
-  private perm: number[]; // TODO: Try using ArrayBuffer for optimization
+  private readonly perm: number[]; // TODO: Try using ArrayBuffer for optimization
 
+  /**
+   * Creates new noise generator from given random number generator (defaults to default RNG).
+   */
   constructor(random = Random.default) {
     this.perm = new Array(512);
     random.nextBytes(this.perm);
   }
 
+  /**
+   * Returns value in range [0, 1] at specified position and scale.
+   */
   public get(x: number, y: number, scale: number): number {
     const g = this.generate(x * scale, y * scale);
     return ((g * 128) + 128) * (1 / 255);
