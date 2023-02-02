@@ -1,10 +1,10 @@
 {
   "name": "ponczek",
-  "version": "1.0.0",
+  "version": "1.0.0-SNAPSHOT.0",
   "description": "Deep-fried game framework with sweet filling",
   "scripts": {
     "test": "npm run test:type-check && npm run test:lint",
-    "test:lint": "eslint . --ext ts,js",
+    "test:lint": "eslint . --ext ts",
     "test:type-check": "tsc --noEmit",
     "test:type-check:watch": "tsc --noEmit -w",
     "examples:build": "npm run examples:clean && npm run examples:build-assets && vite build",

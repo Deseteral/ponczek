@@ -20,7 +20,7 @@ class NoiseEffect extends Effect {
 
   constructor() {
     super();
-    this.regenerate();
+    this.noise = new SimplexNoise();
   }
 
   public regenerate(): void {

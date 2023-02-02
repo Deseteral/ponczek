@@ -62,6 +62,7 @@ export abstract class GridView<T> {
    * Creates new gridview with specified cell width and height.
    */
   constructor(cellWidth: number, cellHeight: number) {
+    this.cells = [[]];
     this.cellWidth = cellWidth;
     this.cellHeight = cellHeight;
   }

@@ -27,8 +27,9 @@ export class FilterColorChannelEffect extends Effect {
    */
   public filterBlue: boolean;
 
-  constructor(filterRed: boolean = false, filterGreen: boolean = false, filterBlue: boolean = false) {
+  constructor(source: Texture, filterRed: boolean = false, filterGreen: boolean = false, filterBlue: boolean = false) {
     super();
+    this.source = source;
     this.filterRed = filterRed;
     this.filterGreen = filterGreen;
     this.filterBlue = filterBlue;

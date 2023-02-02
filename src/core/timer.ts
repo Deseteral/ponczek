@@ -3,8 +3,8 @@
  */
 export class Timer {
   private active = false;
-  private timeMs: number;
-  private datetimeMsWhenTimerWasSet: number;
+  private timeMs: number = -1;
+  private datetimeMsWhenTimerWasSet: number = -1;
 
   /**
    * Returns time in milliseconds since timer was set.

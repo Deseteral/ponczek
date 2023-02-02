@@ -22,13 +22,13 @@ export class PonczekSplashScreenScene extends Scene {
     super();
     this.transitionToScene = transitionToScene;
     this.ponczekTexture = Assets.texture('ponczek');
+
     this.filteredPonczekTexture = Texture.copy(this.ponczekTexture);
-    this.filter = new FilterColorChannelEffect(true, true, true);
+    this.filter = new FilterColorChannelEffect(this.ponczekTexture, true, true, true);
+    this.filter.apply(this.filteredPonczekTexture);
+
     this.timer = new Timer();
     this.timer.set(500);
-
-    this.filter.source = this.ponczekTexture;
-    this.filter.apply(this.filteredPonczekTexture);
   }
 
   update(): void {
