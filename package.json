@@ -3,6 +3,8 @@
   "version": "1.0.0-SNAPSHOT.0",
   "description": "Deep-fried game framework with sweet filling",
   "scripts": {
+    "build": "npm run clean && tsc -p ./tsconfig.build.json",
+    "clean": "rm -rf ./dist",
     "test": "npm run test:type-check && npm run test:lint",
     "test:lint": "eslint . --ext ts",
     "test:type-check": "tsc --noEmit",
