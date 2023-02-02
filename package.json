@@ -1,6 +1,6 @@
 {
   "name": "ponczek",
-  "version": "1.0.0-SNAPSHOT.1",
+  "version": "1.0.0-SNAPSHOT.3",
   "description": "Deep-fried game framework with sweet filling",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
