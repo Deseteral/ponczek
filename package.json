@@ -1,9 +1,12 @@
 {
   "name": "ponczek",
-  "version": "1.0.0-SNAPSHOT.0",
+  "version": "1.0.0-SNAPSHOT.1",
   "description": "Deep-fried game framework with sweet filling",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "npm run clean && tsc -p ./tsconfig.build.json",
+    "build": "npm run clean && npm run build:generate-index-files && tsc -p ./tsconfig.build.json",
+    "build:generate-index-files": "npx ts-node ./scripts/generate-index-files",
     "clean": "rm -rf ./dist",
     "test": "npm run test:type-check && npm run test:lint",
     "test:lint": "eslint . --ext ts",
