@@ -1,7 +1,6 @@
 /*
  * 1.0.0:
  * TODO: Template repository (to be used with npm/yarn create)
- * TODO: Generate favicons for examples page
  *
  * Next release:
  * TODO: Text alignment
