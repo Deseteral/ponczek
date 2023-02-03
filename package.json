@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "npm run clean && npm run build:generate-index-files && tsc -p ./tsconfig.build.json && tsc-alias -p ./tsconfig.build.json",
-    "build:generate-index-files": "npx ts-node ./scripts/generate-index-files",
+    "build:generate-index-files": "ts-node ./scripts/generate-index-files",
     "clean": "rm -rf ./dist",
     "test": "npm run test:type-check && npm run test:lint",
     "test:lint": "eslint . --ext ts",
@@ -15,7 +15,7 @@
     "examples:build": "npm run examples:clean && npm run examples:build-assets && vite build",
     "examples:dev": "npm run examples:build-assets && vite",
     "examples:preview": "vite preview",
-    "examples:build-assets": "npx ts-node ./examples/scripts/generate-asset-list.ts",
+    "examples:build-assets": "ts-node ./examples/scripts/generate-asset-list.ts",
     "examples:clean": "rm -rf ./examples/dist",
     "prepublishOnly": "npm run build"
   },
@@ -30,6 +30,7 @@
     "@types/howler": "2.2.7",
     "@types/node": "18.11.18",
     "eslint": "8.31.0",
+    "ts-node": "10.9.1",
     "tsc-alias": "1.8.2",
     "typescript": "4.9.4",
     "vite": "4.0.4"
