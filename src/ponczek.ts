@@ -1,7 +1,4 @@
 /*
- * 1.0.0:
- * TODO: Template repository (to be used with npm/yarn create)
- *
  * Next release:
  * TODO: Text alignment
  * TODO: Camera boundaries

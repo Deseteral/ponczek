@@ -63,5 +63,24 @@ Uses fantastic font [Monogram by datagoblin](https://datagoblin.itch.io/monogram
 
 Works in every major browser.
 
+## 🔋 Quickstart
+To create new project use:
+```sh
+npm create ponczek-game
+```
+
+# 🧰 Development
+Install dependencies using `yarn`.
+
+You can start examples project in watch mode using:
+```sh
+npm run examples:dev
+```
+
+For type checking in watch mode during development use:
+```sh
+npm run test:type-check:watch
+```
+
 ## 📝 License
 This project is licensed under the [MIT license](LICENSE).
