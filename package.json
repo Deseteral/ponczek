@@ -2,6 +2,13 @@
   "name": "ponczek",
   "version": "1.0.0-SNAPSHOT.4",
   "description": "Deep-fried game framework with sweet filling",
+  "author": "Deseteral <github.com/deseteral>",
+  "license": "MIT",
+  "homepage": "https://github.com/Deseteral/ponczek#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Deseteral/ponczek.git"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -19,8 +26,6 @@
     "examples:clean": "rm -rf ./examples/dist",
     "prepublishOnly": "npm run build"
   },
-  "author": "Deseteral <github.com/deseteral>",
-  "license": "MIT",
   "dependencies": {
     "heapify": "0.6.0",
     "howler": "2.2.3"
