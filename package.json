@@ -16,7 +16,8 @@
     "examples:dev": "npm run examples:build-assets && vite",
     "examples:preview": "vite preview",
     "examples:build-assets": "npx ts-node ./examples/scripts/generate-asset-list.ts",
-    "examples:clean": "rm -rf ./examples/dist"
+    "examples:clean": "rm -rf ./examples/dist",
+    "prepublishOnly": "npm run build"
   },
   "author": "Deseteral <github.com/deseteral>",
   "license": "MIT",
