@@ -3,6 +3,11 @@
 
 <img src="./resources/logo.svg" alt="Project logo" width="500">
 
+## 🔋 Quickstart
+```sh
+npm create ponczek-game
+```
+
 ## 🤔 Why?
 I wanted something that would make it easier for me to create 2D games during game jams. This framework's design and future development reflects the type of games I like to make.
 
@@ -65,12 +70,6 @@ _* Only uses minimal amount of high quality runtime dependencies that are in and
 Uses fantastic font [Monogram by datagoblin](https://datagoblin.itch.io/monogram) as a default font.
 
 Works in every major browser.
-
-## 🔋 Quickstart
-To create new project use:
-```sh
-npm create ponczek-game
-```
 
 # 🧰 Development
 Install dependencies using `yarn`.
