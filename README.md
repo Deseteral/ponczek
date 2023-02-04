@@ -35,6 +35,9 @@ _* Only uses minimal amount of high quality runtime dependencies that are in and
   - Drawing monospaced sprite fonts
   - Color utilities
   - *Fragment shader*-like effect system
+    - Custom effects support
+    - Built-in RGB filtering effect
+    - Built-in color replacement effect
   - Camera
   - Spritesheets
   - Clipping
