@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 import path from 'path';
 
 export default defineConfig({
+  base: './',
   root: path.resolve(__dirname, './examples/src'),
   publicDir: path.resolve(__dirname, './examples/assets'),
   build: {
