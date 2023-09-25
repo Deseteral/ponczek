@@ -139,18 +139,13 @@ export abstract class Ponczek {
     io.Fonts.AddFontDefault();
 
     Ponczek.imguiCanvas = document.createElement('canvas');
-    Ponczek.imguiCanvas.style.position = 'absolute';
-    Ponczek.imguiCanvas.style.top = '0';
-    Ponczek.imguiCanvas.style.left = '0';
-    Ponczek.imguiCanvas.style.width = '100vw';
-    Ponczek.imguiCanvas.style.height = '100vh';
+    Ponczek.imguiCanvas.id = 'imgui-canvas';
 
     containerEl.innerHTML = '';
     containerEl.appendChild(Ponczek.screen._domElement);
     containerEl.appendChild(Ponczek.imguiCanvas);
 
-    const gl = Ponczek.imguiCanvas.getContext('webgl2', { alpha: true });
-    ImGui_Impl.Init(gl);
+    ImGui_Impl.Init(Ponczek.imguiCanvas.getContext('webgl2', { alpha: true }));
 
     window.addEventListener('resize', () => Ponczek.onWindowResize());
     Ponczek.onWindowResize();
