@@ -19,6 +19,7 @@ import { SceneStackTestScene } from 'examples/scenes/scene-stack-test-scene';
 import { SimplexNoiseTestScene } from 'examples/scenes/simplex-noise-test-scene';
 import { TilemapTestScene } from 'examples/scenes/tilemap-test-scene';
 import { withTransition } from 'examples/utils/with-transition';
+import { ImGuiTestScene } from 'examples/scenes/imgui-test-scene';
 
 interface Item {
   text: string,
@@ -58,6 +59,7 @@ export class MainMenuScene extends Scene {
       [{ text: 'Scene stack', scene: () => new SceneStackTestScene() }],
       [{ text: 'Simplex noise', scene: () => new SimplexNoiseTestScene() }],
       [{ text: 'Tilemap', scene: () => new TilemapTestScene() }],
+      [{ text: 'ImGui', scene: () => new ImGuiTestScene() }],
     ];
 
     this.frameTexture = Texture.copy(Assets.texture('frame'));
