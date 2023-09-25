@@ -166,11 +166,6 @@ export abstract class Ponczek {
     SceneManager._update();
     SceneManager._render(Ponczek.screen);
 
-    ImGui.Begin('Hello');
-    ImGui.Text('Version ');
-    ImGui.Button('Test button');
-    ImGui.End();
-
     if (Input.getKeyDown('F3')) Ponczek.debugMode = !Ponczek.debugMode;
 
     Input._update();
@@ -185,6 +180,7 @@ export abstract class Ponczek {
 
     ImGui.EndFrame();
     ImGui.Render();
+    ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0, 0, 0, 0));
     ImGui_Impl.RenderDrawData(ImGui.GetDrawData());
 
     requestAnimationFrame(Ponczek.loop);
