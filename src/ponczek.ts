@@ -14,7 +14,6 @@
  *
  * Future:
  * TODO: Remove howler dependency
- * TODO: ImGui support
  * TODO: Dithering patterns
  * TODO: Frame timing
  * TODO: Particle system
