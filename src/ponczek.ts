@@ -161,7 +161,10 @@ export abstract class Ponczek {
     SceneManager._update();
     SceneManager._render(Ponczek.screen);
 
-    if (Input.getKeyDown('F3')) Ponczek.debugMode = !Ponczek.debugMode;
+    if (Input.getKeyDown('F3')) {
+      Ponczek.debugMode = !Ponczek.debugMode;
+      Ponczek.imguiCanvas.style.pointerEvents = Ponczek.debugMode ? 'all' : 'none';
+    }
 
     Input._update();
 
