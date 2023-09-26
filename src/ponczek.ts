@@ -139,7 +139,7 @@ export abstract class Ponczek {
     io.Fonts.AddFontDefault();
 
     Ponczek.imguiCanvas = document.createElement('canvas');
-    Ponczek.imguiCanvas.id = 'imgui-canvas';
+    Ponczek.imguiCanvas.setAttribute('id', 'imgui-canvas');
 
     containerEl.innerHTML = '';
     containerEl.appendChild(Ponczek.screen._domElement);
