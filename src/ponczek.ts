@@ -25,7 +25,8 @@
  */
 
 import 'ponczek/utils/polyfills';
-import { ImGui, ImGui_Impl } from '@zhobo63/imgui-ts';
+import 'ponczek/imgui/imgui-env';
+
 import { Input } from 'ponczek/core/input';
 import { Screen } from 'ponczek/gfx/screen';
 import { Font } from 'ponczek/gfx/font';
@@ -34,6 +35,7 @@ import { SceneManager } from 'ponczek/core/scene-manager';
 import { Scene } from 'ponczek/core/scene';
 import { PonczekSplashScreenScene } from 'ponczek/scenes/ponczek-splash-screen-scene';
 import { Assets } from 'ponczek/core/assets';
+import * as ImGuiImpl from 'ponczek/imgui/imgui-impl';
 
 /**
  * Default start up option.
@@ -144,7 +146,7 @@ export abstract class Ponczek {
     containerEl.appendChild(Ponczek.screen._domElement);
     containerEl.appendChild(Ponczek.imguiCanvas);
 
-    ImGui_Impl.Init(Ponczek.imguiCanvas.getContext('webgl2', { alpha: true }));
+    ImGuiImpl.Init(Ponczek.imguiCanvas.getContext('webgl2', { alpha: true }));
 
     window.addEventListener('resize', () => Ponczek.onWindowResize());
     Ponczek.onWindowResize();
@@ -154,7 +156,7 @@ export abstract class Ponczek {
   private static loop(time: number): void {
     const st = performance.now();
 
-    ImGui_Impl.NewFrame(time);
+    ImGuiImpl.NewFrame(time);
     ImGui.NewFrame();
 
     SceneManager._update();
@@ -177,8 +179,7 @@ export abstract class Ponczek {
 
     ImGui.EndFrame();
     ImGui.Render();
-    ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0, 0, 0, 0));
-    ImGui_Impl.RenderDrawData(ImGui.GetDrawData());
+    ImGuiImpl.RenderDrawData(ImGui.GetDrawData());
 
     requestAnimationFrame(Ponczek.loop);
   }

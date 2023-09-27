@@ -1,7 +1,6 @@
 import { Screen } from 'ponczek/gfx/screen';
 import { Scene } from 'ponczek/core/scene';
 import { ENDESGA16PaletteIdx } from 'ponczek/palettes/endesga16-palette';
-import { ImGui } from '@zhobo63/imgui-ts';
 import { Input, SceneManager } from 'ponczek/core';
 import { withTransition } from 'examples/utils/with-transition';
 

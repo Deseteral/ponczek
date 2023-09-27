@@ -27,7 +27,6 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@zhobo63/imgui-ts": "0.1.41",
     "heapify": "0.6.0",
     "howler": "2.2.3"
   },
