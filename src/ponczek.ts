@@ -14,7 +14,6 @@
  *
  * Future:
  * TODO: Remove howler dependency
- * TODO: ImGui support
  * TODO: Dithering patterns
  * TODO: Frame timing
  * TODO: Particle system
@@ -26,6 +25,8 @@
  */
 
 import 'ponczek/utils/polyfills';
+import 'ponczek/imgui/imgui-env';
+
 import { Input } from 'ponczek/core/input';
 import { Screen } from 'ponczek/gfx/screen';
 import { Font } from 'ponczek/gfx/font';
@@ -34,6 +35,7 @@ import { SceneManager } from 'ponczek/core/scene-manager';
 import { Scene } from 'ponczek/core/scene';
 import { PonczekSplashScreenScene } from 'ponczek/scenes/ponczek-splash-screen-scene';
 import { Assets } from 'ponczek/core/assets';
+import * as ImGuiImpl from 'ponczek/imgui/imgui-impl';
 
 /**
  * Default start up option.
@@ -82,6 +84,13 @@ export abstract class Ponczek {
   public static debugMode: boolean = false;
 
   /**
+   * Whether ImGui should be rendering on top of the game.
+   */
+  public static renderImGui: boolean = true;
+
+  private static imguiCanvas: HTMLCanvasElement;
+
+  /**
    * Initializes and starts new Ponczek application.
    * `width` and `height` represent the size of video buffer that you will be drawing on.
    * `startupConfig` is a bit mask deciding how the initial scene will run.
@@ -108,13 +117,13 @@ export abstract class Ponczek {
     }
 
     if (startupConfig & STARTUP_AUTOPLAY) {
-      Ponczek.start();
+      await Ponczek.start();
     } else {
       containerEl.innerHTML = '▶ Play';
       containerEl.style.cursor = 'pointer';
-      containerEl.addEventListener('click', () => {
+      containerEl.addEventListener('click', async () => {
         containerEl.style.cursor = 'default';
-        Ponczek.start();
+        await Ponczek.start();
       }, { once: true });
     }
   }
@@ -123,27 +132,47 @@ export abstract class Ponczek {
     console.log(`%c[ponczek] ${msg}`, 'color: palevioletred');
   }
 
-  private static start(): void {
+  private static async start(): Promise<void> {
     const containerEl = document.getElementById('container');
     if (!containerEl) {
       throw new Error('Missing container element in DOM');
     }
 
+    await ImGui.default();
+    ImGui.CHECKVERSION();
+    ImGui.CreateContext();
+    const io: ImGui.IO = ImGui.GetIO();
+    io.Fonts.AddFontDefault();
+
+    Ponczek.imguiCanvas = document.createElement('canvas');
+    Ponczek.imguiCanvas.setAttribute('id', 'imgui-canvas');
+
     containerEl.innerHTML = '';
     containerEl.appendChild(Ponczek.screen._domElement);
+    containerEl.appendChild(Ponczek.imguiCanvas);
+
+    ImGuiImpl.Init(Ponczek.imguiCanvas.getContext('webgl2', { alpha: true }));
 
     window.addEventListener('resize', () => Ponczek.onWindowResize());
     Ponczek.onWindowResize();
-    Ponczek.loop();
+    requestAnimationFrame(Ponczek.loop);
   }
 
-  private static loop(): void {
+  private static loop(time: number): void {
     const st = performance.now();
+
+    if (Ponczek.renderImGui) {
+      ImGuiImpl.NewFrame(time);
+      ImGui.NewFrame();
+    }
 
     SceneManager._update();
     SceneManager._render(Ponczek.screen);
 
-    if (Input.getKeyDown('F3')) Ponczek.debugMode = !Ponczek.debugMode;
+    if (Input.getKeyDown('F3')) {
+      Ponczek.debugMode = !Ponczek.debugMode;
+      Ponczek.imguiCanvas.style.pointerEvents = Ponczek.debugMode ? 'all' : 'none';
+    }
 
     Input._update();
 
@@ -153,6 +182,12 @@ export abstract class Ponczek {
       const frameTime = (performance.now() - st);
       const fps = ((1000 / frameTime) | 0).toString().padStart(5, '0');
       Ponczek.screen.drawText(`${fps} fps, ${frameTime.toFixed(2)} ms`, 0, 0, Color.white);
+    }
+
+    if (Ponczek.renderImGui) {
+      ImGui.EndFrame();
+      ImGui.Render();
+      ImGuiImpl.RenderDrawData(ImGui.GetDrawData());
     }
 
     requestAnimationFrame(Ponczek.loop);
