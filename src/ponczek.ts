@@ -83,6 +83,11 @@ export abstract class Ponczek {
    */
   public static debugMode: boolean = false;
 
+  /**
+   * Whether ImGui should be rendering on top of the game.
+   */
+  public static renderImGui: boolean = true;
+
   private static imguiCanvas: HTMLCanvasElement;
 
   /**
@@ -156,8 +161,10 @@ export abstract class Ponczek {
   private static loop(time: number): void {
     const st = performance.now();
 
-    ImGuiImpl.NewFrame(time);
-    ImGui.NewFrame();
+    if (Ponczek.renderImGui) {
+      ImGuiImpl.NewFrame(time);
+      ImGui.NewFrame();
+    }
 
     SceneManager._update();
     SceneManager._render(Ponczek.screen);
@@ -177,9 +184,11 @@ export abstract class Ponczek {
       Ponczek.screen.drawText(`${fps} fps, ${frameTime.toFixed(2)} ms`, 0, 0, Color.white);
     }
 
-    ImGui.EndFrame();
-    ImGui.Render();
-    ImGuiImpl.RenderDrawData(ImGui.GetDrawData());
+    if (Ponczek.renderImGui) {
+      ImGui.EndFrame();
+      ImGui.Render();
+      ImGuiImpl.RenderDrawData(ImGui.GetDrawData());
+    }
 
     requestAnimationFrame(Ponczek.loop);
   }
