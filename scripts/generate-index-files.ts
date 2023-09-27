@@ -14,6 +14,7 @@ const rootFolderContent = fs.readdirSync('./src', { withFileTypes: true });
 // Create modules index files
 rootFolderContent
   .filter((entry) => entry.isDirectory())
+  .filter((entry) => entry.name !== 'imgui')
   .map((entry) => path.resolve('.', 'src', entry.name))
   .forEach((modulePath) => {
     const indexFilePath = path.resolve(modulePath, 'index.ts');
@@ -28,6 +29,7 @@ rootFolderContent
 const rootIndexPath = path.resolve('.', 'src', 'index.ts');
 const rootModules = rootFolderContent
   .filter((entry) => (entry.isDirectory() || path.extname(entry.name) === '.ts'))
+  .filter((entry) => entry.name !== 'imgui')
   .map((entry) => entry.name)
   .map((filePath) => path.basename(filePath, path.extname(filePath)))
   .filter((name) => name !== 'index');
