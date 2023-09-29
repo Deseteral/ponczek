@@ -484,6 +484,12 @@ export function NewFrame(time: number): void {
   }
 }
 
+export function ClearScreen(): void {
+  if (!gl) throw new Error();
+  gl.clearColor(0, 0, 0, 0);
+  gl.clear(gl.COLOR_BUFFER_BIT);
+}
+
 export function RenderDrawData(draw_data: ImGui.DrawData | null = ImGui.GetDrawData()): void {
   const io = ImGui.GetIO();
   if (draw_data === null) { throw new Error(); }

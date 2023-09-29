@@ -187,6 +187,7 @@ export abstract class Ponczek {
     if (Ponczek.renderImGui) {
       ImGui.EndFrame();
       ImGui.Render();
+      ImGuiImpl.ClearScreen();
       ImGuiImpl.RenderDrawData(ImGui.GetDrawData());
     }
 
