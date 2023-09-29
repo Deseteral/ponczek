@@ -66,6 +66,7 @@ _* Only uses minimal amount of high quality runtime dependencies that are in and
   - Scene transition animation system
 - Data storage for save data (uses `localStorage`)
 - Timers
+- ImGui integration
 
 Uses fantastic font [Monogram by datagoblin](https://datagoblin.itch.io/monogram) as a default font.
 
