@@ -22,6 +22,10 @@ Array.prototype.isEmpty = function isEmpty(): boolean { // eslint-disable-line n
   return this.length === 0;
 };
 
+String.prototype.capitalize = function capitalize(): string {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
 declare global {
   interface Math {
     radiansToDegrees: number;
@@ -36,6 +40,10 @@ declare global {
   interface Array<T> {
     isEmpty(): boolean;
   }
+
+  interface String {
+    capitalize(): string;
+  }
 }
 
-export {};
+export { };
