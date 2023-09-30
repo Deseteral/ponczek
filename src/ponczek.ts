@@ -146,6 +146,7 @@ export abstract class Ponczek {
 
     Ponczek.imguiCanvas = document.createElement('canvas');
     Ponczek.imguiCanvas.setAttribute('id', 'imgui-canvas');
+    Ponczek.imguiCanvas.style.pointerEvents = Ponczek.debugMode ? 'all' : 'none';
 
     containerEl.innerHTML = '';
     containerEl.appendChild(Ponczek.screen._domElement);
