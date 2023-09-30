@@ -4,7 +4,6 @@
  * TODO: Camera boundaries
  * TODO: Camera shake
  * TODO: Add loading map from texture in tilemap test scene
- * TODO: Mouse buttons support
  * TODO: Add support for triangle rendering
  * TODO: Grid view scrolling
  * TODO: Data structure for defining color palettes

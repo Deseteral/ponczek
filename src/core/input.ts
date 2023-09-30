@@ -9,6 +9,8 @@ export abstract class Input {
    * Pointer position in screen space.
    */
   public static readonly pointer: Vector2 = new Vector2();
+  public static pointerLeftPressed: boolean = false;
+  public static pointerRightPressed: boolean = false;
 
   private static keyState: Map<string, boolean> = new Map();
   private static previousKeyState: Map<string, boolean> = new Map();
@@ -120,6 +122,16 @@ export abstract class Input {
         ((x / canvas.clientWidth) * canvas.width) | 0,
         ((y / canvas.clientHeight) * canvas.height) | 0,
       );
+    });
+
+    canvas.addEventListener('mousedown', (e) => {
+      if (e.button === 0) Input.pointerLeftPressed = true;
+      if (e.button === 2) Input.pointerRightPressed = true;
+    });
+
+    canvas.addEventListener('mouseup', (e) => {
+      if (e.button === 0) Input.pointerLeftPressed = false;
+      if (e.button === 2) Input.pointerRightPressed = false;
     });
   }
 }

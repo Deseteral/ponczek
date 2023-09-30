@@ -444,6 +444,8 @@ export class Screen {
     canvas.width = width;
     canvas.height = height;
 
+    canvas.addEventListener('contextmenu', e => e.preventDefault());
+
     const ctx = canvas.getContext('2d');
     if (!ctx) {
       throw new Error('An error occured while creating canvas context');
