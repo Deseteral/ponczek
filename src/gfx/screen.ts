@@ -391,7 +391,9 @@ export class Screen {
       yy += lineHeight;
     }
 
-    this.clip();
+    if (w !== Infinity || h !== Infinity) {
+      this.clip();
+    }
   }
 
   /**
