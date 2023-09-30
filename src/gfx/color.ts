@@ -133,6 +133,16 @@ export class Color {
     out.setFrom01(a.r + (b.r - a.r) * tt, a.g + (b.g - a.g) * tt, a.b + (b.b - a.b) * tt, a.a + (b.a - a.a) * tt);
   }
 
+  // public static alphaBlend(f: Color, b: Color, out: Color): void {
+  //   const alpha = 0.2;
+  //   out.setFrom01(
+  //     Math.clamp((alpha * f.r) + ((1 - alpha) * b.r), 0, 1),
+  //     Math.clamp((alpha * f.g) + ((1 - alpha) * b.g), 0, 1),
+  //     Math.clamp((alpha * f.b) + ((1 - alpha) * b.b), 0, 1),
+  //     Math.clamp((alpha * f.a) + ((1 - alpha) * b.a), 0, 1),
+  //   )
+  // }
+
   public static transparent = Color.from01(0, 0, 0, 0);
   public static white = Color.from01(1, 1, 1, 1);
   public static gray = Color.fromRGBAHex('808080');
