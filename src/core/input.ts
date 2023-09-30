@@ -124,12 +124,12 @@ export abstract class Input {
       );
     });
 
-    canvas.addEventListener('mousedown', (e) => {
+    document.addEventListener('mousedown', (e) => {
       if (e.button === 0) Input.pointerLeftPressed = true;
       if (e.button === 2) Input.pointerRightPressed = true;
     });
 
-    canvas.addEventListener('mouseup', (e) => {
+    document.addEventListener('mouseup', (e) => {
       if (e.button === 0) Input.pointerLeftPressed = false;
       if (e.button === 2) Input.pointerRightPressed = false;
     });
