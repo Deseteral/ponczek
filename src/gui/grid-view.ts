@@ -78,6 +78,8 @@ export abstract class GridView<T> {
    * Draws entire gridview with its upper-left corner at specified position.
    */
   public drawAt(position: Vector2, scr: Screen): void {
+    if (this.cells.length === 0) return;
+
     for (let row = 0; row < this.cells.length; row += 1) {
       for (let column = 0; column < this.cells[row].length; column += 1) {
         const isSelected = this.selectedColumn === column && this.selectedRow === row;
