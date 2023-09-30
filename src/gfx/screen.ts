@@ -80,6 +80,10 @@ export class Screen {
     this.fillRect((x | 0), (y | 0), 1, 1);
   }
 
+  public clearPixel(x: number, y: number): void {
+    this.clearRect((x | 0), (y | 0), 1, 1);
+  }
+
   /**
    * Draws line between two points.
    */
@@ -172,6 +176,10 @@ export class Screen {
     this._ctx.fillRect((x | 0), (y | 0), w, h);
   }
 
+  public clearRect(x: number, y: number, w: number, h: number): void {
+    this._ctx.clearRect((x | 0), (y | 0), w, h);
+  }
+
   /**
    * Draws circle border with its center at specified position with given radius.
    */
@@ -183,7 +191,7 @@ export class Screen {
    * Draws circle border with its center at specified position with given radius.
    */
   public drawCircle(x: number, y: number, radius: number): void {
-    this.circ(x, y, radius, false);
+    this.circ(x, y, radius, false, false);
   }
 
   /**
@@ -193,11 +201,19 @@ export class Screen {
     this.fillCircle(position.x, position.y, radius);
   }
 
+  public clearCircleV(position: Vector2, radius: number): void {
+    this.clearCircle(position.x, position.y, radius);
+  }
+
   /**
    * Draws filled circle with its center at specified position with given radius.
    */
   public fillCircle(x: number, y: number, radius: number): void {
-    this.circ(x, y, radius, true);
+    this.circ(x, y, radius, true, false);
+  }
+
+  public clearCircle(x: number, y: number, radius: number): void {
+    this.circ(x, y, radius, true, true);
   }
 
   /**
@@ -407,7 +423,7 @@ export class Screen {
     }
   }
 
-  private circ(x: number, y: number, radius: number, fill: boolean): void {
+  private circ(x: number, y: number, radius: number, fill: boolean, clear: boolean): void {
     x |= 0; // eslint-disable-line no-param-reassign
     y |= 0; // eslint-disable-line no-param-reassign
     radius |= 0; // eslint-disable-line no-param-reassign
@@ -419,22 +435,24 @@ export class Screen {
       const x2 = (+xx - 0.1) | 0;
       const y2 = (+dd - 0.1) | 0;
 
+      const fn = clear ? this.clearPixel.bind(this) : this.setPixel.bind(this);
+
       if (fill) {
         for (let yy = y1; yy <= y2; yy += 1) {
-          this.setPixel(x + x1, y + yy);
-          this.setPixel(x + x2, y + yy);
-          this.setPixel(x + yy, y + x1);
-          this.setPixel(x + yy, y + x2);
+          fn(x + x1, y + yy);
+          fn(x + x2, y + yy);
+          fn(x + yy, y + x1);
+          fn(x + yy, y + x2);
         }
       } else {
-        this.setPixel(x + x1, y + y1);
-        this.setPixel(x + x2, y + y1);
-        this.setPixel(x + x1, y + y2);
-        this.setPixel(x + x2, y + y2);
-        this.setPixel(x + y1, y + x1);
-        this.setPixel(x + y1, y + x2);
-        this.setPixel(x + y2, y + x1);
-        this.setPixel(x + y2, y + x2);
+        fn(x + x1, y + y1);
+        fn(x + x2, y + y1);
+        fn(x + x1, y + y2);
+        fn(x + x2, y + y2);
+        fn(x + y1, y + x1);
+        fn(x + y1, y + x2);
+        fn(x + y2, y + x1);
+        fn(x + y2, y + x2);
       }
     }
   }
