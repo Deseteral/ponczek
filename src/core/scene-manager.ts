@@ -49,14 +49,14 @@ export abstract class SceneManager {
    */
   public static clearStack(nextScene: Scene): void {
     // TODO: This generates unnecessary allocation.
-    this.sceneStack = [nextScene];
+    SceneManager.sceneStack = [nextScene];
   }
 
   /**
    * Removes all scenes except the oldest one, which will be the next active scene.
    */
   public static backToRoot(): void {
-    this.clearStack(this.sceneStack.at(-1)!);
+    SceneManager.clearStack(SceneManager.sceneStack.at(-1)!);
   }
 
   public static _update(): void {
