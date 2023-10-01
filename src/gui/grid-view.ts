@@ -233,6 +233,6 @@ export abstract class GridView<T> {
 
     if (this.withCellClipping) scr.clip(x, y, this.cellWidth, this.cellHeight);
     this.drawCell(this.cells[row][column], row, column, x, y, isSelected, scr);
-    scr.clip();
+    if (this.withCellClipping) scr.clip();
   }
 }
