@@ -13,10 +13,11 @@ export abstract class SoundPlayer {
    * Plays sound of given name, that can be optionaly looped.
    * Returns unique id representing this specific playback (to be used e.g. for stopping).
    */
-  public static playSound(name: string, loop: boolean = false): SoundPlaybackId {
+  public static playSound(name: string, loop: boolean = false, volume: number = 1): SoundPlaybackId {
     const { howl } = Assets.sound(name);
     const id = howl.play();
     howl.loop(loop, id);
+    howl.volume(volume, id);
 
     this.idToName.set(id, name);
     return id;
