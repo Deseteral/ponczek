@@ -58,7 +58,9 @@ export abstract class SceneManager {
    * Removes all scenes except the oldest one, which will be the next active scene.
    */
   public static backToRoot(): void {
-    SceneManager.clearStack(SceneManager.sceneStack.at(-1)!);
+    while (SceneManager.sceneStack.length > 1) {
+      SceneManager.popScene();
+    }
   }
 
   public static _update(): void {
