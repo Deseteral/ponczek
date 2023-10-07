@@ -22,9 +22,9 @@ Array.prototype.isEmpty = function isEmpty(): boolean { // eslint-disable-line n
   return this.length === 0;
 };
 
-String.prototype.capitalize = function capitalize(): string {
+String.prototype.capitalize = function capitalize(): string { // eslint-disable-line no-extend-native
   return this.charAt(0).toUpperCase() + this.slice(1);
-}
+};
 
 declare global {
   interface Math {
