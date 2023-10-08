@@ -24,7 +24,7 @@
  */
 
 import 'ponczek/utils/polyfills';
-// import 'ponczek/imgui/imgui-env';
+import 'ponczek/imgui/imgui-env';
 
 import { Input } from 'ponczek/core/input';
 import { Screen } from 'ponczek/gfx/screen';
@@ -34,7 +34,7 @@ import { SceneManager } from 'ponczek/core/scene-manager';
 import { Scene } from 'ponczek/core/scene';
 import { PonczekSplashScreenScene } from 'ponczek/scenes/ponczek-splash-screen-scene';
 import { Assets } from 'ponczek/core/assets';
-// import * as ImGuiImpl from 'ponczek/imgui/imgui-impl';
+import * as ImGuiImpl from 'ponczek/imgui/imgui-impl';
 
 /**
  * Default start up option.
@@ -85,9 +85,9 @@ export abstract class Ponczek {
   /**
    * Whether ImGui should be rendering on top of the game.
    */
-  // public static renderImGui: boolean = true;
+  public static renderImGui: boolean = true;
 
-  // private static imguiCanvas: HTMLCanvasElement;
+  private static imguiCanvas: HTMLCanvasElement;
 
   /**
    * Initializes and starts new Ponczek application.
@@ -137,41 +137,41 @@ export abstract class Ponczek {
       throw new Error('Missing container element in DOM');
     }
 
-    // await ImGui.default();
-    // ImGui.CHECKVERSION();
-    // ImGui.CreateContext();
-    // const io: ImGui.IO = ImGui.GetIO();
-    // io.Fonts.AddFontDefault();
+    await ImGui.default();
+    ImGui.CHECKVERSION();
+    ImGui.CreateContext();
+    const io: ImGui.IO = ImGui.GetIO();
+    io.Fonts.AddFontDefault();
 
-    // Ponczek.imguiCanvas = document.createElement('canvas');
-    // Ponczek.imguiCanvas.setAttribute('id', 'imgui-canvas');
-    // Ponczek.imguiCanvas.style.pointerEvents = Ponczek.debugMode ? 'all' : 'none';
+    Ponczek.imguiCanvas = document.createElement('canvas');
+    Ponczek.imguiCanvas.setAttribute('id', 'imgui-canvas');
+    Ponczek.imguiCanvas.style.pointerEvents = Ponczek.debugMode ? 'all' : 'none';
 
     containerEl.innerHTML = '';
     containerEl.appendChild(Ponczek.screen._domElement);
-    // containerEl.appendChild(Ponczek.imguiCanvas);
+    containerEl.appendChild(Ponczek.imguiCanvas);
 
-    // ImGuiImpl.Init(Ponczek.imguiCanvas.getContext('webgl2', { alpha: true }));
+    ImGuiImpl.Init(Ponczek.imguiCanvas.getContext('webgl2', { alpha: true }));
 
     window.addEventListener('resize', () => Ponczek.onWindowResize());
     Ponczek.onWindowResize();
     requestAnimationFrame(Ponczek.loop);
   }
 
-  private static loop(_time: number): void {
+  private static loop(time: number): void {
     const st = performance.now();
 
-    // if (Ponczek.renderImGui) {
-    //   ImGuiImpl.NewFrame(time);
-    //   ImGui.NewFrame();
-    // }
+    if (Ponczek.renderImGui) {
+      ImGuiImpl.NewFrame(time);
+      ImGui.NewFrame();
+    }
 
     SceneManager._update();
     SceneManager._render(Ponczek.screen);
 
     if (Input.getKeyDown('F3')) {
       Ponczek.debugMode = !Ponczek.debugMode;
-      // Ponczek.imguiCanvas.style.pointerEvents = Ponczek.debugMode ? 'all' : 'none';
+      Ponczek.imguiCanvas.style.pointerEvents = Ponczek.debugMode ? 'all' : 'none';
     }
 
     Input._update();
@@ -184,12 +184,12 @@ export abstract class Ponczek {
       Ponczek.screen.drawText(`${fps} fps, ${frameTime.toFixed(2)} ms`, 0, 0, Color.white);
     }
 
-    // if (Ponczek.renderImGui) {
-    //   ImGui.EndFrame();
-    //   ImGui.Render();
-    //   ImGuiImpl.ClearScreen();
-    //   ImGuiImpl.RenderDrawData(ImGui.GetDrawData());
-    // }
+    if (Ponczek.renderImGui) {
+      ImGui.EndFrame();
+      ImGui.Render();
+      ImGuiImpl.ClearScreen();
+      ImGuiImpl.RenderDrawData(ImGui.GetDrawData());
+    }
 
     requestAnimationFrame(Ponczek.loop);
   }
