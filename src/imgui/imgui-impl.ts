@@ -186,7 +186,10 @@ export function Init(value: HTMLCanvasElement | WebGL2RenderingContext | WebGLRe
 
   if (typeof (window) !== 'undefined') {
     io.BackendPlatformName = 'imgui_impl_browser';
-    ImGui.LoadIniSettingsFromMemory(window.localStorage.getItem('imgui.ini') || '');
+    try {
+      const settings = window.localStorage.getItem('imgui.ini') || ''
+      ImGui.LoadIniSettingsFromMemory(settings);
+    } catch (err) { }
   } else {
     io.BackendPlatformName = 'imgui_impl_console';
   }
@@ -331,7 +334,9 @@ export function NewFrame(time: number): void {
   if (io.WantSaveIniSettings) {
     io.WantSaveIniSettings = false;
     if (typeof (window) !== 'undefined') {
-      window.localStorage.setItem('imgui.ini', ImGui.SaveIniSettingsToMemory());
+      try {
+        window.localStorage.setItem('imgui.ini', ImGui.SaveIniSettingsToMemory());
+      } catch (err) { }
     }
   }
 
