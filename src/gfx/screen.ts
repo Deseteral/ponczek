@@ -109,6 +109,20 @@ export class Screen {
   }
 
   /**
+   * Clears pixels in line between two points.
+   */
+  public clearLineV(from: Vector2, to: Vector2): void {
+    this.clearLine(from.x, from.y, to.x, to.y);
+  }
+
+  /**
+   * Clears pixels in line between two points.
+   */
+  public clearLine(x1: number, y1: number, x2: number, y2: number): void {
+    this.line(x1, y1, x2, y2, true);
+  }
+
+  /**
    * Draws rectangle border with upper-left corner at specified position and provided width and height.
    */
   public drawRectV(position: Vector2, w: number, h: number): void {
