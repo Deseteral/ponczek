@@ -80,6 +80,16 @@ export class Screen {
     this.fillRect((x | 0), (y | 0), 1, 1);
   }
 
+  /**
+   * Makes pixel at given position transparent.
+   */
+  public clearPixelV(position: Vector2): void {
+    this.clearPixel(position.x, position.y);
+  }
+
+  /**
+   * Makes pixel at given position transparent.
+   */
   public clearPixel(x: number, y: number): void {
     this.clearRect((x | 0), (y | 0), 1, 1);
   }
