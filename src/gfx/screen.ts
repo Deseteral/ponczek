@@ -69,14 +69,14 @@ export class Screen {
   /**
    * Sets pixel in given position to active color.
    */
-  public setPixelV(position: Vector2): void {
-    this.setPixel(position.x, position.y);
+  public drawPixelV(position: Vector2): void {
+    this.drawPixel(position.x, position.y);
   }
 
   /**
    * Sets pixel in given position to active color.
    */
-  public setPixel(x: number, y: number): void {
+  public drawPixel(x: number, y: number): void {
     this.fillRect((x | 0), (y | 0), 1, 1);
   }
 
@@ -101,7 +101,7 @@ export class Screen {
     y2 |= y2; // eslint-disable-line no-param-reassign
 
     if (x1 === x2 && y1 === y2) {
-      this.setPixel(x1, y1);
+      this.drawPixel(x1, y1);
       return;
     }
 
@@ -113,7 +113,7 @@ export class Screen {
       const d = (endY - startY) / (endX - startX);
 
       for (let xx = 0; xx < (endX - startX + 1); xx += 1) {
-        this.setPixel(startX + xx, startY + ((d * xx) | 0));
+        this.drawPixel(startX + xx, startY + ((d * xx) | 0));
       }
     } else {
       const startX = (y1 < y2) ? x1 : x2;
@@ -123,7 +123,7 @@ export class Screen {
       const d = (endX - startX) / (endY - startY);
 
       for (let yy = 0; yy < (endY - startY + 1); yy += 1) {
-        this.setPixel(startX + ((d * yy) | 0), startY + yy);
+        this.drawPixel(startX + ((d * yy) | 0), startY + yy);
       }
     }
   }
@@ -437,7 +437,7 @@ export class Screen {
       const x2 = (+xx - 0.1) | 0;
       const y2 = (+dd - 0.1) | 0;
 
-      const fn = clear ? this.clearPixel.bind(this) : this.setPixel.bind(this);
+      const fn = clear ? this.clearPixel.bind(this) : this.drawPixel.bind(this);
 
       if (fill) {
         for (let yy = y1; yy <= y2; yy += 1) {
