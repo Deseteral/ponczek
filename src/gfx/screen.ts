@@ -67,14 +67,14 @@ export class Screen {
   }
 
   /**
-   * Sets pixel in given position to active color.
+   * Draws single pixel at given position in active color.
    */
   public drawPixelV(position: Vector2): void {
     this.drawPixel(position.x, position.y);
   }
 
   /**
-   * Sets pixel in given position to active color.
+   * Draws single pixel at given position in active color.
    */
   public drawPixel(x: number, y: number): void {
     this.fillRect((x | 0), (y | 0), 1, 1);
