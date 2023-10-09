@@ -105,37 +105,7 @@ export class Screen {
    * Draws line between two points.
    */
   public drawLine(x1: number, y1: number, x2: number, y2: number): void {
-    x1 |= x1; // eslint-disable-line no-param-reassign
-    y1 |= y1; // eslint-disable-line no-param-reassign
-    x2 |= x2; // eslint-disable-line no-param-reassign
-    y2 |= y2; // eslint-disable-line no-param-reassign
-
-    if (x1 === x2 && y1 === y2) {
-      this.drawPixel(x1, y1);
-      return;
-    }
-
-    if (Math.abs(x1 - x2) > Math.abs(y1 - y2)) {
-      const startX = (x1 < x2) ? x1 : x2;
-      const startY = (x1 < x2) ? y1 : y2;
-      const endX = (x1 < x2) ? x2 : x1;
-      const endY = (x1 < x2) ? y2 : y1;
-      const d = (endY - startY) / (endX - startX);
-
-      for (let xx = 0; xx < (endX - startX + 1); xx += 1) {
-        this.drawPixel(startX + xx, startY + ((d * xx) | 0));
-      }
-    } else {
-      const startX = (y1 < y2) ? x1 : x2;
-      const startY = (y1 < y2) ? y1 : y2;
-      const endX = (y1 < y2) ? x2 : x1;
-      const endY = (y1 < y2) ? y2 : y1;
-      const d = (endX - startX) / (endY - startY);
-
-      for (let yy = 0; yy < (endY - startY + 1); yy += 1) {
-        this.drawPixel(startX + ((d * yy) | 0), startY + yy);
-      }
-    }
+    this.line(x1, y1, x2, y2, false);
   }
 
   /**
@@ -432,6 +402,42 @@ export class Screen {
         font.charWidth,
         font.charHeight,
       );
+    }
+  }
+
+  private line(x1: number, y1: number, x2: number, y2: number, clear: boolean = false): void {
+    x1 |= x1; // eslint-disable-line no-param-reassign
+    y1 |= y1; // eslint-disable-line no-param-reassign
+    x2 |= x2; // eslint-disable-line no-param-reassign
+    y2 |= y2; // eslint-disable-line no-param-reassign
+
+    const drawFn = clear ? this.clearPixel : this.drawPixel;
+
+    if (x1 === x2 && y1 === y2) {
+      drawFn(x1, y1);
+      return;
+    }
+
+    if (Math.abs(x1 - x2) > Math.abs(y1 - y2)) {
+      const startX = (x1 < x2) ? x1 : x2;
+      const startY = (x1 < x2) ? y1 : y2;
+      const endX = (x1 < x2) ? x2 : x1;
+      const endY = (x1 < x2) ? y2 : y1;
+      const d = (endY - startY) / (endX - startX);
+
+      for (let xx = 0; xx < (endX - startX + 1); xx += 1) {
+        drawFn(startX + xx, startY + ((d * xx) | 0));
+      }
+    } else {
+      const startX = (y1 < y2) ? x1 : x2;
+      const startY = (y1 < y2) ? y1 : y2;
+      const endX = (y1 < y2) ? x2 : x1;
+      const endY = (y1 < y2) ? y2 : y1;
+      const d = (endX - startX) / (endY - startY);
+
+      for (let yy = 0; yy < (endY - startY + 1); yy += 1) {
+        drawFn(startX + ((d * yy) | 0), startY + yy);
+      }
     }
   }
 
