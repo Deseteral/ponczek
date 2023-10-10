@@ -62,10 +62,10 @@ class PauseMenuScene extends Scene {
 
   render(scr: Screen): void {
     scr.color(this.backgroundColor);
-    scr.fillRect(0, 0, scr.width, scr.height);
+    scr.drawRect(0, 0, scr.width, scr.height);
 
     scr.color(ENDESGA16PaletteIdx[2]);
-    scr.fillRect(this.gridPosition.x - 5, this.gridPosition.y - 5, this.gridWidth + 10, 48);
+    scr.drawRect(this.gridPosition.x - 5, this.gridPosition.y - 5, this.gridWidth + 10, 48);
     this.grid.drawAt(this.gridPosition, scr);
   }
 }
@@ -103,7 +103,7 @@ export class SceneStackTestScene extends Scene {
     scr.clearScreen(ENDESGA16PaletteIdx[9]);
 
     scr.color(ENDESGA16PaletteIdx[10]);
-    scr.fillRectR(this.rect);
+    scr.drawRectR(this.rect);
     scr.drawTextInRectR('Press "back" to open pause menu', this.rect, ENDESGA16PaletteIdx[11]);
   }
 }

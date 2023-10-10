@@ -87,11 +87,11 @@ export class MainMenuScene extends Scene {
 
     scr.color(ENDESGA16PaletteIdx[2]);
 
-    scr.fillRect(this.gridPosition.x - 2, this.gridPosition.y - 17, 93, 11);
+    scr.drawRect(this.gridPosition.x - 2, this.gridPosition.y - 17, 93, 11);
     scr.drawNineSlice(this.frameTexture, this.gridPosition.x + 4, this.gridPosition.y - 13, 83, 10, 8, 8);
     scr.drawText('Test scenes', this.gridPosition.x + 1, this.gridPosition.y - 14, ENDESGA16PaletteIdx[6]);
 
-    scr.fillRect(this.gridPosition.x - 3, this.gridPosition.y - 2, this.demoScenesGridView.totalWidth + 9, this.demoScenesGridView.totalHeight + 4);
+    scr.drawRect(this.gridPosition.x - 3, this.gridPosition.y - 2, this.demoScenesGridView.totalWidth + 9, this.demoScenesGridView.totalHeight + 4);
     scr.drawNineSlice(this.frameTexture, this.gridPosition.x, this.gridPosition.y, this.demoScenesGridView.totalWidth, this.demoScenesGridView.totalHeight, 8, 8);
     this.demoScenesGridView.drawAt(this.gridPosition, scr);
   }

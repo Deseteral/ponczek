@@ -27,10 +27,10 @@ export class EffectsTestScene extends Scene {
     scr.clearScreen(Color.black);
 
     scr.color(Color.green);
-    scr.fillRect(5, 10, 200, 150);
-    scr.fillRect(140, 100, 120, 120);
-    scr.fillRect(10, 180, 50, 50);
-    scr.fillCircle(250, 40, 25);
+    scr.drawRect(5, 10, 200, 150);
+    scr.drawRect(140, 100, 120, 120);
+    scr.drawRect(10, 180, 50, 50);
+    scr.drawCircle(250, 40, 25);
 
     this.testEffect.applyToScreen(scr);
   }

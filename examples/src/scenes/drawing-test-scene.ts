@@ -39,8 +39,8 @@ export class DrawingTestScene extends Scene {
 
         const n = idx + 8;
         const x = ((n * (n + 1)) / 2) - 34;
-        scr.fillRect(x, 10, idx + 1, idx + 1);
-        scr.drawRect(x, 25, idx + 1, idx + 1);
+        scr.drawRect(x, 10, idx + 1, idx + 1);
+        scr.drawRectLines(x, 25, idx + 1, idx + 1);
       }
     }
 
@@ -73,8 +73,8 @@ export class DrawingTestScene extends Scene {
       for (let r = 1; r < 11; r += 1) {
         scr.color(ENDESGA16PaletteIdx[r]);
 
-        scr.fillCircle((r * 20) - 10, 100, r);
-        scr.drawCircle((r * 20) - 10, 115, 10 - r);
+        scr.drawCircle((r * 20) - 10, 100, r);
+        scr.drawCircleLines((r * 20) - 10, 115, 10 - r);
       }
     }
 

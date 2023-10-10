@@ -20,13 +20,13 @@ class TestGridView extends GridView<Item> {
     if (!item) return;
 
     scr.color(ENDESGA16Palette.sap);
-    scr.fillRect(x, y, this.cellWidth, this.cellHeight);
+    scr.drawRect(x, y, this.cellWidth, this.cellHeight);
 
     const selectionColor = isSelected ? ENDESGA16Palette.fabric : ENDESGA16Palette.pine;
     scr.drawText(item.text, x + 2, y + 6, selectionColor);
 
     scr.color(selectionColor);
-    scr.drawRect(x, y, this.cellWidth, this.cellHeight);
+    scr.drawRectLines(x, y, this.cellWidth, this.cellHeight);
   }
 }
 

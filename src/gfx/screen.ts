@@ -91,7 +91,7 @@ export class Screen {
    * Draws single pixel at given position in active color.
    */
   public drawPixel(x: number, y: number): void {
-    this.fillRect((x | 0), (y | 0), 1, 1);
+    this.drawRect((x | 0), (y | 0), 1, 1);
   }
 
   /**
@@ -125,42 +125,42 @@ export class Screen {
   /**
    * Draws rectangle border with upper-left corner at specified position and provided width and height.
    */
-  public drawRectV(position: Vector2, w: number, h: number): void {
-    this.drawRect(position.x, position.y, w, h);
+  public drawRectLinesV(position: Vector2, w: number, h: number): void {
+    this.drawRectLines(position.x, position.y, w, h);
   }
 
   /**
    * Draws rectangle border.
    */
-  public drawRectR(rect: Rectangle): void {
-    this.drawRect(rect.x, rect.y, rect.width, rect.height);
+  public drawRectLinesR(rect: Rectangle): void {
+    this.drawRectLines(rect.x, rect.y, rect.width, rect.height);
   }
 
   /**
    * Draws rectangle border with upper-left corner at specified position and provided width and height.
    */
-  public drawRect(x: number, y: number, w: number, h: number): void {
+  public drawRectLines(x: number, y: number, w: number, h: number): void {
     this.rect(x, y, w, h, false);
   }
 
   /**
    * Draws filled rectangle with upper-left corner at specified position and provided width and height.
    */
-  public fillRectV(position: Vector2, w: number, h: number): void {
-    this.fillRect(position.x, position.y, w, h);
+  public drawRectV(position: Vector2, w: number, h: number): void {
+    this.drawRect(position.x, position.y, w, h);
   }
 
   /**
    * Draws filled rectangle.
    */
-  public fillRectR(rect: Rectangle): void {
-    this.fillRect(rect.x, rect.y, rect.width, rect.height);
+  public drawRectR(rect: Rectangle): void {
+    this.drawRect(rect.x, rect.y, rect.width, rect.height);
   }
 
   /**
    * Draws filled rectangle with upper-left corner at specified position and provided width and height.
    */
-  public fillRect(x: number, y: number, w: number, h: number): void {
+  public drawRect(x: number, y: number, w: number, h: number): void {
     this._ctx.fillRect((x | 0), (y | 0), w, h);
   }
 
@@ -171,22 +171,22 @@ export class Screen {
   /**
    * Draws circle border with its center at specified position with given radius.
    */
-  public drawCircleV(position: Vector2, radius: number): void {
-    this.drawCircle(position.x, position.y, radius);
+  public drawCircleLinesV(position: Vector2, radius: number): void {
+    this.drawCircleLines(position.x, position.y, radius);
   }
 
   /**
    * Draws circle border with its center at specified position with given radius.
    */
-  public drawCircle(x: number, y: number, radius: number): void {
+  public drawCircleLines(x: number, y: number, radius: number): void {
     this.circ(x, y, radius, false, false);
   }
 
   /**
    * Draws filled circle with its center at specified position with given radius.
    */
-  public fillCircleV(position: Vector2, radius: number): void {
-    this.fillCircle(position.x, position.y, radius);
+  public drawCircleV(position: Vector2, radius: number): void {
+    this.drawCircle(position.x, position.y, radius);
   }
 
   public clearCircleV(position: Vector2, radius: number): void {
@@ -196,7 +196,7 @@ export class Screen {
   /**
    * Draws filled circle with its center at specified position with given radius.
    */
-  public fillCircle(x: number, y: number, radius: number): void {
+  public drawCircle(x: number, y: number, radius: number): void {
     this.circ(x, y, radius, true, false);
   }
 
