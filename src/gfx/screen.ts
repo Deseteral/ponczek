@@ -67,20 +67,6 @@ export class Screen {
   }
 
   /**
-   * Draws single pixel at given position in active color.
-   */
-  public drawPixelV(position: Vector2): void {
-    this.drawPixel(position.x, position.y);
-  }
-
-  /**
-   * Draws single pixel at given position in active color.
-   */
-  public drawPixel(x: number, y: number): void {
-    this.fillRect((x | 0), (y | 0), 1, 1);
-  }
-
-  /**
    * Makes pixel at given position transparent.
    */
   public clearPixelV(position: Vector2): void {
@@ -92,6 +78,20 @@ export class Screen {
    */
   public clearPixel(x: number, y: number): void {
     this.clearRect((x | 0), (y | 0), 1, 1);
+  }
+
+  /**
+   * Draws single pixel at given position in active color.
+   */
+  public drawPixelV(position: Vector2): void {
+    this.drawPixel(position.x, position.y);
+  }
+
+  /**
+   * Draws single pixel at given position in active color.
+   */
+  public drawPixel(x: number, y: number): void {
+    this.fillRect((x | 0), (y | 0), 1, 1);
   }
 
   /**
