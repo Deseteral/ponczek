@@ -140,13 +140,7 @@ export class Screen {
    * Draws rectangle border with upper-left corner at specified position and provided width and height.
    */
   public drawRect(x: number, y: number, w: number, h: number): void {
-    x |= 0; // eslint-disable-line no-param-reassign
-    y |= 0; // eslint-disable-line no-param-reassign
-
-    this._ctx.fillRect(x, y, w, 1);
-    this._ctx.fillRect(x, y + h - 1, w, 1);
-    this._ctx.fillRect(x, y, 1, h);
-    this._ctx.fillRect(x + w - 1, y, 1, h);
+    this.rect(x, y, w, h, false);
   }
 
   /**
@@ -419,7 +413,19 @@ export class Screen {
     }
   }
 
-  private line(x1: number, y1: number, x2: number, y2: number, clear: boolean = false): void {
+  private rect(x: number, y: number, w: number, h: number, clear: boolean): void {
+    x |= 0; // eslint-disable-line no-param-reassign
+    y |= 0; // eslint-disable-line no-param-reassign
+
+    const drawFn = clear ? this._ctx.clearRect : this._ctx.fillRect;
+
+    drawFn(x, y, w, 1);
+    drawFn(x, y + h - 1, w, 1);
+    drawFn(x, y, 1, h);
+    drawFn(x + w - 1, y, 1, h);
+  }
+
+  private line(x1: number, y1: number, x2: number, y2: number, clear: boolean): void {
     x1 |= x1; // eslint-disable-line no-param-reassign
     y1 |= y1; // eslint-disable-line no-param-reassign
     x2 |= x2; // eslint-disable-line no-param-reassign
