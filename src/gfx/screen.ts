@@ -161,6 +161,27 @@ export class Screen {
     this.rect(x, y, w, h, false);
   }
 
+  /**
+   * Clears pixels in rectangle border with upper-left corner at specified position and provided width and height.
+   */
+  public clearRectLinesV(position: Vector2, w: number, h: number): void {
+    this.clearRectLines(position.x, position.y, w, h);
+  }
+
+  /**
+   * Clears pixels in rectangle border.
+   */
+  public clearRectLinesR(rect: Rectangle): void {
+    this.clearRectLines(rect.x, rect.y, rect.width, rect.height);
+  }
+
+  /**
+   * Clears pixel in rectangle border with upper-left corner at specified position and provided width and height.
+   */
+  public clearRectLines(x: number, y: number, w: number, h: number): void {
+    this.rect(x, y, w, h, true);
+  }
+
   /*
    ****************************************************************************
    * drawRect*
