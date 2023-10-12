@@ -72,7 +72,10 @@ Uses fantastic font [Monogram by datagoblin](https://datagoblin.itch.io/monogram
 
 Works in every major browser.
 
-# 🧰 Development
+## 🏗️ Made using ponczek
+- [Cargo Trek](https://deseteral.itch.io/cargo-trek) ([source code](https://github.com/Deseteral/cargo-trek))
+
+## 🚧 Development
 Install dependencies using `yarn`.
 
 You can start examples project in watch mode using:
