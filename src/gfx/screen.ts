@@ -209,6 +209,23 @@ export class Screen {
     this._ctx.fillRect((x | 0), (y | 0), w, h);
   }
 
+  /**
+   * Clears pixels in rectangle with upper-left corner at specified position and provided width and height.
+   */
+  public clearRectV(position: Vector2, w: number, h: number): void {
+    this.drawRect(position.x, position.y, w, h);
+  }
+
+  /**
+     * Clears pixels in rectangle.
+     */
+  public clearRectR(rect: Rectangle): void {
+    this.drawRect(rect.x, rect.y, rect.width, rect.height);
+  }
+
+  /**
+   * Clears rectangle with upper-left corner at specified position and provided width and height.
+   */
   public clearRect(x: number, y: number, w: number, h: number): void {
     this._ctx.clearRect((x | 0), (y | 0), w, h);
   }
