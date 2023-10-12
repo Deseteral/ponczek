@@ -277,10 +277,6 @@ export class Screen {
     this.drawCircle(position.x, position.y, radius);
   }
 
-  public clearCircleV(position: Vector2, radius: number): void {
-    this.clearCircle(position.x, position.y, radius);
-  }
-
   /**
    * Draws filled circle with its center at specified position with given radius.
    */
@@ -288,6 +284,16 @@ export class Screen {
     this.circ(x, y, radius, true, false);
   }
 
+  /**
+   * Clears pixels in circle with its center at specified position with given radius.
+   */
+  public clearCircleV(position: Vector2, radius: number): void {
+    this.clearCircle(position.x, position.y, radius);
+  }
+
+  /**
+   * Clears pixels in circle with its center at specified position with given radius.
+   */
   public clearCircle(x: number, y: number, radius: number): void {
     this.circ(x, y, radius, true, true);
   }
