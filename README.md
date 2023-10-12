@@ -85,5 +85,8 @@ For type checking in watch mode during development use:
 npm run test:type-check:watch
 ```
 
+## 🪵 Changelog
+You can read the project changelog [here](CHANGELOG).
+
 ## 📝 License
 This project is licensed under the [MIT license](LICENSE).
