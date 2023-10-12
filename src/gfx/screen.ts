@@ -526,12 +526,17 @@ export class Screen {
     x |= 0; // eslint-disable-line no-param-reassign
     y |= 0; // eslint-disable-line no-param-reassign
 
-    const drawFn = clear ? this._ctx.clearRect : this._ctx.fillRect;
-
-    drawFn(x, y, w, 1);
-    drawFn(x, y + h - 1, w, 1);
-    drawFn(x, y, 1, h);
-    drawFn(x + w - 1, y, 1, h);
+    if (clear) {
+      this._ctx.clearRect(x, y, w, 1);
+      this._ctx.clearRect(x, y + h - 1, w, 1);
+      this._ctx.clearRect(x, y, 1, h);
+      this._ctx.clearRect(x + w - 1, y, 1, h);
+    } else {
+      this._ctx.fillRect(x, y, w, 1);
+      this._ctx.fillRect(x, y + h - 1, w, 1);
+      this._ctx.fillRect(x, y, 1, h);
+      this._ctx.fillRect(x + w - 1, y, 1, h);
+    }
   }
 
   private line(x1: number, y1: number, x2: number, y2: number, clear: boolean): void {
@@ -540,7 +545,7 @@ export class Screen {
     x2 |= x2; // eslint-disable-line no-param-reassign
     y2 |= y2; // eslint-disable-line no-param-reassign
 
-    const drawFn = clear ? this.clearPixel : this.drawPixel;
+    const drawFn = clear ? this.clearPixel.bind(this) : this.drawPixel.bind(this);
 
     if (x1 === x2 && y1 === y2) {
       drawFn(x1, y1);
