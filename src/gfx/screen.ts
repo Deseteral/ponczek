@@ -250,6 +250,20 @@ export class Screen {
     this.circ(x, y, radius, false, false);
   }
 
+  /**
+   * Clears pixels in circle border with its center at specified position with given radius.
+   */
+  public clearCircleLinesV(position: Vector2, radius: number): void {
+    this.clearCircleLines(position.x, position.y, radius);
+  }
+
+  /**
+   * Clears pixels in circle border with its center at specified position with given radius.
+   */
+  public clearCircleLines(x: number, y: number, radius: number): void {
+    this.circ(x, y, radius, false, true);
+  }
+
   /*
    ****************************************************************************
    * drawCircle*
