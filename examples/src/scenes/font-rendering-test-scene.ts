@@ -19,7 +19,7 @@ export class FontRenderingTestScene extends Scene {
   render(scr: Screen): void {
     scr.clearScreen(ENDESGA16PaletteIdx[10]);
     scr.drawText(`Current tick ${Ponczek.ticks}!`, 10, 10, ENDESGA16PaletteIdx[13]);
-    scr.drawText('This text should be in red', 10, 20, ENDESGA16PaletteIdx[5]);
+    scr.drawText('This text should be red', 10, 20, ENDESGA16PaletteIdx[5]);
 
     scr.color(ENDESGA16PaletteIdx[11]);
     scr.drawRectR(this.rect);
