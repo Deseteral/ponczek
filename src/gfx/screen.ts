@@ -66,6 +66,12 @@ export class Screen {
     this._ctx.fillStyle = prevColor;
   }
 
+  /*
+   ****************************************************************************
+   * drawPixel*
+   ****************************************************************************
+   */
+
   /**
    * Makes pixel at given position transparent.
    */
@@ -94,6 +100,12 @@ export class Screen {
     this.drawRect((x | 0), (y | 0), 1, 1);
   }
 
+  /*
+   ****************************************************************************
+   * drawLine*
+   ****************************************************************************
+   */
+
   /**
    * Draws line between two points.
    */
@@ -121,6 +133,12 @@ export class Screen {
   public clearLine(x1: number, y1: number, x2: number, y2: number): void {
     this.line(x1, y1, x2, y2, true);
   }
+
+  /*
+   ****************************************************************************
+   * drawRect*
+   ****************************************************************************
+   */
 
   /**
    * Draws rectangle border with upper-left corner at specified position and provided width and height.
@@ -168,6 +186,12 @@ export class Screen {
     this._ctx.clearRect((x | 0), (y | 0), w, h);
   }
 
+  /*
+   ****************************************************************************
+   * drawCircle*
+   ****************************************************************************
+   */
+
   /**
    * Draws circle border with its center at specified position with given radius.
    */
@@ -203,6 +227,12 @@ export class Screen {
   public clearCircle(x: number, y: number, radius: number): void {
     this.circ(x, y, radius, true, true);
   }
+
+  /*
+   ****************************************************************************
+   * drawTexture*
+   ****************************************************************************
+   */
 
   /**
    * Draws entire texture at given position, with optional scaling by `w`, `h` parameters.
