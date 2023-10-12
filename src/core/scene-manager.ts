@@ -48,15 +48,19 @@ export abstract class SceneManager {
    * Removes all scenes from the stack and makes `nextScene` next active scene.
    */
   public static clearStack(nextScene: Scene): void {
-    // TODO: This generates unnecessary allocation.
-    this.sceneStack = [nextScene];
+    while (SceneManager.sceneStack.length > 0) {
+      SceneManager.popScene();
+    }
+    SceneManager.pushScene(nextScene);
   }
 
   /**
    * Removes all scenes except the oldest one, which will be the next active scene.
    */
   public static backToRoot(): void {
-    this.clearStack(this.sceneStack.at(-1)!);
+    while (SceneManager.sceneStack.length > 1) {
+      SceneManager.popScene();
+    }
   }
 
   public static _update(): void {

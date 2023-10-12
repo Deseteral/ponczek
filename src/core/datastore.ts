@@ -38,7 +38,7 @@ export abstract class Datastore {
    * Checks if the data exists for specified `key`.
    * Returns `true` when there is something written for that `key`, `false` otherwise.
    */
-  public exists(key: string = DEFAULT_KEY): boolean {
+  public static exists(key: string = DEFAULT_KEY): boolean {
     try {
       const data = window.localStorage.getItem(key);
       return !!data;
@@ -50,7 +50,7 @@ export abstract class Datastore {
   /**
    * Deletes data for specified `key`. Does nothing when there is no data for that `key`.
    */
-  public delete(key: string = DEFAULT_KEY): void {
+  public static delete(key: string = DEFAULT_KEY): void {
     try {
       window.localStorage.removeItem(key);
     } catch (e) {

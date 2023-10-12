@@ -30,7 +30,16 @@ export class Screen {
    */
   public activeFont: (Font | null) = null;
 
+  /**
+   * Actual rendering context for this screens DOM canvas.
+   * Not part of public stable API, but can be used as escape hatch in cases where public API is not enough.
+   */
   public readonly _ctx: CanvasRenderingContext2D;
+
+  /**
+   * Actual DOM canvas for this screen.
+   * Not part of public stable API, but can be used as escape hatch in cases where public API is not enough.
+   */
   public get _domElement(): HTMLCanvasElement { return this._ctx.canvas; }
 
   /**
@@ -66,19 +75,45 @@ export class Screen {
     this._ctx.fillStyle = prevColor;
   }
 
-  /**
-   * Sets pixel in given position to active color.
+  /*
+   ****************************************************************************
+   * drawPixel*
+   ****************************************************************************
    */
-  public setPixelV(position: Vector2): void {
-    this.setPixel(position.x, position.y);
+
+  /**
+   * Draws single pixel at given position in active color.
+   */
+  public drawPixelV(position: Vector2): void {
+    this.drawPixel(position.x, position.y);
   }
 
   /**
-   * Sets pixel in given position to active color.
+   * Draws single pixel at given position in active color.
    */
-  public setPixel(x: number, y: number): void {
-    this.fillRect((x | 0), (y | 0), 1, 1);
+  public drawPixel(x: number, y: number): void {
+    this.drawRect((x | 0), (y | 0), 1, 1);
   }
+
+  /**
+   * Makes pixel at given position transparent.
+   */
+  public clearPixelV(position: Vector2): void {
+    this.clearPixel(position.x, position.y);
+  }
+
+  /**
+   * Makes pixel at given position transparent.
+   */
+  public clearPixel(x: number, y: number): void {
+    this.clearRect((x | 0), (y | 0), 1, 1);
+  }
+
+  /*
+   ****************************************************************************
+   * drawLine*
+   ****************************************************************************
+   */
 
   /**
    * Draws line between two points.
@@ -91,114 +126,192 @@ export class Screen {
    * Draws line between two points.
    */
   public drawLine(x1: number, y1: number, x2: number, y2: number): void {
-    x1 |= x1; // eslint-disable-line no-param-reassign
-    y1 |= y1; // eslint-disable-line no-param-reassign
-    x2 |= x2; // eslint-disable-line no-param-reassign
-    y2 |= y2; // eslint-disable-line no-param-reassign
+    this.line(x1, y1, x2, y2, false);
+  }
 
-    if (x1 === x2 && y1 === y2) {
-      this.setPixel(x1, y1);
-      return;
-    }
+  /**
+   * Clears pixels in line between two points.
+   */
+  public clearLineV(from: Vector2, to: Vector2): void {
+    this.clearLine(from.x, from.y, to.x, to.y);
+  }
 
-    if (Math.abs(x1 - x2) > Math.abs(y1 - y2)) {
-      const startX = (x1 < x2) ? x1 : x2;
-      const startY = (x1 < x2) ? y1 : y2;
-      const endX = (x1 < x2) ? x2 : x1;
-      const endY = (x1 < x2) ? y2 : y1;
-      const d = (endY - startY) / (endX - startX);
+  /**
+   * Clears pixels in line between two points.
+   */
+  public clearLine(x1: number, y1: number, x2: number, y2: number): void {
+    this.line(x1, y1, x2, y2, true);
+  }
 
-      for (let xx = 0; xx < (endX - startX + 1); xx += 1) {
-        this.setPixel(startX + xx, startY + ((d * xx) | 0));
-      }
-    } else {
-      const startX = (y1 < y2) ? x1 : x2;
-      const startY = (y1 < y2) ? y1 : y2;
-      const endX = (y1 < y2) ? x2 : x1;
-      const endY = (y1 < y2) ? y2 : y1;
-      const d = (endX - startX) / (endY - startY);
+  /*
+   ****************************************************************************
+   * drawRectLines*
+   ****************************************************************************
+   */
 
-      for (let yy = 0; yy < (endY - startY + 1); yy += 1) {
-        this.setPixel(startX + ((d * yy) | 0), startY + yy);
-      }
-    }
+  /**
+   * Draws rectangle border with upper-left corner at specified position and provided width and height.
+   */
+  public drawRectLinesV(position: Vector2, w: number, h: number): void {
+    this.drawRectLines(position.x, position.y, w, h);
+  }
+
+  /**
+   * Draws rectangle border.
+   */
+  public drawRectLinesR(rect: Rectangle): void {
+    this.drawRectLines(rect.x, rect.y, rect.width, rect.height);
   }
 
   /**
    * Draws rectangle border with upper-left corner at specified position and provided width and height.
+   */
+  public drawRectLines(x: number, y: number, w: number, h: number): void {
+    this.rect(x, y, w, h, false);
+  }
+
+  /**
+   * Clears pixels in rectangle border with upper-left corner at specified position and provided width and height.
+   */
+  public clearRectLinesV(position: Vector2, w: number, h: number): void {
+    this.clearRectLines(position.x, position.y, w, h);
+  }
+
+  /**
+   * Clears pixels in rectangle border.
+   */
+  public clearRectLinesR(rect: Rectangle): void {
+    this.clearRectLines(rect.x, rect.y, rect.width, rect.height);
+  }
+
+  /**
+   * Clears pixel in rectangle border with upper-left corner at specified position and provided width and height.
+   */
+  public clearRectLines(x: number, y: number, w: number, h: number): void {
+    this.rect(x, y, w, h, true);
+  }
+
+  /*
+   ****************************************************************************
+   * drawRect*
+   ****************************************************************************
+   */
+
+  /**
+   * Draws filled rectangle with upper-left corner at specified position and provided width and height.
    */
   public drawRectV(position: Vector2, w: number, h: number): void {
     this.drawRect(position.x, position.y, w, h);
   }
 
   /**
-   * Draws rectangle border.
+   * Draws filled rectangle.
    */
   public drawRectR(rect: Rectangle): void {
     this.drawRect(rect.x, rect.y, rect.width, rect.height);
   }
 
   /**
-   * Draws rectangle border with upper-left corner at specified position and provided width and height.
+   * Draws filled rectangle with upper-left corner at specified position and provided width and height.
    */
   public drawRect(x: number, y: number, w: number, h: number): void {
-    x |= 0; // eslint-disable-line no-param-reassign
-    y |= 0; // eslint-disable-line no-param-reassign
-
-    this._ctx.fillRect(x, y, w, 1);
-    this._ctx.fillRect(x, y + h - 1, w, 1);
-    this._ctx.fillRect(x, y, 1, h);
-    this._ctx.fillRect(x + w - 1, y, 1, h);
-  }
-
-  /**
-   * Draws filled rectangle with upper-left corner at specified position and provided width and height.
-   */
-  public fillRectV(position: Vector2, w: number, h: number): void {
-    this.fillRect(position.x, position.y, w, h);
-  }
-
-  /**
-   * Draws filled rectangle.
-   */
-  public fillRectR(rect: Rectangle): void {
-    this.fillRect(rect.x, rect.y, rect.width, rect.height);
-  }
-
-  /**
-   * Draws filled rectangle with upper-left corner at specified position and provided width and height.
-   */
-  public fillRect(x: number, y: number, w: number, h: number): void {
     this._ctx.fillRect((x | 0), (y | 0), w, h);
   }
 
   /**
+   * Clears pixels in rectangle with upper-left corner at specified position and provided width and height.
+   */
+  public clearRectV(position: Vector2, w: number, h: number): void {
+    this.drawRect(position.x, position.y, w, h);
+  }
+
+  /**
+     * Clears pixels in rectangle.
+     */
+  public clearRectR(rect: Rectangle): void {
+    this.drawRect(rect.x, rect.y, rect.width, rect.height);
+  }
+
+  /**
+   * Clears rectangle with upper-left corner at specified position and provided width and height.
+   */
+  public clearRect(x: number, y: number, w: number, h: number): void {
+    this._ctx.clearRect((x | 0), (y | 0), w, h);
+  }
+
+  /*
+   ****************************************************************************
+   * drawCircleLines*
+   ****************************************************************************
+   */
+
+  /**
    * Draws circle border with its center at specified position with given radius.
+   */
+  public drawCircleLinesV(position: Vector2, radius: number): void {
+    this.drawCircleLines(position.x, position.y, radius);
+  }
+
+  /**
+   * Draws circle border with its center at specified position with given radius.
+   */
+  public drawCircleLines(x: number, y: number, radius: number): void {
+    this.circ(x, y, radius, false, false);
+  }
+
+  /**
+   * Clears pixels in circle border with its center at specified position with given radius.
+   */
+  public clearCircleLinesV(position: Vector2, radius: number): void {
+    this.clearCircleLines(position.x, position.y, radius);
+  }
+
+  /**
+   * Clears pixels in circle border with its center at specified position with given radius.
+   */
+  public clearCircleLines(x: number, y: number, radius: number): void {
+    this.circ(x, y, radius, false, true);
+  }
+
+  /*
+   ****************************************************************************
+   * drawCircle*
+   ****************************************************************************
+   */
+
+  /**
+   * Draws filled circle with its center at specified position with given radius.
    */
   public drawCircleV(position: Vector2, radius: number): void {
     this.drawCircle(position.x, position.y, radius);
   }
 
   /**
-   * Draws circle border with its center at specified position with given radius.
+   * Draws filled circle with its center at specified position with given radius.
    */
   public drawCircle(x: number, y: number, radius: number): void {
-    this.circ(x, y, radius, false);
+    this.circ(x, y, radius, true, false);
   }
 
   /**
-   * Draws filled circle with its center at specified position with given radius.
+   * Clears pixels in circle with its center at specified position with given radius.
    */
-  public fillCircleV(position: Vector2, radius: number): void {
-    this.fillCircle(position.x, position.y, radius);
+  public clearCircleV(position: Vector2, radius: number): void {
+    this.clearCircle(position.x, position.y, radius);
   }
 
   /**
-   * Draws filled circle with its center at specified position with given radius.
+   * Clears pixels in circle with its center at specified position with given radius.
    */
-  public fillCircle(x: number, y: number, radius: number): void {
-    this.circ(x, y, radius, true);
+  public clearCircle(x: number, y: number, radius: number): void {
+    this.circ(x, y, radius, true, true);
   }
+
+  /*
+   ****************************************************************************
+   * drawTexture*
+   ****************************************************************************
+   */
 
   /**
    * Draws entire texture at given position, with optional scaling by `w`, `h` parameters.
@@ -375,7 +488,9 @@ export class Screen {
       yy += lineHeight;
     }
 
-    this.clip();
+    if (w !== Infinity || h !== Infinity) {
+      this.clip();
+    }
   }
 
   /**
@@ -407,7 +522,60 @@ export class Screen {
     }
   }
 
-  private circ(x: number, y: number, radius: number, fill: boolean): void {
+  private rect(x: number, y: number, w: number, h: number, clear: boolean): void {
+    x |= 0; // eslint-disable-line no-param-reassign
+    y |= 0; // eslint-disable-line no-param-reassign
+
+    if (clear) {
+      this._ctx.clearRect(x, y, w, 1);
+      this._ctx.clearRect(x, y + h - 1, w, 1);
+      this._ctx.clearRect(x, y, 1, h);
+      this._ctx.clearRect(x + w - 1, y, 1, h);
+    } else {
+      this._ctx.fillRect(x, y, w, 1);
+      this._ctx.fillRect(x, y + h - 1, w, 1);
+      this._ctx.fillRect(x, y, 1, h);
+      this._ctx.fillRect(x + w - 1, y, 1, h);
+    }
+  }
+
+  private line(x1: number, y1: number, x2: number, y2: number, clear: boolean): void {
+    x1 |= x1; // eslint-disable-line no-param-reassign
+    y1 |= y1; // eslint-disable-line no-param-reassign
+    x2 |= x2; // eslint-disable-line no-param-reassign
+    y2 |= y2; // eslint-disable-line no-param-reassign
+
+    const drawFn = clear ? this.clearPixel.bind(this) : this.drawPixel.bind(this);
+
+    if (x1 === x2 && y1 === y2) {
+      drawFn(x1, y1);
+      return;
+    }
+
+    if (Math.abs(x1 - x2) > Math.abs(y1 - y2)) {
+      const startX = (x1 < x2) ? x1 : x2;
+      const startY = (x1 < x2) ? y1 : y2;
+      const endX = (x1 < x2) ? x2 : x1;
+      const endY = (x1 < x2) ? y2 : y1;
+      const d = (endY - startY) / (endX - startX);
+
+      for (let xx = 0; xx < (endX - startX + 1); xx += 1) {
+        drawFn(startX + xx, startY + ((d * xx) | 0));
+      }
+    } else {
+      const startX = (y1 < y2) ? x1 : x2;
+      const startY = (y1 < y2) ? y1 : y2;
+      const endX = (y1 < y2) ? x2 : x1;
+      const endY = (y1 < y2) ? y2 : y1;
+      const d = (endX - startX) / (endY - startY);
+
+      for (let yy = 0; yy < (endY - startY + 1); yy += 1) {
+        drawFn(startX + ((d * yy) | 0), startY + yy);
+      }
+    }
+  }
+
+  private circ(x: number, y: number, radius: number, fill: boolean, clear: boolean): void {
     x |= 0; // eslint-disable-line no-param-reassign
     y |= 0; // eslint-disable-line no-param-reassign
     radius |= 0; // eslint-disable-line no-param-reassign
@@ -419,22 +587,24 @@ export class Screen {
       const x2 = (+xx - 0.1) | 0;
       const y2 = (+dd - 0.1) | 0;
 
+      const fn = clear ? this.clearPixel.bind(this) : this.drawPixel.bind(this);
+
       if (fill) {
         for (let yy = y1; yy <= y2; yy += 1) {
-          this.setPixel(x + x1, y + yy);
-          this.setPixel(x + x2, y + yy);
-          this.setPixel(x + yy, y + x1);
-          this.setPixel(x + yy, y + x2);
+          fn(x + x1, y + yy);
+          fn(x + x2, y + yy);
+          fn(x + yy, y + x1);
+          fn(x + yy, y + x2);
         }
       } else {
-        this.setPixel(x + x1, y + y1);
-        this.setPixel(x + x2, y + y1);
-        this.setPixel(x + x1, y + y2);
-        this.setPixel(x + x2, y + y2);
-        this.setPixel(x + y1, y + x1);
-        this.setPixel(x + y1, y + x2);
-        this.setPixel(x + y2, y + x1);
-        this.setPixel(x + y2, y + x2);
+        fn(x + x1, y + y1);
+        fn(x + x2, y + y1);
+        fn(x + x1, y + y2);
+        fn(x + x2, y + y2);
+        fn(x + y1, y + x1);
+        fn(x + y1, y + x2);
+        fn(x + y2, y + x1);
+        fn(x + y2, y + x2);
       }
     }
   }
@@ -443,6 +613,8 @@ export class Screen {
     const canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
+
+    canvas.addEventListener('contextmenu', (e) => e.preventDefault());
 
     const ctx = canvas.getContext('2d');
     if (!ctx) {

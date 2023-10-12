@@ -25,6 +25,6 @@ export class ImGuiTestScene extends Scene {
     scr.clearScreen(ENDESGA16PaletteIdx[6]);
 
     scr.color(ENDESGA16PaletteIdx[14]);
-    scr.fillRect(10, 25, 128, 256);
+    scr.drawRect(10, 25, 128, 256);
   }
 }

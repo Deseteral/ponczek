@@ -51,10 +51,10 @@ export class CameraTestScene extends Scene {
     this.camera.begin();
 
     scr.color(ENDESGA16PaletteIdx[9]);
-    scr.fillRectR(this.rect);
+    scr.drawRectR(this.rect);
 
     scr.color(ENDESGA16PaletteIdx[6]);
-    scr.fillRect(this.playerPosition.x, this.playerPosition.y, 20, 20);
+    scr.drawRect(this.playerPosition.x, this.playerPosition.y, 20, 20);
 
     this.camera.end();
 

@@ -19,6 +19,8 @@ const DIRECTIONS_WITH_DIAGONALS = [
   [-1, -1],
 ];
 
+type SearchHeuristic = 'manhattan' | 'euclidean';
+
 /**
  * A* pathfinding in two dimensional grid.
  */
@@ -52,11 +54,11 @@ export class Pathfinder {
    * Start/end node is described as coordinate pair (x-column, y-row).
    * When the path does not exist - an empty array will be returned.
    */
-  public search(startX: number, startY: number, endX: number, endY: number, withDiagonals: boolean = false): Vector2[] {
+  public search(startX: number, startY: number, endX: number, endY: number, withDiagonals: boolean = false, heuristic: SearchHeuristic = 'manhattan'): Vector2[] {
     const startIdx = startX + (startY * this.width);
     const endIdx = endX + (endY * this.width);
 
-    const indices = this.searchIdx(startIdx, endIdx, withDiagonals);
+    const indices = this.searchIdx(startIdx, endIdx, withDiagonals, heuristic);
     const path = new Array(indices.length);
     for (let it = 0; it < indices.length; it += 1) {
       const idx = indices[it];
@@ -71,7 +73,7 @@ export class Pathfinder {
    * Start/end node is described as tile-index pair.
    * When the path does not exist - an empty array will be returned.
    */
-  public searchIdx(start: number, end: number, withDiagonals: boolean = false): number[] {
+  public searchIdx(start: number, end: number, withDiagonals: boolean = false, heuristic: SearchHeuristic = 'manhattan'): number[] {
     if (this.graph[end] === 0) {
       return [];
     }
@@ -82,6 +84,8 @@ export class Pathfinder {
     const costSoFar = new Map<number, number>();
     cameFrom.set(start, -1);
     costSoFar.set(start, 0);
+
+    const heuristicFn = (heuristic === 'manhattan' ? this.manhattanHeuristic : this.euclideanHeuristic).bind(this);
 
     while (frontier.size !== 0) {
       const current = frontier.pop()!;
@@ -98,7 +102,7 @@ export class Pathfinder {
 
         if (costSoFar.has(next) === false || newCost < costSoFar.get(next)!) {
           costSoFar.set(next, newCost);
-          const priority = newCost + this.manhattanHeuristic(end, next);
+          const priority = newCost + heuristicFn(end, next);
           frontier.push(next, priority);
           cameFrom.set(next, current);
         }
@@ -138,6 +142,15 @@ export class Pathfinder {
     }
 
     return n;
+  }
+
+  private euclideanHeuristic(a: number, b: number): number {
+    const ax = (a % this.width) | 0;
+    const ay = (a / this.width) | 0;
+    const bx = (b % this.width) | 0;
+    const by = (b / this.width) | 0;
+
+    return Math.sqrt(((bx - ax) ** 2) + ((by - ay) ** 2));
   }
 
   private manhattanHeuristic(a: number, b: number): number {
