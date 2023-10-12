@@ -30,7 +30,16 @@ export class Screen {
    */
   public activeFont: (Font | null) = null;
 
+  /**
+   * Actual rendering context for this screens DOM canvas.
+   * Not part of public stable API, but can be used as escape hatch in cases where public API is not enough.
+   */
   public readonly _ctx: CanvasRenderingContext2D;
+
+  /**
+   * Actual DOM canvas for this screen.
+   * Not part of public stable API, but can be used as escape hatch in cases where public API is not enough.
+   */
   public get _domElement(): HTMLCanvasElement { return this._ctx.canvas; }
 
   /**
