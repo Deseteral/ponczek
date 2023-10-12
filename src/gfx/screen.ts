@@ -136,7 +136,7 @@ export class Screen {
 
   /*
    ****************************************************************************
-   * drawRect*
+   * drawRectLines*
    ****************************************************************************
    */
 
@@ -160,6 +160,12 @@ export class Screen {
   public drawRectLines(x: number, y: number, w: number, h: number): void {
     this.rect(x, y, w, h, false);
   }
+
+  /*
+   ****************************************************************************
+   * drawRect*
+   ****************************************************************************
+   */
 
   /**
    * Draws filled rectangle with upper-left corner at specified position and provided width and height.
@@ -188,7 +194,7 @@ export class Screen {
 
   /*
    ****************************************************************************
-   * drawCircle*
+   * drawCircleLines*
    ****************************************************************************
    */
 
@@ -205,6 +211,12 @@ export class Screen {
   public drawCircleLines(x: number, y: number, radius: number): void {
     this.circ(x, y, radius, false, false);
   }
+
+  /*
+   ****************************************************************************
+   * drawCircle*
+   ****************************************************************************
+   */
 
   /**
    * Draws filled circle with its center at specified position with given radius.
