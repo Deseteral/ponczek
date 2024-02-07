@@ -11,7 +11,7 @@ Math.clamp = function clamp(num: number, min: number, max: number): number {
 /**
  * Returns value for that key or `defaultValue` if there is none.
  */
-Map.prototype.getOrElse = function getOr<K, V>(key: K, defaultValue: V): V { // eslint-disable-line no-extend-native
+Map.prototype.getOrElse = function getOrElse<K, V>(key: K, defaultValue: V): V { // eslint-disable-line no-extend-native
   return this.get(key) || defaultValue;
 };
 
