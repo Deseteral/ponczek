@@ -20,6 +20,7 @@ import { SimplexNoiseTestScene } from 'examples/scenes/simplex-noise-test-scene'
 import { TilemapTestScene } from 'examples/scenes/tilemap-test-scene';
 import { withTransition } from 'examples/utils/with-transition';
 import { ImGuiTestScene } from 'examples/scenes/imgui-test-scene';
+import { SpriteDrawingStressTestScene } from 'examples/scenes/sprite-drawing-stress-test-scene';
 
 interface Item {
   text: string,
@@ -28,7 +29,7 @@ interface Item {
 
 class DemoScenesGridView extends GridView<Item> {
   constructor() {
-    super(130, 10);
+    super(220, 10);
   }
 
   public drawCell(item: (Item | null), _row: number, _column: number, x: number, y: number, isSelected: boolean, scr: Screen): void {
@@ -60,6 +61,7 @@ export class MainMenuScene extends Scene {
       [{ text: 'Simplex noise', scene: () => new SimplexNoiseTestScene() }],
       [{ text: 'Tilemap', scene: () => new TilemapTestScene() }],
       [{ text: 'ImGui', scene: () => new ImGuiTestScene() }],
+      [{ text: 'Sprite drawing stress test', scene: () => new SpriteDrawingStressTestScene() }],
     ];
 
     this.frameTexture = Texture.copy(Assets.texture('frame'));
