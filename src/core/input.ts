@@ -96,9 +96,9 @@ export abstract class Input {
   }
 
   public static _update(): void {
-    // TODO: This might generate GC hits
-    this.previousKeyState = this.keyState;
-    this.keyState = new Map(this.previousKeyState);
+    for (const [key, value] of Input.keyState) {
+      this.previousKeyState.set(key, value);
+    }
   }
 
   public static _initialize(canvas: HTMLCanvasElement): void {

@@ -13,5 +13,6 @@ module.exports = {
     'no-lonely-if': 'off',
     'no-console': 'off',
     'prefer-destructuring': 'off',
+    'no-restricted-syntax': 'off',
   },
 };
