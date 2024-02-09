@@ -23,7 +23,7 @@ export abstract class Input {
    * See [KeyboardEvent.code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code) for possible `key` values.
    */
   public static getKey(key: string): boolean {
-    return this.keyState.getOrElse(key, false);
+    return Input.keyState.getOrElse(key, false);
   }
 
   /**
@@ -32,7 +32,7 @@ export abstract class Input {
    * See [KeyboardEvent.code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code) for possible `key` values.
    */
   public static getKeyDown(key: string): boolean {
-    return this.getKey(key) && !this.previousKeyState.getOrElse(key, false);
+    return Input.getKey(key) && !Input.previousKeyState.getOrElse(key, false);
   }
 
   /**
@@ -40,13 +40,13 @@ export abstract class Input {
    * Provided `action` string is an identifier representing bindable action.
    */
   public static getButton(action: string): boolean {
-    const keys = this.binds.get(action) ?? [];
+    const keys = Input.binds.get(action) ?? [];
     if (keys.isEmpty()) {
       Ponczek._log(`Nothing bound to action ${action}`);
       return false;
     }
 
-    return keys.some((key) => this.getKey(key));
+    return keys.some((key) => Input.getKey(key));
   }
 
   /**
@@ -54,13 +54,13 @@ export abstract class Input {
    * Provided `action` string is an identifier representing bindable action.
    */
   public static getButtonDown(action: string): boolean {
-    const keys = this.binds.get(action) ?? [];
+    const keys = Input.binds.get(action) ?? [];
     if (keys.isEmpty()) {
       Ponczek._log(`Nothing bound to action ${action}`);
       return false;
     }
 
-    return keys.some((key) => this.getKeyDown(key));
+    return keys.some((key) => Input.getKeyDown(key));
   }
 
   /**
@@ -69,7 +69,7 @@ export abstract class Input {
    * See [KeyboardEvent.code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code) for possible `keys` values.
    */
   public static bindAction(action: string, keys: string[]): void {
-    this.binds.set(action, keys);
+    Input.binds.set(action, keys);
   }
 
   /**
@@ -78,14 +78,14 @@ export abstract class Input {
    * See [KeyboardEvent.code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code) for possible keys values.
    */
   public static bindActions(bindings: ({ [key: string]: string[] })): void {
-    this.binds = new Map(Object.entries(bindings));
+    Input.binds = new Map(Object.entries(bindings));
   }
 
   /**
    * Binds GameBoy-like input bindings (`left`, `right`, `up`, `down`, `a` and `b`).
    */
   public static withGameBoyLikeBinds(): void {
-    this.bindActions({
+    Input.bindActions({
       up: ['ArrowUp', 'KeyW'],
       down: ['ArrowDown', 'KeyS'],
       left: ['ArrowLeft', 'KeyA'],
@@ -97,20 +97,20 @@ export abstract class Input {
 
   public static _update(): void {
     for (const [key, value] of Input.keyState) {
-      this.previousKeyState.set(key, value);
+      Input.previousKeyState.set(key, value);
     }
   }
 
   public static _initialize(canvas: HTMLCanvasElement): void {
     document.addEventListener('keydown', (e) => {
       if (e.metaKey) return;
-      this.keyState.set(e.code, true);
+      Input.keyState.set(e.code, true);
       e.preventDefault();
     }, false);
 
     document.addEventListener('keyup', (e) => {
       if (e.metaKey) return;
-      this.keyState.set(e.code, false);
+      Input.keyState.set(e.code, false);
       e.preventDefault();
     }, false);
 
