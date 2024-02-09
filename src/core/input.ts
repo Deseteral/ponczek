@@ -40,13 +40,16 @@ export abstract class Input {
    * Provided `action` string is an identifier representing bindable action.
    */
   public static getButton(action: string): boolean {
-    const keys = Input.binds.get(action) ?? [];
-    if (keys.isEmpty()) {
+    const keys = Input.binds.get(action);
+    if (!keys || keys.isEmpty()) {
       Ponczek._log(`Nothing bound to action ${action}`);
       return false;
     }
 
-    return keys.some((key) => Input.getKey(key));
+    for (let i = 0; i < keys.length; i += 1) {
+      if (Input.getKey(keys[i])) return true;
+    }
+    return false;
   }
 
   /**
@@ -54,13 +57,16 @@ export abstract class Input {
    * Provided `action` string is an identifier representing bindable action.
    */
   public static getButtonDown(action: string): boolean {
-    const keys = Input.binds.get(action) ?? [];
-    if (keys.isEmpty()) {
+    const keys = Input.binds.get(action);
+    if (!keys || keys.isEmpty()) {
       Ponczek._log(`Nothing bound to action ${action}`);
       return false;
     }
 
-    return keys.some((key) => Input.getKeyDown(key));
+    for (let i = 0; i < keys.length; i += 1) {
+      if (Input.getKeyDown(keys[i])) return true;
+    }
+    return false;
   }
 
   /**
