@@ -31,7 +31,7 @@ _* Only uses minimal amount of high quality runtime dependencies that are in and
 - Does not support mobile
 
 ## 🍩 Features
-*For example usage of these feature check out the [demo page](https://deseteral.github.io/ponczek) and its [source](/examples).*
+*For example usage of these features check out the [demo page](https://deseteral.github.io/ponczek) and its [source](/examples).*
 
 - 2D software rendering
   - Primitive shape rendering (lines, rectangles, circles)
